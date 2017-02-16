@@ -58,8 +58,8 @@ if ($activated) {
 			}
 			if ( $file == $plugin ) {
 				$new_links = array (
-					'doc' => '<a href="http://demo.cedcommerce.com/woocommerce/click-n-go/doc/index.html" target="_blank">' . __ ( 'Docs', 'one-click-order-reorder' ) . '</a>',
-					'demo' => '<a href="http://demo.cedcommerce.com/woocommerce/click-n-go/my-account/" target="_blank">' . __ ( 'Live Demo', 'one-click-order-reorder' ) . '</a>'
+// 					'doc' => '<a href="http://demo.cedcommerce.com/woocommerce/click-n-go/doc/index.html" target="_blank">' . __ ( 'Docs', 'one-click-order-reorder' ) . '</a>',
+// 					'demo' => '<a href="http://demo.cedcommerce.com/woocommerce/click-n-go/my-account/" target="_blank">' . __ ( 'Live Demo', 'one-click-order-reorder' ) . '</a>'
 				);
 
 				$links = array_merge ( $links, $new_links );

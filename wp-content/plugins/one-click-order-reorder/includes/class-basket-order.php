@@ -109,7 +109,7 @@ if( ! class_exists( 'Basket_Order' ) ) {
 					$capability = 'manage_woocommerce';
 					$menu_slug 	= 'wc-ocor-settings';
 					$callable 	= array( $this, 'ced_ocor_settings_html' );
-					add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $callable );
+// 					add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $callable );
 				}
 			}
 		}
