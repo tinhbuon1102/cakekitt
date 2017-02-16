@@ -1,0 +1,514 @@
+# Translation of Plugins - WooCommerce Stripe Payment Gateway - Stable (latest release) in Japanese
+# This file is distributed under the same license as the Plugins - WooCommerce Stripe Payment Gateway - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2016-10-18 00:59:28+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: GlotPress/2.3.0-alpha\n"
+"Language: ja_JP\n"
+"Project-Id-Version: Plugins - WooCommerce Stripe Payment Gateway - Stable (latest release)\n"
+
+#. Author URI of the plugin/theme
+msgid "https://woocommerce.com/"
+msgstr "https://woocommerce.com/"
+
+#: woocommerce-gateway-stripe.php:197
+msgid "WooCommerce Stripe - cURL is not installed."
+msgstr "WooCommerce Stripe - cURL がインストールされていません。"
+
+#: woocommerce-gateway-stripe.php:191
+msgid "WooCommerce Stripe - The minimum WooCommerce version required for this plugin is %1$s. You are running %2$s."
+msgstr "WooCommerce Stripe - このプラグインの最低必須 WooCommerce バージョンは %1$s です。現在バージョン %2$s をお使いです。"
+
+#: woocommerce-gateway-stripe.php:187
+msgid "WooCommerce Stripe requires WooCommerce to be activated to work."
+msgstr "WooCommerce Stripe が動作するには WooCommerce の有効化が必要です。"
+
+#: woocommerce-gateway-stripe.php:181
+msgid "WooCommerce Stripe - The minimum PHP version required for this plugin is %1$s. You are running %2$s."
+msgstr "WooCommerce Stripe - このプラグインの最低必須 PHP バージョンは %1$s です。現在バージョン %2$s をお使いです。"
+
+#: includes/class-wc-gateway-stripe.php:356
+msgid "Could not find payment information."
+msgstr "支払い情報が見つかりませんでした。"
+
+#: includes/class-wc-gateway-stripe.php:355
+msgid "An error occurred while processing the card."
+msgstr "カードの処理中にエラーが発生しました。"
+
+#: includes/class-wc-gateway-stripe.php:354
+msgid "There is no card on a customer that is being charged."
+msgstr "請求先顧客には登録カードがありません。"
+
+#: includes/class-wc-gateway-stripe.php:353
+msgid "The card was declined."
+msgstr "カードが拒否されました。"
+
+#: includes/class-wc-gateway-stripe.php:352
+msgid "The card's zip code failed validation."
+msgstr "カードの郵便番号の検証に失敗しました。"
+
+#: includes/class-wc-gateway-stripe.php:351
+msgid "The card's security code is incorrect."
+msgstr "カードのセキュリティコードが正しくありません。"
+
+#: includes/class-wc-gateway-stripe.php:350
+msgid "The card has expired."
+msgstr "カードの有効期限が切れています。"
+
+#: includes/class-wc-gateway-stripe.php:349
+msgid "The card number is incorrect."
+msgstr "カード番号が正しくありません。"
+
+#: includes/class-wc-gateway-stripe.php:348
+msgid "The card's security code is invalid."
+msgstr "カードのセキュリティコードは無効です。"
+
+#: includes/class-wc-gateway-stripe.php:347
+msgid "The card's expiration year is invalid."
+msgstr "カードの有効期限の年が不正です。"
+
+#: includes/class-wc-gateway-stripe.php:346
+msgid "The card's expiration month is invalid."
+msgstr "カードの有効期限の月が不正です。"
+
+#: includes/class-wc-gateway-stripe.php:345
+msgid "The card number is not a valid credit card number."
+msgstr "カード番号が有効なクレジットカード番号ではありません。"
+
+#: includes/class-wc-gateway-stripe.php:399
+msgid "Sorry, we're not accepting prepaid cards at this time."
+msgstr "現在プリペイドカードはご利用いただけません。"
+
+#. Author of the plugin/theme
+msgid "Automattic"
+msgstr "Automattic"
+
+#. Description of the plugin/theme
+msgid "Take credit card payments on your store using Stripe."
+msgstr "Stripe を使用して、ショップでのクレジットカード支払いに対応します。"
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/plugins/woocommerce-gateway-stripe/"
+msgstr "https://ja.wordpress.org/plugins/woocommerce-gateway-stripe/"
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Stripe Gateway"
+msgstr "WooCommerce Stripe ゲートウェイ"
+
+#: woocommerce-gateway-stripe.php:357
+msgid "Stripe charge refunded (Charge ID: %s)"
+msgstr "Stripe 払戻し手続き完了 (請求ID: %s)"
+
+#: woocommerce-gateway-stripe.php:355
+msgid "Unable to refund charge!"
+msgstr "料金を払戻しできませんでした。"
+
+#: includes/class-wc-gateway-stripe.php:659 woocommerce-gateway-stripe.php:319
+msgid "Stripe charge complete (Charge ID: %s)"
+msgstr "Stripe 請求手続き完了 (請求ID: %s)"
+
+#: woocommerce-gateway-stripe.php:317
+msgid "Unable to capture charge!"
+msgstr "請求手続きを完了できませんでした。"
+
+#: woocommerce-gateway-stripe.php:214
+msgid "Support"
+msgstr "サポート"
+
+#: woocommerce-gateway-stripe.php:213
+msgid "Docs"
+msgstr "ドキュメント"
+
+#: woocommerce-gateway-stripe.php:212
+msgid "Settings"
+msgstr "設定"
+
+#: woocommerce-gateway-stripe.php:171
+msgid "Stripe is almost ready. To get started, <a href=\"%s\">set your Stripe account keys</a>."
+msgstr "Stripe は間もなく準備完了です。開始するには、<a href=\"%s\">お持ちの Stripe アカウントキーを設定してください</a>。"
+
+#: includes/settings-stripe.php:127
+msgid "Save debug messages to the WooCommerce System Status log."
+msgstr "WooCommerce システムステータスログにデバッグメッセージを保存します。"
+
+#: includes/settings-stripe.php:125
+msgid "Log debug messages"
+msgstr "デバッグメッセージのログを取得"
+
+#: includes/settings-stripe.php:124
+msgid "Logging"
+msgstr "ログ取得中"
+
+#: includes/settings-stripe.php:119
+msgid "If enabled, users will be able to pay with a saved card during checkout. Card details are saved on Stripe servers, not on your store."
+msgstr "有効にすると、ユーザーは購入手続きの際に登録済みのカードで支払うことができます。 カード情報はあなたのショップではなく Stripe サーバーに保存されます。"
+
+#: includes/settings-stripe.php:117
+msgid "Enable Payment via Saved Cards"
+msgstr "登録済みカードでの支払いを有効化"
+
+#: includes/settings-stripe.php:116
+msgid "Saved Cards"
+msgstr "登録済みカード"
+
+#: includes/settings-stripe.php:110
+msgid "Optionally enter the URL to a 128x128px image of your brand or product. e.g. <code>https://yoursite.com/wp-content/uploads/2013/09/yourimage.jpg</code>"
+msgstr "オプションとして、ブランドまたは商品の画像 (128x128px) の URL を入力できます。例: <code>https://yoursite.com/wp-content/uploads/2013/09/yourimage.jpg</code>"
+
+#: includes/settings-stripe.php:109
+msgid "Stripe Checkout Image"
+msgstr "Stripe チェックアウトの画像"
+
+#: includes/settings-stripe.php:104
+msgid "If enabled, an option to accept bitcoin will show on the checkout modal. Note: Stripe Checkout needs to be enabled and store currency must be set to USD."
+msgstr "有効化すると、ビットコインで支払うオプションがチェックアウトモーダルに表示されます。注: Stripe チェックアウトを有効化し、ショップの通貨を US ドルに設定する必要があります。"
+
+#: includes/settings-stripe.php:102
+msgid "Enable Bitcoin Currency"
+msgstr "ビットコインを有効化"
+
+#: includes/settings-stripe.php:101
+msgid "Bitcoin Currency"
+msgstr "ビットコイン"
+
+#: includes/settings-stripe.php:97
+msgid "Spanish"
+msgstr "スペイン語"
+
+#: includes/settings-stripe.php:96
+msgid "Japanese"
+msgstr "日本語"
+
+#: includes/settings-stripe.php:95
+msgid "Italian"
+msgstr "イタリア語"
+
+#: includes/settings-stripe.php:94
+msgid "German"
+msgstr "ドイツ語"
+
+#: includes/settings-stripe.php:93
+msgid "French"
+msgstr "フランス語"
+
+#: includes/settings-stripe.php:92
+msgid "English"
+msgstr "英語"
+
+#: includes/settings-stripe.php:91
+msgid "Dutch"
+msgstr "オランダ語"
+
+#: includes/settings-stripe.php:90
+msgid "Simplified Chinese"
+msgstr "簡体字中国語"
+
+#: includes/settings-stripe.php:89
+msgid "Auto"
+msgstr "自動"
+
+#: includes/settings-stripe.php:85
+msgid "Language to display in Stripe Checkout modal. Specify Auto to display Checkout in the user's preferred language, if available. English will be used by default."
+msgstr "Stripe チェックアウト画面を表示する言語。「自動」を指定すると、可能な場合にはユーザーの優先言語で購入手続き画面を表示します。デフォルトでは英語が使われます。"
+
+#: includes/settings-stripe.php:82
+msgid "Stripe Checkout locale"
+msgstr "Stripe チェックアウトのロケール"
+
+#: includes/settings-stripe.php:77
+msgid "If enabled, this option shows a \"pay\" button and modal credit card form on the checkout, instead of credit card fields directly on the page."
+msgstr "このオプションを有効化すると、購入手続きページに直接クレジットカード欄を表示する代わりに、「支払い」ボタンとクレジットカード欄が含まれるモーダルフォームを表示します。"
+
+#: includes/settings-stripe.php:75
+msgid "Enable Stripe Checkout"
+msgstr "Stripe チェックアウトを有効化"
+
+#: includes/settings-stripe.php:74
+msgid "Stripe Checkout"
+msgstr "Stripe チェックアウト"
+
+#: includes/settings-stripe.php:69
+msgid "Whether or not to immediately capture the charge. When unchecked, the charge issues an authorization and will need to be captured later. Uncaptured charges expire in 7 days."
+msgstr "すぐに料金を回収するかどうかを設定します。 無効化すると、まず請求への承認が発行され、後ほど回収する必要があります。 未回収の請求は7日間で有効期限切れとなります。"
+
+#: includes/settings-stripe.php:67
+msgid "Capture charge immediately"
+msgstr "すぐに料金を回収"
+
+#: includes/settings-stripe.php:66
+msgid "Capture"
+msgstr "即時売上"
+
+#: includes/settings-stripe.php:59
+msgid "Test Publishable Key"
+msgstr "公開鍵をテスト"
+
+#: includes/settings-stripe.php:52
+msgid "Test Secret Key"
+msgstr "秘密鍵をテスト"
+
+#: includes/settings-stripe.php:45
+msgid "Live Publishable Key"
+msgstr "ライブ公開可能な鍵"
+
+#: includes/settings-stripe.php:40 includes/settings-stripe.php:47
+#: includes/settings-stripe.php:54 includes/settings-stripe.php:61
+msgid "Get your API keys from your stripe account."
+msgstr "お持ちの Stripe アカウントから API キーを取得してください。"
+
+#: includes/settings-stripe.php:38
+msgid "Live Secret Key"
+msgstr "ライブ秘密鍵"
+
+#: includes/settings-stripe.php:33
+msgid "Place the payment gateway in test mode using test API keys."
+msgstr "テスト API キーを使用し、ペイメントゲートウェイをテストモードにします。"
+
+#: includes/settings-stripe.php:31
+msgid "Enable Test Mode"
+msgstr "テストモードを有効化"
+
+#: includes/settings-stripe.php:30
+msgid "Test mode"
+msgstr "テストモード"
+
+#: includes/settings-stripe.php:26
+msgid "Pay with your credit card via Stripe."
+msgstr "Stripe 経由でクレジットカードで支払う。"
+
+#: includes/settings-stripe.php:25
+msgid "This controls the description which the user sees during checkout."
+msgstr "ここで、ユーザーがチェックアウト時に目にする説明を設定します。"
+
+#: includes/settings-stripe.php:23
+msgid "Description"
+msgstr "説明"
+
+#: includes/settings-stripe.php:19
+msgid "Credit Card (Stripe)"
+msgstr "クレジットカード (Stripe)"
+
+#: includes/settings-stripe.php:18
+msgid "This controls the title which the user sees during checkout."
+msgstr "ここで、ユーザーがチェックアウト時に目にするタイトルを設定します。"
+
+#: includes/settings-stripe.php:16
+msgid "Title"
+msgstr "タイトル"
+
+#: includes/settings-stripe.php:10
+msgid "Enable Stripe"
+msgstr "Stripe を有効化"
+
+#: includes/settings-stripe.php:9
+msgid "Enable/Disable"
+msgstr "有効化 / 無効化"
+
+#: includes/legacy/templates/saved-cards.php:34
+msgid "Make Default"
+msgstr "デフォルトにする"
+
+#: includes/legacy/templates/saved-cards.php:27
+msgid "Delete card"
+msgstr "カードを削除"
+
+#: includes/legacy/templates/saved-cards.php:22
+msgid "Expires %s/%s"
+msgstr "有効期限 %s/%s"
+
+#: includes/legacy/templates/saved-cards.php:20
+msgid "(Default)"
+msgstr "(デフォルト)"
+
+#: includes/legacy/templates/saved-cards.php:19
+msgid "%s card ending in %s"
+msgstr "%s カード (末尾 %s)"
+
+#: includes/legacy/templates/saved-cards.php:6
+msgid "Expires"
+msgstr "期限"
+
+#: includes/legacy/templates/saved-cards.php:5
+msgid "Card"
+msgstr "カード"
+
+#: includes/legacy/templates/saved-cards.php:1
+msgid "Saved cards"
+msgstr "登録済みカード"
+
+#: includes/legacy/class-wc-gateway-stripe.php:237
+msgid "Use a new credit card"
+msgstr "新しいクレジットカードを使用する"
+
+#: includes/legacy/class-wc-gateway-stripe.php:229
+msgid "%s card ending in %s (Expires %s/%s)"
+msgstr "%s カード (末尾 %s、有効期限 %s/%s)"
+
+#: includes/legacy/class-wc-gateway-stripe.php:218
+msgid "Manage cards"
+msgstr "カードを管理"
+
+#: includes/legacy/class-wc-gateway-stripe.php:159
+msgid "Stripe error: Your secret and publishable keys match. Please check and re-enter."
+msgstr "Stripe エラー: 秘密鍵と公開鍵が一致します。確認して再入力してください。"
+
+#: includes/legacy/class-wc-gateway-stripe.php:153
+msgid "Stripe error: Please enter your publishable key <a href=\"%s\">here</a>"
+msgstr "Stripe エラー: <a href=\"%s\">ここに</a>公開鍵を入力してください。"
+
+#: includes/legacy/class-wc-gateway-stripe.php:149
+msgid "Stripe error: Please enter your secret key <a href=\"%s\">here</a>"
+msgstr "Stripe エラー: <a href=\"%s\">ここに</a>秘密鍵を入力してください。"
+
+#: includes/legacy/class-wc-gateway-stripe-saved-cards.php:79
+msgid "Default card updated."
+msgstr "デフォルトのカードを更新しました。"
+
+#: includes/legacy/class-wc-gateway-stripe-saved-cards.php:77
+msgid "Unable to update default card."
+msgstr "デフォルトのカードを更新できません。"
+
+#: includes/legacy/class-wc-gateway-stripe-saved-cards.php:56
+msgid "Card deleted."
+msgstr "カードを削除しました。"
+
+#: includes/legacy/class-wc-gateway-stripe-saved-cards.php:54
+msgid "Unable to delete card."
+msgstr "カードを削除できません。"
+
+#: includes/legacy/class-wc-gateway-stripe-saved-cards.php:50
+#: includes/legacy/class-wc-gateway-stripe-saved-cards.php:73
+msgid "Unable to make default card, please try again"
+msgstr "デフォルトのカードを設定できません。もう一度お試しください"
+
+#: includes/class-wc-stripe-customer.php:187
+msgid "Unable to add card"
+msgstr "カードを追加できません"
+
+#: includes/class-wc-stripe-customer.php:146
+msgid "Could not create Stripe customer."
+msgstr "Stripe カスタマーを作成できませんでした。"
+
+#: includes/class-wc-stripe-api.php:73
+msgid "There was a problem connecting to the payment gateway."
+msgstr "ペイメントゲートウェイへの接続に問題が発生しました。"
+
+#: includes/class-wc-gateway-stripe.php:745
+#: includes/legacy/class-wc-gateway-stripe.php:590
+msgid "Refunded %s - Refund ID: %s - Reason: %s"
+msgstr "%s が払い戻されました - 払戻し ID:  %s - 理由: %s"
+
+#: includes/class-wc-gateway-stripe.php:684
+#: includes/class-wc-gateway-stripe.php:693
+#: includes/legacy/class-wc-gateway-stripe.php:540
+msgid "There was a problem adding the card."
+msgstr "カードの追加中に問題が発生しました。"
+
+#: includes/class-wc-gateway-stripe.php:670
+#: includes/legacy/class-wc-gateway-stripe.php:526
+msgid "Stripe charge authorized (Charge ID: %s). Process order to take payment, or cancel to remove the pre-authorization."
+msgstr "Stripe の請求が承認されました (請求ID: %s)。 注文を処理して支払いを受けるか、キャンセルして事前承認を削除してください。"
+
+#: includes/class-wc-gateway-stripe.php:605
+#: includes/legacy/class-wc-gateway-stripe.php:481
+msgid "Error: %s"
+msgstr "エラー: %s"
+
+#: includes/class-wc-gateway-stripe.php:579
+msgid "This card is no longer available and has been removed."
+msgstr "このカードは利用できなくなったため削除しました。"
+
+#: includes/class-wc-gateway-stripe.php:551
+#: includes/legacy/class-wc-gateway-stripe.php:435
+msgid "Developers: Please make sure that you are including jQuery and there are no JavaScript errors on the page."
+msgstr "開発者の方へ:  jQuery をインクルード済みで、ページに JavaScript エラーが無いことをご確認ください。"
+
+#: includes/class-wc-gateway-stripe.php:550
+#: includes/legacy/class-wc-gateway-stripe.php:434
+msgid "Please enter your card details to make a payment."
+msgstr "支払うにはカード情報を入力してください。"
+
+#: includes/class-wc-gateway-stripe.php:488
+msgid "Invalid payment method. Please input a new card number."
+msgstr "無効な支払方法です。新しいカード番号を入力してください。"
+
+#: includes/class-wc-gateway-stripe.php:419
+#: includes/legacy/class-wc-gateway-stripe.php:331
+msgid "%s - Order %s"
+msgstr "%s - %s の注文"
+
+#: includes/class-wc-gateway-stripe.php:381
+#: includes/legacy/class-wc-gateway-stripe.php:297
+msgid "Please fill in required checkout fields first"
+msgstr "初めに購入手続きの必須フィールドに入力してください"
+
+#: includes/class-wc-gateway-stripe.php:380
+#: includes/legacy/class-wc-gateway-stripe.php:296
+msgid "Please accept the terms and conditions first"
+msgstr "初めに利用規約に同意してください"
+
+#: includes/class-wc-gateway-stripe.php:299
+msgid "Add Card"
+msgstr "カードを追加"
+
+#: includes/class-wc-gateway-stripe.php:274
+msgid "This is not a valid test key. Test keys start with \"sk_test_\" and \"pk_test_\"."
+msgstr "これは有効なテストキーではありません。テストキーは \"sk_test_\" と \"pk_test_\" で始まります。"
+
+#: includes/class-wc-gateway-stripe.php:263
+msgid "This is not a valid live key. Live keys start with \"sk_live_\" and \"pk_live_\"."
+msgstr "これは有効なライブキーではありません。ライブキーは \"sk_live_\" と \"pk_live_\" で始まります。"
+
+#: includes/class-wc-gateway-stripe.php:223
+#: includes/legacy/class-wc-gateway-stripe.php:165
+msgid "Stripe is enabled, but the <a href=\"%s\">force SSL option</a> is disabled; your checkout may not be secure! Please enable SSL and ensure your server has a valid SSL certificate - Stripe will only work in test mode."
+msgstr "Stripe は有効化されていますが、<a href=\"%s\">SSL 強制オプション</a>が無効になっています。購入手続きが安全に行われない可能性があります。SSL を有効化し、ご利用中のサーバーに有効な SSL 証明書があることを確認してください。それまでは Stripe はテストモードでのみ作動します。"
+
+#: includes/class-wc-gateway-stripe.php:136
+#: includes/legacy/class-wc-gateway-stripe.php:64
+msgid "TEST MODE ENABLED. In test mode, you can use the card number 4242424242424242 with any CVC and a valid expiration date or check the documentation \"<a href=\"%s\">Testing Stripe</a>\" for more card numbers."
+msgstr "テストモードが有効になっています。 テストモードでは、カード番号「4242424242424242」と、任意の確認コードおよび有効期限を使用できます。または「<a href=\"%s\">Stripe のテスト方法</a>」ドキュメンテーションに記載されている他のカード番号もご覧ください。"
+
+#: includes/class-wc-gateway-stripe.php:132
+#: includes/legacy/class-wc-gateway-stripe.php:60
+msgid "Continue to payment"
+msgstr "支払いに進む"
+
+#: includes/class-wc-gateway-stripe.php:89
+#: includes/legacy/class-wc-gateway-stripe.php:19
+msgid "Stripe works by adding credit card fields on the checkout and then sending the details to Stripe for verification."
+msgstr "Stripe は、購入手続き画面にクレジットカード欄を追加し、その情報を検証するために Stripe に送信することによって動作します。"
+
+#: includes/class-wc-gateway-stripe.php:88
+#: includes/legacy/class-wc-gateway-stripe.php:18
+msgid "Stripe"
+msgstr "Stripe"
+
+#: includes/class-wc-gateway-stripe-addons.php:383
+#: includes/class-wc-gateway-stripe-addons.php:388
+msgid "Via %s card ending in %s"
+msgstr "%s カード (末尾 %s) を使用"
+
+#: includes/class-wc-gateway-stripe-addons.php:218
+#: includes/class-wc-gateway-stripe-addons.php:261
+msgid "Stripe Transaction Failed (%s)"
+msgstr "Stripe のトランザクションに失敗しました (%s)"
+
+#: includes/class-wc-gateway-stripe-addons.php:157
+msgid "Unable to store payment details. Please try again."
+msgstr "支払い情報を保存できません。 もう一度お試しください。"
+
+#: includes/class-wc-gateway-stripe-addons.php:117
+msgid "Customer not found"
+msgstr "顧客が見つかりません"
+
+#: includes/class-wc-gateway-stripe-addons.php:104
+#: includes/class-wc-gateway-stripe-addons.php:150
+#: includes/class-wc-gateway-stripe.php:562
+#: includes/legacy/class-wc-gateway-stripe.php:446
+msgid "Sorry, the minimum allowed order total is 0.50 to use this payment method."
+msgstr "この支払い方法は総額0.50以上にしか使えません。"

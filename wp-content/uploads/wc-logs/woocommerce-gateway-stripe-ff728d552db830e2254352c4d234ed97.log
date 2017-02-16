@@ -1,0 +1,157 @@
+02-15-2017 @ 17:44:06 - Info: Begin processing payment for order 1506 for the amount of 108
+02-15-2017 @ 17:44:06 - charges request: Array
+(
+    [currency] => jpy
+    [amount] => 108
+    [description] => Kitt - Order 1506
+    [capture] => true
+    [expand[]] => balance_transaction
+    [source] => tok_19nOOPBJpROLvqFxCxMwHtLt
+)
+
+02-15-2017 @ 17:44:08 - Error: Invalid API Key provided: "sk_test_************************ **** *** **** *********** Key". This key contains at least one space. Please delete the spaces and try again. If you have any questions, we can help at https://support.stripe.com/.
+02-15-2017 @ 17:44:43 - Info: Begin processing payment for order 1506 for the amount of 108
+02-15-2017 @ 17:44:43 - charges request: Array
+(
+    [currency] => jpy
+    [amount] => 108
+    [description] => Kitt - Order 1506
+    [capture] => true
+    [expand[]] => balance_transaction
+    [source] => tok_19nOP0BJpROLvqFx4PgzgmUU
+)
+
+02-15-2017 @ 17:44:45 - Processing response: stdClass Object
+(
+    [id] => ch_19nOP2BJpROLvqFxrN9ug1QN
+    [object] => charge
+    [amount] => 108
+    [amount_refunded] => 0
+    [application] => 
+    [application_fee] => 
+    [balance_transaction] => stdClass Object
+        (
+            [id] => txn_19nOP2BJpROLvqFxhIX3o4wB
+            [object] => balance_transaction
+            [amount] => 93
+            [available_on] => 1487721600
+            [created] => 1487148284
+            [currency] => usd
+            [description] => Kitt - Order 1506
+            [fee] => 33
+            [fee_details] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [amount] => 33
+                            [application] => 
+                            [currency] => usd
+                            [description] => Stripe processing fees
+                            [type] => stripe_fee
+                        )
+
+                )
+
+            [net] => 60
+            [source] => ch_19nOP2BJpROLvqFxrN9ug1QN
+            [sourced_transfers] => stdClass Object
+                (
+                    [object] => list
+                    [data] => Array
+                        (
+                        )
+
+                    [has_more] => 
+                    [total_count] => 0
+                    [url] => /v1/transfers?source_transaction=ch_19nOP2BJpROLvqFxrN9ug1QN
+                )
+
+            [status] => pending
+            [type] => charge
+        )
+
+    [captured] => 1
+    [created] => 1487148284
+    [currency] => jpy
+    [customer] => 
+    [description] => Kitt - Order 1506
+    [destination] => 
+    [dispute] => 
+    [failure_code] => 
+    [failure_message] => 
+    [fraud_details] => stdClass Object
+        (
+        )
+
+    [invoice] => 
+    [livemode] => 
+    [metadata] => stdClass Object
+        (
+        )
+
+    [on_behalf_of] => 
+    [order] => 
+    [outcome] => stdClass Object
+        (
+            [network_status] => approved_by_network
+            [reason] => 
+            [risk_level] => normal
+            [seller_message] => Payment complete.
+            [type] => authorized
+        )
+
+    [paid] => 1
+    [receipt_email] => 
+    [receipt_number] => 
+    [refunded] => 
+    [refunds] => stdClass Object
+        (
+            [object] => list
+            [data] => Array
+                (
+                )
+
+            [has_more] => 
+            [total_count] => 0
+            [url] => /v1/charges/ch_19nOP2BJpROLvqFxrN9ug1QN/refunds
+        )
+
+    [review] => 
+    [shipping] => 
+    [source] => stdClass Object
+        (
+            [id] => card_19nOP0BJpROLvqFxcAWJHPJU
+            [object] => card
+            [address_city] => Thanh xuân
+            [address_country] => JP
+            [address_line1] => 22 vũ hữu
+            [address_line1_check] => pass
+            [address_line2] => 
+            [address_state] => JP13
+            [address_zip] => 100-0001
+            [address_zip_check] => pass
+            [brand] => Visa
+            [country] => US
+            [customer] => 
+            [cvc_check] => pass
+            [dynamic_last4] => 
+            [exp_month] => 2
+            [exp_year] => 2019
+            [fingerprint] => 46Evt4abaaKcdMk0
+            [funding] => credit
+            [last4] => 4242
+            [metadata] => stdClass Object
+                (
+                )
+
+            [name] => Tran Thang
+            [tokenization_method] => 
+        )
+
+    [source_transfer] => 
+    [statement_descriptor] => 
+    [status] => succeeded
+    [transfer_group] => 
+)
+
+02-15-2017 @ 17:44:45 - Success: Stripe charge complete (Charge ID: ch_19nOP2BJpROLvqFxrN9ug1QN)

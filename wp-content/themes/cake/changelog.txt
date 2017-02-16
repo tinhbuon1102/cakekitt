@@ -1,0 +1,8 @@
+1.0 first release
+
+1.1 (09/14/2016)
+- update: include codeopus shortcodes in theme
+
+1.2 (09/20/2016)
+- update: enable/disable options for popup navigation
+- update: add header right navigation

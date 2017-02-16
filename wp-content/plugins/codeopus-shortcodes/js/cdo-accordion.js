@@ -1,0 +1,1 @@
+jQuery(document).ready(function(e){e(".cdo-toggle").each(function(){e(this).accordion("closed"==e(this).attr("data-id")?{header:".cdo-toggle-title",collapsible:!0,active:!1}:{header:".cdo-toggle-title",collapsible:!1})}),e(this).accordion({header:".cdo-accordion-title",collapsible:!0,active:!1})});

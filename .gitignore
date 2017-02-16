@@ -1,0 +1,9 @@
+wp-snapshots
+backup
+.settings
+.env
+.buildpath
+.project
+.htaccess
+.gitconfig
+wp-config.php

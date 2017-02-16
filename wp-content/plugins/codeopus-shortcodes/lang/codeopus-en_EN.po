@@ -1,0 +1,1081 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Codeopus Shortcodes 1.0\n"
+"POT-Creation-Date: 2015-12-19 14:24+0700\n"
+"PO-Revision-Date: 2015-12-19 14:25+0700\n"
+"Last-Translator: \n"
+"Language-Team: codeopus\n"
+"Language: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: __;_e;esc_attr_e;esc_attr__;esc_html__;esc_html_e\n"
+
+#: include/functions.php:264
+msgid "No products found"
+msgstr ""
+
+#: include/functions.php:578
+msgid "All"
+msgstr ""
+
+#: include/functions.php:628
+#, php-format
+msgid "Permalink to %s"
+msgstr ""
+
+#: include/metaboxes.php:20
+msgid "Testimonial Options"
+msgstr ""
+
+#: include/metaboxes.php:25 include/metaboxes.php:40
+msgid "Info"
+msgstr ""
+
+#: include/metaboxes.php:26
+msgid "Enter description text an example company name and position"
+msgstr ""
+
+#: include/metaboxes.php:35
+msgid "Team Options"
+msgstr ""
+
+#: include/metaboxes.php:41
+msgid "Enter the job position at the company"
+msgstr ""
+
+#: include/metaboxes.php:47
+msgid "Facebook"
+msgstr ""
+
+#: include/metaboxes.php:48
+msgid "Enter facebook URL. Example : http://www.facebook.com/username"
+msgstr ""
+
+#: include/metaboxes.php:54
+msgid "Twitter"
+msgstr ""
+
+#: include/metaboxes.php:55
+msgid "Enter twitter URL. Example : http://www.twitter.com/username"
+msgstr ""
+
+#: include/metaboxes.php:61
+msgid "Google+"
+msgstr ""
+
+#: include/metaboxes.php:62
+msgid ""
+"Enter google+ URL. Example : https://plus.google.com/"
+"u/0/108763868013266824234/posts"
+msgstr ""
+
+#: include/metaboxes.php:68
+msgid "Other Social Profile"
+msgstr ""
+
+#: include/metaboxes.php:69
+msgid ""
+"Put another Social Network URL. Example : &#x3C;a href=&#x22;http://linkedin."
+"com&#x22; target=&#x22;_blank&#x22;&#x3E;&#x3C;i class=&#x22;fa-"
+"linkedin&#x22;&#x3E;&#x3C;/i&#x3E;&#x3C;/a&#x3E;"
+msgstr ""
+
+#: include/metaboxes.php:77
+msgid "Portfolio Options"
+msgstr ""
+
+#: include/metaboxes.php:82
+msgid "Lightbox URL"
+msgstr ""
+
+#: include/metaboxes.php:83
+msgid "Enter image url or video url"
+msgstr ""
+
+#: include/metaboxes.php:89
+msgid "Custom URL"
+msgstr ""
+
+#: include/metaboxes.php:90
+msgid "Enter custom url portfolio item"
+msgstr ""
+
+#: include/post-type.php:6 include/post-type.php:7
+msgid "Portfolio"
+msgstr ""
+
+#: include/post-type.php:8
+msgid "All Portfolio"
+msgstr ""
+
+#: include/post-type.php:9 include/post-type.php:66 include/post-type.php:120
+msgid "Add New"
+msgstr ""
+
+#: include/post-type.php:10
+msgid "Add New portfolio"
+msgstr ""
+
+#: include/post-type.php:11
+msgid "Edit portfolio"
+msgstr ""
+
+#: include/post-type.php:12
+msgid "New portfolio"
+msgstr ""
+
+#: include/post-type.php:13
+msgid "View portfolio"
+msgstr ""
+
+#: include/post-type.php:14
+msgid "Search portfolio"
+msgstr ""
+
+#: include/post-type.php:15
+msgid "No portfolio found"
+msgstr ""
+
+#: include/post-type.php:16
+msgid "No portfolio found in Trash"
+msgstr ""
+
+#: include/post-type.php:48 include/post-type.php:49
+msgid "Portfolio Categories"
+msgstr ""
+
+#: include/post-type.php:63 include/post-type.php:64
+msgid "Testimonial"
+msgstr ""
+
+#: include/post-type.php:65
+msgid "All Testimonial"
+msgstr ""
+
+#: include/post-type.php:67
+msgid "Add New Testimonial"
+msgstr ""
+
+#: include/post-type.php:68
+msgid "Edit Testimonial"
+msgstr ""
+
+#: include/post-type.php:69
+msgid "New Testimonial"
+msgstr ""
+
+#: include/post-type.php:70
+msgid "View Testimonial"
+msgstr ""
+
+#: include/post-type.php:71
+msgid "Search Testimonial"
+msgstr ""
+
+#: include/post-type.php:72
+msgid "No Testimonial found"
+msgstr ""
+
+#: include/post-type.php:73
+msgid "No Testimonial found in Trash"
+msgstr ""
+
+#: include/post-type.php:103 include/post-type.php:104
+msgid "Testimonial Categories"
+msgstr ""
+
+#: include/post-type.php:117 include/post-type.php:118
+msgid "Team"
+msgstr ""
+
+#: include/post-type.php:119
+msgid "All Team"
+msgstr ""
+
+#: include/post-type.php:121
+msgid "Add New Staff"
+msgstr ""
+
+#: include/post-type.php:122
+msgid "Edit Team"
+msgstr ""
+
+#: include/post-type.php:123
+msgid "New Team"
+msgstr ""
+
+#: include/post-type.php:124
+msgid "View Team"
+msgstr ""
+
+#: include/post-type.php:125
+msgid "Search Team"
+msgstr ""
+
+#: include/post-type.php:126
+msgid "No Team Found"
+msgstr ""
+
+#: include/post-type.php:127
+msgid "No Team found in Trash"
+msgstr ""
+
+#: include/post-type.php:159 include/post-type.php:160
+msgid "Team Categories"
+msgstr ""
+
+#: include/post-type.php:182
+msgid "Featured Image"
+msgstr ""
+
+#: include/post-type.php:202 tinymce/config.php:1355
+msgid "Portfolio Category"
+msgstr ""
+
+#: include/post-type.php:219 tinymce/config.php:1225
+msgid "Testimonial Category"
+msgstr ""
+
+#: include/post-type.php:236 tinymce/config.php:1285
+msgid "Team Category"
+msgstr ""
+
+#: tinymce/config.php:11
+msgid "Insert Columns"
+msgstr ""
+
+#: tinymce/config.php:18 tinymce/config.php:56
+msgid "Column Width"
+msgstr ""
+
+#: tinymce/config.php:19 tinymce/config.php:57
+msgid "Select the column"
+msgstr ""
+
+#: tinymce/config.php:33 tinymce/config.php:71 tinymce/config.php:118
+#: tinymce/config.php:475 tinymce/config.php:499 tinymce/config.php:524
+#: tinymce/config.php:547 tinymce/config.php:1061
+msgid "Content"
+msgstr ""
+
+#: tinymce/config.php:34 tinymce/config.php:72
+msgid "Insert content to column"
+msgstr ""
+
+#: tinymce/config.php:39 tinymce/config.php:77
+msgid "Column Class name"
+msgstr ""
+
+#: tinymce/config.php:40 tinymce/config.php:78
+msgid "Add class name to column"
+msgstr ""
+
+#: tinymce/config.php:44
+msgid "Add Column"
+msgstr ""
+
+#: tinymce/config.php:82
+msgid "Insert Column"
+msgstr ""
+
+#: tinymce/config.php:92
+msgid "Insert Accordion"
+msgstr ""
+
+#: tinymce/config.php:99 tinymce/config.php:166 tinymce/config.php:394
+#: tinymce/config.php:956
+msgid "Icon"
+msgstr ""
+
+#: tinymce/config.php:100 tinymce/config.php:395 tinymce/config.php:709
+#: tinymce/config.php:744 tinymce/config.php:957
+msgid "Select icon"
+msgstr ""
+
+#: tinymce/config.php:105 tinymce/config.php:783 tinymce/config.php:1010
+#: tinymce/config.php:1043 tinymce/config.php:1110 tinymce/config.php:1179
+msgid "Title"
+msgstr ""
+
+#: tinymce/config.php:106
+msgid "Add the title that will go above the accordion content"
+msgstr ""
+
+#: tinymce/config.php:112 tinymce/config.php:199 tinymce/config.php:216
+#: tinymce/config.php:378 tinymce/config.php:434 tinymce/config.php:481
+#: tinymce/config.php:505 tinymce/config.php:530 tinymce/config.php:553
+#: tinymce/config.php:595 tinymce/config.php:759 tinymce/config.php:798
+#: tinymce/config.php:841 tinymce/config.php:905 tinymce/config.php:940
+#: tinymce/config.php:992 tinymce/config.php:1155
+msgid "Class name"
+msgstr ""
+
+#: tinymce/config.php:113
+msgid "Add class name to the accordion"
+msgstr ""
+
+#: tinymce/config.php:119
+msgid "Add the accordion content. Will accept HTML"
+msgstr ""
+
+#: tinymce/config.php:123
+msgid "Add Accordion"
+msgstr ""
+
+#: tinymce/config.php:136
+msgid "Button Color"
+msgstr ""
+
+#: tinymce/config.php:137
+msgid "Select the button color"
+msgstr ""
+
+#: tinymce/config.php:150
+msgid "Button Size"
+msgstr ""
+
+#: tinymce/config.php:151
+msgid "Select the button size"
+msgstr ""
+
+#: tinymce/config.php:161 tinymce/config.php:1078
+msgid "Button Label"
+msgstr ""
+
+#: tinymce/config.php:162
+msgid "Add the button label"
+msgstr ""
+
+#: tinymce/config.php:167
+msgid ""
+"If use icon on button, please add \"button-group\" to class name also please "
+"choose \"square\" on button type"
+msgstr ""
+
+#: tinymce/config.php:173 tinymce/config.php:1084
+msgid "Button Link"
+msgstr ""
+
+#: tinymce/config.php:174
+msgid "Add the button url eg http://example.com"
+msgstr ""
+
+#: tinymce/config.php:178
+msgid "Button Target"
+msgstr ""
+
+#: tinymce/config.php:179 tinymce/config.php:425
+msgid "_self = open in same window. _blank = open in new window"
+msgstr ""
+
+#: tinymce/config.php:188
+msgid "Button Type"
+msgstr ""
+
+#: tinymce/config.php:189
+msgid "Select the button type"
+msgstr ""
+
+#: tinymce/config.php:200
+msgid "Add class name to the button"
+msgstr ""
+
+#: tinymce/config.php:204
+msgid "Insert Button"
+msgstr ""
+
+#: tinymce/config.php:217
+msgid "Add class name to the div"
+msgstr ""
+
+#: tinymce/config.php:221
+msgid "Insert Div"
+msgstr ""
+
+#: tinymce/config.php:233
+msgid "Dropcap Style"
+msgstr ""
+
+#: tinymce/config.php:234
+msgid "Select the dropcap's style"
+msgstr ""
+
+#: tinymce/config.php:244
+msgid "Dropcap Letter"
+msgstr ""
+
+#: tinymce/config.php:245
+msgid "Add the letter to be used as dropcap"
+msgstr ""
+
+#: tinymce/config.php:249
+msgid "Insert Dropcap"
+msgstr ""
+
+#: tinymce/config.php:261
+msgid "Width"
+msgstr ""
+
+#: tinymce/config.php:262
+msgid "Map width in percentage or pixels"
+msgstr ""
+
+#: tinymce/config.php:267 tinymce/config.php:571 tinymce/config.php:889
+#: tinymce/config.php:934
+msgid "Height"
+msgstr ""
+
+#: tinymce/config.php:268
+msgid "Map height in pixels"
+msgstr ""
+
+#: tinymce/config.php:273
+msgid "Latitude"
+msgstr ""
+
+#: tinymce/config.php:274
+msgid "The latitude point of your google map"
+msgstr ""
+
+#: tinymce/config.php:279
+msgid "Longitude"
+msgstr ""
+
+#: tinymce/config.php:280
+msgid "The longitude point of your google map"
+msgstr ""
+
+#: tinymce/config.php:285
+msgid "Controls"
+msgstr ""
+
+#: tinymce/config.php:286
+msgid "True or false"
+msgstr ""
+
+#: tinymce/config.php:295
+msgid "Zoom"
+msgstr ""
+
+#: tinymce/config.php:296
+msgid "Zoom value from 1 to 19 where 19 is the greatest and 1 the smallest"
+msgstr ""
+
+#: tinymce/config.php:301
+msgid "Pop up text"
+msgstr ""
+
+#: tinymce/config.php:302
+msgid "Content that will be shown within the info window for this marker"
+msgstr ""
+
+#: tinymce/config.php:306
+msgid "Insert Google Map"
+msgstr ""
+
+#: tinymce/config.php:318
+msgid "Heading Tag"
+msgstr ""
+
+#: tinymce/config.php:319
+msgid "Select heading tag"
+msgstr ""
+
+#: tinymce/config.php:332
+msgid "Heading Title"
+msgstr ""
+
+#: tinymce/config.php:333
+msgid "Add text as heading title"
+msgstr ""
+
+#: tinymce/config.php:338
+msgid "Sub Title"
+msgstr ""
+
+#: tinymce/config.php:339
+msgid "Add text as sub title"
+msgstr ""
+
+#: tinymce/config.php:344
+msgid "Sub Title Link"
+msgstr ""
+
+#: tinymce/config.php:345
+msgid "Add link to sub title"
+msgstr ""
+
+#: tinymce/config.php:350
+msgid "Font Weight"
+msgstr ""
+
+#: tinymce/config.php:351
+msgid "Select font weight"
+msgstr ""
+
+#: tinymce/config.php:360
+msgid "Font Size"
+msgstr ""
+
+#: tinymce/config.php:361
+msgid "Select font size"
+msgstr ""
+
+#: tinymce/config.php:379
+msgid "Add class name to heading tag"
+msgstr ""
+
+#: tinymce/config.php:383
+msgid "Insert Heading"
+msgstr ""
+
+#: tinymce/config.php:401 tinymce/config.php:577 tinymce/config.php:611
+#: tinymce/config.php:963 tinymce/config.php:1067
+msgid "Color"
+msgstr ""
+
+#: tinymce/config.php:402 tinymce/config.php:964
+msgid "Select color"
+msgstr ""
+
+#: tinymce/config.php:407
+msgid "Size"
+msgstr ""
+
+#: tinymce/config.php:408
+msgid "Select size"
+msgstr ""
+
+#: tinymce/config.php:419 tinymce/config.php:829 tinymce/config.php:883
+#: tinymce/config.php:1191
+msgid "Link"
+msgstr ""
+
+#: tinymce/config.php:420
+msgid "Add link URL"
+msgstr ""
+
+#: tinymce/config.php:424
+msgid "Target"
+msgstr ""
+
+#: tinymce/config.php:435
+msgid "Add class name to the icon"
+msgstr ""
+
+#: tinymce/config.php:439
+msgid "Insert Icon"
+msgstr ""
+
+#: tinymce/config.php:452 tinymce/config.php:895 tinymce/config.php:1090
+#: tinymce/config.php:1197
+msgid "Type"
+msgstr ""
+
+#: tinymce/config.php:453
+msgid "Select type"
+msgstr ""
+
+#: tinymce/config.php:476
+msgid "Add the list content"
+msgstr ""
+
+#: tinymce/config.php:482
+msgid "Add class name to the list"
+msgstr ""
+
+#: tinymce/config.php:486
+msgid "Insert List Style"
+msgstr ""
+
+#: tinymce/config.php:500
+msgid "Add the paragraph content"
+msgstr ""
+
+#: tinymce/config.php:506
+msgid "Add class name to the paragraph"
+msgstr ""
+
+#: tinymce/config.php:510
+msgid "Insert Paragraph"
+msgstr ""
+
+#: tinymce/config.php:525 tinymce/config.php:548
+msgid "Add text as content"
+msgstr ""
+
+#: tinymce/config.php:531
+msgid "Add class name to the small tag"
+msgstr ""
+
+#: tinymce/config.php:535
+msgid "Insert Small Tag"
+msgstr ""
+
+#: tinymce/config.php:554
+msgid "Add class name to the span tag"
+msgstr ""
+
+#: tinymce/config.php:558
+msgid "Insert Span Tag"
+msgstr ""
+
+#: tinymce/config.php:572
+msgid "Height size"
+msgstr ""
+
+#: tinymce/config.php:578
+msgid "Select color for spacer"
+msgstr ""
+
+#: tinymce/config.php:583
+msgid "Margin Top"
+msgstr ""
+
+#: tinymce/config.php:584
+msgid "Enter margin top gap"
+msgstr ""
+
+#: tinymce/config.php:589
+msgid "Margin Bottom"
+msgstr ""
+
+#: tinymce/config.php:590
+msgid "Enter margin bottom gap"
+msgstr ""
+
+#: tinymce/config.php:596
+msgid "Add class name to the spacer"
+msgstr ""
+
+#: tinymce/config.php:600
+msgid "Insert Spacer"
+msgstr ""
+
+#: tinymce/config.php:612
+msgid "Select table color"
+msgstr ""
+
+#: tinymce/config.php:654
+msgid "Table Code"
+msgstr ""
+
+#: tinymce/config.php:655
+msgid "Insert table code"
+msgstr ""
+
+#: tinymce/config.php:659
+msgid "Insert Table"
+msgstr ""
+
+#: tinymce/config.php:669
+msgid "Menu Position"
+msgstr ""
+
+#: tinymce/config.php:670
+msgid "Select menu position"
+msgstr ""
+
+#: tinymce/config.php:680 tinymce/config.php:708
+msgid "Tab Icon"
+msgstr ""
+
+#: tinymce/config.php:681
+msgid "Enable icon on tab"
+msgstr ""
+
+#: tinymce/config.php:690
+msgid "Class"
+msgstr ""
+
+#: tinymce/config.php:691
+msgid "Add class to tabs container"
+msgstr ""
+
+#: tinymce/config.php:696
+msgid "Insert Tabs"
+msgstr ""
+
+#: tinymce/config.php:703
+msgid "Tab Title"
+msgstr ""
+
+#: tinymce/config.php:704
+msgid "Add the tab title"
+msgstr ""
+
+#: tinymce/config.php:715
+msgid "Tab Content"
+msgstr ""
+
+#: tinymce/config.php:716
+msgid "Add the tab content"
+msgstr ""
+
+#: tinymce/config.php:720
+msgid "Add Tab"
+msgstr ""
+
+#: tinymce/config.php:731
+msgid "Insert Toggle Content"
+msgstr ""
+
+#: tinymce/config.php:737
+msgid "Toggle Title"
+msgstr ""
+
+#: tinymce/config.php:738
+msgid "Add the title that will go above the toggle content"
+msgstr ""
+
+#: tinymce/config.php:743
+msgid "Toggle Icon"
+msgstr ""
+
+#: tinymce/config.php:749
+msgid "Toggle State"
+msgstr ""
+
+#: tinymce/config.php:750
+msgid "Select the state of the toggle on page load"
+msgstr ""
+
+#: tinymce/config.php:760
+msgid "Add class name to the toggle"
+msgstr ""
+
+#: tinymce/config.php:765
+msgid "Toggle Content"
+msgstr ""
+
+#: tinymce/config.php:766
+msgid "Add the toggle content. Will accept HTML"
+msgstr ""
+
+#: tinymce/config.php:771
+msgid "Add Toggle"
+msgstr ""
+
+#: tinymce/config.php:784
+msgid "Title banner section"
+msgstr ""
+
+#: tinymce/config.php:788
+msgid "layout"
+msgstr ""
+
+#: tinymce/config.php:789
+msgid "Select the layout type"
+msgstr ""
+
+#: tinymce/config.php:799
+msgid "Add class name to banner section"
+msgstr ""
+
+#: tinymce/config.php:804
+msgid "Insert Banner"
+msgstr ""
+
+#: tinymce/config.php:811 tinymce/config.php:859 tinymce/config.php:1055
+msgid "Image URL"
+msgstr ""
+
+#: tinymce/config.php:812
+msgid "Add the image url"
+msgstr ""
+
+#: tinymce/config.php:817 tinymce/config.php:865 tinymce/config.php:922
+#: tinymce/config.php:969
+msgid "Text 1"
+msgstr ""
+
+#: tinymce/config.php:818 tinymce/config.php:824
+msgid "Add text banner"
+msgstr ""
+
+#: tinymce/config.php:823 tinymce/config.php:871 tinymce/config.php:928
+#: tinymce/config.php:975
+msgid "Text 2"
+msgstr ""
+
+#: tinymce/config.php:830
+msgid "Add link"
+msgstr ""
+
+#: tinymce/config.php:835
+msgid "Link Label"
+msgstr ""
+
+#: tinymce/config.php:836
+msgid "Add link label"
+msgstr ""
+
+#: tinymce/config.php:842
+msgid "Add class name to banner item"
+msgstr ""
+
+#: tinymce/config.php:846
+msgid "Add Banner Item"
+msgstr ""
+
+#: tinymce/config.php:860 tinymce/config.php:1056
+msgid "Enter image url"
+msgstr ""
+
+#: tinymce/config.php:866 tinymce/config.php:872 tinymce/config.php:878
+#: tinymce/config.php:923 tinymce/config.php:929 tinymce/config.php:970
+#: tinymce/config.php:976
+msgid "Enter text"
+msgstr ""
+
+#: tinymce/config.php:877
+msgid "Text 3"
+msgstr ""
+
+#: tinymce/config.php:884
+msgid "Add link to text 3"
+msgstr ""
+
+#: tinymce/config.php:890 tinymce/config.php:935
+msgid "Add height to container"
+msgstr ""
+
+#: tinymce/config.php:896
+msgid "Select layout type"
+msgstr ""
+
+#: tinymce/config.php:906 tinymce/config.php:941 tinymce/config.php:993
+msgid "Add class name to container"
+msgstr ""
+
+#: tinymce/config.php:910
+msgid "Insert Image with Text"
+msgstr ""
+
+#: tinymce/config.php:945
+msgid "Insert Box with Text"
+msgstr ""
+
+#: tinymce/config.php:981 tinymce/config.php:1232 tinymce/config.php:1292
+#: tinymce/config.php:1362
+msgid "Column"
+msgstr ""
+
+#: tinymce/config.php:982
+msgid "Select column layout"
+msgstr ""
+
+#: tinymce/config.php:997
+msgid "Insert Icon with Text"
+msgstr ""
+
+#: tinymce/config.php:1011 tinymce/config.php:1044 tinymce/config.php:1111
+msgid "Add title text"
+msgstr ""
+
+#: tinymce/config.php:1016 tinymce/config.php:1049 tinymce/config.php:1185
+msgid "Subtitle"
+msgstr ""
+
+#: tinymce/config.php:1017 tinymce/config.php:1023 tinymce/config.php:1050
+msgid "Add subtitle text"
+msgstr ""
+
+#: tinymce/config.php:1022
+msgid "Subtitle 2"
+msgstr ""
+
+#: tinymce/config.php:1027
+msgid "Insert Lookbook Header"
+msgstr ""
+
+#: tinymce/config.php:1035
+msgid "Insert Lookbook"
+msgstr ""
+
+#: tinymce/config.php:1062
+msgid "Add content here"
+msgstr ""
+
+#: tinymce/config.php:1068
+msgid "Select Color"
+msgstr ""
+
+#: tinymce/config.php:1079
+msgid "Add button label"
+msgstr ""
+
+#: tinymce/config.php:1085
+msgid "Add link to button"
+msgstr ""
+
+#: tinymce/config.php:1091
+msgid "Select layout Type"
+msgstr ""
+
+#: tinymce/config.php:1099
+msgid "Insert Lookbook Item"
+msgstr ""
+
+#: tinymce/config.php:1116
+msgid "Link URL"
+msgstr ""
+
+#: tinymce/config.php:1117
+msgid "Add link to title"
+msgstr ""
+
+#: tinymce/config.php:1121
+msgid "Insert Lookbook Footer"
+msgstr ""
+
+#: tinymce/config.php:1131
+msgid "Insert Products Category"
+msgstr ""
+
+#: tinymce/config.php:1139
+msgid "Product Category"
+msgstr ""
+
+#: tinymce/config.php:1140 tinymce/config.php:1226 tinymce/config.php:1286
+#: tinymce/config.php:1356
+msgid "Select category slug"
+msgstr ""
+
+#: tinymce/config.php:1145
+msgid "Featured"
+msgstr ""
+
+#: tinymce/config.php:1146
+msgid "Add featured layout"
+msgstr ""
+
+#: tinymce/config.php:1156
+msgid "Add class name to product item"
+msgstr ""
+
+#: tinymce/config.php:1160
+msgid "Add Product Category Column"
+msgstr ""
+
+#: tinymce/config.php:1173
+msgid "Slider ID"
+msgstr ""
+
+#: tinymce/config.php:1174
+msgid "Enter id name for slider, an example latest-product"
+msgstr ""
+
+#: tinymce/config.php:1180
+msgid "Enter title section"
+msgstr ""
+
+#: tinymce/config.php:1186
+msgid "Enter subtitle section"
+msgstr ""
+
+#: tinymce/config.php:1192
+msgid "Enter subtitle link"
+msgstr ""
+
+#: tinymce/config.php:1198
+msgid "Select product type"
+msgstr ""
+
+#: tinymce/config.php:1208
+msgid "Number"
+msgstr ""
+
+#: tinymce/config.php:1209
+msgid "Enter number of post to show in slider"
+msgstr ""
+
+#: tinymce/config.php:1213
+msgid "Insert Product Slider"
+msgstr ""
+
+#: tinymce/config.php:1233 tinymce/config.php:1293 tinymce/config.php:1363
+msgid "Select column"
+msgstr ""
+
+#: tinymce/config.php:1243 tinymce/config.php:1303 tinymce/config.php:1373
+msgid "Showpost"
+msgstr ""
+
+#: tinymce/config.php:1244 tinymce/config.php:1304 tinymce/config.php:1374
+msgid "Number of post"
+msgstr ""
+
+#: tinymce/config.php:1249 tinymce/config.php:1309 tinymce/config.php:1419
+msgid "Order By"
+msgstr ""
+
+#: tinymce/config.php:1250 tinymce/config.php:1310 tinymce/config.php:1420
+msgid "Select post items order"
+msgstr ""
+
+#: tinymce/config.php:1264 tinymce/config.php:1324 tinymce/config.php:1434
+msgid "Order"
+msgstr ""
+
+#: tinymce/config.php:1265 tinymce/config.php:1325 tinymce/config.php:1435
+msgid "Reverse post items order."
+msgstr ""
+
+#: tinymce/config.php:1273
+msgid "Insert Testimonial"
+msgstr ""
+
+#: tinymce/config.php:1333
+msgid "Insert Team"
+msgstr ""
+
+#: tinymce/config.php:1345
+msgid "Filter Navigation"
+msgstr ""
+
+#: tinymce/config.php:1346
+msgid "Enable/disable filter navigation"
+msgstr ""
+
+#: tinymce/config.php:1379
+msgid "Zoom Icon"
+msgstr ""
+
+#: tinymce/config.php:1380
+msgid "Enable/disable zoom icon"
+msgstr ""
+
+#: tinymce/config.php:1389
+msgid "Link Icon"
+msgstr ""
+
+#: tinymce/config.php:1390
+msgid "Enable/disable link icon"
+msgstr ""
+
+#: tinymce/config.php:1399
+msgid "Show Portfolio Title?"
+msgstr ""
+
+#: tinymce/config.php:1400
+msgid "Enable/disable portfolio title"
+msgstr ""
+
+#: tinymce/config.php:1409
+msgid "Show Portfolio Description?"
+msgstr ""
+
+#: tinymce/config.php:1410
+msgid "Enable/disable portfolio description"
+msgstr ""
+
+#: tinymce/config.php:1443
+msgid "Insert Portfolio"
+msgstr ""
+
+#: tinymce/popup.php:37
+msgid "Insert Shortcode"
+msgstr ""

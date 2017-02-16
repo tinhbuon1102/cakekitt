@@ -1,0 +1,260 @@
+
+/* GLOBAL
+------------------------------------------------------- */
+#codeopus-popup {
+	width: 650px;
+	font-size:14px;
+	height: 700px;
+}
+#codeopus-popup * {
+	font-size:12px;
+	line-height:24px;
+}
+
+/* form side */
+#codeopus-sc-form-wrap {
+	width: 650px;
+	float: left;
+}
+#codeopus-sc-form-wrap #codeopus-sc-form-head {
+	width: 650px;
+	padding: 20px 29px;
+	line-height: 1;
+	font-size:15px;
+	background-color: #f8f6f6;
+	
+}
+#codeopus-popup.no_preview #codeopus-sc-form-wrap #codeopus-sc-form-head {}
+
+#codeopus-sc-form-wrap #codeopus-sc-form {
+	padding-left: 26px;
+	padding-right: 26px;
+	height: 580px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	padding-top:10px;
+	padding-bottom:10px;
+	
+}
+
+.mce-cdoCakemesses,
+.mce-cdoCakePricingTables,
+.mce-cdoProductcategory2{display:none;}
+
+
+/* FORM
+------------------------------------------------------- */
+input, select{margin:0;}
+#codeopus-sc-form-table, #codeopus-sc-form-table tbody {
+	width: 100%;
+	 border-collapse: collapse;
+	border-spacing:5px 0px;
+}
+
+
+#codeopus-sc-form-table tbody tr.form-row {
+	display: block;
+	padding: 15px 0;
+	border-bottom: solid 1px #ddd;
+}
+
+#codeopus-sc-form-table tbody:last-child tr.form-row {
+	border-bottom: none;
+}
+
+#codeopus-sc-form-table tbody.tchild tr.form-row {
+padding: 20px 0 5px 0;
+}
+
+#codeopus-sc-form-table tbody tr.form-row .label {
+	width:130px;
+	text-align: left;
+	vertical-align: top;
+	line-height: 35px;
+}
+#codeopus-sc-form-table tbody tr.form-row .field {
+	text-align: left;
+	width:475px;
+}
+#codeopus-sc-form-table tbody tr.form-row .codeopus-insert {
+	color: #fff;
+}
+
+#codeopus-sc-form-table tbody tr.form-row .codeopus-insert {
+	display: block;
+	color: #fff;
+	height: 36px;
+	width: 136px;
+	background: #363f48;
+	font-size: 13px;
+	font-weight: bold;
+	line-height: 36px;
+	text-decoration: none;
+	border: 0;
+	text-align: center;
+	margin-top:10px
+}
+#codeopus-sc-form-table tbody tr.form-row .codeopus-insert:hover {
+	background: #333333;
+}
+
+
+/* child rows, sortable */
+#codeopus-sc-form-table .has-child #form-child-add {
+	display: block !important;
+	width: 579px;
+	border-radius:0px;
+	padding: 0;
+	height: 49px;
+	line-height: 49px;
+	font-size: 21px;
+	text-align: center;
+	padding: 0 !important;
+	border: 1px solid #dadada;
+	text-decoration: none;
+	margin-top: 20px !important;
+}
+#codeopus-sc-form-table .has-child .child-clone-rows {
+	display: block;
+}
+#codeopus-sc-form-table .has-child .child-clone-rows .child-clone-row {
+	padding: 0px 25px 15px 25px;
+	background: #f5f5f5;
+	border: solid 1px #e0e0e0;
+	margin-bottom: 10px;
+	cursor: move;
+	border-radius:0px;
+}
+#codeopus-sc-form-table .has-child .sortable-placeholder {
+	border: dashed 2px #e0e0e0;
+	margin-bottom: 10px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background: #f7f7f7;
+	height: 40px;
+}
+#codeopus-sc-form-table .has-child .child-clone-rows .child-clone-row .child-clone-row-form {
+	display: block;
+}
+#codeopus-sc-form-table .has-child .child-clone-rows .child-clone-row .child-clone-row-form .child-clone-row-form-row {
+	display: block;
+	padding: 7px 0;
+	border-bottom: solid 1px #ddd;
+}
+#codeopus-sc-form-table tbody tr.form-row.has-child{border-bottom:0;}
+#codeopus-sc-form-table .has-child .child-clone-rows .child-clone-row .child-clone-row-form .child-clone-row-form-row .child-clone-row-label label {
+	display: block;
+	padding-bottom: 7px;
+	line-height: 1;
+	font-size:12px;
+}
+#codeopus-sc-form-table .has-child .child-clone-rows .child-clone-row .child-clone-row-remove {
+display: inline-block;
+	height: 34px;
+	line-height: 34px;
+	margin: 0;
+	font-size: 13px;
+	color: #333333;
+	background: #fff;
+	border: 1px solid #c7c5c5;
+	text-align: center;
+	text-decoration: none;
+	padding:0px 20px;
+}
+#codeopus-sc-form-table .has-child .child-clone-rows .child-clone-row .child-clone-row-remove:hover {
+	background: #fbf9f9;	
+}
+
+/* Form elements */
+#codeopus-sc-form-table tbody tr.form-row .codeopus-form-text,
+#codeopus-sc-form-table tbody tr.form-row .codeopus-form-textarea,
+#codeopus-sc-form-table tbody tr.form-row .codeopus-form-select {
+	width: 100%;
+	padding: 5px 10px;
+	background: #fff;
+	border: none;
+	border: solid 1px #ddd;
+	-moz-border-radius:0px;
+	border-radius:0px;
+}
+#codeopus-sc-form-table tbody tr.form-row.has-child .codeopus-form-text,
+#codeopus-sc-form-table tbody tr.form-row.has-child .codeopus-form-textarea,
+#codeopus-sc-form-table tbody tr.form-row.has-child .codeopus-form-select {
+	background: #fff;
+	width: 100%;
+}
+
+/* - textarea */
+#codeopus-sc-form-table tbody tr.form-row .codeopus-form-textarea {
+	height: 120px;
+}
+#codeopus-sc-form-table tbody tr.form-row.has-child .codeopus-form-textarea {
+	height: 100px;
+}
+
+/* - select */
+#codeopus-sc-form-table tbody tr.form-row .codeopus-form-select {
+	display: block;
+}
+#codeopus-sc-form-table tbody tr.form-row.has-child .codeopus-form-select {
+	width: auto;
+}
+
+/* - description */
+#codeopus-sc-form-table tbody tr.form-row .field .codeopus-form-desc,
+#codeopus-sc-form-table tbody tr.form-row .child-clone-row-desc {
+	display: block;
+	font-size:  12px;
+	color: #aaa;
+	/*font-style: italic;*/
+	padding-top: 0px;
+}
+
+/* Hide outline on focus */
+#content_indonez_button { outline: none; }
+
+.cdo-shortcodes-popup {
+	border: 0px !important;
+	background:#f1f1f1 !important
+		
+}
+
+.cdo-shortcodes-popup#TB_window{z-index:200000 !important}
+/* Thickbox Style*/
+.cdo-shortcodes-popup #TB_title {
+	background-color: #363f48 !important;
+	color: #fff !important;
+	height: 50px !important;
+	line-height: 50px !important;
+}
+
+.cdo-shortcodes-popup #TB_ajaxWindowTitle {
+	padding: 0 !important;
+	margin-left: 0px !important;
+	padding-left: 29px !important;
+	font-size: 18px !important;
+	line-height: inherit !important;	
+}
+
+.cdo-shortcodes-popup #TB_closeWindowButton {
+	text-decoration: none;
+	color: #fff !important;
+}
+
+.cdo-shortcodes-popup .tb-close-icon {
+	background: none !important;
+	text-decoration: none;
+}
+
+.cdo-shortcodes-popup .tb-close-icon:before { display: none; }
+.cdo-shortcodes-popup .tb-close-icon:after {
+	font-family: 'FontAwesome';
+	content: '\f00d';
+	font-size: 14px;
+	color: #fff !important;
+	text-decoration: none;
+	position: relative;
+	top: 10px;
+	left: -10px;
+}
+

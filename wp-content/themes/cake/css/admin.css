@@ -1,0 +1,26 @@
+#cake_static_banner_repeat .cmb-add-group-row.button,
+#cake_static_banner_repeat .button.cmb-remove-group-row,
+#cake_static_banner_repeat button.cmb-remove-group-row{display:none !important;}
+
+#poststuff #cake_static_banner_repeat.repeatable .cmb-group-title{padding-left:10px}
+.cmb-repeat-group-wrap{border-bottom:0 !important}
+
+.customize-control{
+	border-bottom:solid 1px #ddd;
+	padding-bottom:4px;
+}
+
+.accordion-section-content .customize-control:last-child{border:0}
+.customize-control .actions{margin-bottom:12px;}
+.customize-control-text, .customize-control-select{padding-bottom:12px; width:100%}
+.wp-customizer .customize-control select{min-width:100%;}
+
+/*tinymce*/
+.mce-cdoBanner,
+.mce-cdoBoxwithText,
+.mce-cdoIconwithText,
+.mce-cdoImagewithText,
+.mce-cdoLbContent,
+.mce-cdoLbFooter,
+.mce-cdoLbHeader,
+.mce-cdoProductcategory{display:none !important; padding:0 !important; visibility:hidden;}

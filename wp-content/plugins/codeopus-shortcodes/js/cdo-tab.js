@@ -1,0 +1,1 @@
+jQuery(document).ready(function(e){e(".top-tab").easyResponsiveTabs({type:"tab-top"}),e(".bottom-tab").easyResponsiveTabs({type:"tab-bottom"}),e(".left-tab").easyResponsiveTabs({type:"tab-left"}),e(".right-tab").easyResponsiveTabs({type:"tab-right"}),e(".accordion").easyResponsiveTabs({type:"accordion"})});
