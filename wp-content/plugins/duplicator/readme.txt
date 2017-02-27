@@ -4,7 +4,7 @@ Donate link: www.lifeinthegrid.com/partner
 Tags: backup, restore, move, migrate, localhost, synchronize, duplicate, clone, automate, niche site 
 Requires at least: 4.0
 Tested up to: 4.7
-Stable tag: 1.1.30
+Stable tag: 1.1.32
 License: GPLv2
 
 Duplicate, clone, backup, move and transfer an entire site from one location to another. 
@@ -38,7 +38,7 @@ Duplicator Pro takes Duplicator to the next level with features you'll really ap
 
 * Scheduled backups
 * Cloud Storage to Dropbox, Google Drive, Amazon S3 and FTP
-* MultiThreaded to suppoert larger web sites &amp; databases
+* MultiThreaded to support larger web sites &amp; databases
 * Multisite (MU) support
 * Database creation *in the installer*
 * Connect to cPanel directly from installer

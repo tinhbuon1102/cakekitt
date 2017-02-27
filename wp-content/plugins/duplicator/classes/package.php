@@ -93,18 +93,7 @@ class DUP_Package {
 
 		//SERVER
 		$srv = DUP_Server::GetChecks();
-		$report['SRV']['WEB']['ALL']	  = $srv['SRV']['WEB']['ALL'];
-		$report['SRV']['WEB']['model']	  = $srv['SRV']['WEB']['model'];
-
-		$report['SRV']['PHP']['ALL']	  = $srv['SRV']['PHP']['ALL'];
-		$report['SRV']['PHP']['openbase'] = $srv['SRV']['PHP']['openbase'];
-		$report['SRV']['PHP']['maxtime']  = $srv['SRV']['PHP']['maxtime'];
-		$report['SRV']['PHP']['mysqli']   = $srv['SRV']['PHP']['mysqli'];
-
-		$report['SRV']['WP']['ALL']		  = $srv['SRV']['WP']['ALL'];
-		$report['SRV']['WP']['version']	  = $srv['SRV']['WP']['version'];
-		$report['SRV']['WP']['core']	  = $srv['SRV']['WP']['core'];
-		$report['SRV']['WP']['cache']	  = $srv['SRV']['WP']['cache'];
+		$report['SRV'] = $srv['SRV'];
 		
 		//FILES
 		$this->Archive->Stats();
@@ -217,9 +206,10 @@ class DUP_Package {
 				'owner'	  => isset($current_user->user_login) ? $current_user->user_login : 'unknown',
 				'package' => $packageObj)
 			);
-			if ($results == false) {
-				$error_result = $wpdb->print_error();
-				DUP_Log::Error("Duplicator is unable to insert a package record into the database table.", "'{$error_result}'");
+			if ($results === false) {
+						
+				$wpdb->print_error();
+				DUP_Log::Error("Duplicator is unable to insert a package record into the database table.", "'{$wpdb->last_error}'");
 			}
 			$this->ID = $wpdb->insert_id;
 		}
@@ -488,11 +478,23 @@ class DUP_Package {
 	public static function FormatCreatedDate($date, $format = 1) 
 	{
 		$date = new DateTime($date);
-		switch ($format) {
+		switch ($format) 
+		{
+			//YEAR
 			case 1:  return $date->format('Y-m-d H:i');		break;
 			case 2:  return $date->format('Y-m-d H:i:s');	break;
-			case 3:  return $date->format('m-d-y H:i');		break;
-			case 4:  return $date->format('m-d-y H:i:s');	break;
+			case 3:  return $date->format('y-m-d H:i');		break;
+			case 4:  return $date->format('y-m-d H:i:s');	break;
+			//MONTH
+			case 5:  return $date->format('m-d-Y H:i');		break;
+			case 6:  return $date->format('m-d-Y H:i:s');	break;
+			case 7:  return $date->format('m-d-y H:i');		break;
+			case 8:  return $date->format('m-d-y H:i:s');	break;
+			//DAY
+			case 9:   return $date->format('d-m-Y H:i');	break;
+			case 10:  return $date->format('d-m-Y H:i:s');	break;
+			case 11:  return $date->format('d-m-y H:i');	break;
+			case 12:  return $date->format('d-m-y H:i:s');	break;
 		}
 	}
 	
