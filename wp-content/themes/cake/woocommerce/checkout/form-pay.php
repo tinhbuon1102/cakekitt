@@ -68,12 +68,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</table>
 
 	<div id="payment">
-		<?php if ( $order->needs_payment() ) : ?>
+		<?php if ( $order->needs_payment() ) : 
+		$orderDetail = new WC_Order( $order->id );
+		$items = $orderDetail->get_items();
+		$item_keys = array_keys($items);
+		
+		$order_type = wc_get_order_item_meta( $item_keys[0], '_order_type');
+		?>
 			<ul class="wc_payment_methods payment_methods methods">
 				<?php
 					if ( ! empty( $available_gateways ) ) {
 						foreach ( $available_gateways as $gatewayName => $gateway ) {
-							if ($gatewayName == 'bacs') continue;
+							if ($gatewayName == 'other_payment') continue;
+							if ($order_type == KITT_CUSTOM_ORDER && $gatewayName == 'pis') continue;
+							
 							wc_get_template( 'checkout/payment-method.php', array( 'gateway' => $gateway ) );
 						}
 					} else {

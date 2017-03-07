@@ -302,3 +302,149 @@
 )
 
 02-16-2017 @ 13:19:29 - Success: Stripe charge complete (Charge ID: ch_19ngjrBJpROLvqFxiFWV0k8H)
+03-07-2017 @ 02:20:16 - Error: Sorry, the minimum allowed order total is <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&yen;</span>50</span> to use this payment method.
+03-07-2017 @ 02:23:48 - Info: Begin processing payment for order 1558 for the amount of 86
+03-07-2017 @ 02:23:48 - charges request: Array
+(
+    [currency] => jpy
+    [amount] => 86
+    [description] => Kitt - Order 1558
+    [capture] => true
+    [expand[]] => balance_transaction
+    [source] => tok_19uPYlBJpROLvqFxB85Xt2N8
+)
+
+03-07-2017 @ 02:23:50 - Processing response: stdClass Object
+(
+    [id] => ch_19uPYoBJpROLvqFx0qeAXl0Z
+    [object] => charge
+    [amount] => 86
+    [amount_refunded] => 0
+    [application] => 
+    [application_fee] => 
+    [balance_transaction] => stdClass Object
+        (
+            [id] => txn_19uPYoBJpROLvqFxWIvd2tev
+            [object] => balance_transaction
+            [amount] => 74
+            [available_on] => 1489363200
+            [created] => 1488821030
+            [currency] => usd
+            [description] => Kitt - Order 1558
+            [fee] => 32
+            [fee_details] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [amount] => 32
+                            [application] => 
+                            [currency] => usd
+                            [description] => Stripe processing fees
+                            [type] => stripe_fee
+                        )
+
+                )
+
+            [net] => 42
+            [source] => ch_19uPYoBJpROLvqFx0qeAXl0Z
+            [sourced_transfers] => stdClass Object
+                (
+                    [object] => list
+                    [data] => Array
+                        (
+                        )
+
+                    [has_more] => 
+                    [total_count] => 0
+                    [url] => /v1/transfers?source_transaction=ch_19uPYoBJpROLvqFx0qeAXl0Z
+                )
+
+            [status] => pending
+            [type] => charge
+        )
+
+    [captured] => 1
+    [created] => 1488821030
+    [currency] => jpy
+    [customer] => 
+    [description] => Kitt - Order 1558
+    [destination] => 
+    [dispute] => 
+    [failure_code] => 
+    [failure_message] => 
+    [fraud_details] => stdClass Object
+        (
+        )
+
+    [invoice] => 
+    [livemode] => 
+    [metadata] => stdClass Object
+        (
+        )
+
+    [on_behalf_of] => 
+    [order] => 
+    [outcome] => stdClass Object
+        (
+            [network_status] => approved_by_network
+            [reason] => 
+            [risk_level] => normal
+            [seller_message] => Payment complete.
+            [type] => authorized
+        )
+
+    [paid] => 1
+    [receipt_email] => 
+    [receipt_number] => 
+    [refunded] => 
+    [refunds] => stdClass Object
+        (
+            [object] => list
+            [data] => Array
+                (
+                )
+
+            [has_more] => 
+            [total_count] => 0
+            [url] => /v1/charges/ch_19uPYoBJpROLvqFx0qeAXl0Z/refunds
+        )
+
+    [review] => 
+    [shipping] => 
+    [source] => stdClass Object
+        (
+            [id] => card_19uPYlBJpROLvqFxoekPvnVU
+            [object] => card
+            [address_city] => Thanh xuân
+            [address_country] => JP
+            [address_line1] => 22 vũ hữu
+            [address_line1_check] => pass
+            [address_line2] => 
+            [address_state] => JP13
+            [address_zip] => 100-0001
+            [address_zip_check] => pass
+            [brand] => Visa
+            [country] => US
+            [customer] => 
+            [cvc_check] => pass
+            [dynamic_last4] => 
+            [exp_month] => 2
+            [exp_year] => 2019
+            [fingerprint] => 46Evt4abaaKcdMk0
+            [funding] => credit
+            [last4] => 4242
+            [metadata] => stdClass Object
+                (
+                )
+
+            [name] => Tran Thang
+            [tokenization_method] => 
+        )
+
+    [source_transfer] => 
+    [statement_descriptor] => 
+    [status] => succeeded
+    [transfer_group] => 
+)
+
+03-07-2017 @ 02:23:51 - Success: Stripe charge complete (Charge ID: ch_19uPYoBJpROLvqFx0qeAXl0Z)

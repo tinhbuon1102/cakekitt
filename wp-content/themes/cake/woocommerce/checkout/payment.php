@@ -29,7 +29,7 @@ if ( ! is_ajax() ) {
 			<?php
 				if ( ! empty( $available_gateways ) ) {
 					foreach ( $available_gateways as $gatewayName => $gateway ) {
-						if ($gatewayName !== 'bacs') continue;
+						if ($gatewayName !== 'other_payment') continue;
 						
 						wc_get_template( 'checkout/payment-method.php', array( 'gateway' => $gateway ) );
 					}

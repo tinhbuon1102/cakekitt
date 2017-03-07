@@ -285,6 +285,97 @@ Text Domain: cake
   content: "\e930";
 }
 
+@font-face {
+  font-family: 'icomoon3';
+  src:  url('fonts/icomoon3.eot?35a2j5');
+  src:  url('fonts/icomoon3.eot?35a2j5#iefix') format('embedded-opentype'),
+    url('fonts/icomoon3.ttf?35a2j5') format('truetype'),
+    url('fonts/icomoon3.woff?35a2j5') format('woff'),
+    url('fonts/icomoon3.svg?35a2j5#icomoon3') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="iconkitt-"], [class*=" iconkitt-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon3' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.iconkitt-kitt_icons_cake-size:before {
+  content: "\e900";
+}
+.iconkitt-kitt_icons_cakesize:before {
+  content: "\e901";
+}
+.iconkitt-kitt_icons_caketopper:before {
+  content: "\e902";
+}
+.iconkitt-kitt_icons_candy:before {
+  content: "\e903";
+}
+.iconkitt-kitt_icons_cheese:before {
+  content: "\e904";
+}
+.iconkitt-kitt_icons_chocolate:before {
+  content: "\e905";
+}
+.iconkitt-kitt_icons_cupcake:before {
+  content: "\e906";
+}
+.iconkitt-kitt_icons_figure:before {
+  content: "\e907";
+}
+.iconkitt-kitt_icons_flower:before {
+  content: "\e908";
+}
+.iconkitt-kitt_icons_fruit:before {
+  content: "\e909";
+}
+.iconkitt-kitt_icons_heartchoco:before {
+  content: "\e90a";
+}
+.iconkitt-kitt_icons_icingcookie:before {
+  content: "\e90b";
+}
+.iconkitt-kitt_icons_macaron:before {
+  content: "\e90c";
+}
+.iconkitt-kitt_icons_msg-plate:before {
+  content: "\e90d";
+}
+.iconkitt-kitt_icons_print:before {
+  content: "\e90e";
+}
+.iconkitt-kitt_icons_shape-custom:before {
+  content: "\e90f";
+}
+.iconkitt-kitt_icons_shape-heart:before {
+  content: "\e910";
+}
+.iconkitt-kitt_icons_shape-square:before {
+  content: "\e911";
+}
+.iconkitt-kitt_icons_shape-star:before {
+  content: "\e912";
+}
+.iconkitt-kitt_icons_shortcake:before {
+  content: "\e913";
+}
+.iconkitt-kitt_icons_sugarcoating:before {
+  content: "\e914";
+}
+
+
 .bebas {
     font-family: bebas_neue_regularregular;
 }
