@@ -126,6 +126,8 @@ $(function(){
 	        $('html, body').animate({
                 scrollTop: $('form#omOrder').offset().top - $('.navbar-brand-cake').outerHeight() - 32
             }, 500);
+	        
+	        $('body').trigger('resize');
 		});
 		
     	
