@@ -272,7 +272,7 @@ function cake_steps_store(){
 		{
 			foreach ($_SESSION['cake_custom_order_step_' . $i] as $fieldName => $fieldValue)
 			{
-				if (strpos($fieldName, 'custom_order_') === false) continue;
+				if (strpos($fieldName, 'custom_order_') === false) continue; 
 				
 				$fieldValue = is_array($fieldMapping[$fieldName]['value'][$fieldValue]) ? $fieldMapping[$fieldName]['value'][$fieldValue] : (is_array($fieldMapping[$fieldName]['value']) ? $fieldMapping[$fieldName]['value'][$fieldValue] : $fieldValue);
 				if (in_array($fieldName, $aCartShowingItems))
