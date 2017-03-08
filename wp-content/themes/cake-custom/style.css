@@ -8,24 +8,15 @@
     opacity: 0;
     height: 0;
 } 
- 
-/*.formError .formErrorContent {
-	min-width: 250px !important;
-}
 
 #cake_upload_preview {
 	max-width: 250px;
 	margin-bottom: 20px;
+
 }
+
+.esg-cc .eg-washington-element-0-a {margin: 0 auto !important;}
+.esg-cc .eg-washington-element-1-a {display: none !important;}
 @media only screen and (max-width: 768px)
 {
-	div.formError {
-    	left: 130px !important;
-	}
-	.formError .formErrorContent {
-		min-width: 170px !important;
-	}
 }
-#fixwh-inner{
-	    height: 116px!important;
-}*/
