@@ -311,7 +311,7 @@ Text Domain: cake
   -moz-osx-font-smoothing: grayscale;
 }
 
-.iconkitt-kitt_icons_cake-size:before {
+.iconkitt-kitt_icons_cake-size,.iconkitt-kitt_icons_cake-size:before {
   content: "\e900";
 }
 .iconkitt-kitt_icons_cakesize:before {
