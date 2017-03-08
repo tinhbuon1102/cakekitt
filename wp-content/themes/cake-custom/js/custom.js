@@ -121,13 +121,13 @@ jQuery(".ordercake-cart-sidebar-container").pinBox({
 	});
 	
     // shape icons
-	jQuery('.cake_shape_round i').addClass('iconkitt-kitt_icons_cake-size');
+	jQuery('.cake_shape_round i').addClass('iconkitt-kitt_icons_cake-round');
 	jQuery('.cake_shape_square i').addClass('iconkitt-kitt_icons_shape-square');
 	jQuery('.cake_shape_heart i').addClass('iconkitt-kitt_icons_shape-heart');
 	jQuery('.cake_shape_star i').addClass('iconkitt-kitt_icons_shape-star');
-	jQuery('.cake_shape_other i').addClass('iconkitt-kitt_icons_shape-custom');
+	jQuery('.cake_shape_custom i').addClass('iconkitt-kitt_icons_shape-custom');
 	//flavor icons
-	jQuery('.cake_flavor_short i').addClass('iconkitt-kitt_icons_shortcake');
+	jQuery('.cake_flavor_shortcake i').addClass('iconkitt-kitt_icons_shortcake');
 	jQuery('.cake_flavor_chocolate i').addClass('iconkitt-kitt_icons_chocolate');
 	jQuery('.cake_flavor_cheese i').addClass('iconkitt-kitt_icons_cheese');
 
