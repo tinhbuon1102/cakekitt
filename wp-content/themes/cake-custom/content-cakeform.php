@@ -1,5 +1,7 @@
 <?php 
-// pr($_POST);die;
+// Reset session form 
+$_SESSION['cake_custom_order'] = array();
+
 if ($_POST['submit'] && $_POST['confirmed'] == 'ok')
 {
 	// Store form data
@@ -59,7 +61,7 @@ $field_mappings = getCustomFormFieldMapping();
 							?>	
 								<?php foreach ( $terms as $term_index => $term ) { ?>
 									<li class="m-input__radio">
-										<input type="radio" name="custom_order_cake_type" id="<?php echo $term->slug?>" class="radio_input" value="<?php echo $term->slug?>" <?php //echo $term_index == 0 ? 'checked' : ''?> >
+										<input type="radio" name="custom_order_cake_type" id="<?php echo $term->slug?>" class="radio_input validate[required]" value="<?php echo $term->slug?>" <?php //echo $term_index == 0 ? 'checked' : ''?> >
 										<label for="<?php echo $term->slug?>" class="js-fixHeightChildText radio_label <?php echo $term->slug?>">
 											<div class="radio_option radio_size">
 												<div class="radio_img rounded">
@@ -100,7 +102,7 @@ $field_mappings = getCustomFormFieldMapping();
 								$cake_shape_index ++;
 							?>
 								<li class="m-input__radio">
-									<input type="radio" name="custom_order_cake_shape" id="cake_shape_<?php echo $value?>" class="radio_input" <?php echo $field_mappings['custom_order_cake_shape']['field']['default_value'] == $value || (!$field_mappings['custom_order_cake_shape']['field']['default_value'] && $index == 1)  ? '' : ''?> value="<?php echo $value?>">
+									<input type="radio" name="custom_order_cake_shape" id="cake_shape_<?php echo $value?>" class="radio_input validate[required]" <?php echo $field_mappings['custom_order_cake_shape']['field']['default_value'] == $value || (!$field_mappings['custom_order_cake_shape']['field']['default_value'] && $index == 1)  ? '' : ''?> value="<?php echo $value?>">
 									<label for="cake_shape_<?php echo $value?>" class="js-fixHeightChildText radio_label cake_shape_<?php echo $value?>">
                                     <div id="fixwh-inner">
 										<div class="radio_option radio_size">
@@ -222,12 +224,12 @@ $field_mappings = getCustomFormFieldMapping();
 						</h4>
 						<ul class="cake-decorate text-radio list-type row">
 							<?php 
-							$index = 0;
+							$indexDecorate = 0;
 							foreach ($field_mappings['custom_order_cake_decorate']['value'] as $value => $label) {
-								$index ++;
+								$indexDecorate ++;
 							?>
 								<li class="m-input__checkbox col-md-4">
-									<input type="checkbox" name="custom_order_cake_decorate[<?php echo $index - 1?>]" id="<?php echo $value?>" class="check_input checkbox_input labelauty has_subop" value="<?php echo $value?>" aria-label="<?php echo $label?>" data-labelauty="<?php echo $label?>">
+									<input type="checkbox" name="custom_order_cake_decorate[<?php echo $indexDecorate - 1?>]" id="<?php echo $value?>" class="check_input checkbox_input labelauty has_subop" value="<?php echo $value?>" aria-label="<?php echo $label?>" data-labelauty="<?php echo $label?>">
 									<!--<label for="<?php echo $value?>" class="js-fixHeightChildText checkbox_label <?php echo $value?>">
 										<div class="check_option check_size">
 											<h5 class="js-fixHeightChildTitle check_option_caption">
@@ -236,7 +238,7 @@ $field_mappings = getCustomFormFieldMapping();
 										</div>
 									</label>-->
 									
-									<?php if ($value == 'cake_decorate_01') {?>
+									<?php if ($value == 'icingcookie') {?>
 									<div id="optionbox01" class="suboption_box disable">
 										<div class="sub_form">
 										<div class="select-wrapper">
@@ -260,7 +262,7 @@ $field_mappings = getCustomFormFieldMapping();
 									</div>
 									<?php }?>
 									
-									<?php if ($value == 'cake_decorate_02') {?>
+									<?php if ($value == 'cupcake') {?>
 									<div id="optionbox02" class="suboption_box disable">
 										<div class="sub_form">
 											<div class="select-wrapper">
@@ -285,7 +287,7 @@ $field_mappings = getCustomFormFieldMapping();
 									</div>
 									<?php }?>
 									
-									<?php if ($value == 'cake_decorate_03') {?>
+									<?php if ($value == 'macaron') {?>
 									<div id="optionbox03" class="suboption_box disable">
 										<div class="sub_form">
 											
@@ -330,7 +332,7 @@ $field_mappings = getCustomFormFieldMapping();
 									</div>
 									<?php }?>
 									
-									<?php if ($value == 'cake_decorate_06') {?>
+									<?php if ($value == 'flower') {?>
 									<div id="optionbox06" class="suboption_box disable">
 										<div class="sub_form">
 											<span class="option_label">色</span>
@@ -357,7 +359,7 @@ $field_mappings = getCustomFormFieldMapping();
 										</div>
 									</div>
 									<?php }?>
-									<?php if ($value == 'cake_decorate_07') {?>
+									<?php if ($value == 'print') {?>
 									<div id="optionbox07" class="suboption_box disable">
 										<div class="sub_form">
 											<div class="viewimage"></div>
@@ -367,7 +369,7 @@ $field_mappings = getCustomFormFieldMapping();
 									</div>
 									<?php }?>
 									
-									<?php if ($value == 'cake_decorate_08') {?>
+									<?php if ($value == 'candy') {?>
 									<div id="optionbox08" class="suboption_box disable">
 										<div class="sub_form">
 											<span class="option_label">デザイン</span>
@@ -376,7 +378,7 @@ $field_mappings = getCustomFormFieldMapping();
 									</div>
 									<?php }?>
 									
-									<?php if ($value == 'cake_decorate_09') {?>
+									<?php if ($value == 'figure') {?>
 									<div id="optionbox09" class="suboption_box disable">
 										<div class="sub_form">
 											<span class="option_label">デザイン</span>
@@ -617,7 +619,7 @@ $field_mappings = getCustomFormFieldMapping();
 					<img src="<?php bloginfo('template_directory'); ?>/images/form/ordersheet.png" width="80">
 					<h5 class="mt-2 text-ppink heading-uppercase">No details yet</h5>
 				</div>
-				<div class="border-top pt-3 mt-3 panel__full-width-item heading-uppercase disable">
+				<div class="border-top pt-3 mt-3 panel__full-width-item heading-uppercase disable" id="cart_total">
 					<div class="row">
 						<div class="col-md-8 columns text-gray"><h4>Estimation</h4></div>
 						<div class="col-md-4 columns text-green text-right"><h4>¥6,500</h4></div>

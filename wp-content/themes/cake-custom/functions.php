@@ -246,12 +246,42 @@ function handle_file_upload(){
 	die();
 }
 
+function cakeFormClassMapping(){
+	return array(
+		'custom_order_cake_shape' => array(
+			'round' => 'iconkitt-kitt_icons_shape-round', 
+			'square' => 'iconkitt-kitt_icons_shape-square',
+			'heart' => 'iconkitt-kitt_icons_shape-heart',
+			'star' => 'iconkitt-kitt_icons_shape-star',
+			'dorm' => 'iconkitt-kitt_icons_shape-dorm',
+			'other' => 'iconkitt-kitt_icons_shape-custom',
+		),
+		'custom_order_cakeflavor' => array(
+			'short' => 'iconkitt-kitt_icons_shortcake',
+			'chocolate' => 'iconkitt-kitt_icons_chocolate',
+			'cheese' => 'iconkitt-kitt_icons_cheese',
+		),
+		'custom_order_cake_decorate' => array(
+			'cake_decorate_01' => 'iconkitt-kitt_icons_icingcookie',
+			'cake_decorate_02' => 'iconkitt-kitt_icons_cupcake',
+			'cake_decorate_03' => 'iconkitt-kitt_icons_macaron',
+			'cake_decorate_04' => 'iconkitt-kitt_icons_heartchoco',
+			'cake_decorate_05' => 'iconkitt-kitt_icons_fruit',
+			'cake_decorate_06' => 'iconkitt-kitt_icons_flower',
+			'cake_decorate_07' => 'iconkitt-kitt_icons_print',
+			'cake_decorate_08' => 'iconkitt-kitt_icons_candy',
+			'cake_decorate_09' => 'iconkitt-kitt_icons_figure',
+			'cake_decorate_10' => 'iconkitt-kitt_icons_sugarcoating',
+		),
+	);
+}
+
 // action for Cake store step form data
 add_action('wp_ajax_nopriv_cake_steps_store', 'cake_steps_store');
 add_action('wp_ajax_cake_steps_store', 'cake_steps_store');
 function cake_steps_store(){
-	$_SESSION['cake_custom_order_step_' . $_POST['step']] = $_POST;
-	$_SESSION['cake_custom_order'] = array();
+	$_SESSION['cake_custom_order'] = isset($_SESSION['cake_custom_order']) ? $_SESSION['cake_custom_order'] : array();
+	$_SESSION['cake_custom_order'][$_POST['step']] = $_POST;
 	
 	$aResponse = array();
 	
@@ -266,119 +296,131 @@ function cake_steps_store(){
 	);
 	$cartHtml = '';
 	$fieldMapping = getCustomFormFieldMapping();
-	for ($i=1; $i <= 10; $i ++)
+	foreach ( $_SESSION['cake_custom_order'] as $step => $cakeStepData )
 	{
-		if (isset($_SESSION['cake_custom_order_step_' . $i]))
+		foreach ( $cakeStepData as $fieldName => $fieldValue )
 		{
-			foreach ($_SESSION['cake_custom_order_step_' . $i] as $fieldName => $fieldValue)
+			if ( strpos($fieldName, 'custom_order_') === false ) continue;
+			
+			if ( in_array($fieldName, $aCartShowingItems) )
 			{
-				if (strpos($fieldName, 'custom_order_') === false) continue; 
-				
-				$fieldValue = is_array($fieldMapping[$fieldName]['value'][$fieldValue]) ? $fieldMapping[$fieldName]['value'][$fieldValue] : (is_array($fieldMapping[$fieldName]['value']) ? $fieldMapping[$fieldName]['value'][$fieldValue] : $fieldValue);
-				if (in_array($fieldName, $aCartShowingItems))
+				$fieldLabel = is_array($fieldMapping[$fieldName]['value']) ? $fieldMapping[$fieldName]['value'][$fieldValue] : $fieldValue;
+				switch ( $fieldName )
 				{
-					switch ($fieldName)
-					{
-						case 'custom_order_cake_type':
-							$cakeTypeIndex = array_search($fieldValue, array_values((array)$fieldMapping[$fieldName]['value']));
-							$term_id = $fieldMapping[$fieldName]['field'][$cakeTypeIndex]->term_id;
-							
-							$attachment_id   = get_option('categoryimage_'.$term_id);
-							$src = wp_get_attachment_image_src($attachment_id, 'thumbnail', false);
-							
-							$cakeTypeImg = WPCustomCategoryImage::get_category_image(array(
-								'term_id' => $term_id,
-								'size'    => 'thumbnail',
-							));
-							$cartHtml .= '
-							<h5 class="detail-row pt-1 pb-1" id="cart_'.$fieldName.'">
+					case 'custom_order_cake_type':
+						$cakeTypeIndex = array_search($fieldValue, array_values((array) $fieldMapping[$fieldName]['value']));
+						$term_id = $fieldMapping[$fieldName]['field'][$cakeTypeIndex]->term_id;
+						
+						$attachment_id = get_option('categoryimage_' . $term_id);
+						$src = wp_get_attachment_image_src($attachment_id, 'thumbnail', false);
+						
+						$cakeTypeImg = WPCustomCategoryImage::get_category_image(array(
+							'term_id' => $term_id,
+							'size' => 'thumbnail'
+						));
+						$cartHtml .= '
+							<h5 class="detail-row pt-1 pb-1" id="cart_' . $fieldName . '">
 								<span class="display-table-cell pr-2 cake-type-img">
-									<span class="round-cut"><img src="'. $src[0] .'" class="cake-row__img sb-1" /></span>
+									<span class="round-cut"><img src="' . $src[0] . '" class="cake-row__img sb-1" /></span>
 								</span>
-								<span class="display-table-cell width-full cake-type-name">'.$fieldValue.'</span>
+								<span class="display-table-cell width-full cake-type-name">' . $fieldLabel . '</span>
 							</h5>';
-							break;
-						case 'custom_order_cake_shape':
-							// Get shape size
-							$cakeSize = $_SESSION['cake_custom_order_step_' . $i]['custom_order_cakesize_round'] ? $_SESSION['cake_custom_order_step_' . $i]['custom_order_cakesize_round'] : $_SESSION['cake_custom_order_step_' . $i]['custom_order_cakesize_square'];
-							$cartHtml .= '
-							<h5 class="detail-row pt-1 pb-1" id="cart_'.$fieldName.'">
-								<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_cake-size size30 blk"></i></span>
-								<span class="display-table-cell width-full cake-shape-name">'.$fieldValue.' / '.$cakeSize.'</span>
+						break;
+					case 'custom_order_cake_shape':
+						// Get shape size
+						$cakeSize = $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_round'] ? $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_round'] : $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_square'];
+						$cartHtml .= '
+							<h5 class="detail-row pt-1 pb-1" id="cart_' . $fieldName . '">
+								<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_shape-'.$fieldName.' size30 blk"></i></span>
+								<span class="display-table-cell width-full cake-shape-name">' . $fieldLabel . ' / ' . $cakeSize . '</span>
 								<span class="display-table-cell price-value pr-5 cake-shape-price">¥4,000</span>
 							</h5>';
-							break;
-						case 'custom_order_cakeflavor':
-							$cartHtml .= '
-							<h5 class="detail-row pt-1 pb-1" id="cart_'.$fieldName.'">
-								<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_shortcake size30 blk"></i></span>
-								<span class="display-table-cell width-full cake-flavor-name">'.$fieldValue.'</span>
+						break;
+					case 'custom_order_cakeflavor':
+						$cartHtml .= '
+							<h5 class="detail-row pt-1 pb-1" id="cart_' . $fieldName . '">
+								<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_'.$fieldName.' size30 blk"></i></span>
+								<span class="display-table-cell width-full cake-flavor-name">' . $fieldLabel . '</span>
 							</h5>';
-							break;
-						case 'custom_order_cakecolor':
-							$cartHtml .= '
-							<h5 class="detail-row pt-1 pb-1 disable" id="cart_'.$fieldName.'">
-								<span class="display-table-cell pr-2"><span class="color-choice" style="background:#55402b;"></span></span>
-								<span class="display-table-cell width-full cake-color-name">'. $fieldValue .'</span>
+						break;
+					case 'custom_order_cakecolor':
+						$cartHtml .= '
+							<h5 class="detail-row pt-1 pb-1" id="cart_' . $fieldName . '">
+								<span class="display-table-cell pr-2"><span class="color-choice head-custom clolor'.$fieldValue.'"></span></span>
+								<span class="display-table-cell width-full cake-color-name">' . $fieldLabel . '</span>
 							</h5>';
-							break;
-						case 'custom_order_cake_decorate':
-							break;
-						case 'custom_order_msgplate':
-							break;
-					}
+						break;
+					case 'custom_order_cake_decorate':
+						foreach ( $fieldValue as $keyDecorate => $decorate )
+						{
+							$cartHtml .= '
+								<div class="options option-rows">
+				                    <span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_'.$decorate.' size30 blk"></i></span>
+									<span class="display-table-cell width-full">' . @$fieldMapping[$fieldName]['value'][$decorate] . '</span>
+									<span class="display-table-cell pr-2 price-value">¥300</span>
+									<span class="display-table-cell"><button class="cake-row__remove sb-2" data-pie-cart-remove="'.$decorate.'">×</button></span>
+								</div>';
+						}
+						break;
+					case 'custom_order_msgplate':
+							$cartHtml .= '
+								<h5 class="detail-row pt-1 pb-1">
+									<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_msg-plate size30 blk"></i></span>
+									<span class="display-table-cell width-full">'.$fieldLabel.'</span>
+									<span class="display-table-cell pr-5 price-value">FREE</span>
+								</h5>';
+						break;
 				}
 			}
 		}
-	$aResponse['cart_html'] = $cartHtml;
 	}
+	$aResponse['cart_html'] = $cartHtml;
 		
 	// Show COnfirmation page
 	if ($_POST['step'] == 3)
 	{
 		$fieldMapping = getCustomFormFieldMapping();
 		$divRow = '';
-		for ($i=1; $i <= 10; $i ++)
+		foreach ( $_SESSION['cake_custom_order'] as $step => $cakeStepData )
 		{
-			if (isset($_SESSION['cake_custom_order_step_' . $i]))
+			foreach ( $cakeStepData as $fieldName => $fieldValue )
 			{
-				foreach ($_SESSION['cake_custom_order_step_' . $i] as $fieldName => $fieldValue)
+				if ( $fieldName == 'custom_order_pickup_time' )
 				{
-					if ($fieldName == 'custom_order_pickup_time')
+					$fieldValue = $fieldValue < 12 ? $fieldValue . ' AM' : $fieldValue . ' PM';
+				}
+				// If field name has text custom_order_ will be show
+				if ( strpos($fieldName, 'custom_order_') !== false )
+				{
+					$fieldValues = (array) $fieldValue;
+					foreach ( $fieldValues as $fieldValue )
 					{
-						$fieldValue = $fieldValue < 12 ? $fieldValue . ' AM' : $fieldValue . ' PM';
-					}
-					// If field name has text custom_order_ will be show
-					if (strpos($fieldName, 'custom_order_') !== false)
-					{
-						$fieldValues = (array)$fieldValue;
-						foreach ($fieldValues as $fieldValue)
+						$divRow .= '<div class="row">';
+						
+						$divRow .= '<div class="col-md-5 pt-md-5 pt-sm-6 pb-sm-5">';
+						$divRow .= $fieldName == 'custom_order_cake_type' ? __('Cake Type', 'cake') : $fieldMapping[$fieldName]['field']['label'];
+						$divRow .= '</div>';
+						
+						$divRow .= '<div class="col-md-7 pt-md-7 pt-sm-6 pb-sm-7">';
+						if ( 'custom_order_cakePic' == $fieldName )
 						{
-							$divRow .= '<div class="row">';
-								
-							$divRow .= '<div class="col-md-5 pt-md-5 pt-sm-6 pb-sm-5">';
-							$divRow .= $fieldName == 'custom_order_cake_type' ? __('Cake Type', 'cake') : $fieldMapping[$fieldName]['field']['label'];
-							$divRow .= '</div>';
-		
-							$divRow .= '<div class="col-md-7 pt-md-7 pt-sm-6 pb-sm-7">';
-							if ('custom_order_cakePic' == $fieldName)
+							$upload_dir = wp_upload_dir();
+							
+							$temp_folder = $upload_dir['baseurl'] . '/temp/';
+							
+							if ( $fieldValue )
 							{
-								$upload_dir = wp_upload_dir();
-								
-								$temp_folder = $upload_dir['baseurl'] . '/temp/';
-								
-								if ($fieldValue) {
-									$fieldValue = $temp_folder . $fieldValue;
-								}
-								$divRow .= '<img style="max-width: 300px;" src="'. $fieldValue .'" />';
+								$fieldValue = $temp_folder . $fieldValue;
 							}
-							else {
-								$divRow .= is_array($fieldMapping[$fieldName]['value'][$fieldValue]) ? $fieldMapping[$fieldName]['value'][$fieldValue] : (is_array($fieldMapping[$fieldName]['value']) ? $fieldMapping[$fieldName]['value'][$fieldValue] : $fieldValue);
-							}
-							$divRow .= '</div>';
-		
-							$divRow .= '</div>';
+							$divRow .= '<img style="max-width: 300px;" src="' . $fieldValue . '" />';
 						}
+						else
+						{
+							$divRow .= is_array($fieldMapping[$fieldName]['value'][$fieldValue]) ? $fieldMapping[$fieldName]['value'][$fieldValue] : (is_array($fieldMapping[$fieldName]['value']) ? $fieldMapping[$fieldName]['value'][$fieldValue] : $fieldValue);
+						}
+						$divRow .= '</div>';
+						
+						$divRow .= '</div>';
 					}
 				}
 			}
@@ -433,17 +475,15 @@ function storeOrderCustomToDB(){
 	update_post_meta( $post_id, '_stock', "" );
 	
 	$aData = array();
-	for ($i=1; $i <= 10; $i ++)
+	foreach ( $_SESSION['cake_custom_order'] as $step => $cakeStepData )
 	{
-		if (isset($_SESSION['cake_custom_order_step_' . $i]))
+		foreach ( $cakeStepData as $fieldName => $fieldValue )
 		{
-			foreach ($_SESSION['cake_custom_order_step_' . $i] as $fieldName => $fieldValue)
+			if ( strpos($fieldName, 'custom_order_') !== false )
 			{
-				if (strpos($fieldName, 'custom_order_') !== false) {
-					$aData[$fieldName] = $fieldValue;
-					// Add form data to product meta
-					update_post_meta( $post_id, $fieldName, $fieldValue  );
-				}
+				$aData[$fieldName] = $fieldValue;
+				// Add form data to product meta
+				update_post_meta($post_id, $fieldName, $fieldValue);
 			}
 		}
 	}

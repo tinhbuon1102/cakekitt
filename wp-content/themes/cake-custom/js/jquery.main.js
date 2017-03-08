@@ -52,11 +52,12 @@ $(function(){
     	var divCurrentStep = 'form#omOrder .step_wraper[data-step="'+ (currentStepActive) +'"]';
     	order_form_data = $(divCurrentStep + ' input:visible, '+ divCurrentStep +' select:visible, '+ divCurrentStep +' textarea:visible, '+ divCurrentStep +' input[type="hidden"]').serialize();
     	order_form_data += '&action=cake_steps_store&step=' + currentStepActive
+    	
     	var validate = $("form#omOrder").validationEngine('validate');
-		//var validate = $("form#omOrder").validationEngine({promptPosition: 'inline'});
 		var checkecaketype = $("input:radio[name='custom_order_cake_type']").is(':checked')
 		var checkcakeshape = $("input:radio[name='custom_order_cake_shape']").is(':checked')
-    	if (validate && checkecaketype || checkcakeshape)
+		
+    	if (validate && (checkecaketype || checkcakeshape))
     	{
     		$('form#omOrder .step_wraper').slideUp();
     		$('form#omOrder .step_wraper[data-step="'+ (currentStepActive + 1) +'"]').slideDown(function(){
@@ -92,9 +93,12 @@ $(function(){
                     	{
                     		$('.cake-cart-sidebar #cart_items').append(response.cart_html);
                     		$('#cart_empty_block').addClass('disable');
+                    		$('#cart_total').removeClass('disable');
+                    		
                     	}
                     	else {
                     		$('#cart_empty_block').removeClass('disable');
+                    		$('#cart_total').addClass('disable');
                     	}
                     	
                     	if (currentStepActive == 3)
