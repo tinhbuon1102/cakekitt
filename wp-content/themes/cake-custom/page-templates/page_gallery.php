@@ -64,7 +64,7 @@ $field_mappings = getCustomFormFieldMapping();
 							}
 						});
 
-						$('div.esgbox-title').append('<a href="<?php echo site_url()?>/order-made-form?type='+selectedCat+'" class="button gallery_type_btn">Go</a>');
+						$('div.esgbox-title').append('<a href="<?php echo site_url()?>/order-made-form?type='+selectedCat+'" class="gallery_type_btn"><input class="cdo-button" type="button" value="<?php echo esc_html__('Buy this', 'cake')?>"></a>');
 						clearInterval(imgBtnInterval);
 						imgBtnInterval = null;
 					}
