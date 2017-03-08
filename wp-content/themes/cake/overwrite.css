@@ -233,13 +233,13 @@ div#wcSec {
     padding: 0;
 }
 div#omcSec .omc_img {
-background: url(http://kitt-sweets.jp/wordpress/wp-content/uploads/2016/06/bg_omcsec.jpg);
+background: url(http://kitt-sweets.jp/wp-content/uploads/2016/06/bg_omcsec.jpg);
 background-position: center top;
 background-size: cover;
 min-height: 520px;
 }
 div#wcSec .omc_img {
-background: url(http://kitt-sweets.jp/wordpress/wp-content/uploads/2016/06/bg_wcsec.jpg);
+background: url(http://kitt-sweets.jp/wp-content/uploads/2016/06/bg_wcsec.jpg);
 background-position: center bottom;
 background-size: cover;
 min-height: 480px;
