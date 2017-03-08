@@ -402,10 +402,6 @@ function cake_steps_store(){
 	echo json_encode($aResponse);die;
 }
 
-add_action('essgrid_output_grid_javascript_custom', 'essgrid_output_grid_javascript_cake_custom');
-function essgrid_output_grid_javascript_cake_custom()
-{
-}
 function storeOrderCustomToDB(){
 	// Create Custom Product
 	$post = array(
@@ -592,7 +588,8 @@ function my_custom_field_save ( $post_id )
 function create_post_type() {
   $cakeGallery = [  // supports のパラメータを設定する配列（初期値だと title と editor のみ投稿画面で使える）
     'thumbnail',  // アイキャッチ画像
-    'revisions'  // リビジョン
+    'revisions',  // リビジョン
+  	'title',
   ];
   register_post_type( 'cakegal',  // カスタム投稿名
     array(

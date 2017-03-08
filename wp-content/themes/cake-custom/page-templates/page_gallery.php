@@ -8,6 +8,13 @@
  */
 get_header(); ?>
 
+<?php 
+$field_mappings = getCustomFormFieldMapping();
+?>
+<script type="text/javascript">
+	var field_mappings = <?php echo json_encode($field_mappings)?>;
+</script>
+
 	<?php $col = cake_sidebar_page_position();?>
 	
 	<?php get_template_part('inc/page-header');?>
@@ -43,14 +50,25 @@ get_header(); ?>
 		var imgBtnInterval = null;
 		jQuery(function($){
 			$('body').on('click', '.esgbox', function() {
+				var esgbox = $(this);
 				imgBtnInterval = setInterval(function(){
 					if ($('div.esgbox-title').length)
 					{
-						$('div.esgbox-title').append('<a href="http://google.com" class="button gallery_type_btn">Go</a>');
+						var mulCats = esgbox.closest('li').attr('class').split(' ');
+						var selectedCat = '';
+						$.each(mulCats, function(index, catVal){
+							catVal = catVal.trim().replace('filter-', '');
+							if (field_mappings['custom_order_cake_type']['value'][catVal]){
+								selectedCat = catVal;
+								return false;
+							}
+						});
+
+						$('div.esgbox-title').append('<a href="<?php echo site_url()?>/order-made-form?type='+selectedCat+'" class="button gallery_type_btn">Go</a>');
 						clearInterval(imgBtnInterval);
 						imgBtnInterval = null;
 					}
-				}, 100);
+				}, 10);
 			});
 		});
 	</script> 

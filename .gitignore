@@ -1,5 +1,6 @@
 wp-snapshots
 backup
+wp-content/uploads/temp
 .settings
 .env
 .buildpath
