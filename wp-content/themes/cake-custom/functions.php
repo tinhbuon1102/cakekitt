@@ -246,36 +246,6 @@ function handle_file_upload(){
 	die();
 }
 
-function cakeFormClassMapping(){
-	return array(
-		'custom_order_cake_shape' => array(
-			'round' => 'iconkitt-kitt_icons_shape-round', 
-			'square' => 'iconkitt-kitt_icons_shape-square',
-			'heart' => 'iconkitt-kitt_icons_shape-heart',
-			'star' => 'iconkitt-kitt_icons_shape-star',
-			'dorm' => 'iconkitt-kitt_icons_shape-dorm',
-			'other' => 'iconkitt-kitt_icons_shape-custom',
-		),
-		'custom_order_cakeflavor' => array(
-			'short' => 'iconkitt-kitt_icons_shortcake',
-			'chocolate' => 'iconkitt-kitt_icons_chocolate',
-			'cheese' => 'iconkitt-kitt_icons_cheese',
-		),
-		'custom_order_cake_decorate' => array(
-			'cake_decorate_01' => 'iconkitt-kitt_icons_icingcookie',
-			'cake_decorate_02' => 'iconkitt-kitt_icons_cupcake',
-			'cake_decorate_03' => 'iconkitt-kitt_icons_macaron',
-			'cake_decorate_04' => 'iconkitt-kitt_icons_heartchoco',
-			'cake_decorate_05' => 'iconkitt-kitt_icons_fruit',
-			'cake_decorate_06' => 'iconkitt-kitt_icons_flower',
-			'cake_decorate_07' => 'iconkitt-kitt_icons_print',
-			'cake_decorate_08' => 'iconkitt-kitt_icons_candy',
-			'cake_decorate_09' => 'iconkitt-kitt_icons_figure',
-			'cake_decorate_10' => 'iconkitt-kitt_icons_sugarcoating',
-		),
-	);
-}
-
 // action for Cake store step form data
 add_action('wp_ajax_nopriv_cake_steps_store', 'cake_steps_store');
 add_action('wp_ajax_cake_steps_store', 'cake_steps_store');
@@ -331,7 +301,7 @@ function cake_steps_store(){
 						$cakeSize = $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_round'] ? $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_round'] : $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_square'];
 						$cartHtml .= '
 							<h5 class="detail-row pt-1 pb-1" id="cart_' . $fieldName . '">
-								<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_shape-'.$fieldName.' size30 blk"></i></span>
+								<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_shape-'.$fieldValue.' size30 blk"></i></span>
 								<span class="display-table-cell width-full cake-shape-name">' . $fieldLabel . ' / ' . $cakeSize . '</span>
 								<span class="display-table-cell price-value pr-5 cake-shape-price">¥4,000</span>
 							</h5>';
@@ -339,14 +309,14 @@ function cake_steps_store(){
 					case 'custom_order_cakeflavor':
 						$cartHtml .= '
 							<h5 class="detail-row pt-1 pb-1" id="cart_' . $fieldName . '">
-								<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_'.$fieldName.' size30 blk"></i></span>
+								<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_'.$fieldValue.' size30 blk"></i></span>
 								<span class="display-table-cell width-full cake-flavor-name">' . $fieldLabel . '</span>
 							</h5>';
 						break;
 					case 'custom_order_cakecolor':
 						$cartHtml .= '
 							<h5 class="detail-row pt-1 pb-1" id="cart_' . $fieldName . '">
-								<span class="display-table-cell pr-2"><span class="color-choice head-custom clolor'.$fieldValue.'"></span></span>
+								<span class="display-table-cell pr-2"><span class="color-choice head-custom color'.$fieldValue.'"></span></span>
 								<span class="display-table-cell width-full cake-color-name">' . $fieldLabel . '</span>
 							</h5>';
 						break;
