@@ -402,6 +402,10 @@ function cake_steps_store(){
 	echo json_encode($aResponse);die;
 }
 
+add_action('essgrid_output_grid_javascript_custom', 'essgrid_output_grid_javascript_cake_custom');
+function essgrid_output_grid_javascript_cake_custom()
+{
+}
 function storeOrderCustomToDB(){
 	// Create Custom Product
 	$post = array(

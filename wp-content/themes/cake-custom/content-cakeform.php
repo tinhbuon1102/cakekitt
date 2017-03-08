@@ -14,19 +14,19 @@ $field_mappings = getCustomFormFieldMapping();
 </script>
 <div class="col-md-12">
 	<div id="four_steps" class="steps">
-		<div class="step first">
+		<div class="step first" data-step="1">
 			<div class="circle">1</div>
 			<div class="text">STEP1</div>
 		</div>
-		<div class="step second">
+		<div class="step second" data-step="2">
 			<div class="circle">2</div>
 			<div class="text">STEP2</div>
 		</div>
-		<div class="step third">
+		<div class="step third" data-step="3">
 			<div class="circle">3</div>
 			<div class="text">STEP3</div>
 		</div>
-		<div class="step fourth">
+		<div class="step fourth" data-step="4">
 			<div class="circle">4</div>
 			<div class="text">STEP4</div>
 		</div>

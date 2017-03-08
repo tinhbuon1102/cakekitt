@@ -59,6 +59,10 @@ $(function(){
 		
     	if (validate && (checkecaketype || checkcakeshape))
     	{
+    		// Add current class for slide step
+    		$('#four_steps .step').removeClass('current');
+    		$('#four_steps .step[data-step="'+ (currentStepActive + 1) +'"]').addClass('current');
+    		
     		$('form#omOrder .step_wraper').slideUp();
     		$('form#omOrder .step_wraper[data-step="'+ (currentStepActive + 1) +'"]').slideDown(function(){
     			var percentComplete = currentStepActive == 3 ? 100 : (currentStepActive * 33);
@@ -68,7 +72,7 @@ $(function(){
                 $('#progress').css('width',widthComplete + 'px');
                 
                 $('html, body').animate({
-                    scrollTop: $('form#omOrder').offset().top - $('.navbar-brand-cake').outerHeight() - 32
+                    scrollTop: $('#four_steps').offset().top - $('.navbar-brand-cake').outerHeight() - 50
                 }, 500);
 				$('form.form-style-common .help-block').addClass('disable');
 				$('body').trigger('resize');
@@ -120,6 +124,11 @@ $(function(){
     	
     	var currentStepActive = $('form#omOrder .step_wraper:visible').data('step');
     	var changeStep = currentStepActive - 1;
+		
+		// Add current class for slide step
+		$('#four_steps .step').removeClass('current');
+		$('#four_steps .step[data-step="'+ (changeStep) +'"]').addClass('current');
+		
 		$('form#omOrder .step_wraper').slideUp();
 		$('form#omOrder .step_wraper[data-step="'+ (changeStep) +'"]').slideDown(function(){
 			var percentComplete = (changeStep - 1) * 33;
@@ -128,7 +137,7 @@ $(function(){
 	        $('#progress').css('width',widthComplete + 'px');
 	        
 	        $('html, body').animate({
-                scrollTop: $('form#omOrder').offset().top - $('.navbar-brand-cake').outerHeight() - 32
+                scrollTop: $('#four_steps').offset().top - $('.navbar-brand-cake').outerHeight() - 50
             }, 500);
 	        
 	        $('body').trigger('resize');

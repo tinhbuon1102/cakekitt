@@ -8,36 +8,50 @@
  */
 get_header(); ?>
 
+	<?php $col = cake_sidebar_page_position();?>
 	
-	<?php get_template_part('inc/page-header-original');	?>
+	<?php get_template_part('inc/page-header');?>
 
-	<div id="content-wrapper" class="page-original">
-	<div class="container expand">
-	
-			<div id="primary" class="content-area">
+	<div id="content-wrapper">
+	<div class="container">
+		<div class="row">
+			
+			<div id="primary" class="<?php echo esc_attr($col['colclass']); ?> content-area" style="<?php echo esc_attr($col['position']);?>">
 					<main id="main" class="site-main">
-					<?php query_posts('post_type=cakegal'); ?>
-<div class="container">
-<?php if(have_posts()): while(have_posts()): the_post(); ?>
-
-<div id="js-grid-mosaic-flat" class="cbp cbp-l-grid-mosaic-flat">
-
-<?php get_template_part( 'content', 'gallery' ); ?>
-
-</div>
-<?php endwhile; endif; ?>
-						</div>
 			
-						<?php //while ( have_posts() ) : the_post(); ?>
+						<?php while ( have_posts() ) : the_post(); ?>
 			
-							<?php //get_template_part( 'content', 'gallery' ); ?>
+							<?php get_template_part( 'content', 'page' ); ?>
 							
 										
-						<?php //endwhile; // end of the loop. ?>
+						<?php endwhile; // end of the loop. ?>
 			
 				</main><!-- #main -->
 			</div><!-- #primary -->
 			
+			<?php if($col['position']){ ?>
+			<div id="secondary" class="<?php echo esc_attr($col['colsidebar']);?> widget-area" role="complementary">
+				<?php get_sidebar(); ?>
+			</div><!-- #secondary -->
+			<?php } ?>
+			
+			
+		</div><!-- .row -->
 	</div><!-- .container -->
 	</div><!-- #content-wrapper -->
+	<script type="text/javascript">
+		var imgBtnInterval = null;
+		jQuery(function($){
+			$('body').on('click', '.esgbox', function() {
+				imgBtnInterval = setInterval(function(){
+					if ($('div.esgbox-title').length)
+					{
+						$('div.esgbox-title').append('<a href="http://google.com" class="button gallery_type_btn">Go</a>');
+						clearInterval(imgBtnInterval);
+						imgBtnInterval = null;
+					}
+				}, 100);
+			});
+		});
+	</script> 
 <?php get_footer(); ?>
