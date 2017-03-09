@@ -247,7 +247,7 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 			</td>
 			<td><?php echo showCakePrice($cakePrice['amount'])?></td>
 			<td class="attribute-actions">
-				<a href="edit.php?post_type=cakegal&page=cake-price-combination&delete=<?php echo (is_array($cakePrice['type']) ? implode('_', array_keys($cakePrice['type'])) .'__'. implode('_', $cakePrice['type']) : '');?>" class="location-add-rule button">Delete</a>
+				<a href="edit.php?post_type=cakegal&page=cake-price-combination&delete=<?php echo (is_array($cakePrice['type']) ? implode('_', array_keys($cakePrice['type'])) .'__'. implode('_', $cakePrice['type']) : '');?>" class="location-add-rule button delete_price">Delete</a>
 			</td>
 		</tr>
 		<?php }?>
@@ -256,9 +256,15 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 </div>
 <script type="text/javascript">
 	jQuery(function($){
-		//var validate = $("form.form_price").validationEngine('validate');
-		$(".form_price").validationEngine({promptPosition: 'inline', addFailureCssClassToField: "inputError", bindMethod:"live"});
+		$('body').on('click', '.delete_price', function(e){
+			e.preventDefault();
+			if (confirm('<?php echo __('Are you sure you want to delete this ?', 'cake')?>'))
+			{
+				location.href = $(this).attr('href');
+			}
+		});
 		
+		$(".form_price").validationEngine({promptPosition: 'inline', addFailureCssClassToField: "inputError", bindMethod:"live"});
 		$('body').on('change', '#acf-field-price-type_custom_order_cake_shape', function(){
 			
 			$('#acf-field-price-type_custom_order_cakesize_square').fadeOut();
