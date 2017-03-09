@@ -13,9 +13,12 @@ color: #000;
 :focus {
     outline: none;
 }
-.button, .input, .select {
+button, input, select, textarea, .button, .input, .select, .textarea {
     outline: none;
+	-webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
     -webkit-appearance: none;
+    -webkit-border-radius: 0
 }
 .button:focus, .input:focus, .select:focus, textarea:focus {
     outline: none;
@@ -23,6 +26,17 @@ color: #000;
 input[type="text"]:focus, input[type="tel"]:focus, input[type="email"]:focus {
 	border-color: rgbaa(233,159,188);
 	border-color: rgba(233,159,188,1);
+}
+.iconmoon3 {
+	font-family: 'icomoon3' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 .circle {
     border-radius: 50%;
@@ -422,10 +436,12 @@ h2.entry-title {
 .woocommerce div.product form.cart .variations .select-style.black.border-dark {
     color: #303030;
     display: inline-block;
-    margin-top: 20px;
     border-bottom: 1px solid #a7abad;
     max-width: 258px;
     width: 100%;
+}
+.select-style-variations {
+    margin-top: 20px;
 }
 .woocommerce div.product form.cart .variations .select-style.black:after {
     color: #a7abad;
@@ -449,12 +465,12 @@ h2.entry-title {
 }
 .woocommerce div.product form.cart div.quantity {
     float: none;
-    margin: 0;
+    margin: 0 5px 0 0;
+    display: inline-block;
 }
 .woocommerce div.product form.cart .button {
     vertical-align: middle;
     float: none;
-    margin-top: 40px;
     width: 100%;
     max-width: 258px;
     height: 58px;
@@ -473,12 +489,39 @@ h2.entry-title {
 .woocommerce-page .quantity input.qty {
     height: 38px;
     width: 38px!important;
+	line-height: 38px;
+    font-size: 16px;
     padding: 0;
     padding-left: 10px;
     text-align: center !important;
 }
-.varidation-label.pa_cake-size {
+.woocommerce-page .single_variation_wrap {
+    margin-top: 40px;
+}
+.label-variations.pa_cake-size {
     display: none;
+}
+.woocommerce div.product form.cart .variations .label-variations label {
+    font-weight: normal;
+    margin: 0;
+}
+.woocommerce div.product form.cart .variations .pa_cake-size.select-style:before {
+    content: "\e900";
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -14px;
+    font-size: 28px;
+    font-family: 'icomoon3' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 .woocommerce div.product form.cart {
     display: block;
