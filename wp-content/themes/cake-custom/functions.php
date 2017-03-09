@@ -277,7 +277,7 @@ function get_size_cake_shape_price() {
 		// Square
 		foreach ($fieldMapping['custom_order_cakesize_square']['value'] as $sizeKey => $sizeVal)
 		{
-			$priceKey = ('custom_order_cake_shape_custom_order_cakesize_round' . '__' . $shapeSelected . '_' . $sizeVal);
+			$priceKey = ('custom_order_cake_shape_custom_order_cakesize_square' . '__' . $shapeSelected . '_' . $sizeVal);
 			if (!isset($cakePrices[$priceKey]))
 			{
 				$html .= '<option value="'.$sizeKey.'">'.$sizeVal.'</option>';
