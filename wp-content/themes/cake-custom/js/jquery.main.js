@@ -89,6 +89,7 @@ $(function(){
                         		$('.cake-cart-sidebar #cart_items').append(response.cart_html);
                         		$('#cart_empty_block').addClass('disable');
                         		$('#cart_total').removeClass('disable');
+                        		$('#cart_total .text-right h4').html(response.cart_total);
                         		
                         	}
                         	else {

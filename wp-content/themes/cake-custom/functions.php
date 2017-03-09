@@ -246,6 +246,10 @@ function handle_file_upload(){
 	die();
 }
 
+function showCakePrice($price = 0){
+	$price = $price ? $price : 0;
+	return get_woocommerce_currency_symbol() . number_format($price, 0);
+}
 // action for Cake store step form data
 add_action('wp_ajax_nopriv_cake_steps_store', 'cake_steps_store');
 add_action('wp_ajax_cake_steps_store', 'cake_steps_store');
@@ -266,12 +270,15 @@ function cake_steps_store(){
 	);
 	$cartHtml = '';
 	$fieldMapping = getCustomFormFieldMapping();
+	$cakePrices = get_option('cake_custom_price');
+	$cartTotal = 0;
+	
 	foreach ( $_SESSION['cake_custom_order'] as $step => $cakeStepData )
 	{
 		foreach ( $cakeStepData as $fieldName => $fieldValue )
 		{
 			if ( strpos($fieldName, 'custom_order_') === false ) continue;
-			
+		
 			if ( in_array($fieldName, $aCartShowingItems) )
 			{
 				$fieldLabel = is_array($fieldMapping[$fieldName]['value']) ? $fieldMapping[$fieldName]['value'][$fieldValue] : $fieldValue;
@@ -299,11 +306,15 @@ function cake_steps_store(){
 					case 'custom_order_cake_shape':
 						// Get shape size
 						$cakeSize = $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_round'] ? $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_round'] : $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_square'];
+						$keyPrice = md5($fieldValue.'_'.$cakeSize);
+						$cakePrice = $cakePrices[$keyPrice];
+						$cakePrice = !empty($cakePrice) ? $cakePrice['amount'] : 0;
+						$cartTotal += $cakePrice;
 						$cartHtml .= '
 							<h5 class="detail-row pt-1 pb-1" id="cart_' . $fieldName . '">
 								<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_shape-'.$fieldValue.' size30 blk"></i></span>
 								<span class="display-table-cell width-full cake-shape-name">' . $fieldLabel . ' / ' . $cakeSize . '</span>
-								<span class="display-table-cell price-value pr-5 cake-shape-price">¥4,000</span>
+								<span class="display-table-cell price-value pr-5 cake-shape-price">'.showCakePrice($cakePrice).'</span>
 							</h5>';
 						break;
 					case 'custom_order_cakeflavor':
@@ -323,11 +334,16 @@ function cake_steps_store(){
 					case 'custom_order_cake_decorate':
 						foreach ( $fieldValue as $keyDecorate => $decorate )
 						{
+							$keyPrice = md5($decorate);
+							$cakePrice = $cakePrices[$keyPrice];
+							$cakePrice = !empty($cakePrice) ? $cakePrice['amount'] : 0;
+							$cartTotal += $cakePrice;
+							
 							$cartHtml .= '
 								<div class="options option-rows">
 				                    <span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_'.$decorate.' size30 blk"></i></span>
 									<span class="display-table-cell width-full">' . @$fieldMapping[$fieldName]['value'][$decorate] . '</span>
-									<span class="display-table-cell pr-2 price-value">¥300</span>
+									<span class="display-table-cell pr-2 price-value">'. showCakePrice($cakePrice) .'</span>
 									<span class="display-table-cell"><button class="cake-row__remove sb-2" data-pie-cart-remove="'.$decorate.'">×</button></span>
 								</div>';
 						}
@@ -344,7 +360,9 @@ function cake_steps_store(){
 			}
 		}
 	}
+	
 	$aResponse['cart_html'] = $cartHtml;
+	$aResponse['cart_total'] = showCakePrice($cartTotal);
 		
 	// Show COnfirmation page
 	if ($_POST['step'] == 3)
@@ -534,11 +552,11 @@ function getCustomFormFieldMapping(){
 	}
 	
 	// Get cake custom fields
-	$post = get_page_by_title('Cake Gallery Custom Fields', OBJECT, 'acf');
-	if (!$post)
-	{
-		die('Please add Advanced Custom Field with name "Cake Gallery Custom Fields"');
-	}
+// 	$post = get_page_by_title('Cake Gallery Custom Fields', OBJECT, 'acf');
+// 	if (!$post)
+// 	{
+// 		die('Please add Advanced Custom Field with name "Cake Gallery Custom Fields"');
+// 	}
 	$postID = 1532; 
 // 	$postID = $post->ID;
 	$cake_custom_fields = get_post_meta( $postID );
@@ -614,4 +632,20 @@ register_taxonomy(
     'hierarchical' => true  // タクソノミーを階層化するか否か（子カテゴリを作れるか否か）
   )
 );
+
+add_action('admin_menu', 'cake_register_my_custom_submenu_page');
+
+function cake_register_my_custom_submenu_page() {
+	add_submenu_page(
+			'edit.php?post_type=cakegal',
+			'Cake Price Combination',
+			'Cake Price Combination',
+			'manage_options',
+			'cake-price-combination',
+			'cake_price_combination_callback' );
+}
+
+function cake_price_combination_callback() {
+	get_template_part('admin-price-combine');
+}
 ?>
