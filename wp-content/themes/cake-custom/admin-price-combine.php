@@ -144,7 +144,8 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 				$args = array(
 					'type' => 'select',
 					'name' => 'price[type][custom_order_cake_shape]',
-					'choices' => $field_mappings['custom_order_cake_shape']['value']
+					'class' => 'validate[required]',
+					'choices' => array_merge(array('' => __('Select Cake Shape')), $field_mappings['custom_order_cake_shape']['value'])
 				);
 				
 				do_action('acf/create_field', $args);
@@ -157,7 +158,7 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 					'type' => 'select',
 					'name' => 'price[type][custom_order_cakesize_square]',
 					'class' => 'validate[required]',
-					'choices' => $field_mappings['custom_order_cakesize_square']['value']
+					'choices' => array_merge(array('' => __('Select Square size')), $field_mappings['custom_order_cakesize_square']['value'])
 				);
 				
 				do_action('acf/create_field', $args);
@@ -167,7 +168,7 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 					'type' => 'select',
 					'name' => 'price[type][custom_order_cakesize_round]',
 					'class' => 'validate[required]',
-					'choices' => $field_mappings['custom_order_cakesize_round']['value']
+					'choices' => array_merge(array('' => __('Select Round size')), $field_mappings['custom_order_cakesize_round']['value'])
 				);
 				
 				do_action('acf/create_field', $args);
