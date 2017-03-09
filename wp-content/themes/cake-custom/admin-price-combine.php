@@ -132,7 +132,7 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 			</td>
 			<td><?php echo showCakePrice($cakePrice['amount'])?></td>
 			<td class="attribute-actions">
-				<a href="edit.php?post_type=cakegal&page=cake-price-combination&delete=<?php echo (is_array($cakePrice['type']) ? implode('_', array_keys($_POST['price']['type'])) .'__'. implode('_', $_POST['price']['type']) : '');?>" class="location-add-rule button">Delete</a>
+				<a href="edit.php?post_type=cakegal&page=cake-price-combination&delete=<?php echo (is_array($cakePrice['type']) ? implode('_', array_keys($cakePrice['type'])) .'__'. implode('_', $cakePrice['type']) : '');?>" class="location-add-rule button">Delete</a>
 			</td>
 		</tr>
 		<?php }?>
