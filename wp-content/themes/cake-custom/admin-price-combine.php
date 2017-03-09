@@ -11,7 +11,7 @@ $field_mappings = getCustomFormFieldMapping();
 function storePriceSubmit ()
 {
 	// validate
-// 	update_option('cake_custom_price', array());
+	update_option('cake_custom_price', array());
 	$myKey = '';
 	if (isset($_POST['price']))
 	{
@@ -23,7 +23,7 @@ function storePriceSubmit ()
 			unset($_POST['price']['type']['custom_order_cakesize_round']);
 		}
 		
-		$myKey .= implode('_', $_POST['price']['type']);
+		$myKey .= implode('_', array_keys($_POST['price']['type'])) .'__'. implode('_', $_POST['price']['type']);
 	}
 	
 	if (!($_POST['price']) || !($_POST['price']['type'])) return ;
@@ -153,7 +153,7 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 					'type' => 'select',
 					'name' => 'price[type][custom_order_cake_shape]',
 					'class' => 'validate[required]',
-					'choices' => array_merge(array('' => __('Select Cake Shape')), $field_mappings['custom_order_cake_shape']['value'])
+					'choices' => $field_mappings['custom_order_cake_shape']['value']
 				);
 				
 				do_action('acf/create_field', $args);
@@ -213,7 +213,7 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 				$decorateChoices = $field_mappings['custom_order_cake_decorate']['value'];
 				foreach ($field_mappings['custom_order_cake_decorate']['value'] as $decorateKey => $decorateVal)
 				{
-					if (in_array(($decorateKey), array_keys($cakePrices)))
+					if (in_array(('custom_order_cake_decorate' . '__' . $decorateKey), array_keys($cakePrices)))
 					{
 						unset($decorateChoices[$decorateKey]);
 					}
@@ -291,5 +291,6 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
             });
 			
 		});
+		$('#acf-field-price-type_custom_order_cake_shape').trigger('change');
 	});
 </script>
