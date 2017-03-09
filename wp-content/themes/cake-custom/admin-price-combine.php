@@ -153,6 +153,7 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 					'type' => 'select',
 					'name' => 'price[type][custom_order_cake_shape]',
 					'class' => 'validate[required]',
+					'value' => @$_POST['price']['type']['custom_order_cake_shape'],
 					'choices' => $field_mappings['custom_order_cake_shape']['value']
 				);
 				
