@@ -266,7 +266,7 @@ function get_size_cake_shape_price() {
 		// Round
 		foreach ($fieldMapping['custom_order_cakesize_round']['value'] as $sizeKey => $sizeVal)
 		{
-			$priceKey = md5($shapeSelected . '_' . $sizeKey);
+			$priceKey = ($shapeSelected . '_' . $sizeKey);
 			if (!isset($cakePrices[$priceKey]))
 			{
 				$html .= '<option value="'.$sizeKey.'">'.$sizeVal.'</option>';
@@ -277,7 +277,7 @@ function get_size_cake_shape_price() {
 		// Square
 		foreach ($fieldMapping['custom_order_cakesize_square']['value'] as $sizeKey => $sizeVal)
 		{
-			$priceKey = md5($shapeSelected . '_' . $sizeKey);
+			$priceKey = ($shapeSelected . '_' . $sizeKey);
 			if (!isset($cakePrices[$priceKey]))
 			{
 				$html .= '<option value="'.$sizeKey.'">'.$sizeVal.'</option>';
@@ -343,7 +343,7 @@ function cake_steps_store(){
 					case 'custom_order_cake_shape':
 						// Get shape size
 						$cakeSize = $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_round'] ? $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_round'] : $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_square'];
-						$keyPrice = md5($fieldValue.'_'.$cakeSize);
+						$keyPrice = ($fieldValue.'_'.$cakeSize);
 						$cakePrice = $cakePrices[$keyPrice];
 						$cakePrice = !empty($cakePrice) ? $cakePrice['amount'] : 0;
 						$cartTotal += $cakePrice;
@@ -371,7 +371,7 @@ function cake_steps_store(){
 					case 'custom_order_cake_decorate':
 						foreach ( $fieldValue as $keyDecorate => $decorate )
 						{
-							$keyPrice = md5($decorate);
+							$keyPrice = ($decorate);
 							$cakePrice = $cakePrices[$keyPrice];
 							$cakePrice = !empty($cakePrice) ? $cakePrice['amount'] : 0;
 							$cartTotal += $cakePrice;

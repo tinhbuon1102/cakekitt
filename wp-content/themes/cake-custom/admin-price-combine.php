@@ -11,7 +11,7 @@ $field_mappings = getCustomFormFieldMapping();
 function storePriceSubmit ()
 {
 	// validate
-// 	update_option('cake_custom_price', array());
+	update_option('cake_custom_price', array());
 	$myKey = '';
 	if (isset($_POST['price']))
 	{
@@ -25,23 +25,18 @@ function storePriceSubmit ()
 		
 		$myKey .= implode('_', $_POST['price']['type']);
 	}
+	
+	if (!($_POST['price']) || !($_POST['price']['type'])) return ;
+	
 	// Get key by type
 	$cakePrices = get_option('cake_custom_price');
 	$cakePrices = is_array($cakePrices) ? $cakePrices : array();
 	
-	if (!isset($cakePrices[md5($myKey)]))
-		$cakePrices[md5($myKey)] = $_POST['price'];
+	if (!isset($cakePrices[($myKey)]))
+		$cakePrices[($myKey)] = $_POST['price'];
 	
-	function sort_cake_price($a, $b) {
-		$keyTypeA = array_keys($a['type']);
-		$keyTypeB = array_keys($b['type']);
-		
-		if ($keyTypeA[0] == $keyTypeB[0]) return 0;
-		return ($keyTypeA[0] > $keyTypeB[0]) ? -1 : 1;
-	}
 	
 	ksort($cakePrices);
-	uasort($cakePrices, 'sort_cake_price');
 	update_option('cake_custom_price', $cakePrices);
 }
 
@@ -123,16 +118,19 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 			}
 			
 			$aShowTypes = array();
-			foreach ($cakePrice['type'] as $typeName => $typeVal)
+			if (is_array($cakePrice['type']))
 			{
-				$aShowTypes[] = $field_mappings[$typeName]['value'][$typeVal];
+				foreach ($cakePrice['type'] as $typeName => $typeVal)
+				{
+					$aShowTypes[] = $field_mappings[$typeName]['value'][$typeVal];
+				}
 			}
 			echo implode(' / ', $aShowTypes);
 			?> 
 			</td>
 			<td><?php echo showCakePrice($cakePrice['amount'])?></td>
 			<td class="attribute-actions">
-				<a href="edit.php?post_type=cakegal&page=cake-price-combination&delete=<?php echo md5(implode('_', $cakePrice['type']));?>" class="location-add-rule button">Delete</a>
+				<a href="edit.php?post_type=cakegal&page=cake-price-combination&delete=<?php echo (is_array($cakePrice['type']) ? implode('_', $cakePrice['type']) : '');?>" class="location-add-rule button">Delete</a>
 			</td>
 		</tr>
 		<?php }?>
@@ -212,7 +210,7 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 				$decorateChoices = $field_mappings['custom_order_cake_decorate']['value'];
 				foreach ($field_mappings['custom_order_cake_decorate']['value'] as $decorateKey => $decorateVal)
 				{
-					if (in_array(md5($decorateKey), array_keys($cakePrices)))
+					if (in_array(($decorateKey), array_keys($cakePrices)))
 					{
 						unset($decorateChoices[$decorateKey]);
 					}
