@@ -93,8 +93,10 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 #acf-field-price-type_custom_order_cakesize_square, #acf-field-price-type_custom_order_cakesize_round {
 	display: none;
 }
+.table_price_wraper {max-height: 500px; overflow: auto;}
 </style>
 <h1><?php _e('Price added')?></h1>
+<div class="table_price_wraper">
 <table class="widefat attributes-table wp-list-table ui-sortable" style="width: 100%">
 	<thead>
 		<tr>
@@ -136,6 +138,7 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 		<?php }?>
 	</tbody>
 </table>
+</div>
 <br />
 <h1><?php _e('Add new Price', 'cake')?></h1>
 <form method="post" action="edit.php?post_type=cakegal&page=cake-price-combination" id="price_combine_form" class="form_price">
