@@ -95,51 +95,7 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 }
 .table_price_wraper {max-height: 500px; overflow: auto;}
 </style>
-<h1><?php _e('Price added')?></h1>
-<div class="table_price_wraper">
-<table class="widefat attributes-table wp-list-table ui-sortable" style="width: 100%">
-	<thead>
-		<tr>
-			<th scope="col">Type</th>
-			<th scope="col">Price</th>
-			<th scope="col">Action</th>
-		</tr>
-	</thead>
-	<tbody>
-		<?php foreach ($cakePrices as $cakePrice) {?>
-		<tr class="alternate">
-			<td><?php 
-			if($cakePrice['type']['custom_order_cake_shape']) 
-			{
-				echo __('Shape/Size', 'cake') . ': '; 
-			}
-					
-			if($cakePrice['type']['custom_order_cake_decorate']) 
-			{
-				echo __('Decoration', 'cake') . ': '; 
-			}
-			
-			$aShowTypes = array();
-			if (is_array($cakePrice['type']))
-			{
-				foreach ($cakePrice['type'] as $typeName => $typeVal)
-				{
-					$aShowTypes[] = $field_mappings[$typeName]['value'][$typeVal];
-				}
-			}
-			echo implode(' / ', $aShowTypes);
-			?> 
-			</td>
-			<td><?php echo showCakePrice($cakePrice['amount'])?></td>
-			<td class="attribute-actions">
-				<a href="edit.php?post_type=cakegal&page=cake-price-combination&delete=<?php echo (is_array($cakePrice['type']) ? implode('_', array_keys($cakePrice['type'])) .'__'. implode('_', $cakePrice['type']) : '');?>" class="location-add-rule button">Delete</a>
-			</td>
-		</tr>
-		<?php }?>
-	</tbody>
-</table>
-</div>
-<br />
+<br /><br />
 <h1><?php _e('Add new Price', 'cake')?></h1>
 <form method="post" action="edit.php?post_type=cakegal&page=cake-price-combination" id="price_combine_form" class="form_price">
 	<table class="acf_input widefat" style="width: 80%">
@@ -197,7 +153,7 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 				?>
 				</td>
 				<td class="add col4">
-					<input type="submit" class="location-add-rule button" value="<?php _e("Add/Update Price",'acf'); ?>" />
+					<input type="submit" class="location-add-rule button" value="<?php _e("Add Price",'acf'); ?>" />
 				</td>
 			</tr>
 		</tbody>
@@ -244,7 +200,7 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 				?>
 				</td>
 				<td class="add col4">
-					<input type="submit" class="location-add-rule button" value="<?php _e("Add/Update Price",'acf'); ?>" />
+					<input type="submit" class="location-add-rule button" value="<?php _e("Add Price",'acf'); ?>" />
 				</td>
 			</tr>
 		</tbody>
@@ -252,6 +208,52 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 </form>
 <div class="submit">
 	<input type="hidden" name="add" value="1" />
+</div>
+<br />
+
+<h1><?php _e('Price added')?></h1>
+<div class="table_price_wraper">
+<table class="widefat attributes-table wp-list-table ui-sortable" style="width: 100%">
+	<thead>
+		<tr>
+			<th scope="col">Type</th>
+			<th scope="col">Price</th>
+			<th scope="col">Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach ($cakePrices as $cakePrice) {?>
+		<tr class="alternate">
+			<td><?php 
+			if($cakePrice['type']['custom_order_cake_shape']) 
+			{
+				echo __('Shape/Size', 'cake') . ': '; 
+			}
+					
+			if($cakePrice['type']['custom_order_cake_decorate']) 
+			{
+				echo __('Decoration', 'cake') . ': '; 
+			}
+			
+			$aShowTypes = array();
+			if (is_array($cakePrice['type']))
+			{
+				foreach ($cakePrice['type'] as $typeName => $typeVal)
+				{
+					$aShowTypes[] = $field_mappings[$typeName]['value'][$typeVal];
+				}
+			}
+			echo implode(' / ', $aShowTypes);
+			?> 
+			</td>
+			<td><?php echo showCakePrice($cakePrice['amount'])?></td>
+			<td class="attribute-actions">
+				<a href="edit.php?post_type=cakegal&page=cake-price-combination&delete=<?php echo (is_array($cakePrice['type']) ? implode('_', array_keys($cakePrice['type'])) .'__'. implode('_', $cakePrice['type']) : '');?>" class="location-add-rule button">Delete</a>
+			</td>
+		</tr>
+		<?php }?>
+	</tbody>
+</table>
 </div>
 <script type="text/javascript">
 	jQuery(function($){
