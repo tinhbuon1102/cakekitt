@@ -93,7 +93,6 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 #acf-field-price-type_custom_order_cakesize_square, #acf-field-price-type_custom_order_cakesize_round {
 	display: none;
 }
-.table_price_wraper {max-height: 500px; overflow: auto;}
 </style>
 <br /><br />
 <h1><?php _e('Add new Price', 'cake')?></h1>
