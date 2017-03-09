@@ -246,10 +246,47 @@ function handle_file_upload(){
 	die();
 }
 
+function getArrayRoundShape(){
+	return array('round', 'dorm');
+}
 function showCakePrice($price = 0){
 	$price = $price ? $price : 0;
 	return get_woocommerce_currency_symbol() . number_format($price, 0);
 }
+
+// action for Cake store step form data
+add_action('wp_ajax_nopriv_get_size_cake_shape_price', 'get_size_cake_shape_price');
+add_action('wp_ajax_get_size_cake_shape_price', 'get_size_cake_shape_price');
+function get_size_cake_shape_price() {
+	$fieldMapping = getCustomFormFieldMapping();
+	$cakePrices = get_option('cake_custom_price');
+	$shapeSelected = $_POST['price']['type']['custom_order_cake_shape'];
+	if (in_array($shapeSelected, getArrayRoundShape()))
+	{
+		// Round
+		foreach ($fieldMapping['custom_order_cakesize_round']['value'] as $sizeKey => $sizeVal)
+		{
+			$priceKey = md5($shapeSelected . '_' . $sizeKey);
+			if (!isset($cakePrices[$priceKey]))
+			{
+				$html .= '<option value="'.$sizeKey.'">'.$sizeVal.'</option>';
+			}
+		}
+	}
+	else {
+		// Square
+		foreach ($fieldMapping['custom_order_cakesize_square']['value'] as $sizeKey => $sizeVal)
+		{
+			$priceKey = md5($shapeSelected . '_' . $sizeKey);
+			if (!isset($cakePrices[$priceKey]))
+			{
+				$html .= '<option value="'.$sizeKey.'">'.$sizeVal.'</option>';
+			}
+		}
+	}
+	echo $html;die;
+}
+
 // action for Cake store step form data
 add_action('wp_ajax_nopriv_cake_steps_store', 'cake_steps_store');
 add_action('wp_ajax_cake_steps_store', 'cake_steps_store');

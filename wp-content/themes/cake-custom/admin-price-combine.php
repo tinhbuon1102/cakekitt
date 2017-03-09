@@ -1,6 +1,10 @@
 <link rel='stylesheet' id='validation_engine_css-css' href='<?php echo get_stylesheet_directory_uri()?>/css/validationEngine.jquery.css' type='text/css' media='all' />
 <script type='text/javascript' src='<?php echo get_stylesheet_directory_uri()?>/js/jquery.validationEngine.js'></script>
 <script type='text/javascript' src='<?php echo get_stylesheet_directory_uri()?>/js/jquery.validationEngine-ja.js'></script>
+<script>
+var gl_templateUrl = '<?= get_stylesheet_directory_uri(); ?>';
+var gl_ajaxUrl = '<?= admin_url('admin-ajax.php');  ?>';
+</script>
 <?php
 
 $field_mappings = getCustomFormFieldMapping();
@@ -11,7 +15,7 @@ function storePriceSubmit ()
 	$myKey = '';
 	if (isset($_POST['price']))
 	{
-		if (in_array($_POST['price']['type']['custom_order_cake_shape'], array('round', 'dorm')))
+		if (in_array($_POST['price']['type']['custom_order_cake_shape'], getArrayRoundShape()))
 		{
 			unset($_POST['price']['type']['custom_order_cakesize_square']);
 		}
@@ -24,7 +28,9 @@ function storePriceSubmit ()
 	// Get key by type
 	$cakePrices = get_option('cake_custom_price');
 	$cakePrices = is_array($cakePrices) ? $cakePrices : array();
-	$cakePrices[md5($myKey)] = $_POST['price'];
+	
+	if (!isset($cakePrices[md5($myKey)]))
+		$cakePrices[md5($myKey)] = $_POST['price'];
 	
 	function sort_cake_price($a, $b) {
 		$keyTypeA = array_keys($a['type']);
@@ -34,6 +40,7 @@ function storePriceSubmit ()
 		return ($keyTypeA[0] > $keyTypeB[0]) ? -1 : 1;
 	}
 	
+	ksort($cakePrices);
 	uasort($cakePrices, 'sort_cake_price');
 	update_option('cake_custom_price', $cakePrices);
 }
@@ -88,7 +95,7 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 	margin-right: 20px;
 }
 
-#acf-field-price-type_custom_order_cakesize_square {
+#acf-field-price-type_custom_order_cakesize_square, #acf-field-price-type_custom_order_cakesize_round {
 	display: none;
 }
 </style>
@@ -112,7 +119,7 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 					
 			if($cakePrice['type']['custom_order_cake_decorate']) 
 			{
-				echo __('Decorate', 'cake') . ': '; 
+				echo __('Decoration', 'cake') . ': '; 
 			}
 			
 			$aShowTypes = array();
@@ -158,7 +165,7 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 					'type' => 'select',
 					'name' => 'price[type][custom_order_cakesize_square]',
 					'class' => 'validate[required]',
-					'choices' => array_merge(array('' => __('Select Square size')), $field_mappings['custom_order_cakesize_square']['value'])
+					'choices' => array('' => __('Select Size'))
 				);
 				
 				do_action('acf/create_field', $args);
@@ -168,7 +175,7 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 					'type' => 'select',
 					'name' => 'price[type][custom_order_cakesize_round]',
 					'class' => 'validate[required]',
-					'choices' => array_merge(array('' => __('Select Round size')), $field_mappings['custom_order_cakesize_round']['value'])
+					'choices' => array('' => __('Select Size'))
 				);
 				
 				do_action('acf/create_field', $args);
@@ -250,21 +257,38 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 		$(".form_price").validationEngine({promptPosition: 'inline', addFailureCssClassToField: "inputError", bindMethod:"live"});
 		
 		$('body').on('change', '#acf-field-price-type_custom_order_cake_shape', function(){
-			var roundGroup = ['round', 'dorm'];
-			if (roundGroup.indexOf($(this).val()) != -1)
-			{
-				$('#acf-field-price-type_custom_order_cakesize_square').attr('disabled', true);
-				$('#acf-field-price-type_custom_order_cakesize_round').attr('disabled', false);
-				$('#acf-field-price-type_custom_order_cakesize_square').hide();
-				$('#acf-field-price-type_custom_order_cakesize_round').show();
-			}
-			else {
-				$('#acf-field-price-type_custom_order_cakesize_square').attr('disabled', false);
-				$('#acf-field-price-type_custom_order_cakesize_round').attr('disabled', true);
-				$('#acf-field-price-type_custom_order_cakesize_square').show();
-				$('#acf-field-price-type_custom_order_cakesize_round').hide();
-			}
+			
+			$('#acf-field-price-type_custom_order_cakesize_square').fadeOut();
+			$('#acf-field-price-type_custom_order_cakesize_round').fadeOut();
+			
+			var shapeElement = $(this);
+			var formData = $(this).closest('form').serialize();
+			formData += '&action=get_size_cake_shape_price';
+			$.ajax({
+            	url: gl_ajaxUrl,
+            	data: formData, 
+                method: 'POST',
+                dataType: 'html',
+                success: function(response){
+                	var roundGroup = <?php echo json_encode(getArrayRoundShape())?>;
+        			if (roundGroup.indexOf(shapeElement.val()) != -1)
+        			{
+        				$('#acf-field-price-type_custom_order_cakesize_square').attr('disabled', true);
+        				$('#acf-field-price-type_custom_order_cakesize_round').attr('disabled', false);
+        				$('#acf-field-price-type_custom_order_cakesize_round').fadeIn();
+        			}
+        			else {
+        				$('#acf-field-price-type_custom_order_cakesize_square').attr('disabled', false);
+        				$('#acf-field-price-type_custom_order_cakesize_round').attr('disabled', true);
+        				$('#acf-field-price-type_custom_order_cakesize_square').fadeIn();
+        			}
+
+                    
+                	$('#acf-field-price-type_custom_order_cakesize_square').html(response);
+                	$('#acf-field-price-type_custom_order_cakesize_round').html(response);
+                }
+            });
+			
 		});
-		$('#acf-field-price-type_custom_order_cake_shape').trigger('change');
 	});
 </script>
