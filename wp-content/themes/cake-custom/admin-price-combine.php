@@ -11,7 +11,7 @@ $field_mappings = getCustomFormFieldMapping();
 function storePriceSubmit ()
 {
 	// validate
-	update_option('cake_custom_price', array());
+// 	update_option('cake_custom_price', array());
 	$myKey = '';
 	if (isset($_POST['price']))
 	{
