@@ -133,7 +133,7 @@ $field_mappings = getCustomFormFieldMapping();
 								$index ++;
 							?>
 								<li class="m-input__radio">
-									<input type="radio" name="custom_order_cakeflavor" id="cake_flavor_<?php echo $value?>" class="radio_input" <?php echo $field_mappings['custom_order_cakeflavor']['field']['default_value'] == $value || (!$field_mappings['custom_order_cakeflavor']['field']['default_value'] && $index == 1)  ? 'checked' : ''; ?> value="<?php echo $value?>">
+									<input type="radio" name="custom_order_cakeflavor" id="cake_flavor_<?php echo $value?>" class="radio_input validate[required]" <?php echo $field_mappings['custom_order_cakeflavor']['field']['default_value'] == $value ? 'checked' : ''; ?> value="<?php echo $value?>">
 									<label for="cake_flavor_<?php echo $value?>" class="js-fixHeightChildText radio_label cake_flavor_<?php echo $value?>">
                                     <div id="fixwh-inner">
 										<div class="radio_option radio_size">
@@ -198,8 +198,8 @@ $field_mappings = getCustomFormFieldMapping();
 								$index ++;
 							?>
 								<li class="m-input__radio">
-								<input type="radio" name="custom_order_cakecolor" id="cake_color_<?php echo $value?>" class="radio_input" 
-									<?php echo $field_mappings['custom_order_cakecolor']['field']['default_value'] == $value || (!$field_mappings['custom_order_cakecolor']['field']['default_value'] && $index == 1)  ? 'checked' : ''; ?> 
+								<input type="radio" name="custom_order_cakecolor" id="cake_color_<?php echo $value?>" class="radio_input validate[required]" 
+									<?php echo $field_mappings['custom_order_cakecolor']['field']['default_value'] == $value  ? 'checked' : ''; ?> 
 									value="<?php echo $value?>" <?php echo ($value == 'other') ? 'has_subop' : ''?>>
 									<label for="cake_color_<?php echo $value?>" class="js-fixHeightChildText radio_label cake_color_<?php echo $value?>">
 										<div class="radio_option radio_size">
@@ -404,8 +404,8 @@ $field_mappings = getCustomFormFieldMapping();
 								$index ++;
 							?>
 								<li class="m-input__radio">
-									<input type="radio" name="custom_order_msgplate" id="custom_order_msgplate_<?php echo $value?>" class="radio_input" 
-									<?php echo $field_mappings['custom_order_msgplate']['field']['default_value'] == $value || (!$field_mappings['custom_order_msgplate']['field']['default_value'] && $index == 1)  ? 'checked' : ''?>
+									<input type="radio" name="custom_order_msgplate" id="custom_order_msgplate_<?php echo $value?>" class="radio_input validate[required]" 
+									<?php echo $field_mappings['custom_order_msgplate']['field']['default_value'] == $value  ? 'checked' : ''?>
 									value="<?php echo $value?>">
 									<label for="custom_order_msgplate_<?php echo $value?>" class="js-fixHeightChildText radio_label">
 										<div class="radio_option radio_size">
