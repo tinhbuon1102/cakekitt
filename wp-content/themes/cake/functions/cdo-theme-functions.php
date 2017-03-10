@@ -641,7 +641,7 @@ if( !function_exists('cake_add_element_to_menu')):
 						$loginout = wp_loginout('', false);
 					}
 						
-					$items .= '<li>';
+					$items .= '<li class="account">';
 					$items .= $loginout;
 					$items .= '</li>';
 				}
