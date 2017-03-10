@@ -32,15 +32,16 @@ $(function(){
     	$('form.form-style-common .help-block').addClass('disable');
         	
         
-    	function showItemInCart(isNextStep){
+    	function showItemInCart(isNextStep, currentStepActive){
     		// Store value to server
-    		var currentStepActive = $('form#omOrder .step_wraper:visible').data('step');
-    		if (!isNextStep)
+    		if (!currentStepActive)
     		{
+    			var currentStepActive = $('form#omOrder .step_wraper:visible').data('step');
     			var divCurrentStep = 'form#omOrder .step_wraper[data-step="'+ (currentStepActive) +'"]';
             	order_form_data = $(divCurrentStep + ' input:visible, '+ divCurrentStep +' select:visible, '+ divCurrentStep +' textarea:visible, '+ divCurrentStep +' input[type="hidden"]').serialize();
             	order_form_data += '&action=cake_steps_store&step=' + currentStepActive
     		}
+    		
     		
             $.ajax({
             	url: gl_ajaxUrl,
@@ -62,7 +63,7 @@ $(function(){
                 		$('#cart_total').addClass('disable');
                 	}
                 	
-                	if (currentStepActive == 3)
+                	if (isNextStep && currentStepActive == 3)
                     {
                 		$('form#confirmation_content').html(response.confirm_html);
                     }
@@ -119,7 +120,7 @@ $(function(){
                     }	
                     
                     // Store value to server
-                    showItemInCart(true);
+                    showItemInCart(true, currentStepActive);
         		});
         		
         	}
@@ -161,16 +162,21 @@ $(function(){
     		response = $.parseJSON(response);
 
     	    if(response.error){
-    	    	$('#viewimage').html(response.message);
+    	    	$('#image_loading').html(response.message);
 
     		}else{
-    			$('#viewimage').html('<img alt="" src="'+ (response.file_src) +'?t='+ (new Date().getTime()) +'"   id="cake_upload_preview" />');
+    			// remove loading when done
+    			$("#omOrder #image_loading").html('');
+    			
+    			var new_image = '<img alt="" src="'+ (response.file_src) +'?t='+ (new Date().getTime()) +'"   class="cake_upload_preview" />';
+    			new_image += '<input type="hidden" class="filestyle" name="custom_order_cakePic[]" value="'+response.file_name+'">';
+    			$('#inspired_images').append('<li>'+new_image+'</li>');
     	    	$('#custom_order_cakePic').val(response.file_name);    	    	
     		}
         }
     	
     	$('body').on('change', '#upload_cakePic', function() {
-            $("#omOrder #viewimage").html('<img class="loading-image" style="width: auto !important" src="'+ gl_templateUrl +'/images/loading.gif" />');
+            $("#omOrder #image_loading").html('<img class="loading-image" style="width: auto !important" src="'+ gl_templateUrl +'/images/loading.gif" />');
             $("form#omOrder").ajaxForm({
             	url: gl_ajaxUrl,
             	data: {action: 'cake_file_upload'}, 
@@ -181,6 +187,7 @@ $(function(){
         });
     	
     	
+    	// Init color Picker
     	jQuery(".cp-select").colorPicker({
     		colors: gl_templateUrl + '/js/colorpicker/colors.json',
     		rowitem: 10,

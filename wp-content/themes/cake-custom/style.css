@@ -9,11 +9,12 @@
     height: 0;
 } 
 
-#cake_upload_preview {
+.cake_upload_preview {
 	max-width: 250px;
 	margin-bottom: 20px;
-
 }
+
+#inspired_images li {display: inline-block; margin-right: 20px;}
 
 div.rangeslider {
 	cursor: pointer;

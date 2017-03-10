@@ -365,7 +365,7 @@ $field_mappings = getCustomFormFieldMapping();
 									<?php if ($value == 'print') {?>
 									<div id="optionbox07" class="suboption_box disable">
 										<div class="sub_form">
-											<div class="viewimage"></div>
+											<div class="inspired_images"></div>
 											<span class="option_label">写真アップロード</span>
 											<input type="file" class="filestyle" name="custom_order_photocakepic">
 										</div>
@@ -434,10 +434,9 @@ $field_mappings = getCustomFormFieldMapping();
 							<span class="title-number display-table-cell">8</span>
 							<span class="display-table-cell pl-2">Inspired Pics</span>
 						</h4>
-						<div id="viewimage"></div>
+						<ul id="inspired_images"></ul>
+						<div id="image_loading"></div>
 						<input type="file" class="filestyle" name="upload_cakePic" id="upload_cakePic">
-						<input type="hidden" class="filestyle" name="custom_order_cakePic" id="custom_order_cakePic">
-						
 					</li>
 				</ul>
 			</div>

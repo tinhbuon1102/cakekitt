@@ -452,7 +452,6 @@ function cake_steps_store(){
 						if ( 'custom_order_cakePic' == $fieldName )
 						{
 							$upload_dir = wp_upload_dir();
-							
 							$temp_folder = $upload_dir['baseurl'] . '/temp/';
 							
 							if ( $fieldValue )
