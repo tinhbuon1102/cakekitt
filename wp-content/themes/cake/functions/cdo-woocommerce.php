@@ -217,7 +217,7 @@ if (!function_exists('cake_woocommerce_loop_img_wrapper_end')) {
 //Product button wrapper start
 if (!function_exists('cake_woocommerce_loop_btn_wrapper_start')) {
 	function cake_woocommerce_loop_btn_wrapper_start(){
-		echo '<div class="cake-btn-container"><div class="cake-btn-container-table"><div class="cake-btn-container-cell">';
+		//echo '<div class="cake-btn-container"><div class="cake-btn-container-table"><div class="cake-btn-container-cell">';
 	}
 }
 
@@ -234,7 +234,7 @@ if (!function_exists('cake_woocommerce_loop_wishlist')) {
 //Product button wrapper end
 if (!function_exists('cake_woocommerce_loop_btn_wrapper_end')) {
 	function cake_woocommerce_loop_btn_wrapper_end(){
-		echo '</div></div></div>';
+		//echo '</div></div></div>';
 	}
 }
 
@@ -324,9 +324,9 @@ if (!function_exists('cake_add_custom_button')) {
 		$out .= do_shortcode('[yith_wcwl_add_to_wishlist exists="'.esc_attr($exists).'" label="<span>'.esc_attr($label_option).'</span>" product_id="' . esc_attr($product->id) . '" wishlist_url="'.esc_url($wishlist_url).'" icon="fa-heart"]');
 		}
 
-		$out .='<a href="'.esc_url($link).'" class="cake-woo-button button add_to_cart_button product_type_'.esc_attr($product_type).' '.esc_attr($addclass).'" data-product_id="' . esc_attr($product->id) . '" data-product_sku="' . esc_attr($product->sku) . '">'. $icontype .'<span>'.$but_woo_label.'</span></a>';
+		//$out .='<a href="'.esc_url($link).'" class="cake-woo-button button add_to_cart_button product_type_'.esc_attr($product_type).' '.esc_attr($addclass).'" data-product_id="' . esc_attr($product->id) . '" data-product_sku="' . esc_attr($product->sku) . '">'. $icontype .'<span>'.$but_woo_label.'</span></a>';
 		
-		$out .='<a href="'.esc_url($woocommerce->cart->get_cart_url()).'" class="cake-woo-button added_to_cart wc-forward"><i class="fa fa-eye"></i><span>'.esc_html__('View Cart','cake').'</span></a>';
+		//$out .='<a href="'.esc_url($woocommerce->cart->get_cart_url()).'" class="cake-woo-button added_to_cart wc-forward"><i class="fa fa-eye"></i><span>'.esc_html__('View Cart','cake').'</span></a>';
 		
 		if(class_exists( 'YITH_WCQV' ) && $enable) {
 			$label = esc_html( get_option( 'yith-wcqv-button-label' ) );
