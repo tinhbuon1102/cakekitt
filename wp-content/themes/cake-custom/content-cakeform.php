@@ -11,6 +11,7 @@ $field_mappings = getCustomFormFieldMapping();
 ?>
 <script type="text/javascript">
 	var field_mappings = <?php echo json_encode($field_mappings)?>;
+	var roundGroup = <?php echo json_encode(getArrayRoundShape())?>;
 </script>
 <div class="col-md-12">
 	<div id="four_steps" class="steps">

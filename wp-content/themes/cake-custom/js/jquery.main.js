@@ -169,6 +169,9 @@ $(function(){
     	{
     		$('input.submit_next').trigger('click');
     	}
+    	
+    	//Show hide square, round selectbox base on SHape
+    	//custom_order_cakesize_square
     }
    if ($("form#omOrder").length)
    {

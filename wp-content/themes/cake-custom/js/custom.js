@@ -63,6 +63,18 @@ jQuery(document).ready(function(){
 	
 	$('input.radio_input, input.checkbox_input').on('ifChecked', function(event){
 		$(this).closest('li').find('.suboption_box').toggleClass('disable');
+		if ($(this).attr('name') == 'custom_order_cake_shape')
+		{
+			if (roundGroup.indexOf($(this).val()) != -1)
+			{
+				$('select[name="custom_order_cakesize_round"]').removeClass('disable');
+				$('select[name="custom_order_cakesize_square"]').addClass('disable');
+			}
+			else {
+				$('select[name="custom_order_cakesize_round"]').addClass('disable');
+				$('select[name="custom_order_cakesize_square"]').removeClass('disable');
+			}
+		}
 	});
 	
 	$('input.radio_input, input.checkbox_input').on('ifUnchecked', function(event){
