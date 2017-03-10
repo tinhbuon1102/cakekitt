@@ -244,14 +244,14 @@ $field_mappings = getCustomFormFieldMapping();
 									<div id="optionbox01" class="suboption_box disable">
 										<div class="sub_form">
 										<div class="select-wrapper">
-												<select name="custom_order_icecookie_qty" class="form-control select select-primary" data-toggle="select">
+												<select name="custom_order_icingcookie_qty" class="form-control select select-primary" data-toggle="select">
 												<option value="" selected>choose qty</option>
 													<?php 
 													$index = 0;
-													foreach ($field_mappings['custom_order_icecookie_qty']['value'] as $value => $label) {
+													foreach ($field_mappings['custom_order_icingcookie_qty']['value'] as $value => $label) {
 														$index ++;
 													?>
-														<option value="<?php echo $value?>" <?php echo $field_mappings['custom_order_icecookie_qty']['field']['default_value'] == $value || (!$field_mappings['custom_order_icecookie_qty']['field']['default_value'] && $index == 1)  ? 'selected' : ''; ?>>
+														<option value="<?php echo $value?>" <?php echo $field_mappings['custom_order_icingcookie_qty']['field']['default_value'] == $value || (!$field_mappings['custom_order_icingcookie_qty']['field']['default_value'] && $index == 1)  ? 'selected' : ''; ?>>
 															<?php echo $label?>
 														</option>
 													<?php }?>

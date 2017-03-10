@@ -381,12 +381,22 @@ function cake_steps_store(){
 							$keyPrice = ('custom_order_cake_decorate__' . $decorate);
 							$cakePrice = $cakePrices[$keyPrice];
 							$cakePrice = !empty($cakePrice) ? $cakePrice['amount'] : 0;
+							
+							$decorateQtyText = '';
+							$qtyFormat = 'custom_order_'.$decorate.'_qty';
+							if (isset($cakeStepData[$qtyFormat]) && $cakeStepData[$qtyFormat])
+							{
+								$decorateQty = $cakeStepData[$qtyFormat];
+								$cakePrice = $cakePrice * $decorateQty;
+								$decorateQtyText .= ' x ' . $decorateQty;
+							}
+							
 							$cartTotal += $cakePrice;
 							
 							$cartHtml .= '
 								<div class="options option-rows">
 				                    <span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_'.$decorate.' size30 blk"></i></span>
-									<span class="display-table-cell width-full">' . @$fieldMapping[$fieldName]['value'][$decorate] . '</span>
+									<span class="display-table-cell width-full">' . @$fieldMapping[$fieldName]['value'][$decorate] . $decorateQtyText . '</span>
 									<span class="display-table-cell pr-2 price-value">'. showCakePrice($cakePrice) .'</span>
 									<span class="display-table-cell"><button class="cake-row__remove sb-2" data-pie-cart-remove="'.$decorate.'">×</button></span>
 								</div>';
