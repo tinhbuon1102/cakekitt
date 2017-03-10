@@ -32,9 +32,15 @@ $(function(){
     	$('form.form-style-common .help-block').addClass('disable');
         	
         
-    	function showItemInCart(){
+    	function showItemInCart(isNextStep){
     		// Store value to server
     		var currentStepActive = $('form#omOrder .step_wraper:visible').data('step');
+    		if (!isNextStep)
+    		{
+    			var divCurrentStep = 'form#omOrder .step_wraper[data-step="'+ (currentStepActive) +'"]';
+            	order_form_data = $(divCurrentStep + ' input:visible, '+ divCurrentStep +' select:visible, '+ divCurrentStep +' textarea:visible, '+ divCurrentStep +' input[type="hidden"]').serialize();
+            	order_form_data += '&action=cake_steps_store&step=' + currentStepActive
+    		}
     		
             $.ajax({
             	url: gl_ajaxUrl,
@@ -63,6 +69,10 @@ $(function(){
                 }
             });
     	}
+    	
+    	$('body').on('change', 'form#omOrder input, form#omOrder select, form#omOrder textarea', function(){
+    		showItemInCart();
+    	});
     	
         $('body').on('click', 'form#omOrder .submit_next', function(){
         	$("form#omOrder").validationEngine({promptPosition: 'inline', addFailureCssClassToField: "inputError", bindMethod:"live"});
@@ -109,7 +119,7 @@ $(function(){
                     }	
                     
                     // Store value to server
-                    showItemInCart();
+                    showItemInCart(true);
         		});
         		
         	}

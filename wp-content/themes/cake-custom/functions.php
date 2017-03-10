@@ -322,9 +322,8 @@ function cake_steps_store(){
 				switch ( $fieldName )
 				{
 					case 'custom_order_cake_type':
-						$cakeTypeIndex = array_search($fieldValue, array_values((array) $fieldMapping[$fieldName]['value']));
+						$cakeTypeIndex = array_search($fieldValue, array_keys((array) $fieldMapping[$fieldName]['value']));
 						$term_id = $fieldMapping[$fieldName]['field'][$cakeTypeIndex]->term_id;
-						
 						$attachment_id = get_option('categoryimage_' . $term_id);
 						$src = wp_get_attachment_image_src($attachment_id, 'thumbnail', false);
 						
