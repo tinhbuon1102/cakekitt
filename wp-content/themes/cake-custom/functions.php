@@ -343,7 +343,15 @@ function cake_steps_store(){
 					case 'custom_order_cake_shape':
 						// Get shape size
 						$cakeSize = $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_round'] ? $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_round'] : $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_square'];
-						$keyPrice = ('custom_order_cake_shape_custom_order_cakesize_round__' . $fieldValue.'_'.$cakeSize);
+						if (in_array($fieldValue, getArrayRoundShape()))
+						{
+							// Round
+							$keyPrice = ('custom_order_cake_shape_custom_order_cakesize_round' . '__' . $fieldValue . '_' . $cakeSize);
+						}
+						else {
+							// Square
+							$keyPrice = ('custom_order_cake_shape_custom_order_cakesize_square' . '__' . $fieldValue . '_' . $cakeSize);
+						}
 						$cakePrice = $cakePrices[$keyPrice];
 						$cakePrice = !empty($cakePrice) ? $cakePrice['amount'] : 0;
 						$cartTotal += $cakePrice;

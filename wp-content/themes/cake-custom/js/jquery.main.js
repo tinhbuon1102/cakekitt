@@ -32,6 +32,38 @@ $(function(){
     	$('form.form-style-common .help-block').addClass('disable');
         	
         
+    	function showItemInCart(){
+    		// Store value to server
+    		var currentStepActive = $('form#omOrder .step_wraper:visible').data('step');
+    		
+            $.ajax({
+            	url: gl_ajaxUrl,
+            	data: order_form_data, 
+                method: 'POST',
+                dataType: 'json',
+                success: function(response){
+                	$('.cake-cart-sidebar #cart_items').html('');
+                	if (response.cart_html)
+                	{
+                		$('.cake-cart-sidebar #cart_items').append(response.cart_html);
+                		$('#cart_empty_block').addClass('disable');
+                		$('#cart_total').removeClass('disable');
+                		$('#cart_total .text-right h4').html(response.cart_total);
+                		
+                	}
+                	else {
+                		$('#cart_empty_block').removeClass('disable');
+                		$('#cart_total').addClass('disable');
+                	}
+                	
+                	if (currentStepActive == 3)
+                    {
+                		$('form#confirmation_content').html(response.confirm_html);
+                    }
+                }
+            });
+    	}
+    	
         $('body').on('click', 'form#omOrder .submit_next', function(){
         	$("form#omOrder").validationEngine({promptPosition: 'inline', addFailureCssClassToField: "inputError", bindMethod:"live"});
         	
@@ -77,32 +109,7 @@ $(function(){
                     }	
                     
                     // Store value to server
-                    $.ajax({
-                    	url: gl_ajaxUrl,
-                    	data: order_form_data, 
-                        method: 'POST',
-                        dataType: 'json',
-                        success: function(response){
-                        	$('.cake-cart-sidebar #cart_items').html('');
-                        	if (response.cart_html)
-                        	{
-                        		$('.cake-cart-sidebar #cart_items').append(response.cart_html);
-                        		$('#cart_empty_block').addClass('disable');
-                        		$('#cart_total').removeClass('disable');
-                        		$('#cart_total .text-right h4').html(response.cart_total);
-                        		
-                        	}
-                        	else {
-                        		$('#cart_empty_block').removeClass('disable');
-                        		$('#cart_total').addClass('disable');
-                        	}
-                        	
-                        	if (currentStepActive == 3)
-                            {
-                        		$('form#confirmation_content').html(response.confirm_html);
-                            }
-                        }
-                    });
+                    showItemInCart();
         		});
         		
         	}
@@ -170,8 +177,8 @@ $(function(){
     		$('input.submit_next').trigger('click');
     	}
     	
-    	//Show hide square, round selectbox base on SHape
-    	//custom_order_cakesize_square
+    	// trigger shape at initial
+    	$('label[for="cake_shape_heart"]').trigger('click');
     }
    if ($("form#omOrder").length)
    {
