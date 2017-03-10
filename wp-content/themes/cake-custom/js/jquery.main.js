@@ -178,7 +178,12 @@ $(function(){
     	}
     	
     	// trigger shape at initial
-    	$('label[for="cake_shape_heart"]').trigger('click');
+    	$('input[name="custom_order_cake_shape"]').each(function(){
+    		if ($(this).is(':checked'))
+    		{
+    			$(this).closest('li').find('label').trigger('click');
+    		}
+    	});
     }
    if ($("form#omOrder").length)
    {
