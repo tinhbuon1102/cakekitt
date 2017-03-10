@@ -211,8 +211,9 @@ $field_mappings = getCustomFormFieldMapping();
 									
 									<?php if ($value == 'other') {?>
 									<div id="ColorOptionbox" class="suboption_box disable">
-										<a href="#" class="btn btn-default cp-select">Color Picker</a>
+										<a href="#" class="btn btn-default cp-select" id="custom_order_color_picker">Color Picker</a>
 										<div class="selected-color"></div>
+										<input type="hidden" name="custom_order_cakecolor_other" id="custom_order_cakecolor_other" value=""/>
 									</div>
 									<?php }?>
 								</li>

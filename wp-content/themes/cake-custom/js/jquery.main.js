@@ -180,6 +180,20 @@ $(function(){
             }).submit();
         });
     	
+    	
+    	jQuery(".cp-select").colorPicker({
+    		colors: gl_templateUrl + '/js/colorpicker/colors.json',
+    		rowitem: 10,
+    		onSelect: function( ui, c ){
+    			if ($(ui).attr('id') == 'custom_order_color_picker')
+    			{
+    				$(ui).closest('#ColorOptionbox').find('#custom_order_cakecolor_other').val(c);
+    				showItemInCart();
+    			}
+    			jQuery('.selected-color').css('background-color', c);		
+    		}
+    	});
+    	
     	// Init step 1
     	var checkedType = jQuery('input[name="custom_order_cake_type"]:checked').val();
     	if (checkedType)

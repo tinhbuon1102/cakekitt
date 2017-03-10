@@ -10,14 +10,14 @@
         }
     });
 });*/
-jQuery(function(){
-
-	jQuery(".cp-select").colorPicker({
-		colors: gl_templateUrl + '/js/colorpicker/colors.json',
-		rowitem: 10,
-		onSelect: function( ui, c ){
-			jQuery('.selected-color').css('background-color', c);		
-		}
-	});
-
-});
+//jQuery(function(){
+//
+//	jQuery(".cp-select").colorPicker({
+//		colors: gl_templateUrl + '/js/colorpicker/colors.json',
+//		rowitem: 10,
+//		onSelect: function( ui, c ){
+//			jQuery('.selected-color').css('background-color', c);		
+//		}
+//	});
+//
+//});

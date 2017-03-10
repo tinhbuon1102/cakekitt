@@ -369,9 +369,14 @@ function cake_steps_store(){
 							</h5>';
 						break;
 					case 'custom_order_cakecolor':
+						$background = '';
+						if ($fieldValue == 'other')
+						{
+							$background = $cakeStepData['custom_order_cakecolor_other'];
+						}
 						$cartHtml .= '
 							<h5 class="detail-row pt-1 pb-1" id="cart_' . $fieldName . '">
-								<span class="display-table-cell pr-2"><span class="color-choice head-custom color'.$fieldValue.'"></span></span>
+								<span class="display-table-cell pr-2"><span class="color-choice head-custom color'.$fieldValue.'" style="'.($background ? ('background:'.$background . '; border-color: ' . $background) : '').'"></span></span>
 								<span class="display-table-cell width-full cake-color-name">' . $fieldLabel . '</span>
 							</h5>';
 						break;
