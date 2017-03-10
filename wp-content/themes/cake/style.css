@@ -528,23 +528,23 @@ blockquote cite {
 .open>.dropdown-toggle.btn-default {
     color: #fff
 }
-
-.head-custom.colorpink:before {
-    background: url(images/cake-pink.png) top center no-repeat
+.color-choice.head-custom {
+	border-width: 1px;
+	border-style: solid;
 }
-
-.head-custom.colorpink span:after,
-.head-custom.colorpink span:before {
-    background-color: #fba1a1
+.color-choice.head-custom.colorpink {
+	background: rgb(233,184,203);
+    background: rgba(233,184,203,1);
+	border-color: rgba(233,184,203,1);
 }
-
-.head-custom.colorwhite:before {
-    background: url(images/cake-white.png) top center no-repeat
+.color-choice.head-custom.colorwhite {
+    background: #FFF;
+	border-color: #BBBBBB;
 }
-
-.head-custom.colorwhite span:after,
-.head-custom.colorwhite span:before {
-    background-color: #fff
+.color-choice.head-custom.colorchocolate {
+	background: rgb(89,45,13);
+    background: rgba(89,45,13,1);
+	border-color: rgba(89,45,13,1);
 }
 
 .small-text {
