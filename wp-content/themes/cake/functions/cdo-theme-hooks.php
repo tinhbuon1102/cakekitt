@@ -149,8 +149,6 @@ function cake_get_header_section(){
 						'echo'       => false,
 						'fallback_cb' => ''
 						));
-<<<<<<< HEAD
-=======
 	
 	$output .='<div class="Header-supHeaderBurger hidden-pc"><div class="Header-button--circled">';
 	$output .='<button class="linericon-menu" type="button" data-menu="toggleMenu"></button>';
@@ -162,7 +160,6 @@ function cake_get_header_section(){
 						}else{
 						$output .='<h1><a href="'.esc_url(home_url()).'" class="navbar-brand">'.get_bloginfo('name').'</a></h1>';	
 						}
->>>>>>> 00b7973b70b186ce779aa406946b39ba58bb0f9e
 				
 					$output .= wp_nav_menu( array(
 						'theme_location' => 'submenuright',
