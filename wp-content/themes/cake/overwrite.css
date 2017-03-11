@@ -902,6 +902,9 @@ font-weight:600;
     padding-top: 18px;
     padding-bottom: 18px;
 }
+.hidden-pc {
+	display: none !important;
+}
 }
 /*footer*/
 #footer ul#menu-custom-menu li a {
@@ -2167,10 +2170,8 @@ div#s2id_autogen1 {
     float: left;
 }
 }
+
 @media (max-width: 767px) {
-.hidden-pc {
-	display: none !important;
-}
 .woocommerce-page ul.products li.product, .woocommerce ul.products li.product, .woocommerce.columns-4 ul.products li.product, .woocommerce.columns-3 ul.products li.product, .woocommerce.columns-2 ul.products li.product {
     overflow: hidden;
 }

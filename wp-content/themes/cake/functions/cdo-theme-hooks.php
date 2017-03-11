@@ -150,10 +150,10 @@ function cake_get_header_section(){
 						'fallback_cb' => ''
 						));
 	
-	$output .='<div class="Header-supHeaderBurger"><div class="Header-button--circled">';
+	$output .='<div class="Header-supHeaderBurger hidden-pc"><div class="Header-button--circled">';
 	$output .='<button class="linericon-menu" type="button" data-menu="toggleMenu"></button>';
 	$output .='</div></div>';
-	$output .='<div class="Header-supHeaderLogo">';
+	$output .='<div class="Header-supHeaderLogo hidden-pc">';
 					  
 						if($sitelogo!=""){
 						$output .='<a href="'.esc_url(home_url()).'"><img src="'.esc_url($sitelogo).'" alt="'.get_bloginfo('name').'"></a>';
