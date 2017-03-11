@@ -11,7 +11,6 @@ $field_mappings = getCustomFormFieldMapping();
 
 $aStates = getCountryState();
 $default_county_states = $aStates['states'];
-login_with_ajax();
 ?>
 
 <script type="text/javascript">
