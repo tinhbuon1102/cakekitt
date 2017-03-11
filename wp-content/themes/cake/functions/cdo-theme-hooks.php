@@ -149,17 +149,53 @@ function cake_get_header_section(){
 						'echo'       => false,
 						'fallback_cb' => ''
 						));
+	
+	$output .='<div class="Header-supHeaderBurger"><div class="Header-button--circled">';
+	$output .='<button class="linericon-menu" type="button" data-menu="toggleMenu"></button>';
+	$output .='</div></div>';
+	$output .='<div class="Header-supHeaderLogo">';
+					  
+						if($sitelogo!=""){
+						$output .='<a href="'.esc_url(home_url()).'"><img src="'.esc_url($sitelogo).'" alt="'.get_bloginfo('name').'"></a>';
+						}else{
+						$output .='<h1><a href="'.esc_url(home_url()).'" class="navbar-brand">'.get_bloginfo('name').'</a></h1>';	
+						}
 				
+						$output .='</div>';
 					$output .= wp_nav_menu( array(
 						'theme_location' => 'submenuright',
 						'sort_column' => 'menu_order',
 						'menu_id' => 'submenu_right',
 						'depth' => '0',
-						'menu_class' => 'nav navbar-nav navbar-abs navbar-abs-right hidden-xs hidden-sm '.esc_attr($menurightclass).'',
+						'menu_class' => 'nav navbar-nav navbar-abs navbar-abs-right '.esc_attr($menurightclass).'',
 						'echo'       => false,
 						'fallback_cb' => ''
 					));
 	      $output .='</div>';
+	
+	//added
+	      $output .='<nav class="Header-navContainer"><div class="Header-navHeader hidden-pc"><ul class="mb-navigation">';
+	                $output .= wp_nav_menu( array(
+						'theme_location' => 'mainmenuleft',
+						'sort_column' => 'menu_order',
+						'menu_id' => 'menu_left',
+						'depth' => '0',
+						'items_wrap' => '%3$s',
+						'container' => false,
+						'echo'       => false,
+						'fallback_cb' => ''
+					));
+	                $output .= wp_nav_menu( array(
+						'theme_location' => 'mainmenuright',
+						'sort_column' => 'menu_order',
+						'menu_id' => 'menu_right',
+						'depth' => '0',
+						'items_wrap' => '%3$s',
+						'container' => false,
+						'echo'       => false,
+						'fallback_cb' => ''
+					));
+	$output .='</ul></div></nav>';
 		  $output .='<nav>';
 				
 					$output .= wp_nav_menu( array(
@@ -191,7 +227,7 @@ function cake_get_header_section(){
 					}
                     
 					
-                    $output .='<ul class="header-nav">';
+                    $output .='<ul class="header-nav hidden-xs hidden-sm">';
                       $output .='<li class="center-logo">';
 					  
 						if($sitelogo!=""){

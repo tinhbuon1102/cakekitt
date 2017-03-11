@@ -21,34 +21,48 @@ global $product;
 	        <?php yith_wcwl_get_template( 'add-to-wishlist-' . $template_part . '.php', $atts ); ?>
 
 	    </div>
+	    
+<!--after added-->
 
-	    <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;">
-	        <span class="feedback"><?php echo $product_added_text ?></span>
-	        <a href="<?php echo esc_url( $wishlist_url )?>" rel="nofollow">
-	            <?php echo apply_filters( 'yith-wcwl-browse-wishlist-label', $browse_wishlist_text )?>
+	    <div class="yith-wcwl-wishlistaddedbrowse mark1 hide" style="display:none;">
+	        
+	        <!--<a href="<?php //echo esc_url( $wishlist_url )?>" rel="nofollow">
+	            <?php //echo apply_filters( 'yith-wcwl-browse-wishlist-label', $browse_wishlist_text )?>
+	        </a>-->
+	        <a class="remove_from_wishlist_custom button alt btn-style-border-blk gray" href="#" rel="nofollow" data-product-id="<?php echo $product_id ?>">
+				<span><?php _e( 'added to wishlist', 'yith-wcwl' ) ?></span>
 	        </a>
 	    </div>
-
-	    <div class="yith-wcwl-wishlistexistsbrowse browsediv <?php echo ( $exists && ! $available_multi_wishlist ) ? 'show' : 'hide' ?>" style="display:<?php echo ( $exists && ! $available_multi_wishlist ) ? 'block' : 'none' ?>">
-	        <span class="feedback"><?php echo $already_in_wishslist_text ?></span>
-	        <a href="<?php echo esc_url( $wishlist_url ) ?>" rel="nofollow">
-	            <?php echo apply_filters( 'yith-wcwl-browse-wishlist-label', $browse_wishlist_text )?>
-	        </a>
-	    </div>
+	    
+<!--inside product image-->
+	    <!--<div class="yith-wcwl-wishlistexistsbrowse mark2 browsediv <?php //echo ( $exists && ! $available_multi_wishlist ) ? 'show' : 'hide' ?>" style="display:<?php //echo ( $exists && ! $available_multi_wishlist ) ? 'block' : 'none' ?>">-->
+	        
+	        <!--<a href="<?php //echo esc_url( $wishlist_url ) ?>" rel="nofollow">
+	            <?php //echo apply_filters( 'yith-wcwl-browse-wishlist-label', $browse_wishlist_text )?>
+	        </a>-->
+	        <!--<a class="remove_from_wishlist_custom round_button alt" href="#" rel="nofollow" data-product-id="<?php //echo $product_id ?>">
+	            <?php //_e( 'added to wishlist', 'yith-wcwl' ) ?>
+	        </a>-->
+	    <!--</div>-->
+	    <!--/inside product image-->
+	    
+	    <!--/after added-->
+	    
 	    <!--remove button-->
-	    <div class="yith-wcwl-wishlistexistsbrowse removebuttondiv hide" style="display:none;">
+	    <div class="yith-wcwl-wishlistexistsbrowse removebuttondiv hide mark1" style="display:none;">
 	        <a class="remove_from_wishlist_custom button alt btn-style-border-blk gray" href="#" rel="nofollow" data-product-id="<?php echo $product_id ?>">
-	            <?php _e( 'お気に入りから外す', 'yith-wcwl' ) ?>
+	            <?php _e( 'remove from wishlist', 'yith-wcwl' ) ?>
 	        </a>
 		    <img src="<?php echo esc_url( YITH_WCWL_URL . 'assets/images/wpspin_light.gif' ) ?>" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
 	    </div>
-
-	    <div class="yith-wcwl-wishlistexistsbrowse removebuttondiv <?php echo ( $exists && ! $available_multi_wishlist ) ? 'show' : 'hide' ?>" style="display:<?php echo ( $exists && ! $available_multi_wishlist ) ? 'block' : 'none' ?>">
-	        <a class="remove_from_wishlist_custom button alt btn-style-border-blk gray" href="#" rel="nofollow" data-product-id="<?php echo $product_id ?>">
-		        <?php _e( 'お気に入りから外す', 'yith-wcwl' ) ?>
+<!--inside product image-->
+	    <div class="yith-wcwl-wishlistexistsbrowse removebuttondiv <?php echo ( $exists && ! $available_multi_wishlist ) ? 'show' : 'hide' ?>" style="display:<?php echo ( $exists && ! $available_multi_wishlist ) ? 'block' : 'none' ?> mark2">
+	        <a class="remove_from_wishlist_custom round_button alt btn-style-border-blk gray" href="#" rel="nofollow" data-product-id="<?php echo $product_id ?>">
+		        <span><?php _e( 'remove from wishlist', 'yith-wcwl' ) ?></span>
 	        </a>
 		    <img src="<?php echo esc_url( YITH_WCWL_URL . 'assets/images/wpspin_light.gif' ) ?>" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
 	    </div>
+	    <!--/inside product image-->
 <!--/remove button-->
 	    <div style="clear:both"></div>
 	    <div class="yith-wcwl-wishlistaddresponse"></div>
