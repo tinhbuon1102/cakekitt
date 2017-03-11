@@ -153,6 +153,9 @@ input[type="text"]:focus, input[type="tel"]:focus, input[type="email"]:focus {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+.entry-summary .remove_from_wishlist_custom.round_button:before {
+    margin: 1px 0 0 0;
+}
 .cake-product-img-table .yith-wcwl-add-to-wishlist a.add_to_wishlist:before {
 	content: "\e9bc";
     display: inline-block;
