@@ -8,7 +8,12 @@ if ($_POST['submit'] && $_POST['confirmed'] == 'ok')
 	storeOrderCustomToDB();
 }
 $field_mappings = getCustomFormFieldMapping();
+
+$aStates = getCountryState();
+$default_county_states = $aStates['states'];
+login_with_ajax();
 ?>
+
 <script type="text/javascript">
 	var field_mappings = <?php echo json_encode($field_mappings)?>;
 	var roundGroup = <?php echo json_encode(getArrayRoundShape())?>;
@@ -154,11 +159,11 @@ $field_mappings = getCustomFormFieldMapping();
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">4</span>
-							<span class="display-table-cell pl-2">Choose size</span>
+							<span class="display-table-cell pl-2"><?php echo __('Choose Size', 'cake')?></span>
 						</h4>
 						<div class="cake-size select-wrapper">
 							<select name="custom_order_cakesize_square" class="form-control select select-primary disable" data-toggle="select">
-								<option value="">choose size</option>
+								<option value=""><?php echo __('Choose Size', 'cake')?></option>
 								<!--for round shape-->
 								<?php 
 								$index = 0;
@@ -172,7 +177,7 @@ $field_mappings = getCustomFormFieldMapping();
 							</select>
 							
 							<select name="custom_order_cakesize_round" class="form-control select select-primary" data-toggle="select">
-								<option value="">choose size</option>
+								<option value=""><?php echo __('Choose Size', 'cake')?></option>
 								<!--for round shape-->
 								<?php 
 								$index = 0;
@@ -505,6 +510,19 @@ $field_mappings = getCustomFormFieldMapping();
 									<input placeholder="taro@kitt.jp" class="input validate[required,custom[email]]" required="required" type="email" name="custom_order_customer_email" id="customer_email">
 								</div>
 							</div>
+							
+							<?php if (!is_user_logged_in()) { ?>
+							<div class="row">
+								<div class="field col-md-6">
+									<label class="label"><?php echo __('Password', 'cake')?><small class="help-info"><?php echo __('(Password for login)')?></small></label>
+									<input class="input validate[required]" required="required" type="password" name="custom_order_customer_password" id="customer_password">
+								</div>
+								<div class="field col-md-6">
+									<label class="label"><?php echo __('Password Confirm', 'cake')?><small class="help-info"><?php echo __('(Password for login)')?></small></label>
+									<input class="input validate[required]" required="required" type="password" name="custom_order_customer_passwordconfirm" id="customer_passwordconfirm">
+								</div>
+							</div>
+							<?php }?>
 							<div class="mt-2 deliver-info disable">
 								<h4 class="heading-form mt-4 mb-2 text-gray">Where do you want your order delivered?</h4>
 								<div class="form-fields">
@@ -530,12 +548,19 @@ $field_mappings = getCustomFormFieldMapping();
 									</div>
 									<div class="row">
 										<div class="address-field">
-											<label class="label">住所</label>
 											<div class="field col-md-12">
+												<label class="label">住所</label>
 												<input placeholder="郵便番号" class="input validate[required]" required="required" type="text" name="custom_order_deliver_postcode" id="deliver_postcode">
 											</div>
 											<div class="field col-md-6">
-												<input placeholder="都道府県" class="input validate[required]" required="required" type="text" name="custom_order_deliver_pref" id="deliver_pref">
+												<div class="select-wrapper">
+													<select name="custom_order_deliver_pref" class="form-control select select-primary" data-toggle="select">
+														<option value=""><?php echo __('Choose Prefecture', 'cake')?></option>
+														<?php foreach ($default_county_states as $stateKey => $stateVal) {?>
+															<option value="<?php echo $stateKey?>"><?php echo $stateVal;?></option>
+														<?php }?>
+													</select>
+												</div>
 											</div>
 											<div class="field col-md-6">
 												<input placeholder="市区町村" class="input validate[required]" required="required" type="text" name="custom_order_deliver_city" id="deliver_city">
@@ -608,6 +633,19 @@ $field_mappings = getCustomFormFieldMapping();
 	</form>
 	
 	<form id="confirmation_content" method="post" action="">
+		<div id="confirmation_footer">
+			<div class="row">
+				<div class="col-md-6 columns">
+					<ul>
+						<li class="m-input__radio">
+							<input type="radio" name="custom_order_cake_type" id="<?php echo $term->slug?>" class="radio_input validate[required]" value="<?php echo $term->slug?>" <?php echo $_REQUEST['type'] == $term->slug ? 'checked' : ''?>>
+							<label for="<?php echo $term->slug?>" class="js-fixHeightChildText radio_label <?php echo $term->slug?>">
+						
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</form>
 </div>
 <div class="col-md-4 columns position-static pt-md-4 pt-sm-2 pb-sm-4">

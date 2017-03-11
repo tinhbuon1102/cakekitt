@@ -249,6 +249,16 @@ function handle_file_upload(){
 function getArrayRoundShape(){
 	return array('round', 'dorm');
 }
+
+function getCountryState(){
+	global $woocommerce;
+	$countries_obj   = new WC_Countries();
+	$countries   = $countries_obj->__get('countries');
+	$default_country = $countries_obj->get_base_country();
+	$default_county_states = $countries_obj->get_states( $default_country );
+	return array('countries' => $countries, 'states' => $default_county_states);
+}
+
 function showCakePrice($price = 0){
 	$price = $price ? $price : 0;
 	return get_woocommerce_currency_symbol() . number_format($price, 0);
@@ -462,6 +472,11 @@ function cake_steps_store(){
 						}
 						else
 						{
+							if ($fieldName == 'custom_order_deliver_pref')
+							{
+								$aCountrySates = getCountryState();
+								$fieldValue = $aCountrySates['states'][$fieldValue];
+							}
 							$divRow .= is_array($fieldMapping[$fieldName]['value'][$fieldValue]) ? $fieldMapping[$fieldName]['value'][$fieldValue] : (is_array($fieldMapping[$fieldName]['value']) ? $fieldMapping[$fieldName]['value'][$fieldValue] : $fieldValue);
 						}
 						$divRow .= '</div>';
@@ -479,6 +494,9 @@ function cake_steps_store(){
 }
 
 function storeOrderCustomToDB(){
+	// Validate required fields
+	
+	
 	// Create Custom Product
 	$post = array(
 		'post_author' => 1,

@@ -75,9 +75,11 @@ if($sliderchoose!="no-slider" && $sliderchoose!=""){
 										  $out .='<p>';
 											$out .= ($text);
 										  $out .='</p>';
+										  if ($buttonlabel) {
 										  $out .='<div class="form-group">';
 											$out .='<a href="'.esc_url($buttonlink).'" class="btn btn-lg btn-sld btn-'.esc_attr($buttoncolor).'-cake mar-top-20">'.esc_html($buttonlabel).'</a>';
 										  $out .='</div>';
+										  }
 										$out .='</div>';
 									  $out .='</div>';
 									$out .='</div>';
