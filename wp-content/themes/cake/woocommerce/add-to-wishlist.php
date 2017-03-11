@@ -23,7 +23,6 @@ global $product;
 	    </div>
 	    
 <!--after added-->
-		<?php if (is_product()) {?>
 	    <div class="yith-wcwl-wishlistaddedbrowse mark1 hide" style="display:none;">
 	        
 	        <!--<a href="<?php //echo esc_url( $wishlist_url )?>" rel="nofollow">
@@ -35,7 +34,7 @@ global $product;
 	    </div>
 	    
 
-	    <div class="yith-wcwl-wishlistexistsbrowse mark2 browsediv <?php echo ( $exists && ! $available_multi_wishlist ) ? 'show' : 'hide' ?>" style="display:<?php echo ( $exists && ! $available_multi_wishlist ) ? 'block' : 'none' ?>">
+	    <div class="yith-wcwl-wishlistexistsbrowse mark2 browsediv <?php echo ( $exists && ! $available_multi_wishlist && is_product() ) ? 'show' : 'hide' ?>" style="display:<?php echo ( $exists && ! $available_multi_wishlist && is_product()) ? 'block' : 'none' ?>">
 	        
 	       <!--<a href="<?php //echo esc_url( $wishlist_url ) ?>" rel="nofollow">
 	            <?php //echo apply_filters( 'yith-wcwl-browse-wishlist-label', $browse_wishlist_text )?>
@@ -45,7 +44,6 @@ global $product;
 	        </a>
 	    </div>
 	    <!--/after added-->
-	    <?php }?>
 	    
 	    <!--remove button-->
 	    <div class="yith-wcwl-wishlistexistsbrowse removebuttondiv hide mark1" style="display:none;">
