@@ -113,11 +113,11 @@ Text Domain: cake
 }
 @font-face {
   font-family: 'linericon';
-  src:  url('fonts/linericon.eot?9fnnvg');
-  src:  url('fonts/linericon.eot?9fnnvg#iefix') format('embedded-opentype'),
-    url('fonts/linericon.ttf?9fnnvg') format('truetype'),
-    url('fonts/linericon.woff?9fnnvg') format('woff'),
-    url('fonts/linericon.svg?9fnnvg#linericon') format('svg');
+  src:  url('fonts/linericon.eot?q5bms');
+  src:  url('fonts/linericon.eot?q5bms#iefix') format('embedded-opentype'),
+    url('fonts/linericon.ttf?q5bms') format('truetype'),
+    url('fonts/linericon.woff?q5bms') format('woff'),
+    url('fonts/linericon.svg?q5bms#linericon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -137,6 +137,9 @@ Text Domain: cake
   -moz-osx-font-smoothing: grayscale;
 }
 
+.linericon-logo:before {
+  content: "\e9bd";
+}
 .linericon-heart_filled:before {
   content: "\e9bb";
 }
