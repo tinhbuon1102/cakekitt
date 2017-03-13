@@ -144,6 +144,7 @@ function hide_plugin_order_by_product ()
 		'woocommerce-filter-orders-by-product/woocommerce-filter-orders-by-product.php',
 		'woocommerce-other-payment-gateway/woocommerce-other-payment-gateway.php',
 		'wpcustom-category-image/load.php',
+		'login-with-ajax/login-with-ajax.php',
 	);
 	$myplugins = $wp_list_table->items;
 	foreach ( $myplugins as $key => $val )
@@ -486,7 +487,6 @@ function cake_steps_store(){
 				}
 			}
 		}
-		$divRow .= $divRow ? '<div class="row"><input type="submit" name="submit" value="Submit"/><input type="hidden" name="confirmed" value="ok"/></div>' : '';
 		$aResponse['confirm_html'] = $divRow;
 	}
 	
@@ -494,8 +494,7 @@ function cake_steps_store(){
 }
 
 function storeOrderCustomToDB(){
-	// Validate required fields
-	
+	//@TODO Validate required fields
 	
 	// Create Custom Product
 	$post = array(
