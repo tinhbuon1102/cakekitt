@@ -23,7 +23,7 @@ if($htxtpositionmeta=="leftfloat"){
 		<header class="page-header <?php if (  ( $bg ) ) { ?>has-banner<?php } elseif (  ( $bgdefault) ) { ?>default-banner<?php } else { ?>no-banner<?php } ?> <?php if (  ( $headtext ) ) { ?>wider-height<?php } else { ?><?php } ?>">
 		
 			<div class="container">
-			
+			<div class="abs-container">
 			<div class="tittle-sub-top <?php if (  ( $headtext ) ) { ?>has-description<?php } else { ?><?php } ?>">
               
             <?php if (  ( $headtext ) ) { ?>
@@ -182,6 +182,7 @@ if($htxtpositionmeta=="leftfloat"){
 			?>
 			<?php } ?>
 			
+			</div>
 			</div>
 			</div>
 			
