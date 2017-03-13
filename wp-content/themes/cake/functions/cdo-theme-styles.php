@@ -115,7 +115,7 @@ function cake_add_stylesheet() {
 	}
 
 	// Register and Print CSS
-	wp_enqueue_style('bootstrap', get_template_directory_uri() . '/css/bootstrap.css', '', null, 'screen, all');
+// 	wp_enqueue_style('bootstrap', get_template_directory_uri() . '/css/bootstrap.css', '', null, 'screen, all');
 	wp_enqueue_style('cake-global', get_template_directory_uri() . '/css/global.css', '', null, 'screen, all');
 	wp_enqueue_style('cake-effect', get_template_directory_uri() . '/css/effect.css', '', null, 'screen, all');
 	wp_enqueue_style('cake-audio', get_template_directory_uri() . '/css/audio.css', '', null, 'screen, all');

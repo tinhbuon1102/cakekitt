@@ -14,7 +14,7 @@ var gl_ajaxUrl = '<?= admin_url('admin-ajax.php');  ?>';
 try{Typekit.load({ async: true });}catch(e){}</script>
 </head>
 
-<body <?php body_class(); ?> onload="initialize();">
+<body <?php body_class(); ?> >
 
 <?php 
 $layout = get_theme_mod('cake_layout_type', 'fullwidth');

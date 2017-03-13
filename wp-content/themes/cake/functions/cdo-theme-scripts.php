@@ -17,7 +17,7 @@ if( !function_exists ('cake_add_javascripts') ){
 		wp_enqueue_script('html5shiv',get_template_directory_uri().'/js/html5.js', array(), '', false);
 		wp_script_add_data('html5shiv', 'conditional', 'lt IE 9' );
 		wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/js/modernizr.js', array( 'jquery'), '', true  );
-		wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/js/bootstrap.js', array( 'jquery'), '', true  );
+		wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', array( 'jquery'), '', true  );
 		wp_enqueue_script( 'cake-jquery-mediaelement', get_template_directory_uri() . '/js/mediaelement.min.js', array( 'jquery'), '', true  );
 		wp_enqueue_script( 'cake-jquery-easing', get_template_directory_uri() . '/js/jquery.easing.min.js', array( 'jquery' ) , '', true);
 		wp_enqueue_script( 'cake-jquery-scrollup', get_template_directory_uri() . '/js/jquery.scrollup.js', array( 'jquery' ), '', true );

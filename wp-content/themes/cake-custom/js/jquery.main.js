@@ -65,13 +65,15 @@ $(function(){
                 	
                 	if (isNextStep && currentStepActive == 3)
                     {
-                		$('form#confirmation_content').html(response.confirm_html);
+                		$('#confirmation_wraper').removeClass('disable');
+                		$('#confirmation_content').html(response.confirm_html);
+                		$('#confirmation_footer').removeClass('disable');
                     }
                 }
             });
     	}
     	
-    	$('body').on('change', 'form#omOrder input, form#omOrder select, form#omOrder textarea', function(){
+    	$('body').on('change', 'form#omOrder input[type="radio"], form#omOrder input[type="checkbox"], form#omOrder select', function(){
     		showItemInCart();
     	});
     	
@@ -116,7 +118,8 @@ $(function(){
                     {
                     	// Hide Next button
                     	$('form#omOrder .submit_next').hide();
-                    	$('form#confirmation_content').html('<div><img src="'+ gl_templateUrl +'/images/loading-1.gif"/></div>');
+                    	$('#confirmation_wraper').removeClass('disable');
+                    	$('#confirmation_content').html('<div><img src="'+ gl_templateUrl +'/images/loading-1.gif"/></div>');
                     }	
                     
                     // Store value to server
@@ -130,7 +133,9 @@ $(function(){
         $('body').on('click', 'form#omOrder .submit_prev', function(){
         	// Show Next button
         	$('form#omOrder .submit_next').show();
-        	$('form#confirmation_content').html('');
+        	$('#confirmation_wraper').addClass('disable');
+        	$('#confirmation_content').html('');
+        	$('#confirmation_footer').addClass('disable');
         	
         	var currentStepActive = $('form#omOrder .step_wraper:visible').data('step');
         	var changeStep = currentStepActive - 1;
@@ -156,6 +161,68 @@ $(function(){
         	
         });
         
+        $('body').on('click', '#submit_form_order', function(){
+        	$('#submit_form_order').hide();
+        	$('body').LoadingOverlay("show");
+        	if (is_loggedin)
+        	{
+        		$.ajax({
+                	url: gl_ajaxUrl,
+                	data: $('#confirmation_form').serialize(), 
+                    method: 'POST',
+                    dataType: 'json',
+                    success: function(response){
+                    	$('body').LoadingOverlay("hide");
+                    	if (response.error)
+                    	{
+                    		alert (message);
+                    	}
+                    	else {
+                    		// Redirect to thank you page
+                    		location.href = response.redirect;
+                    	}
+                    	$('#submit_form_order').show();
+                    },
+                    error: function(){
+                    	$('body').LoadingOverlay("hide");
+                    	$('#submit_form_order').show();
+                    }
+                });
+        	}
+        	else {
+        		$('body').LoadingOverlay("hide");
+        		$('#custom_order_login_modal').modal({
+        			backdrop: 'static',
+        		    keyboard: false
+        		});
+        	}
+        });
+        
+        $('#custom_order_login_modal').on('hidden.bs.modal', function (e) {
+        	$('#submit_form_order').show();
+        });
+        
+        $('body').on('click', '.lwa-links-modal', function(){
+        	$('.modal').modal('hide');
+        });
+        
+        function actionLoginRegister(e, i, n){
+        	if (i.result)
+        	{
+        		is_loggedin = true;
+            	$('.modal').modal('hide');
+            	$(".lwa-status").trigger("reveal:close");
+            	$('#submit_form_order').click();
+        	}
+        }
+        
+        $(document).on("lwa_register", function(e, i, n) {
+        	actionLoginRegister(e, i, n);
+        });
+        
+        $(document).on("lwa_login", function(e, i, n) {
+        	actionLoginRegister(e, i, n);
+        });
         
     	function showUploadResponse(response, statusText, xhr, $form){
 

@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Login With Ajax
-Plugin URI: http://wordpress.org/extend/plugins/login-with-ajax/
+Plugin URI: http://kitt-sweets.jp
 Description: Ajax driven login widget. Customisable from within your template folder, and advanced settings from the admin area.
 Author: Marcus Sykes
-Version: 3.1.6
-Author URI: http://msyk.es
+Version: 1233.1.6
+Author URI: http://kitt-sweets.jp
 Tags: Login, Ajax, Redirect, BuddyPress, MU, WPMU, sidebar, admin, widget
 Text Domain: login-with-ajax
 
@@ -202,6 +202,34 @@ class LoginWithAjax {
 	 */
 	public static function register(){
 	    $return = array();
+	    $errors = new stdClass();
+	    
+	    if (!$_REQUEST['user_email']) {
+	    	$errors = new WP_Error();
+	    	$errors->add( 'user_login', __( '<strong>ERROR</strong>: Please type your email address', 'cake' ) );
+	    }
+	    elseif ( $_POST['user_password'] !== $_POST['user_repeat_password'] ) {
+	    	$errors = new WP_Error();
+	    	$errors->add( 'passwords_not_matched', __("<strong>ERROR</strong>: Passwords not matched"), 'cake' );
+	    }
+	    elseif (!$_POST['user_password'])
+	    {
+	    	$errors = new WP_Error();
+	    	$errors->add( 'passwords_empty', __("<strong>ERROR</strong>: Passwords is empty"), 'cake' );
+	    }
+	    
+	    if (is_wp_error($errors))
+	    {
+	    	//Something's wrong
+	    	$return['result'] = false;
+	    	$return['error'] = $errors->get_error_message();
+	    	return $return;
+	    }
+	    if ($_POST['user_email'])
+	    {
+	    	$_REQUEST['user_login'] = $_POST['user_login'] = $_POST['user_email'];
+	    }
+	    
 	    if( get_option('users_can_register') ){
 			$errors = register_new_user($_REQUEST['user_login'], $_REQUEST['user_email']);
 			if ( !is_wp_error($errors) ) {

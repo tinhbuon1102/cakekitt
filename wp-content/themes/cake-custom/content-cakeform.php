@@ -1,12 +1,6 @@
 <?php 
 // Reset session form 
 $_SESSION['cake_custom_order'] = array();
-
-if ($_POST['submit'] && $_POST['confirmed'] == 'ok')
-{
-	// Store form data
-	storeOrderCustomToDB();
-}
 $field_mappings = getCustomFormFieldMapping();
 
 $aStates = getCountryState();
@@ -510,18 +504,6 @@ $default_county_states = $aStates['states'];
 								</div>
 							</div>
 							
-							<?php if (!is_user_logged_in()) { ?>
-							<div class="row">
-								<div class="field col-md-6">
-									<label class="label"><?php echo __('Password', 'cake')?><small class="help-info"><?php echo __('(Password for login)')?></small></label>
-									<input class="input validate[required]" required="required" type="password" name="custom_order_customer_password" id="customer_password">
-								</div>
-								<div class="field col-md-6">
-									<label class="label"><?php echo __('Password Confirm', 'cake')?><small class="help-info"><?php echo __('(Password for login)')?></small></label>
-									<input class="input validate[required]" required="required" type="password" name="custom_order_customer_passwordconfirm" id="customer_passwordconfirm">
-								</div>
-							</div>
-							<?php }?>
 							<div class="mt-2 deliver-info disable">
 								<h4 class="heading-form mt-4 mb-2 text-gray">Where do you want your order delivered?</h4>
 								<div class="form-fields">
@@ -631,21 +613,37 @@ $default_county_states = $aStates['states'];
 		</div>
 	</form>
 	
-	<form id="confirmation_content" method="post" action="">
-		<div id="confirmation_footer">
+	<form id="confirmation_form" method="post" action="">
+		<input type="hidden" name="action" value="submit_form_order"/>
+		<input type="hidden" name="confirmed" value="ok"/>
+	</form>
+	<div id="confirmation_wraper" class="disable">
+		<div id="confirmation_content">
+		</div>
+		<div id="confirmation_footer" class="disable">
+				<div class="modal fade" id="custom_order_login_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display:none;">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+								<h4 class="modal-title" ><?php echo __('Login or Register', 'cake')?></h4>
+							</div>
+							<div class="modal-body">
+								<?php login_with_ajax();?>
+							</div>
+						</div>
+					</div>
+				</div>
 			<div class="row">
-				<div class="col-md-6 columns">
-					<ul>
-						<li class="m-input__radio">
-							<input type="radio" name="custom_order_cake_type" id="<?php echo $term->slug?>" class="radio_input validate[required]" value="<?php echo $term->slug?>" <?php echo $_REQUEST['type'] == $term->slug ? 'checked' : ''?>>
-							<label for="<?php echo $term->slug?>" class="js-fixHeightChildText radio_label <?php echo $term->slug?>">
-						
-						</li>
-					</ul>
+				<div class="col-md-12">
+					<input type="button" class="cdo-button" name="submit" value="Submit" id="submit_form_order"/>
 				</div>
 			</div>
+			
 		</div>
-	</form>
+	</div>
 </div>
 <div class="col-md-4 columns position-static pt-md-4 pt-sm-2 pb-sm-4">
 	<div class="ordercake-cart-sidebar-container">

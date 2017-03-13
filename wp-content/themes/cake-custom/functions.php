@@ -54,6 +54,7 @@ function icheck_scripts ()
 	wp_enqueue_script('pinbox_js', get_stylesheet_directory_uri() . '/js/jquery.pinBox.js', array());
 	wp_enqueue_script('kana_js', get_stylesheet_directory_uri() . '/js/jquery.autoKana.js', array());
 	wp_enqueue_style('cake_child_css', get_stylesheet_directory_uri() . '/style.css');
+	wp_enqueue_script('overlay_js', get_stylesheet_directory_uri() . '/js/loadingoverlay.js', array());
 	wp_enqueue_script('custom_js', get_stylesheet_directory_uri() . '/js/custom.js', array());
 }
 add_action('wp_enqueue_scripts', 'icheck_scripts');
@@ -178,7 +179,7 @@ function cleanTempFiles($source, $pastDate)
 
 function cleanTemporaryData(){
 	// Number date Before current day
-	$pastDateNumber = 5;
+	$pastDateNumber = 7;
 	$pastDate = date('Y-m-d',strtotime("-$pastDateNumber days"));
 	$upload_dir = wp_upload_dir();
 	
@@ -499,98 +500,174 @@ function cake_steps_store(){
 	echo json_encode($aResponse);die;
 }
 
-function storeOrderCustomToDB(){
-	//@TODO Validate required fields
+function attachImageToProduct ($image, $post_id)
+{
+	// $filename should be the path to a file in the upload directory.
+	$upload_dir = wp_upload_dir();
+	$temp_folder = $upload_dir['basedir'] . '/temp/';
+	$filename = $temp_folder . $image;
+		
+	$file_array = array();
+	$file_array['name'] = basename($filename);
+	$file_array['tmp_name'] = $filename;
 	
-	// Create Custom Product
-	$post = array(
-		'post_author' => 1,
-		'post_content' => '',
-		'post_status' => "private",
-		'post_title' => 'Custom Order Product',
-		'post_parent' => '',
-		'post_type' => "product",
-	);
-	
-	//Create post
-	$post_id = wp_insert_post( $post, $wp_error );
-	if($post_id){
-		$attach_id = get_post_meta($product->parent_id, "_thumbnail_id", true);
-		add_post_meta($post_id, '_thumbnail_id', $attach_id);
+	$attach_id = media_handle_sideload($file_array, $post_id);
+	if (is_wp_error($attach_id))
+	{
+		return '';
 	}
 	
-	wp_set_object_terms($post_id, 'simple', 'product_type');
-	update_post_meta( $post_id, '_visibility', 'hidden' );
-	update_post_meta( $post_id, '_stock_status', 'instock');
-	update_post_meta( $post_id, 'total_sales', '0');
-	update_post_meta( $post_id, '_downloadable', 'no');
-	update_post_meta( $post_id, '_virtual', 'no');
-	update_post_meta( $post_id, '_regular_price', "300" );
-	update_post_meta( $post_id, '_sale_price', "300" );
-	update_post_meta( $post_id, '_purchase_note', "" );
-	update_post_meta( $post_id, '_featured', "no" );
-	update_post_meta( $post_id, '_weight', "" );
-	update_post_meta( $post_id, '_length', "" );
-	update_post_meta( $post_id, '_width', "" );
-	update_post_meta( $post_id, '_height', "" );
-	update_post_meta( $post_id, '_sku', "");
-	update_post_meta( $post_id, 'is_custom_order_product', 1);
-	update_post_meta( $post_id, '_sale_price_dates_from', "" );
-	update_post_meta( $post_id, '_sale_price_dates_to', "" );
-	update_post_meta( $post_id, '_price', "300" );
-	update_post_meta( $post_id, '_sold_individually', "" );
-	update_post_meta( $post_id, '_manage_stock', "no" );
-	update_post_meta( $post_id, '_backorders', "no" );
-	update_post_meta( $post_id, '_stock', "" );
+	// Generate the metadata for the attachment, and update the database record.
+	set_post_thumbnail( $post_id, $attach_id );
+	return $attach_id;
+}
+
+add_action('wp_ajax_nopriv_submit_form_order', 'submit_form_order');
+add_action('wp_ajax_submit_form_order', 'submit_form_order');
+function submit_form_order(){
+	$response_message = '';
+	$response_error = false;
+	$redirect = '';
+	$errors = new WP_Error();
 	
-	$aData = array();
-	foreach ( $_SESSION['cake_custom_order'] as $step => $cakeStepData )
+	//@TODO Validate required fields
+	// If not logged in -> error
+	if (!is_user_logged_in())
 	{
-		foreach ( $cakeStepData as $fieldName => $fieldValue )
+		$errors->add( 'user_not_logged', __("<strong>ERROR</strong>: User not logged in"), 'cake' );
+	}
+	
+	if (!$errors->get_error_code())
+	{
+		// Create Custom Product
+		$post = array(
+			'post_author' => 1,
+			'post_content' => '',
+			'post_status' => "private",
+			'post_title' => 'Custom Order Product',
+			'post_parent' => '',
+			'post_type' => "product",
+		);
+		
+		//Create post
+		$post_id = wp_insert_post( $post, $wp_error );
+		if($post_id){
+			$attach_id = get_post_meta($product->parent_id, "_thumbnail_id", true);
+			add_post_meta($post_id, '_thumbnail_id', $attach_id);
+		}
+		
+		wp_set_object_terms($post_id, 'simple', 'product_type');
+		update_post_meta( $post_id, '_visibility', 'hidden' );
+		update_post_meta( $post_id, '_stock_status', 'instock');
+		update_post_meta( $post_id, 'total_sales', '0');
+		update_post_meta( $post_id, '_downloadable', 'no');
+		update_post_meta( $post_id, '_virtual', 'no');
+		update_post_meta( $post_id, '_regular_price', "300" );
+		update_post_meta( $post_id, '_sale_price', "300" );
+		update_post_meta( $post_id, '_purchase_note', "" );
+		update_post_meta( $post_id, '_featured', "no" );
+		update_post_meta( $post_id, '_weight', "" );
+		update_post_meta( $post_id, '_length', "" );
+		update_post_meta( $post_id, '_width', "" );
+		update_post_meta( $post_id, '_height', "" );
+		update_post_meta( $post_id, '_sku', "");
+		update_post_meta( $post_id, 'is_custom_order_product', 1);
+		update_post_meta( $post_id, '_sale_price_dates_from', "" );
+		update_post_meta( $post_id, '_sale_price_dates_to', "" );
+		update_post_meta( $post_id, '_price', "300" );
+		update_post_meta( $post_id, '_sold_individually', "" );
+		update_post_meta( $post_id, '_manage_stock', "no" );
+		update_post_meta( $post_id, '_backorders', "no" );
+		update_post_meta( $post_id, '_stock', "" );
+		
+		$aData = array();
+		foreach ( $_SESSION['cake_custom_order'] as $step => $cakeStepData )
 		{
-			if ( strpos($fieldName, 'custom_order_') !== false )
+			foreach ( $cakeStepData as $fieldName => $fieldValue )
 			{
-				$aData[$fieldName] = $fieldValue;
-				// Add form data to product meta
-				update_post_meta($post_id, $fieldName, $fieldValue);
+				if ( strpos($fieldName, 'custom_order_') !== false )
+				{
+					$aData[$fieldName] = $fieldValue;
+					// Add form data to product meta
+					update_post_meta($post_id, $fieldName, $fieldValue);
+				}
 			}
 		}
+		// Add images if exists
+		if (is_array($aData['custom_order_cakePic']) && !empty($aData['custom_order_cakePic']))
+		{	
+			$aAttachIds = array();
+			$aAttachUrl = array();
+			foreach ($aData['custom_order_cakePic'] as $image)
+			{
+				$attach_id = attachImageToProduct ($image, $post_id);
+				if ($attach_id)
+				{
+					$aAttachIds[] = $attach_id;
+					$aAttachUrl[] =   wp_get_attachment_url( $attach_id );
+				}
+				
+			}
+			
+			if (!empty($aAttachIds))
+			{
+				update_post_meta($post_id,'_product_image_gallery', implode(',', $aAttachIds));
+			}
+		}
+		
+		// Create Custom Order
+		$address = array(
+			'first_name' => $aData['custom_order_customer_name_last'],
+			'last_name'  => $aData['custom_order_customer_name_first'],
+			'company'    => $aData['custom_order_deliver_storename'],
+			'email'      => $aData['custom_order_customer_email'],
+			'phone'      => $aData['custom_order_customer_name_first'],
+			'address_1'  => $aData['custom_order_deliver_addr1'],
+			'address_2'  => $aData['custom_order_deliver_addr2'],
+			'city'       => $aData['custom_order_deliver_city'],
+			'state'      => $aData['custom_order_deliver_pref'],
+			'postcode'   => $aData['custom_order_deliver_postcode'],
+			'country'    => 'JP',
+		);
+		
+		$order_data = array(
+			'status'        => 'pending',
+			'customer_id'   => 1,
+		);
+		
+		$order = wc_create_order();
+		$order->add_product( get_product( $post_id ), 1 ); //(get_product with id and next is for quantity)
+		$order->set_address( $address, 'billing' );
+		$order->set_address( $address, 'shipping' );
+		$order->calculate_totals();
+		
+		$orderDetail = new WC_Order( $order->id );
+		
+		$items = $orderDetail->get_items();
+		$item_keys = array_keys($items);
+		wc_add_order_item_meta($item_keys[0], '_order_type', KITT_CUSTOM_ORDER);
+		
+		update_post_meta( $order->id, '_payment_method', 'other_payment' );
+		update_post_meta( $order->id, '_payment_method_title', 'Waiting Payment' );
+		
+		// Update custom field for order
+		foreach ($aData as $fieldName => $fieldValue)
+		{
+			if (is_array($fieldValue)) {
+				if ($fieldName == 'custom_order_cakePic')
+				{
+					$fieldValue = $aAttachUrl;
+				}
+				
+				$fieldValue = implode(PHP_EOL, $fieldValue);
+			}
+			update_post_meta($order->id, $fieldName, $fieldValue);
+		}
+		
+		$redirect = get_site_url() . '/thank-you-for-you-order';
 	}
-	
-	// Create Custom Order
-	$address = array(
-		'first_name' => $aData['custom_order_customer_name_last'],
-		'last_name'  => $aData['custom_order_customer_name_first'],
-		'company'    => $aData['custom_order_deliver_storename'],
-		'email'      => $aData['custom_order_customer_email'],
-		'phone'      => $aData['custom_order_customer_name_first'],
-		'address_1'  => $aData['custom_order_deliver_addr1'],
-		'address_2'  => $aData['custom_order_deliver_addr2'],
-		'city'       => $aData['custom_order_deliver_city'],
-		'state'      => $aData['custom_order_deliver_pref'],
-		'postcode'   => $aData['custom_order_deliver_postcode'],
-		'country'    => 'JP',
-	);
-	
-	$order_data = array(
-		'status'        => 'pending',
-		'customer_id'   => 1,
-	);
-	
-	$order = wc_create_order();
-	$order->add_product( get_product( $post_id ), 1 ); //(get_product with id and next is for quantity)
-	$order->set_address( $address, 'billing' );
-	$order->set_address( $address, 'shipping' );
-	$order->calculate_totals();
-	
-	$orderDetail = new WC_Order( $order->id );
-	
-	$items = $orderDetail->get_items();
-	$item_keys = array_keys($items);
-	wc_add_order_item_meta($item_keys[0], '_order_type', KITT_CUSTOM_ORDER);
-	
-	update_post_meta( $order->id, '_payment_method', 'other_payment' );
-	update_post_meta( $order->id, '_payment_method_title', 'Waiting Payment' );
+	$response = array('error' => (boolean)$errors->get_error_code(), 'message' => $errors->get_error_messages, 'redirect' => $redirect);
+	echo json_encode($response);die;
 }
 
 add_action('init','register_cake_session');

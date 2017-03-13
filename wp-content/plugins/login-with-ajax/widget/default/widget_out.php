@@ -82,17 +82,22 @@
 		<?php if( get_option('users_can_register') && !empty($lwa_data['registration']) && $lwa_data['registration'] == 1 ): ?>
 		<div class="lwa-register lwa-register-default lwa-modal" style="display:none;">
 			<h4><?php esc_html_e('Register For This Site','login-with-ajax') ?></h4>
-			<p><em class="lwa-register-tip"><?php esc_html_e('A password will be e-mailed to you.','login-with-ajax') ?></em></p>
 			<form class="lwa-register-form" action="<?php echo esc_attr(LoginWithAjax::$url_register); ?>" method="post">
 				<div>
 				<span class="lwa-status"></span>
-				<p class="lwa-username">
-					<label><?php esc_html_e('Username','login-with-ajax') ?><br />
-					<input type="text" name="user_login" id="user_login" class="input" size="20" tabindex="10" /></label>
-				</p>
 				<p class="lwa-email">
 					<label><?php esc_html_e('E-mail','login-with-ajax') ?><br />
-					<input type="text" name="user_email" id="user_email" class="input" size="25" tabindex="20" /></label>
+					<input type="text" name="user_email" id="user_email" class="input" size="25" />
+					<input type="hidden" name="user_login" id="user_login" class="input" size="25" value="<?php echo 'user_'.uniqid()?>" />
+					</label>
+				</p>
+				<p class="lwa-password">
+					<label><?php esc_html_e('Password','login-with-ajax') ?><br />
+					<input type="password" name="user_password" id="user_password" class="input" size="25" /></label>
+				</p>
+				<p class="lwa-password">
+					<label><?php esc_html_e('Confirm Password','login-with-ajax') ?><br />
+					<input type="password" name="user_repeat_password" id="user_repeat_password" class="input" size="25" /></label>
 				</p>
 				<?php do_action('register_form'); ?>
 				<?php do_action('lwa_register_form'); ?>

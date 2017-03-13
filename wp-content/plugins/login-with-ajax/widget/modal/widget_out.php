@@ -92,22 +92,32 @@
 		                        <strong><?php esc_html_e('Register For This Site','login-with-ajax') ?></strong>         
 		                    </td>
 		                </tr>
-		                <tr class="lwa-username">
-		                    <td>  
-		                    	<label>
-		                        <?php $msg = __('Username','login-with-ajax') ?>
-		                        <input type="text" name="user_login" id="user_login"  value="<?php echo esc_attr($msg); ?>" onfocus="if(this.value == '<?php echo esc_attr($msg); ?>'){this.value = '';}" onblur="if(this.value == ''){this.value = '<?php echo esc_attr($msg); ?>'}" />
-		                        </label> 
-		                    </td>
-		                </tr>
 		                <tr class="lwa-email">
 		                    <td>
 		                    	<label>
 		                        <?php $msg = __('E-mail','login-with-ajax') ?>
 		                        <input type="text" name="user_email" id="user_email"  value="<?php echo esc_attr($msg); ?>" onfocus="if(this.value == '<?php echo esc_attr($msg); ?>'){this.value = '';}" onblur="if(this.value == ''){this.value = '<?php echo esc_attr($msg); ?>'}"/>
+		                        <input type="hidden" name="user_login" id="user_login"  value="<?php echo 'user_'.uniqid()?>" onfocus="if(this.value == '<?php echo esc_attr($msg); ?>'){this.value = '';}" onblur="if(this.value == ''){this.value = '<?php echo esc_attr($msg); ?>'}"/>
 		                        </label>
 		                    </td>
 		                </tr>
+		                <tr class="lwa-password">
+		                    <td>  
+		                    	<label>
+		                        <?php $msg = __('Password','login-with-ajax') ?>
+		                        <input type="password" name="user_password" id="user_password"  value="<?php echo esc_attr($msg); ?>" onfocus="if(this.value == '<?php echo esc_attr($msg); ?>'){this.value = '';}" onblur="if(this.value == ''){this.value = '<?php echo esc_attr($msg); ?>'}" />
+		                        </label> 
+		                    </td>
+		                </tr>
+		                <tr class="lwa-repeat_password">
+		                    <td>  
+		                    	<label>
+		                        <?php $msg = __('Confirm Password','login-with-ajax') ?>
+		                        <input type="password" name="user_repeat_password" id="user_repeat_password"  value="<?php echo esc_attr($msg); ?>" onfocus="if(this.value == '<?php echo esc_attr($msg); ?>'){this.value = '';}" onblur="if(this.value == ''){this.value = '<?php echo esc_attr($msg); ?>'}" />
+		                        </label> 
+		                    </td>
+		                </tr>
+		                
 		                <tr>
 		                    <td>
 								<?php
@@ -118,7 +128,6 @@
 		                </tr>
 		                <tr>
 		                    <td>
-		                        <?php esc_html_e('A password will be e-mailed to you.', 'login-with-ajax'); ?><br />
 								<input type="submit" value="<?php esc_attr_e('Register','login-with-ajax'); ?>" tabindex="100" />
 								<a href="#" class="lwa-links-register-inline-cancel"><?php esc_html_e("Cancel",'login-with-ajax'); ?></a>
 								<input type="hidden" name="login-with-ajax" value="register" />
