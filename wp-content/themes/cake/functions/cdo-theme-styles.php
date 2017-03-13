@@ -387,6 +387,7 @@ if(!function_exists("cake_custom_css")):
 		
 		$bgdefault = get_theme_mod('cake_page_header_img', '');		
 		$bg = wp_get_attachment_image_src( get_post_meta( $theID, 'cake_page_header_img_id', 1 ), 'full' );
+		$hbgpositionmeta = get_post_meta($theID, 'cake_page_background_position', true);
 		
 		if($bg!=""){
 			$getbg = esc_url($bg[0]);
@@ -417,13 +418,24 @@ if(!function_exists("cake_custom_css")):
 				$pageheaderborder = '';
 			}
 		}
-		$custom_css .= '.page-header{background:'.$primarycolor.' url('.$getbg.')}';
+		//add
+		if($hbgpositionmeta=="left"){
+				$hbgposition ='left center !important';
+			}elseif($layout=="right"){
+				$hbgposition ='right center !important';
+			}else{		
+				$hbgposition ='center !important';	
+			}
+		
+		$custom_css .= '.page-header{background:'.$primarycolor.' url('.$getbg.') }';
+		$custom_css .= '.page-header{background-position:'.$hbgposition.'}';
 		$pageheadercustomborder = cake_color_reator($primarycolor, $darkPercent);
 		if($bg!=''){
 		$custom_css .= '.page-header-border{background:transparent}';	
 		}else{
 		$custom_css .= '.page-header-border{background:'.$pageheadercustomborder.' url('.$pageheaderborder.')}';
 		}
+		
 			
 		
 		//menu

@@ -9,6 +9,14 @@ $bgdefault = get_theme_mod('cake_page_header_img', '');
 $bg = wp_get_attachment_image_src( get_post_meta( $theID, 'cake_page_header_img_id', 1 ), 'full' );
 $jptitle = get_field('title_ja');
 $headtext = get_post_meta($theID, 'cake_page_header_text', true);
+$htxtpositionmeta = get_post_meta($theID, 'cake_page_bgtext_position', true);
+if($htxtpositionmeta=="leftfloat"){
+				$htextposition ='floatleft';
+			}elseif($htxtpositionmeta=="rightfloat"){
+				$htextposition ='floatright';
+			}else{		
+				$htextposition ='';	
+			}
 ?>
 
 
@@ -26,7 +34,7 @@ $headtext = get_post_meta($theID, 'cake_page_header_text', true);
 				printf( '<ul class="breadcrumb">%s</ul>' , $breadcrumb);
 				}
 			?>
-           <div class="title-wrapper">
+           <div class="title-wrapper <?php echo $htextposition; ?>">
             <h1 class="page-title">
 			
 			<?php 

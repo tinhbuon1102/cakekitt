@@ -429,6 +429,30 @@ function cake_register_metabox() {
 		'id'               => 'cake_page_header_text',
 		'type' 			   => 'textarea',
 	) );
+	$cdo_cmb->add_field( array(
+		'name'             => esc_html__( 'Image Options', 'cake'),
+		'desc'             => '',
+		'id'               => 'cake_page_background_position',
+		'type'             => 'radio_inline',
+		'options'          => array(
+			'left' => esc_html__( 'Left', 'cake'),
+			'center'   => esc_html__( 'Center', 'cake'),
+			'right'     => esc_html__( 'Right', 'cake'),
+		),
+		'default'             => 'center',
+	) );
+	$cdo_cmb->add_field( array(
+		'name'             => esc_html__( 'Text position', 'cake'),
+		'desc'             => '',
+		'id'               => 'cake_page_bgtext_position',
+		'type'             => 'radio_inline',
+		'options'          => array(
+			'leftfloat' => esc_html__( 'Left', 'cake'),
+			'nofloat'   => esc_html__( 'Center', 'cake'),
+			'rightfloat'     => esc_html__( 'Right', 'cake'),
+		),
+		'default'             => 'nofloat',
+	) );
 	
 	$cdo_cmb->add_field( array(
 		'name'             => esc_html__( 'Layout Options', 'cake'),
