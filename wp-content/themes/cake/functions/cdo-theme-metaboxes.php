@@ -422,6 +422,13 @@ function cake_register_metabox() {
 		'id'               => 'cake_page_header_img',
 		'type' 			   => 'file',
 	) );
+	//added
+	$cdo_cmb->add_field( array(
+		'name'             => esc_html__( 'Page Header Text', 'cake'),
+		'desc'             => esc_html__( 'text inside background.', 'cake'),
+		'id'               => 'cake_page_header_text',
+		'type' 			   => 'textarea',
+	) );
 	
 	$cdo_cmb->add_field( array(
 		'name'             => esc_html__( 'Layout Options', 'cake'),

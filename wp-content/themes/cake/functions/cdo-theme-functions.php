@@ -65,6 +65,7 @@ endif;
 /*====================================================================================================
 WP Head
 ======================================================================================================*/
+
 if (!function_exists('cake_wp_head')) :
 function cake_wp_head() {
 	
@@ -632,9 +633,11 @@ if( !function_exists('cake_add_element_to_menu')):
 					
 					if(cake_is_woocommerce_activated()){
 						if (is_user_logged_in() ) {
-							$loginout =  '<a href="'.esc_url(get_permalink( get_option('woocommerce_myaccount_page_id') )).'">'.esc_html__('Logout', 'cake').'</a>';
+							$loginout =  '<a href="'.esc_url(get_permalink( get_option('woocommerce_myaccount_page_id') )).'" class="Header-Actions account-icon"><span class="linericon-user action-icon"></span><span class="link_txt">My Account</span></a>';
+							//$loginout =  '<a href="'.esc_url(get_permalink( get_option('woocommerce_myaccount_page_id') )).'" class="Header-Actions account-icon">'.esc_html__('Logout', 'cake').'</a>';
 						}else{
-							$loginout = '<a href="'.esc_url(get_permalink( get_option('woocommerce_myaccount_page_id') )).'">'.esc_html__('Login','cake').'</a>';
+							$loginout = '<a href="'.esc_url(get_permalink( get_option('woocommerce_myaccount_page_id') )).'" class="Header-Actions account-icon"><span class="linericon-enter action-icon"></span><span class="link_txt">Sign up</span></a>';
+							//$loginout = '<a href="'.esc_url(get_permalink( get_option('woocommerce_myaccount_page_id') )).'" class="Header-Actions account-icon">'.esc_html__('Login','cake').'</a>';
 						}
 					}else{
 						
@@ -680,10 +683,9 @@ if( !function_exists('cake_add_element_to_menu')):
 					
 					if( function_exists( 'YITH_WCWL' ) && $wishlisticon=='true' ){	
 						$items .= '<li class="cake-wishlist-menu">';
-						$items .= '<a href="'.esc_url($wishlist_url).'">';
-						$items .= '<span class="cake-wishlist-icon">';
-						$items .= '<i class="fa fa-heart"></i><span class="badge-custom">'. $wishlist_item .'</span>';
-						$items .= '</span>';
+						$items .= '<a href="'.esc_url($wishlist_url).'" class="Header-Actions cake-wishlist-icon">';
+						$items .= '<i class="linericon-heart_outline action-icon"></i>';
+						$items .= '<span class="badge-custom">'. $wishlist_item .'</span>';
 						$items .= '</a>';
 						$items .= '</li>';
 					}
@@ -691,9 +693,9 @@ if( !function_exists('cake_add_element_to_menu')):
 					//cart icon
 					if($carticon=='true'){
 						$items .= '<li>';
-						$items .= '<a href="'.esc_url($cake_product_link).'">';
-						$items .= '<div class="cake-menu-cart">';
-						$items .= '<i class="fa fa-shopping-cart"></i><span class="cart-totalqty badge-custom">'.sprintf (_n( '%d', '%d', WC()->cart->get_cart_contents_count(),'cake' ), WC()->cart->get_cart_contents_count() ).'</span>';
+						$items .= '<a href="'.esc_url($cake_product_link).'" class="Header-Actions cake-menu-cart">';
+						$items .= '<i class="linericon-cart action-icon"></i>';
+						$items .= '<span class="cart-totalqty badge-custom">'.sprintf (_n( '%d', '%d', WC()->cart->get_cart_contents_count(),'cake' ), WC()->cart->get_cart_contents_count() ).'</span>';
 						
 						if(!is_cart() && !is_checkout()){
 						
@@ -702,7 +704,7 @@ if( !function_exists('cake_add_element_to_menu')):
 						$items .= '</div>';
 						
 						}
-						$items .= '</div>';
+						
 						$items .= '</a>';
 						$items .= '</li>';
 					}

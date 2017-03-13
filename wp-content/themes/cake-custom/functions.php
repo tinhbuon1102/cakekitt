@@ -24,6 +24,12 @@ if ( ! is_admin() )
 	wp_deregister_script('jquery');
 	wp_enqueue_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js', array(), '3.1.0');
 }
+function jqueryui_scripts ()
+{
+	wp_enqueue_script('jqueryui_js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js', array(), '1.8.6');
+	wp_enqueue_script('fontawesome_js', 'https://use.fontawesome.com/d543855e1a.js', array(), '');
+}
+add_action('wp_enqueue_scripts', 'jqueryui_scripts');
 
 function icheck_scripts ()
 {

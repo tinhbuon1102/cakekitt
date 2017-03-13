@@ -1,4 +1,7 @@
 /* Quickly add some CSS to your theme by adding it to this block */
+html {
+    -webkit-tap-highlight-color: transparent;
+}
 body {
 font-family: -apple-system, BlinkMacSystemFont, "Avenir Next", "Avenir", "Roboto", 'Noto Sans Japanese', "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", "Meiryo", sans-serif;
 text-rendering: optimizeLegibility;
@@ -46,6 +49,12 @@ input[type="text"]:focus, input[type="tel"]:focus, input[type="email"]:focus {
     background: none !important;
     color: #222222 !important;
     border-color: #222222 !important;
+	border-width: 1px !important;
+	border-style: solid;
+}
+.btn-style-border-blk.w2 {
+	border-width: 2px !important;
+	font-weight: bold !important;
 }
 .btn-style-border-blk.gray {
     color: #a7abad !important;
@@ -175,21 +184,25 @@ input[type="text"]:focus, input[type="tel"]:focus, input[type="email"]:focus {
     position: relative;
     border-bottom: 1px solid #F8F8F8;
 }
-.sub_head .navbar-abs {
+.sub_head .navbar-abs, .sub_head .cake-social-icon {
     position: relative;
+}
+.menu-sub-menu-left-container {
+    float: left;
 }
 .sub_head .menu-sub-menu-right-container {
 float: right;
 }
 .sub_head .navbar-nav > li > a {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    position: relative;
+    padding: 0;
+    background: none;
 }
 .header-nav {
     margin: 0px auto 0;
 }
 .nav-container {
-    height: 90px;
+    height: 94px;
     background-color: #FFF;
     box-shadow: 0 14px 12px -12px #656565;
     -webkit-box-shadow: 0px 0px 32px 0px #fba1a1;
@@ -206,34 +219,44 @@ float: right;
     animation: none;
 }
 .navbar-abs i {
-    font-size: 16px;
-    color: #a2a4a7;
-    line-height: inherit;
-    vertical-align: inherit;
+    color: #000;
 }
-span.cake-wishlist-icon, .cake-menu-cart {
-    vertical-align: middle;
+#submenu_right .action-icon, .menu-sub-menu-left-container ul.cake-social-icon i {
+    font-size: 20px;
+    font-size: 1.25rem;
+	vertical-align: middle;
+}
+#submenu_right i.action-icon {
+    width: 30px;
+    display: inline-block;
 }
 .badge-custom {
-    font-family: helvetica;
-    -webkit-border-radius: 18px;
-    -moz-border-radius: 18px;
-    border-radius: 18px;
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    padding: 0 5px;
+    font-family: AvenirBook,Arial,sans-serif;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    display: inline;
+    width: auto;
+    height: auto;
+    padding: 0;
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 500;
+    letter-spacing: 0px;
     line-height: 18px;
-    color: #fff;
+    color: #000;
     text-align: center;
+    /* vertical-align: top; */
     white-space: nowrap;
-    background-color: rgb(213,78,130);
-    background-color: rgba(213,78,130,1);
-    background: rgb(213,78,130);
-    background: rgba(213,78,130,1);
+    background-color: transparent;
+    background: none;
     vertical-align: middle;
+}
+.menu-sub-menu-left-container ul:before, .menu-sub-menu-left-container ul:after {
+	display: table;
+    content: " ";
+}
+.menu-sub-menu-left-container ul:after {
+	clear: both;
 }
 /*slider*/
 .bg-stinblue {
@@ -836,10 +859,102 @@ margin-bottom: 60px;
 	}
 }
 /* page common*/
+.fullwidth #content-wrapper {
+    padding: 0;
+}
+.bg-lightgray {
+	background: #f8f8f8;
+}
+.cdo-section.bmpad {
+	padding-bottom: 80px;
+}
+.cdo-section.secpad {
+    padding-top: 80px;
+	padding-bottom: 80px;
+}
+.cdo-button i {
+    position: relative;
+    top: 1px;
+    margin-left: 0;
+    margin-right: 5px;
+}
+span.but_icon {
+    display: inline-block;
+    vertical-align: middle;
+}
+span.but_label {
+    vertical-align: middle;
+}
+.cdo-button.medium i {
+font-size: 24px;
+}
+.has-description .title-wrapper {
+    text-align: center;
+}
+.tittle-sub-top.has-description .page-title {
+    float: none;
+    font-size: 62px;
+    line-height: 1;
+    vertical-align: middle;
+}
+.tittle-sub-top .page-description {
+    font-weight: bold;
+	font-size: 16px;
+	line-height: 1.8;
+}
+.tittle-sub-top .title-wrapper .ja-subtitle {
+    margin-bottom: 20px;
+	font-weight: bold;
+}
+.tittle-sub-top.has-description ul.breadcrumb {
+    margin-bottom: 70px;
+}
 .static-page h3.title {
     font-family: 'bebas_neuebold';
     padding-bottom: 20px;
     margin-bottom: 0;
+}
+.entry-content .subtitle-link {
+	font-family: -apple-system, BlinkMacSystemFont, "Avenir Next", "Avenir", "Roboto", 'Noto Sans Japanese', "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", "Meiryo", sans-serif !important;
+	font-style: normal;
+	font-size: 16px;
+	line-height: 1;
+	letter-spacing: 4px;
+}
+.head-style-underline {
+    position: relative;
+    margin-bottom: 45px;
+}
+h3.head-style-underline:after {
+    content: '';
+    display: block;
+    background: #000;
+    width: 150px;
+    height: 1px;
+    position: absolute;
+    left: 50%;
+    margin-left: -75px;
+    bottom: -20px;
+}
+.entry-content .head-title {
+    font-family: 'bebas_neuebold';
+    font-weight: 600;
+    letter-spacing: 0px;
+    font-size: 40px;
+	line-height: 1;
+}
+.round-wrap {
+	width: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.round-wrap img {
+    width: 100%;
+    height: auto;
+}
+.col-sm-6 .round-wrap {
+    max-width: 400px;
+    margin: 0 auto;
 }
 .cdo-dropcap, .head-title, .testi-name, .cdo-team-section h5 {
     color: #000;
@@ -861,7 +976,11 @@ margin-bottom: 60px;
     height: 190px;
 }
 .page-header.has-banner {
-height:420px;
+    height:420px;
+	background-size: cover;
+}
+.page-header.wider-height {
+    height: 540px;
 }
 .page-header-border {
     background: rgb(233,184,203);
@@ -900,15 +1019,112 @@ font-weight:600;
 .navbar-brand-cake .sub_head ul {
     font-size: 13px;
 }
+.sub_head .navbar-nav > li > a.Header-Actions span.link_txt {
+    font-family: "brandon-grotesque", "Helvetica Neue", sans-serif;
+    font-weight: normal;
+    font-size: 12px;
+    margin-left: 7px;
+}
 @media (min-width: 768px) {
 .navbar-nav > li > a {
-    padding-top: 18px;
-    padding-bottom: 18px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 18px;
+    line-height: 1;
 }
-.hidden-pc {
-	display: none !important;
+.sub_head .navbar-nav > li > a, .menu-sub-menu-left-container ul.cake-social-icon a {
+    padding: 0;
+	line-height: 35px;
+    line-height: 2.3rem;
+}
+.sub_head .navbar-nav > li > a.Header-Actions, .menu-sub-menu-left-container ul.cake-social-icon a {
+	width: 50px;
+    height: 35px;
+    display: block;
+	text-align: center;
+}
+.sub_head .navbar-nav > li.account > a.Header-Actions, .menu-sub-menu-left-container ul.cake-social-icon a {
+	width: auto;	
+}
+ul#submenu_right li, .menu-sub-menu-left-container ul li {
+    margin-left: 20px;
+    margin-left: 1.25rem;
+	float: left;
+}
+.menu-sub-menu-left-container ul li:first-child {
+	margin-left: 0;
+}
+.scroll .header-nav li.center-logo a img {
+    display: none;
+}
+.scroll .header-nav li.center-logo {
+    height: auto;
+    background: #FFF;
+	border-radius:0px;
+}
+.scroll .nav-container {
+    border-bottom: 1px solid #F8F8F8;
+	overflow: hidden;
 }
 }
+.scroll a.logolink:before {
+    content: "\e9bd";
+    font-size: 90px;
+    color: rgba(248,187,214,1);
+    font-family: 'linericon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+nav#toggleTarget {
+    position: absolute;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+button#toggleMenu {
+    border: none;
+    background: none;
+    color: #000;
+    padding: 0;
+    font-size: 19px;
+    font-size: 1.1875rem;
+    vertical-align: top;
+}
+.Header-navContainer {
+    height: 94%; /* IE8以下とAndroid4.3以下用フォールバック */
+    height : -webkit-calc(100% - 49px) ;
+    height : calc(100% - 49px) ;
+    top: 50px;
+    right: 0;
+    background-color: #fff;
+	display: none;
+}
+.Header-supHeaderLogo a  {
+    display: block;
+    position: absolute;
+    width: 120%;
+    left: 50%;
+	top: 0;
+    margin-left: -60%;
+}
+.Header-supHeaderLogo a img {
+	width: 100%;
+    max-width: 120px;
+    margin: 0 auto;
+}
+.Body--noScroll .navbar-fixed-top {
+    height: 100%;
+}
+
 /*footer*/
 #footer ul#menu-custom-menu li a {
     font-family: 'bebas_neuebold';
@@ -1134,7 +1350,54 @@ output {
     background: rgba(233,159,188,1);
     color: #FFF;
 }
+/* mobile nav*/
+ul.mb-navigation li:first-child {
+    padding-top: 10px;
+    padding-top: .625rem;
+}
+ul.mb-navigation li a {
+    display: block;
+    padding: 10px 20px;
+    padding: .625rem 1.25rem;
+    position: relative;
+	font-family: "brandon-grotesque", "Helvetica Neue", sans-serif;
+    font-weight: normal;
+    font-size: 14px;
+    font-size: .875rem;
+    letter-spacing: .2em;
+}
+ul.mb-navigation li.Header-navItemUser>a {
+    padding: 20px;
+    padding: 1.25rem;
+    text-transform: none;
+}
+.Header-navItemUser {
+    margin-top: 10px;
+    margin-top: .625rem;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+}
+.Header-navItemUser a:before {
+	content: '\e93e';
+    margin-right: 10px;
+    margin-right: .625rem;
+    font-family: 'linericon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+body.logged-in .Header-navItemUser a:before {
+    content: '\e94f';
+}
 @media only screen and (max-width: 767px) {
+.navbar-brand-cake.navbar-fixed-top.open {
+    height: 100%;
+}
 .tittle-sub-top .page-title {
     float: none;
     text-align: center;
@@ -1160,6 +1423,11 @@ output {
     line-height: 22px;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+}
+.tittle-sub-top.has-description .page-description {
+    max-width: 400px;
+    margin: 0 auto;
+	font-size: 14px;
 }
 .page-header.no-banner {
     height: auto;
@@ -1776,6 +2044,12 @@ span.display-table-cell.price-value {
     margin-right: -0.85em;
 }
 }
+/*iPhone5*/
+@media only screen and (max-width: 320px) {
+#submenu_right i.action-icon {
+    width: 25px;
+}
+}
 
 .border, .border-top, .border-bottom, .border-left, .border-right {
     border-color: #E0E0E0;
@@ -1787,6 +2061,9 @@ span.display-table-cell.price-value {
 }
 .width-full {
     width: 100%;
+}
+.size20 {
+	font-size: 20px;
 }
 .size30 {
 	font-size: 30px;
@@ -1977,6 +2254,9 @@ h4.heading-form {
     font-size: 60px !important;
     line-height: 65px !important;
 }
+.mr-1 {
+	margin-right: 10px;
+}
 .mb-3.mb-3 {
     margin-bottom: 18px;
 }
@@ -2139,6 +2419,15 @@ div#s2id_autogen1 {
 .modal-fullscreen .modal-content {
     background: rgba(233,184,203, .95);
 }
+@media only screen and (max-width: 991px) {
+.cdo-button.medium {
+    width: 100%;
+    margin: 0;
+}
+.cdo-button.medium.mb10 {
+    margin-bottom: 10px;
+}
+}
 @media only screen and (max-width: 959px) and (min-width: 768px) {
 .woocommerce.columns-4 ul.products li.product:nth-child(even) {
     margin-right: 0;
@@ -2166,17 +2455,16 @@ div#s2id_autogen1 {
     margin-left: 0px;
 }
 }
+@media (min-width: 992px) {
+.hidden-pc {
+    display: none !important;
+}
+}
 @media (max-width: 991px) {
 .rabels_3columns .col-md-4 {
     padding: 0 4px;
     width: 33.333%;
     float: left;
-}
-}
-
-@media (max-width: 767px) {
-.woocommerce-page ul.products li.product, .woocommerce ul.products li.product, .woocommerce.columns-4 ul.products li.product, .woocommerce.columns-3 ul.products li.product, .woocommerce.columns-2 ul.products li.product {
-    overflow: hidden;
 }
 /*header*/
 nav.navbar.navbar-brand-cake.navbar-fixed-top:before, nav.navbar.navbar-brand-cake.navbar-fixed-top:after, .navbar .sub_head.clearfix:before, .navbar .sub_head.clearfix:after, .nav-container .container:before, .nav-container .container:after {
@@ -2191,8 +2479,9 @@ nav.navbar.navbar-brand-cake.navbar-fixed-top:before, nav.navbar.navbar-brand-ca
 .navbar .sub_head {
     display: table;
     width: 100%;
+	height: 50px;
     position: relative;
-    border-bottom: none;
+    border-bottom: 1px solid #e5e5e5;
 }
 .sub_head .menu-sub-menu-right-container, .Header-supHeaderBurger, .Header-supHeaderLogo {
     float: none;
@@ -2204,6 +2493,7 @@ nav.navbar.navbar-brand-cake.navbar-fixed-top:before, nav.navbar.navbar-brand-ca
     vertical-align: middle;
     width: 20%;
     text-align: center;
+	position: relative;
 }
 .Header-supHeaderBurger {
     width: 40%;
@@ -2241,6 +2531,12 @@ nav.navbar.navbar-brand-cake.navbar-fixed-top:before, nav.navbar.navbar-brand-ca
     height: 85px;
     border-radius: 50%;
 }
+}
+@media (max-width: 767px) {
+.woocommerce-page ul.products li.product, .woocommerce ul.products li.product, .woocommerce.columns-4 ul.products li.product, .woocommerce.columns-3 ul.products li.product, .woocommerce.columns-2 ul.products li.product {
+    overflow: hidden;
+}
+
 #latestNews .news-lists .col-sm-3 {
     margin-bottom: 20px;
 }
@@ -2287,7 +2583,13 @@ nav.navbar.navbar-brand-cake.navbar-fixed-top:before, nav.navbar.navbar-brand-ca
     display: none;
 }
 }
+@media only screen and (max-width: 767px) and (min-width: 480px) {
+.entry-content .container {
+    max-width: 480px;
+}
+}
 @media only screen and (max-width: 680px) and (min-width: 480px) {
+
 .banner-parallax .container {
 	max-width: 480px;
 }
@@ -2322,6 +2624,9 @@ a.btn.label-btn {
 }
 }
 @media only screen and (max-width: 479px) {
+.tittle-sub-top {
+    padding-top: 115px;
+}
 /*product page*/
 .single-product .entry-summary .yith-wcwl-add-button a, .entry-summary .yith-wcwl-wishlistexistsbrowse a {
     width: 100%;
