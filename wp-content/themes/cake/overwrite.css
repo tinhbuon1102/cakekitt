@@ -891,6 +891,16 @@ font-size: 24px;
 .has-description .title-wrapper {
     text-align: center;
 }
+.page-header .title-wrapper.floatright {
+    text-align: left;
+    float: right;
+    width: 50%;
+}
+.page-header .title-wrapper.floatleft {
+    text-align: left;
+    float: left;
+    width: 50%;
+}
 .tittle-sub-top.has-description .page-title {
     float: none;
     font-size: 62px;
@@ -969,6 +979,9 @@ h3.head-style-underline:after {
     font-family: 'christmas_time_personal_useRg';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+.page-header {
+	position: relative;
 }
 .page-header.no-banner {
     background: rgb(233,184,203);
@@ -1435,7 +1448,12 @@ body.logged-in .Header-navItemUser a:before {
 }
 .page-header-border {
     height: 0;
-}	
+}
+.page-header .title-wrapper.floatright, .page-header .title-wrapper.floatleft {
+    text-align: center;
+    float: none;
+    width: 100%;
+}
 .woocommerce div.product form.cart .variations .select-style.black.border-dark {
     max-width: 100%;
 }
