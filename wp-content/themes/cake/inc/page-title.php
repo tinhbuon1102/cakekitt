@@ -189,7 +189,7 @@ if($htxtpositionmeta=="leftfloat"){
 		</header><!-- .page-header -->
 		<?php if (  ( $bg ) ) { ?>
 		<?php } elseif (  ( $bgdefault) ) { ?>
-		<div class="page-header-border></div>
+		<div class="page-header-border"></div>
 		<?php } else { ?>
-		<div class="page-header-border></div>
+		<div class="page-header-border"></div>
 		<?php } ?>
