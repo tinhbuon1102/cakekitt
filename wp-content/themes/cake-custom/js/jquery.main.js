@@ -290,7 +290,7 @@ $(function(){
     			
     			var new_image = '<img alt="" src="'+ (response.file_src) +'?t='+ (new Date().getTime()) +'"   class="cake_upload_preview" />';
     			new_image += '<input type="hidden" class="filestyle" name="custom_order_cakePic[]" value="'+response.file_name+'">';
-    			$('#inspired_images').append('<li>'+new_image+'</li>');
+    			$('#inspired_images').append('<li>'+new_image+'<span class="glyphicon glyphicon-remove remove-image" ></span></li>');
     	    	$('#custom_order_cakePic').val(response.file_name);    	    	
     		}
         }
@@ -306,6 +306,10 @@ $(function(){
             }).submit();
         });
     	
+    	$('body').on('click', 'span.remove-image', function(){
+    		$(this).fadeOut(function(){$(this).closest('li').remove()});
+    	});
+    	 
     	
     	// Init color Picker
     	jQuery(".cp-select").colorPicker({

@@ -2,25 +2,42 @@
  Theme Name: cake Custom
  Template:     cake
  */
-
 #omOrder input.labelauty {
-    display: block !important;
-    opacity: 0;
-    height: 0;
-} 
+	display: block !important;
+	opacity: 0;
+	height: 0;
+}
 
 .cake_upload_preview {
 	max-width: 250px;
 	margin-bottom: 20px;
 }
 
-#inspired_images li {display: inline-block; margin-right: 20px;}
+#inspired_images li {
+	display: inline-block;
+	margin-right: 20px;
+	position: relative;
+}
+
+#inspired_images li span.remove-image {
+	color: #F00;
+	position: absolute;
+	top: 0;
+	right: 0;
+	cursor: pointer;
+}
 
 div.rangeslider {
 	cursor: pointer;
 }
-.esg-cc .eg-washington-element-0-a {margin: 0 auto !important;}
-.esg-cc .eg-washington-element-1-a {display: none !important;}
-@media only screen and (max-width: 768px)
-{
+
+.esg-cc .eg-washington-element-0-a {
+	margin: 0 auto !important;
+}
+
+.esg-cc .eg-washington-element-1-a {
+	display: none !important;
+}
+
+@media only screen and (max-width: 768px) {
 }
