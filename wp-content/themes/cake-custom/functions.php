@@ -631,8 +631,8 @@ function submit_form_order(){
 		);
 		
 		$order_data = array(
-			'status'        => 'pending',
-			'customer_id'   => 1,
+			'status'        => 'on-hold',
+			'customer_id'   => get_current_user_id(),
 		);
 		
 		$order = wc_create_order();
@@ -649,6 +649,16 @@ function submit_form_order(){
 		
 		update_post_meta( $order->id, '_payment_method', 'other_payment' );
 		update_post_meta( $order->id, '_payment_method_title', 'Waiting Payment' );
+		update_post_meta( $order->id, '_customer_user', get_current_user_id() );
+		
+		// Mark as on-hold (we're awaiting the payment)
+		$order->update_status('on-hold', __( 'Awaiting payment', 'woocommerce-other-payment-gateway' ));
+		$order->update_status('pending', __( 'Awaiting payment', 'woocommerce-other-payment-gateway' ));
+		// Delete notes
+		global $wpdb;
+		$posts_table = $wpdb->posts;
+		$query = "DELETE FROM ". $wpdb->comments ." WHERE comment_post_ID = " .$order->id;
+		$wpdb->query($query);
 		
 		// Update custom field for order
 		foreach ($aData as $fieldName => $fieldValue)
@@ -664,7 +674,8 @@ function submit_form_order(){
 			update_post_meta($order->id, $fieldName, $fieldValue);
 		}
 		
-		$redirect = get_site_url() . '/thank-you-for-you-order';
+		$payment = new WC_Other_Payment_Gateway();
+		$redirect = $payment->get_return_url($order);
 	}
 	$response = array('error' => (boolean)$errors->get_error_code(), 'message' => $errors->get_error_messages, 'redirect' => $redirect);
 	echo json_encode($response);die;

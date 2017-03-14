@@ -448,3 +448,4 @@
 )
 
 03-07-2017 @ 02:23:51 - Success: Stripe charge complete (Charge ID: ch_19uPYoBJpROLvqFx0qeAXl0Z)
+03-14-2017 @ 11:55:47 - Error: Sorry, the minimum allowed order total is <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&yen;</span>50</span> to use this payment method.

@@ -76,12 +76,9 @@ class WC_Other_Payment_Gateway extends WC_Payment_Gateway{
 		global $woocommerce;
 		$order = new WC_Order( $order_id );
 		// Mark as on-hold (we're awaiting the cheque)
+		$order->update_status('on-hold', __( 'Awaiting payment', 'woocommerce-other-payment-gateway' ));
 		$order->update_status('pending', __( 'Awaiting payment', 'woocommerce-other-payment-gateway' ));
 		// Reduce stock levels
-// 		$order->reduce_order_stock();
-		if(isset($_POST[ $this->id.'-admin-note']) && trim($_POST[ $this->id.'-admin-note'])!=''){
-			$order->add_order_note(esc_html($_POST[ $this->id.'-admin-note']),1);
-		}
 		// Remove cart
 		$woocommerce->cart->empty_cart();
 		// Return thankyou redirect
