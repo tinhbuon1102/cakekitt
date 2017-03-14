@@ -161,6 +161,59 @@ $(function(){
         	
         });
         
+        
+        $('body').on('click', '.cake-row__remove', function(){
+        	var currentStepActive = $('form#omOrder .step_wraper:visible').data('step');
+        	
+        	var item_cart_row = $(this);
+        	var step = currentStepActive;
+        	var step_remove = $(this).attr('data-step');
+        	var item_remove = $(this).attr('data-item-remove');
+        	var child_item_remove = $(this).attr('data-item-child-remove');
+        	
+        	$('body').LoadingOverlay("show");
+	        $.ajax({
+	        	url: gl_ajaxUrl,
+	        	data: {action: 'cake_steps_store', 'step': step, 'step_remove': step_remove, 'data-item-remove': item_remove, 'data-item-child-remove': child_item_remove}, 
+	            method: 'POST',
+	            dataType: 'json',
+	            success: function(response){
+	            	// Uncheck
+	            	$('input[name^='+item_remove+']').each(function(){
+	            		if ($(this).val() == child_item_remove) {
+	            			$(this).iCheck('uncheck');
+	            		}
+	            	});
+	            	
+	            	$('.cake-cart-sidebar #cart_items').html('');
+                	if (response.cart_html)
+                	{
+                		$('.cake-cart-sidebar #cart_items').append(response.cart_html);
+                		$('#cart_empty_block').addClass('disable');
+                		$('#cart_total').removeClass('disable');
+                		$('#cart_total .text-right h4').html(response.cart_total);
+                		
+                	}
+                	else {
+                		$('#cart_empty_block').removeClass('disable');
+                		$('#cart_total').addClass('disable');
+                	}
+                	
+                	if (currentStepActive == 4)
+                    {
+                		$('#confirmation_wraper').removeClass('disable');
+                		$('#confirmation_content').html(response.confirm_html);
+                		$('#confirmation_footer').removeClass('disable');
+                    }
+                	
+	            	$('body').LoadingOverlay("hide");
+	            },
+	            error: function(){
+	            	$('body').LoadingOverlay("hide");
+	            }
+	        });
+        });
+        
         $('body').on('click', '#submit_form_order', function(){
         	$('#submit_form_order').hide();
         	$('body').LoadingOverlay("show");

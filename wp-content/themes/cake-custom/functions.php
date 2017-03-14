@@ -309,8 +309,28 @@ function get_size_cake_shape_price() {
 add_action('wp_ajax_nopriv_cake_steps_store', 'cake_steps_store');
 add_action('wp_ajax_cake_steps_store', 'cake_steps_store');
 function cake_steps_store(){
-	$_SESSION['cake_custom_order'] = isset($_SESSION['cake_custom_order']) ? $_SESSION['cake_custom_order'] : array();
-	$_SESSION['cake_custom_order'][$_POST['step']] = $_POST;
+	// Remove cart items
+	if (isset($_POST['data-item-remove'])){
+		$step = $_POST['step_remove'];
+		$item_remove = $_POST['data-item-remove'];
+		if (isset($_POST['data-item-child-remove']))
+		{
+			$child_item_remove = $_POST['data-item-child-remove'];
+			foreach ($_SESSION['cake_custom_order'][$step][$item_remove] as $key_item => $child_item)
+			{
+				$child_item == $child_item_remove;
+				unset($_SESSION['cake_custom_order'][$step][$item_remove][$key_item]);
+				break;
+			}
+		}
+		else {
+			unset($_SESSION['cake_custom_order'][$step][$item_remove]);
+		}
+	}
+	else {
+		$_SESSION['cake_custom_order'] = isset($_SESSION['cake_custom_order']) ? $_SESSION['cake_custom_order'] : array();
+		$_SESSION['cake_custom_order'][$_POST['step']] = $_POST;
+	}
 	
 	$aResponse = array();
 	
@@ -421,7 +441,7 @@ function cake_steps_store(){
 				                    <span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_'.$decorate.' size30 blk"></i></span>
 									<span class="display-table-cell width-full">' . @$fieldMapping[$fieldName]['value'][$decorate] . $decorateQtyText . '</span>
 									<span class="display-table-cell pr-2 price-value">'. showCakePrice($cakePrice) .'</span>
-									<span class="display-table-cell"><button class="cake-row__remove sb-2" data-pie-cart-remove="'.$decorate.'">×</button></span>
+									<span class="display-table-cell"><button class="cake-row__remove sb-2" data-step="'.$step.'" data-item-remove="custom_order_cake_decorate" data-item-child-remove="'.$decorate.'">×</button></span>
 								</div>';
 						}
 						break;
@@ -442,7 +462,7 @@ function cake_steps_store(){
 	$aResponse['cart_total'] = showCakePrice($cartTotal);
 		
 	// Show COnfirmation page
-	if ($_POST['step'] == 3)
+	if ($_POST['step'] >= 3)
 	{
 		$fieldMapping = getCustomFormFieldMapping();
 		$divRow = '';
