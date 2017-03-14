@@ -59,8 +59,13 @@ class FOA_Woo_Filter_Orders_by_Product{
 
 	// modify where clause in query
 	public function product_filter_where( $where ) {
+		global $wpdb;
+		if (is_admin())
+		{
+			$where .= ' AND ID NOT IN (SELECT post_id FROM '.$wpdb->prefix . 'postmeta WHERE meta_key="is_custom_order_product") ';
+		}
+		
 		if( is_search() ) {
-			global $wpdb;
 			$t_posts = $wpdb->posts;
 			$t_order_items = $wpdb->prefix . "woocommerce_order_items";  
 			$t_order_itemmeta = $wpdb->prefix . "woocommerce_order_itemmeta";
