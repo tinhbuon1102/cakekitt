@@ -837,4 +837,43 @@ function cake_register_my_custom_submenu_page() {
 function cake_price_combination_callback() {
 	get_template_part('admin-price-combine');
 }
+
+// Register Accept status for order
+add_action( 'init', 'register_my_new_order_statuses' );
+function register_my_new_order_statuses() {
+	register_post_status( 'wc-accepted', array(
+		'label'                     => _x( 'Accepted', 'Order status', 'woocommerce' ),
+		'public'                    => true,
+		'exclude_from_search'       => false,
+		'show_in_admin_all_list'    => true,
+		'show_in_admin_status_list' => true,
+		'label_count'               => _n_noop( 'Accepted <span class="count">(%s)</span>', 'Accepted<span class="count">(%s)</span>', 'woocommerce' )
+	) );
+}
+
+add_filter( 'wc_order_statuses', 'my_new_wc_order_statuses' );
+// Register in wc_order_statuses.
+function my_new_wc_order_statuses( $order_statuses ) {
+	$order_statuses['wc-accepted'] = _x( 'Accepted', 'Order status', 'woocommerce' );
+	$order_statuses = array('wc-accepted' => _x( 'Accepted', 'Order status', 'woocommerce' )) + $order_statuses; 
+	return $order_statuses;
+}
+
+function sendinvoice($orderid)
+{
+	$mailer = WC()->mailer();
+	$mails = $mailer->get_emails();
+	$email_to_send = 'customer_invoice';
+	if ( ! empty( $mails ) ) {
+		foreach ( $mails as $mail ) {
+			if ( $mail->id == $email_to_send ) {
+				$mail->trigger( $orderid );
+			}
+		}
+	}
+}
+
+add_action('woocommerce_order_status_pending_to_accepted','sendinvoice');
+
+
 ?>
