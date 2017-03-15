@@ -531,7 +531,7 @@ function submit_form_order(){
 		$payment = new WC_Other_Payment_Gateway();
 		$redirect = $payment->get_return_url($order);
 	}
-	$response = array('error' => (boolean)$errors->get_error_code(), 'message' => $errors->get_error_messages, 'redirect' => $redirect);
+	$response = array('error' => (boolean)$errors->get_error_code(), 'message' => $errors->get_error_messages(), 'redirect' => $redirect);
 	echo json_encode($response);die;
 }
 

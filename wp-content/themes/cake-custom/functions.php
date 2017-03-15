@@ -423,6 +423,17 @@ function disable_page_wpautop() {
 }
 add_action( 'wp', 'disable_page_wpautop' );
 
+function autoLoginUser($user_id){
+	$user = get_user_by( 'id', $user_id );
+	if( $user ) {
+		wp_set_current_user( $user_id, $user->user_login );
+		wp_set_auth_cookie( $user_id );
+		do_action( 'wp_login', $user->user_login, $user);
+	}
+}
+
+add_action( 'register_new_user', 'autoLoginUser', 10, 1 );
+
 function woocommerce_save_account_details_custom ($userID)
 {
 	update_user_meta($userID, 'first_name_kana', $_POST['account_first_name_kana']);
