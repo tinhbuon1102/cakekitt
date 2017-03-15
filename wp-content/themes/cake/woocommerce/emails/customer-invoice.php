@@ -23,7 +23,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * @hooked WC_Emails::email_header() Output the email header
  */
-pr($email_heading);die;
 do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
 <?php if ( $order->has_status( 'pending' ) || $order->has_status( 'accepted' ) ) : ?>
