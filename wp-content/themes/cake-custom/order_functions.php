@@ -686,6 +686,5 @@ function getOrderDetail($order_id) {
 			}
 		}
 	}
-	echo($divRow);die;
 	$aResponse['confirm_html'] = $divRow;
 }
