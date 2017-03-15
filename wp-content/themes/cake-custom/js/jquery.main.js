@@ -228,7 +228,7 @@ $(function(){
                     	$('body').LoadingOverlay("hide");
                     	if (response.error)
                     	{
-                    		alert (message);
+                    		alert (response.message);
                     	}
                     	else {
                     		// Redirect to thank you page
