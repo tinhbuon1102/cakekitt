@@ -1,11 +1,25 @@
 <?php 
-// echo getOrderDetail(1843);die;
 // Reset session form 
 $_SESSION['cake_custom_order'] = array();
 $field_mappings = getCustomFormFieldMapping();
 
 $aStates = getCountryState();
 $default_county_states = $aStates['states'];
+
+$post_id = isset($_REQUEST['post_id']) ? $_REQUEST['post_id'] : '';
+$inspired_pic = get_the_post_thumbnail_url($post_id);
+// Store to temp
+if ($inspired_pic)
+{
+	$upload_dir = wp_upload_dir();
+	$file_name = uniqid() . '_' . basename($inspired_pic);
+	$temp_folder = $upload_dir['basedir'] . '/temp/';
+	$dest_file = $temp_folder . $file_name;
+	
+	$tmp_img = file_get_contents($inspired_pic);
+	file_put_contents($dest_file, $tmp_img);
+	$inspired_pic = $upload_dir['baseurl'] . '/temp/' . $file_name;
+}
 ?>
 
 <script type="text/javascript">
@@ -433,7 +447,14 @@ $default_county_states = $aStates['states'];
 							<span class="title-number display-table-cell">8</span>
 							<span class="display-table-cell pl-2">Inspired Pics</span>
 						</h4>
-						<ul id="inspired_images"></ul>
+						<ul id="inspired_images">
+							<?php if ($inspired_pic) {?>
+							<li>
+								<img alt="" src="<?php echo $inspired_pic?>"   class="cake_upload_preview" />
+								<input type="hidden" class="filestyle" name="custom_order_cakePic[]" value="<?php echo basename($inspired_pic)?>">
+								<span class="glyphicon glyphicon-remove remove-image" ></span>
+							<?php }?>
+						</ul>
 						<div id="image_loading"></div>
 						<input type="file" class="filestyle" name="upload_cakePic" id="upload_cakePic">
 					</li>

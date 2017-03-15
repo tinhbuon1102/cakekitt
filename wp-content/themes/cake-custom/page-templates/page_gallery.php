@@ -71,6 +71,8 @@ $field_mappings = getCustomFormFieldMapping();
 			});*/
 			$('body').on('click', '.esgbox', function() {
 				var esgbox = $(this);
+				var selectedPost = esgbox.closest('li').attr('id').replace(/^eg-\d-post-id-/, '');
+				
 				imgBtnInterval = setInterval(function(){
 					if ($('div.esgbox-title').length)
 					{
@@ -121,7 +123,7 @@ $field_mappings = getCustomFormFieldMapping();
 						//$('div.esgbox-skin').addClass((aspectRatio < 1) ? 'portrait' : 'landscape');
 						$('div.esgbox-title').append('<div class="meta-info"><ul class="ck-info"><li><label>Category</label><span class="value">デコレーションケーキ</span></li><li><label>Size</label><span class="value">5号/1段</span></li><li><label>Price</label><span class="value">25,000</span></li></ul></div>');
 
-						$('div.esgbox-title').append('<a href="<?php echo site_url()?>/order-made-form?type='+selectedCat+'" class="gallery_type_btn"><input class="cdo-button" type="button" value="<?php echo esc_html__('Buy this', 'cake')?>"></a>');
+						$('div.esgbox-title').append('<a href="<?php echo site_url()?>/order-made-form?type='+selectedCat+'&post_id='+selectedPost+'" class="gallery_type_btn"><input class="cdo-button" type="button" value="<?php echo esc_html__('Buy this', 'cake')?>"></a>');
 						clearInterval(imgBtnInterval);
 						imgBtnInterval = null;
 						
