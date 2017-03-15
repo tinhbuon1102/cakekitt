@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Zipcode Sample</title>
+<meta charset="utf-8">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+ 
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#lookup").click(function(){
+        var zip1 = $.trim($('#zip1').val());
+        var zip2 = $.trim($('#zip2').val());
+        var zipcode = zip1 + zip2;
+ 
+        $.ajax({
+            type: "post",
+            url: "api.php",
+            data: JSON.stringify(zipcode),
+            crossDomain: false,
+            dataType : "jsonp",
+            scriptCharset: 'utf-8'
+        }).done(function(data){
+            if(data[0] == ""){
+                alert('見つかりませんでした。');
+            } else {
+                $('#address').val(data[0] + data[1] + data[2]);
+            }
+        }).fail(function(XMLHttpRequest, textStatus, errorThrown){
+            alert(errorThrown);
+        });
+     });
+});
+</script>
+</head>
+<body>
+<form>
+    <p><input type="text" name="zip1" id="zip1" size="6">-<input type="text" name="zip2" id="zip2" size="6">
+    <input type="button" id="lookup" value="Lookup address"></p>
+    <p><input size="50" type="text" name="address" id="address"></p>
+</form>
+</body>
+</html>

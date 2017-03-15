@@ -11,6 +11,7 @@
 <script>
 var gl_templateUrl = '<?= get_stylesheet_directory_uri(); ?>';
 var gl_ajaxUrl = '<?= admin_url('admin-ajax.php');  ?>';
+var gl_siteUrl = '<?= get_site_url();  ?>';
 try{Typekit.load({ async: true });}catch(e){}</script>
 </head>
 
