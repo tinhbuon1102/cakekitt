@@ -473,9 +473,6 @@ function submit_form_order(){
 		update_post_meta( $order->id, '_order_total', $totalPriceIncluded );
 		
 
-		// Mark as on-hold (we're awaiting the payment)
-		$order->update_status('on-hold', __( 'Awaiting payment', 'woocommerce-other-payment-gateway' ));
-		$order->update_status('pending', __( 'Awaiting payment', 'woocommerce-other-payment-gateway' ));
 		// Delete notes
 		global $wpdb;
 		$posts_table = $wpdb->posts;
@@ -504,20 +501,6 @@ function submit_form_order(){
 		update_user_meta($userID, 'last_name_kana', get_user_meta($userID, 'last_name_kana', true) ? get_user_meta($userID, 'last_name_kana', true) : $aData['custom_order_customer_name_last_kana']);
 		update_user_meta($userID, 'tel', get_user_meta($userID, 'tel', true) ? get_user_meta($userID, 'tel', true) : $aData['custom_order_customer_tel']);
 		
-		$address = array(
-			'first_name' => $aData['custom_order_deliver_cipname'] ? $aData['custom_order_deliver_cipname'] : $aData['custom_order_customer_name_first'],
-			'last_name'  => $aData['custom_order_deliver_name'] ? $aData['custom_order_deliver_name'] : $aData['custom_order_customer_name_last'],
-			'company'    => $aData['custom_order_deliver_storename'],
-			'email'      => $aData['custom_order_customer_email'],
-			'phone'      => $aData['custom_order_deliver_tel'] ? $aData['custom_order_deliver_tel'] : $aData['custom_order_customer_tel'],
-			'address_1'  => $aData['custom_order_deliver_addr1'],
-			'address_2'  => $aData['custom_order_deliver_addr2'],
-			'city'       => $aData['custom_order_deliver_city'],
-			'state'      => $aData['custom_order_deliver_pref'],
-			'postcode'   => $aData['custom_order_deliver_postcode'],
-			'country'    => 'JP',
-		);
-		
 		//@TODO Update shipping/billing info
 		update_user_meta($userID, 'billing_email', get_user_meta($userID, 'billing_email', true) ? get_user_meta($userID, 'billing_email', true) : $address['email']);
 		update_user_meta($userID, 'billing_phone', get_user_meta($userID, 'billing_phone', true) ? get_user_meta($userID, 'billing_phone', true) : $address['phone']);
@@ -540,6 +523,10 @@ function submit_form_order(){
 		update_user_meta($userID, 'shipping_company', get_user_meta($userID, 'shipping_company', true) ? get_user_meta($userID, 'shipping_company', true) : $address['company']);
 		update_user_meta($userID, 'shipping_first_name', get_user_meta($userID, 'shipping_first_name', true) ? get_user_meta($userID, 'shipping_first_name', true) : $address['first_name']);
 		update_user_meta($userID, 'shipping_last_name', get_user_meta($userID, 'shipping_last_name', true) ? get_user_meta($userID, 'shipping_last_name', true) : $address['last_name']);
+		
+		// Mark as on-hold (we're awaiting the payment)
+		$order->update_status('on-hold', __( 'Awaiting payment', 'woocommerce-other-payment-gateway' ));
+		$order->update_status('pending', __( 'Awaiting payment', 'woocommerce-other-payment-gateway' ));
 		
 		// Redirect to thank you page
 		$payment = new WC_Other_Payment_Gateway();
