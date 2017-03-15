@@ -105,29 +105,22 @@ add_action('wp_ajax_nopriv_get_size_cake_shape_price', 'get_size_cake_shape_pric
 add_action('wp_ajax_get_size_cake_shape_price', 'get_size_cake_shape_price');
 function get_size_cake_shape_price() {
 	$fieldMapping = getCustomFormFieldMapping();
-	$cakePrices = get_option('cake_custom_price');
-	$shapeSelected = $_POST['price']['type']['custom_order_cake_shape'];
+	$shapeSelected = isset($_POST['price']['type']['custom_order_cake_shape']) ? $_POST['price']['type']['custom_order_cake_shape'] : $_POST['custom_order_meta']['custom_order_cake_shape'];
+	
+	$html = '';
 	if (in_array($shapeSelected, getArrayRoundShape()))
 	{
 		// Round
 		foreach ($fieldMapping['custom_order_cakesize_round']['value'] as $sizeKey => $sizeVal)
 		{
-			$priceKey = ('custom_order_cake_shape_custom_order_cakesize_round' . '__' . $shapeSelected . '_' . $sizeVal);
-			if (!isset($cakePrices[$priceKey]))
-			{
-				$html .= '<option value="'.$sizeKey.'">'.$sizeVal.'</option>';
-			}
+			$html .= '<option value="'.$sizeKey.'">'.$sizeVal.'</option>';
 		}
 	}
 	else {
 		// Square
 		foreach ($fieldMapping['custom_order_cakesize_square']['value'] as $sizeKey => $sizeVal)
 		{
-			$priceKey = ('custom_order_cake_shape_custom_order_cakesize_square' . '__' . $shapeSelected . '_' . $sizeVal);
-			if (!isset($cakePrices[$priceKey]))
-			{
-				$html .= '<option value="'.$sizeKey.'">'.$sizeVal.'</option>';
-			}
+			$html .= '<option value="'.$sizeKey.'">'.$sizeVal.'</option>';
 		}
 	}
 	echo $html;die;
@@ -549,7 +542,7 @@ function submit_form_order(){
 			if (is_array($fieldValue)) {
 				if ($fieldName == 'custom_order_cakePic')
 				{
-					$fieldValue = $aAttachUrl;
+					$fieldValue = implode(PHP_EOL, $aAttachUrl);
 				}
 			}
 		}
@@ -576,7 +569,12 @@ function getCustomFormFieldMapping(){
 	);
 	$terms = get_terms($cakeTypesArg); // Get all terms of a taxonomy
 	$cake_type_fields = array();
+	
 	$cake_type_fields['custom_order_cake_type']['field'] = $terms;
+	$cake_type_fields['custom_order_cake_type']['field']['label'] = __('Cake Type', 'cacke');
+	$cake_type_fields['custom_order_cake_type']['field']['type'] = 'select';
+	$cake_type_fields['custom_order_cake_type']['field']['name'] = 'custom_order_cake_type';
+	
 	foreach ($terms as $term)
 	{
 		$cake_type_fields['custom_order_cake_type']['value'][$term->slug] = $term->name;
@@ -590,10 +588,9 @@ function getCustomFormFieldMapping(){
 		// 	}
 	$postID = 1532;
 	// 	$postID = $post->ID;
-	$cake_custom_fields = get_post_meta( $postID );
-	foreach($cake_custom_fields as $field_name => $custom_field)
+	$cake_custom_fields = apply_filters('acf/field_group/get_fields', array(), $postID);
+	foreach($cake_custom_fields as $field_name => $field_values)
 	{
-		$field_values = unserialize($custom_field[0]);
 		if ($field_values && isset($field_values['type']))
 		{
 			$field_values['id'] = $field_values['name'];

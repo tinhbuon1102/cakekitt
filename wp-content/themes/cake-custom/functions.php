@@ -295,22 +295,101 @@ function order_send_invoice($orderid)
 
 add_action('woocommerce_order_status_pending_to_accepted','order_send_invoice');
 
-function custom_meta_order_detail_box_markup($object)
+function custom_meta_order_detail_box_markup($post)
 {
 	wp_nonce_field(basename(__FILE__), "meta-box-nonce");
+	$field_mappings = getCustomFormFieldMapping();
 	
+	$order = new WC_Order($post->ID);
+	$orderFormData = get_post_meta($order->id, 'cake_custom_order', true);
+	
+	echo '<script>
+		var gl_ajaxUrl = "'. admin_url('admin-ajax.php') .'";	
+		var roundGroup = '. json_encode(getArrayRoundShape()) .';
+	</script>';
+	echo '<style>
+		.order-detail-meta .col-left, .order-detail-meta .col-right {padding-bottom: 10px;}	
+		.order-detail-meta .col-right ul li {display: inline-block; margin-right: 10px;}
+		.order-detail-meta textarea {width: 100% !important}
+		.disable {display: none}
+	</style>';
+	echo '<table class="order-detail-meta" style="clear:both; width: 100%">';
+	if (!empty($orderFormData))
+	{
+		foreach ($field_mappings as $fieldName => $fields)
+		{
+			$showBlock = '';
+			if (in_array($orderFormData['custom_order_cake_shape'], getArrayRoundShape()))
+			{
+				$showBlock = 'custom_order_cakesize_round';
+			}
+			else {
+				$showBlock = 'custom_order_cakesize_square';
+			}
+			
+			$class = ($showBlock != $fieldName && in_array($fieldName, array('custom_order_cakesize_round', 'custom_order_cakesize_square'))) ? 'disable' : '';
+			
+			$itemField = $fields['field'];
+			echo '<tr id="'.$itemField['name'].'_wraper" class="'.$class.'">
+					<td class="col-left" style="text-align: left; width: 20%">'.$itemField['label'].'</td>
+					<td class="col-right" style="text-align; width: 80%">';
+			$args = array(
+				'type' => $itemField['type'],
+				'name' => 'custom_order_meta['.$itemField['name'].']',
+				'value' => isset($orderFormData[$fieldName]) ? $orderFormData[$fieldName] : '',
+				'choices' => isset($fields['value']) ? $fields['value'] : ''
+			);
+			
+			echo do_action('acf/create_field', $args);
+			echo '</td></tr>';
+		}
+	}
+	echo '</table>';
 }
 
-function add_custom_order_detail_meta_box()
+function save_custom_order_detail_meta_box ( $post_id, $post, $update )
 {
-	add_meta_box("order-detail-meta-box", __('Order details', 'cake'), "custom_meta_order_detail_box_markup", "shop_order", "normal");
+	if ( ! isset($_POST["meta-box-nonce"]) || ! wp_verify_nonce($_POST["meta-box-nonce"], basename(__FILE__)) ) return $post_id;
+
+	if ( ! current_user_can("edit_post", $post_id) ) return $post_id;
+
+	if ( defined("DOING_AUTOSAVE") && DOING_AUTOSAVE ) return $post_id;
+
+	update_post_meta($post_id, "cake_custom_order", $_POST['custom_order_meta']);
+}
+add_action("save_post", "save_custom_order_detail_meta_box", 10, 3);
+
+
+function add_custom_order_detail_meta_box($postType)
+{
+	if ($postType == 'shop_order')
+	{
+		add_meta_box("order-detail-meta-box", __('Order details', 'cake'), "custom_meta_order_detail_box_markup", "shop_order", "normal");
+		remove_meta_box('postcustom', null, 'normal');
+		add_meta_box('postcustom', __('Custom Fields'), 'post_custom_meta_box', 'shop_order', 'normal');
+	}
 }
 add_action("add_meta_boxes", "add_custom_order_detail_meta_box");
 
-function woocommerce_valid_order_statuses_for_payment_custom_order ($valid_order_statuses)
+// Remove essential grid meta box in order detail
+function tp_remove_metabox_from_all_post_types ()
+{
+	if ( is_admin() && current_user_can('manage_options') )
+	{
+		$post_types = array('shop_order');
+		foreach ( $post_types as $post_type )
+		{
+			remove_meta_box('eg-meta-box', $post_type, 'normal');
+		}
+	}
+}
+add_action('add_meta_boxes', 'tp_remove_metabox_from_all_post_types', 999);
+
+// Add accepted status for payment
+function woocommerce_valid_order_statuses_for_payment_custom_order ( $valid_order_statuses )
 {
 	$valid_order_statuses[] = 'accepted';
 	return $valid_order_statuses;
 }
-add_filter( 'woocommerce_valid_order_statuses_for_payment', 'woocommerce_valid_order_statuses_for_payment_custom_order', 10, 3 );
+add_filter('woocommerce_valid_order_statuses_for_payment', 'woocommerce_valid_order_statuses_for_payment_custom_order', 10, 3);
 ?>
