@@ -310,7 +310,7 @@ function custom_meta_order_detail_box_markup($post)
 	echo '<style>
 		.order-detail-meta .col-left, .order-detail-meta .col-right {padding-bottom: 10px;}	
 		.order-detail-meta .col-right ul li {display: inline-block; margin-right: 10px;}
-		.order-detail-meta textarea {width: 100% !important}
+		.order-detail-meta textarea {width: 100% !important; font-size: 11px;}
 		.disable {display: none}
 	</style>';
 	echo '<table class="order-detail-meta" style="clear:both; width: 100%">';
