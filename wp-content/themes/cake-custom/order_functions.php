@@ -442,11 +442,11 @@ function submit_form_order(){
 
 		// Create Custom Order
 		$address = array(
-			'first_name' => $aData['custom_order_deliver_cipname'],
-			'last_name'  => $aData['custom_order_deliver_name'],
+			'first_name' => $aData['custom_order_deliver_cipname'] ? $aData['custom_order_deliver_cipname'] : $aData['custom_order_customer_name_first'],
+			'last_name'  => $aData['custom_order_deliver_name'] ? $aData['custom_order_deliver_name'] : $aData['custom_order_customer_name_last'],
 			'company'    => $aData['custom_order_deliver_storename'],
 			'email'      => $aData['custom_order_customer_email'],
-			'phone'      => $aData['custom_order_deliver_tel'],
+			'phone'      => $aData['custom_order_deliver_tel'] ? $aData['custom_order_deliver_tel'] : $aData['custom_order_customer_tel'],
 			'address_1'  => $aData['custom_order_deliver_addr1'],
 			'address_2'  => $aData['custom_order_deliver_addr2'],
 			'city'       => $aData['custom_order_deliver_city'],
@@ -504,28 +504,42 @@ function submit_form_order(){
 		update_user_meta($userID, 'last_name_kana', get_user_meta($userID, 'last_name_kana', true) ? get_user_meta($userID, 'last_name_kana', true) : $aData['custom_order_customer_name_last_kana']);
 		update_user_meta($userID, 'tel', get_user_meta($userID, 'tel', true) ? get_user_meta($userID, 'tel', true) : $aData['custom_order_customer_tel']);
 		
-		//@TODO Update shipping/billing info
-		update_user_meta($userID, 'billing_email', get_user_meta($userID, 'billing_email', true) ? get_user_meta($userID, 'billing_email', true) : $aData['custom_order_customer_email']);
-		update_user_meta($userID, 'billing_phone', get_user_meta($userID, 'billing_phone', true) ? get_user_meta($userID, 'billing_phone', true) : $aData['custom_order_deliver_tel']);
-		update_user_meta($userID, 'billing_state', get_user_meta($userID, 'billing_state', true) ? get_user_meta($userID, 'billing_state', true) : $aData['custom_order_deliver_pref']);
-		update_user_meta($userID, 'billing_city', get_user_meta($userID, 'billing_city', true) ? get_user_meta($userID, 'billing_city', true) : $aData['custom_order_deliver_city']);
-		update_user_meta($userID, 'billing_country', get_user_meta($userID, 'billing_country', true) ? get_user_meta($userID, 'billing_country', true) : 'JP');
-		update_user_meta($userID, 'billing_postcode', get_user_meta($userID, 'billing_postcode', true) ? get_user_meta($userID, 'billing_postcode', true) : $aData['custom_order_deliver_postcode']);
-		update_user_meta($userID, 'billing_address_1', get_user_meta($userID, 'billing_address_1', true) ? get_user_meta($userID, 'billing_address_1', true) : $aData['custom_order_deliver_addr1']);
-		update_user_meta($userID, 'billing_address_2', get_user_meta($userID, 'billing_address_2', true) ? get_user_meta($userID, 'billing_address_2', true) : $aData['custom_order_deliver_addr2']);
-		update_user_meta($userID, 'billing_company', get_user_meta($userID, 'billing_company', true) ? get_user_meta($userID, 'billing_company', true) : $aData['custom_order_deliver_storename']);
-		update_user_meta($userID, 'billing_first_name', get_user_meta($userID, 'billing_first_name', true) ? get_user_meta($userID, 'billing_first_name', true) : $aData['custom_order_deliver_cipname']);
-		update_user_meta($userID, 'billing_last_name', get_user_meta($userID, 'billing_last_name', true) ? get_user_meta($userID, 'billing_last_name', true) : $aData['custom_order_deliver_name']);
+		$address = array(
+			'first_name' => $aData['custom_order_deliver_cipname'] ? $aData['custom_order_deliver_cipname'] : $aData['custom_order_customer_name_first'],
+			'last_name'  => $aData['custom_order_deliver_name'] ? $aData['custom_order_deliver_name'] : $aData['custom_order_customer_name_last'],
+			'company'    => $aData['custom_order_deliver_storename'],
+			'email'      => $aData['custom_order_customer_email'],
+			'phone'      => $aData['custom_order_deliver_tel'] ? $aData['custom_order_deliver_tel'] : $aData['custom_order_customer_tel'],
+			'address_1'  => $aData['custom_order_deliver_addr1'],
+			'address_2'  => $aData['custom_order_deliver_addr2'],
+			'city'       => $aData['custom_order_deliver_city'],
+			'state'      => $aData['custom_order_deliver_pref'],
+			'postcode'   => $aData['custom_order_deliver_postcode'],
+			'country'    => 'JP',
+		);
 		
-		update_user_meta($userID, 'shipping_state', get_user_meta($userID, 'shipping_state', true) ? get_user_meta($userID, 'shipping_state', true) : $aData['custom_order_deliver_pref']);
+		//@TODO Update shipping/billing info
+		update_user_meta($userID, 'billing_email', get_user_meta($userID, 'billing_email', true) ? get_user_meta($userID, 'billing_email', true) : $address['email']);
+		update_user_meta($userID, 'billing_phone', get_user_meta($userID, 'billing_phone', true) ? get_user_meta($userID, 'billing_phone', true) : $address['phone']);
+		update_user_meta($userID, 'billing_state', get_user_meta($userID, 'billing_state', true) ? get_user_meta($userID, 'billing_state', true) : $address['state']);
+		update_user_meta($userID, 'billing_city', get_user_meta($userID, 'billing_city', true) ? get_user_meta($userID, 'billing_city', true) : $address['city']);
+		update_user_meta($userID, 'billing_country', get_user_meta($userID, 'billing_country', true) ? get_user_meta($userID, 'billing_country', true) : 'JP');
+		update_user_meta($userID, 'billing_postcode', get_user_meta($userID, 'billing_postcode', true) ? get_user_meta($userID, 'billing_postcode', true) : $address['postcode']);
+		update_user_meta($userID, 'billing_address_1', get_user_meta($userID, 'billing_address_1', true) ? get_user_meta($userID, 'billing_address_1', true) : $address['address_1']);
+		update_user_meta($userID, 'billing_address_2', get_user_meta($userID, 'billing_address_2', true) ? get_user_meta($userID, 'billing_address_2', true) : $address['address_2']);
+		update_user_meta($userID, 'billing_company', get_user_meta($userID, 'billing_company', true) ? get_user_meta($userID, 'billing_company', true) : $address['company']);
+		update_user_meta($userID, 'billing_first_name', get_user_meta($userID, 'billing_first_name', true) ? get_user_meta($userID, 'billing_first_name', true) : $address['first_name']);
+		update_user_meta($userID, 'billing_last_name', get_user_meta($userID, 'billing_last_name', true) ? get_user_meta($userID, 'billing_last_name', true) : $address['last_name']);
+		
+		update_user_meta($userID, 'shipping_state', get_user_meta($userID, 'shipping_state', true) ? get_user_meta($userID, 'shipping_state', true) : $address['state']);
 		update_user_meta($userID, 'shipping_country', get_user_meta($userID, 'shipping_country', true) ? get_user_meta($userID, 'shipping_country', true) : 'JP');
-		update_user_meta($userID, 'shipping_postcode', get_user_meta($userID, 'shipping_postcode', true) ? get_user_meta($userID, 'shipping_postcode', true) : $aData['custom_order_deliver_postcode']);
-		update_user_meta($userID, 'shipping_city', get_user_meta($userID, 'shipping_city', true) ? get_user_meta($userID, 'shipping_city', true) : $aData['custom_order_deliver_city']);
-		update_user_meta($userID, 'shipping_address_1', get_user_meta($userID, 'shipping_address_1', true) ? get_user_meta($userID, 'shipping_address_1', true) : $aData['custom_order_deliver_addr1']);
-		update_user_meta($userID, 'shipping_address_2', get_user_meta($userID, 'shipping_address_2', true) ? get_user_meta($userID, 'shipping_address_2', true) : $aData['custom_order_deliver_addr2']);
-		update_user_meta($userID, 'shipping_company', get_user_meta($userID, 'shipping_company', true) ? get_user_meta($userID, 'shipping_company', true) : $aData['custom_order_deliver_storename']);
-		update_user_meta($userID, 'shipping_first_name', get_user_meta($userID, 'shipping_first_name', true) ? get_user_meta($userID, 'shipping_first_name', true) : $aData['custom_order_deliver_cipname']);
-		update_user_meta($userID, 'shipping_last_name', get_user_meta($userID, 'shipping_last_name', true) ? get_user_meta($userID, 'shipping_last_name', true) : $aData['custom_order_deliver_name']);
+		update_user_meta($userID, 'shipping_postcode', get_user_meta($userID, 'shipping_postcode', true) ? get_user_meta($userID, 'shipping_postcode', true) : $address['postcode']);
+		update_user_meta($userID, 'shipping_city', get_user_meta($userID, 'shipping_city', true) ? get_user_meta($userID, 'shipping_city', true) : $address['city']);
+		update_user_meta($userID, 'shipping_address_1', get_user_meta($userID, 'shipping_address_1', true) ? get_user_meta($userID, 'shipping_address_1', true) : $address['address_1']);
+		update_user_meta($userID, 'shipping_address_2', get_user_meta($userID, 'shipping_address_2', true) ? get_user_meta($userID, 'shipping_address_2', true) : $address['address_2']);
+		update_user_meta($userID, 'shipping_company', get_user_meta($userID, 'shipping_company', true) ? get_user_meta($userID, 'shipping_company', true) : $address['company']);
+		update_user_meta($userID, 'shipping_first_name', get_user_meta($userID, 'shipping_first_name', true) ? get_user_meta($userID, 'shipping_first_name', true) : $address['first_name']);
+		update_user_meta($userID, 'shipping_last_name', get_user_meta($userID, 'shipping_last_name', true) ? get_user_meta($userID, 'shipping_last_name', true) : $address['last_name']);
 		
 		// Redirect to thank you page
 		$payment = new WC_Other_Payment_Gateway();
