@@ -178,6 +178,38 @@ $('button#toggleMenu').click(function(){
       }
 });
 
+$('body').on('keyup change', '#deliver_postcode', function(){
+	var zip1 = $.trim($(this).val());
+    var zipcode = zip1;
+
+    $.ajax({
+        type: "post",
+        url: gl_siteUrl + "/dataAddress/api.php",
+        data: JSON.stringify(zipcode),
+        crossDomain: false,
+        dataType : "jsonp",
+        scriptCharset: 'utf-8'
+    }).done(function(data){
+        if(data[0] == ""){
+        } else {
+        	$('#deliver_state option').each(function(){
+        		if($(this).text() == data[0])
+        		{
+        			$('#deliver_state').val($(this).attr('value')).change();
+        		}
+        	});
+        	
+//            $('#deliver_state').val(data[0]).change();
+            $('#deliver_city').val(data[1]);
+//            $('#deliver_addr1').val(data[2]);
+            var address1 = $('#deliver_addr1').val();
+            address1 = address1.replace(data[2], '');
+            $('#deliver_addr1').val(data[2] + address1);
+        }
+    }).fail(function(XMLHttpRequest, textStatus, errorThrown){
+    });
+});
+
 });
 
 

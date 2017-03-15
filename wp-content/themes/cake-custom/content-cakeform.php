@@ -560,7 +560,7 @@ if ($inspired_pic)
 											</div>
 											<div class="field col-md-6">
 												<div class="select-wrapper">
-													<select name="custom_order_deliver_pref" class="form-control select select-primary" data-toggle="select">
+													<select name="custom_order_deliver_pref" id="deliver_state" class="form-control select select-primary" data-toggle="select">
 														<option value=""><?php echo __('Choose Prefecture', 'cake')?></option>
 														<?php foreach ($default_county_states as $stateKey => $stateVal) {?>
 															<option value="<?php echo $stateKey?>" <?php echo get_user_meta($userID, 'billing_state', true) == $stateKey ? 'selected' : ''?>><?php echo $stateVal;?></option>
