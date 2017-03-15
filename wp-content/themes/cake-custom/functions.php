@@ -336,7 +336,7 @@ function custom_meta_order_detail_box_markup($post)
 			$args = array(
 				'type' => $itemField['type'],
 				'name' => 'custom_order_meta['.$itemField['name'].']',
-				'value' => isset($orderFormData[$fieldName]) ? $orderFormData[$fieldName] : '',
+				'value' => isset($orderFormData[$fieldName]) ? (is_array($orderFormData[$fieldName]) ? implode(PHP_EOL) : $orderFormData[$fieldName]) : '',
 				'choices' => isset($fields['value']) ? $fields['value'] : ''
 			);
 			
