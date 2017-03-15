@@ -305,7 +305,12 @@ function add_custom_order_detail_meta_box()
 {
 	add_meta_box("order-detail-meta-box", __('Order details', 'cake'), "custom_meta_order_detail_box_markup", "shop_order", "normal");
 }
-
 add_action("add_meta_boxes", "add_custom_order_detail_meta_box");
 
+function woocommerce_valid_order_statuses_for_payment_custom_order ($valid_order_statuses)
+{
+	$valid_order_statuses[] = 'accepted';
+	return $valid_order_statuses;
+}
+add_filter( 'woocommerce_valid_order_statuses_for_payment', 'woocommerce_valid_order_statuses_for_payment_custom_order', 10, 3 );
 ?>
