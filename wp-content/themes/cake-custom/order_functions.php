@@ -694,6 +694,6 @@ function woocommerce_order_details_after_order_table_order_custom ($order){
 	<br />
 <?php
 }
-add_action( 'woocommerce_order_details_after_order_table', 'woocommerce_order_details_after_order_table_order_custom', 10, 1 );
-add_action( 'woocommerce_email_after_order_table', 'woocommerce_order_details_after_order_table_order_custom', 10, 1 );
+add_action( 'woocommerce_order_details_after_order_table', 'woocommerce_order_details_after_order_table_order_custom', 30, 4 );
+add_action( 'woocommerce_email_after_order_table', 'woocommerce_order_details_after_order_table_order_custom', 30, 4 );
 
