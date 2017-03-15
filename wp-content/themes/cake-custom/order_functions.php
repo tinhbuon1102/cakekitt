@@ -641,17 +641,18 @@ function getOrderDetail($order_id) {
 			{
 				$fieldValues = (array) $fieldValue;
 			}
+			$divRow .= '<table class="order-detail-custom-table" style="width: 100%">';
 			foreach ( $fieldValues as $fieldValue )
 			{
 				if($fieldValue == '' || $fieldValue === null) continue;
 				
-				$divRow .= '<div class="row">';
+				$divRow .= '<tr class="row">';
 
-				$divRow .= '<div class="col-md-5 pt-md-5 pt-sm-6 pb-sm-5">';
+				$divRow .= '<td class="col-md-5 pt-md-5 pt-sm-6 pb-sm-5" style="width: 30%">';
 				$divRow .= $fieldName == 'custom_order_cake_type' ? __('Cake Type', 'cake') : $fieldMapping[$fieldName]['field']['label'];
-				$divRow .= '</div>';
+				$divRow .= '</td>';
 
-				$divRow .= '<div class="col-md-7 pt-md-7 pt-sm-6 pb-sm-7">';
+				$divRow .= '<td class="col-md-7 pt-md-7 pt-sm-6 pb-sm-7" style="width: 70%">';
 				if ( 'custom_order_cakePic' == $fieldName )
 				{
 					if (!$order_id)
@@ -675,10 +676,11 @@ function getOrderDetail($order_id) {
 					}
 					$divRow .= is_array(@$fieldMapping[$fieldName]['value'][$fieldValue]) ? $fieldMapping[$fieldName]['value'][$fieldValue] : (is_array(@$fieldMapping[$fieldName]['value']) ? $fieldMapping[$fieldName]['value'][$fieldValue] : $fieldValue);
 				}
-				$divRow .= '</div>';
+				$divRow .= '</td>';
 
-				$divRow .= '</div>';
+				$divRow .= '</tr>';
 			}
+			$divRow .= '</table>';
 		}
 	}
 	return $divRow;
