@@ -286,56 +286,7 @@ function cake_steps_store(){
 	if ($_POST['step'] >= 3)
 	{
 		$fieldMapping = getCustomFormFieldMapping();
-		$divRow = '';
-		foreach ( $_SESSION['cake_custom_order'] as $step => $cakeStepData )
-		{
-			foreach ( $cakeStepData as $fieldName => $fieldValue )
-			{
-				if ( $fieldName == 'custom_order_pickup_time' )
-				{
-					$fieldValue = $fieldValue < 12 ? $fieldValue . ' AM' : $fieldValue . ' PM';
-				}
-				// If field name has text custom_order_ will be show
-				if ( strpos($fieldName, 'custom_order_') !== false )
-				{
-					$fieldValues = (array) $fieldValue;
-					foreach ( $fieldValues as $fieldValue )
-					{
-						$divRow .= '<div class="row">';
-
-						$divRow .= '<div class="col-md-5 pt-md-5 pt-sm-6 pb-sm-5">';
-						$divRow .= $fieldName == 'custom_order_cake_type' ? __('Cake Type', 'cake') : $fieldMapping[$fieldName]['field']['label'];
-						$divRow .= '</div>';
-
-						$divRow .= '<div class="col-md-7 pt-md-7 pt-sm-6 pb-sm-7">';
-						if ( 'custom_order_cakePic' == $fieldName )
-						{
-							$upload_dir = wp_upload_dir();
-							$temp_folder = $upload_dir['baseurl'] . '/temp/';
-								
-							if ( $fieldValue )
-							{
-								$fieldValue = $temp_folder . $fieldValue;
-							}
-							$divRow .= '<img style="max-width: 300px;" src="' . $fieldValue . '" />';
-						}
-						else
-						{
-							if ($fieldName == 'custom_order_deliver_pref')
-							{
-								$aCountrySates = getCountryState();
-								$fieldValue = $aCountrySates['states'][$fieldValue];
-							}
-							$divRow .= is_array($fieldMapping[$fieldName]['value'][$fieldValue]) ? $fieldMapping[$fieldName]['value'][$fieldValue] : (is_array($fieldMapping[$fieldName]['value']) ? $fieldMapping[$fieldName]['value'][$fieldValue] : $fieldValue);
-						}
-						$divRow .= '</div>';
-
-						$divRow .= '</div>';
-					}
-				}
-			}
-		}
-		$aResponse['confirm_html'] = $divRow;
+		$aResponse['confirm_html'] = getOrderDetail();
 	}
 
 	echo json_encode($aResponse);die;
@@ -650,6 +601,8 @@ function getOrderDetail($order_id) {
 			}
 			foreach ( $fieldValues as $fieldValue )
 			{
+				if($fieldValue == '' || $fieldValue === null) continue;
+				
 				$divRow .= '<div class="row">';
 
 				$divRow .= '<div class="col-md-5 pt-md-5 pt-sm-6 pb-sm-5">';
@@ -686,5 +639,5 @@ function getOrderDetail($order_id) {
 			}
 		}
 	}
-	$aResponse['confirm_html'] = $divRow;
+	return $divRow;
 }
