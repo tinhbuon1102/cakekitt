@@ -1,6 +1,4 @@
 <?php 
-$aData = get_post_meta(1864, 'cake_custom_order', true);
-var_dump($aData);die;
 $userID = (int) get_current_user_id();
 $user_data = get_userdata( $userID );
 
