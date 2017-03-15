@@ -391,5 +391,10 @@ function woocommerce_valid_order_statuses_for_payment_custom_order ( $valid_orde
 	$valid_order_statuses[] = 'accepted';
 	return $valid_order_statuses;
 }
-add_filter('woocommerce_valid_order_statuses_for_payment', 'woocommerce_valid_order_statuses_for_payment_custom_order', 10, 3);
+add_filter( 'woocommerce_valid_order_statuses_for_payment', 'woocommerce_valid_order_statuses_for_payment_custom_order', 10, 3 );
+
+function disable_page_wpautop() {
+	if ( is_page() ) remove_filter( 'the_content', 'wpautop' );
+}
+add_action( 'wp', 'disable_page_wpautop' );
 ?>
