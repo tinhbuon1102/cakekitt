@@ -134,6 +134,7 @@ function hide_plugin_order_by_product ()
 		'woocommerce-other-payment-gateway/woocommerce-other-payment-gateway.php',
 		'wpcustom-category-image/load.php',
 		'login-with-ajax/login-with-ajax.php',
+		'advanced-custom-fields/acf.php',
 	);
 	$myplugins = $wp_list_table->items;
 	foreach ( $myplugins as $key => $val )
@@ -421,4 +422,12 @@ function disable_page_wpautop() {
 	if ( is_page() ) remove_filter( 'the_content', 'wpautop' );
 }
 add_action( 'wp', 'disable_page_wpautop' );
+
+function woocommerce_save_account_details_custom ($userID)
+{
+	update_user_meta($userID, 'first_name_kana', $_POST['account_first_name_kana']);
+	update_user_meta($userID, 'last_name_kana', $_POST['account_last_name_kana']);
+	update_user_meta($userID, 'tel', $_POST['account_tel']);
+}
+add_action( 'woocommerce_save_account_details', 'woocommerce_save_account_details_custom' );
 ?>

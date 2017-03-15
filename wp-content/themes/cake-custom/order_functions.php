@@ -442,22 +442,17 @@ function submit_form_order(){
 
 		// Create Custom Order
 		$address = array(
-			'first_name' => $aData['custom_order_customer_name_last'],
-			'last_name'  => $aData['custom_order_customer_name_first'],
+			'first_name' => $aData['custom_order_deliver_cipname'],
+			'last_name'  => $aData['custom_order_deliver_name'],
 			'company'    => $aData['custom_order_deliver_storename'],
 			'email'      => $aData['custom_order_customer_email'],
-			'phone'      => $aData['custom_order_customer_name_first'],
+			'phone'      => $aData['custom_order_deliver_tel'],
 			'address_1'  => $aData['custom_order_deliver_addr1'],
 			'address_2'  => $aData['custom_order_deliver_addr2'],
 			'city'       => $aData['custom_order_deliver_city'],
 			'state'      => $aData['custom_order_deliver_pref'],
 			'postcode'   => $aData['custom_order_deliver_postcode'],
 			'country'    => 'JP',
-		);
-
-		$order_data = array(
-			'status'        => 'on-hold',
-			'customer_id'   => get_current_user_id(),
 		);
 
 		$order = wc_create_order();
@@ -501,6 +496,37 @@ function submit_form_order(){
 		// Update order detail to meta
 		update_post_meta($order->id, 'cake_custom_order', $aData);
 
+		//@TODO update account information
+		$userID     = (int) get_current_user_id();
+		update_user_meta($userID, 'first_name', get_user_meta($userID, 'first_name', true) ? get_user_meta($userID, 'first_name', true) : $aData['custom_order_customer_name_first']);
+		update_user_meta($userID, 'last_name', get_user_meta($userID, 'last_name', true) ? get_user_meta($userID, 'last_name', true) : $aData['custom_order_customer_name_last']);
+		update_user_meta($userID, 'first_name_kana', get_user_meta($userID, 'first_name_kana', true) ? get_user_meta($userID, 'first_name_kana', true) : $aData['custom_order_customer_name_first_kana']);
+		update_user_meta($userID, 'last_name_kana', get_user_meta($userID, 'last_name_kana', true) ? get_user_meta($userID, 'last_name_kana', true) : $aData['custom_order_customer_name_last_kana']);
+		update_user_meta($userID, 'tel', get_user_meta($userID, 'tel', true) ? get_user_meta($userID, 'tel', true) : $aData['custom_order_customer_tel']);
+		
+		//@TODO Update shipping/billing info
+		update_user_meta($userID, 'billing_email', get_user_meta($userID, 'billing_email', true) ? get_user_meta($userID, 'billing_email', true) : $aData['custom_order_customer_email']);
+		update_user_meta($userID, 'billing_phone', get_user_meta($userID, 'billing_phone', true) ? get_user_meta($userID, 'billing_phone', true) : $aData['custom_order_deliver_tel']);
+		update_user_meta($userID, 'billing_state', get_user_meta($userID, 'billing_state', true) ? get_user_meta($userID, 'billing_state', true) : $aData['custom_order_deliver_pref']);
+		update_user_meta($userID, 'billing_city', get_user_meta($userID, 'billing_city', true) ? get_user_meta($userID, 'billing_city', true) : $aData['custom_order_deliver_city']);
+		update_user_meta($userID, 'billing_country', get_user_meta($userID, 'billing_country', true) ? get_user_meta($userID, 'billing_country', true) : 'JP');
+		update_user_meta($userID, 'billing_postcode', get_user_meta($userID, 'billing_postcode', true) ? get_user_meta($userID, 'billing_postcode', true) : $aData['custom_order_deliver_postcode']);
+		update_user_meta($userID, 'billing_address_1', get_user_meta($userID, 'billing_address_1', true) ? get_user_meta($userID, 'billing_address_1', true) : $aData['custom_order_deliver_addr1']);
+		update_user_meta($userID, 'billing_address_2', get_user_meta($userID, 'billing_address_2', true) ? get_user_meta($userID, 'billing_address_2', true) : $aData['custom_order_deliver_addr2']);
+		update_user_meta($userID, 'billing_company', get_user_meta($userID, 'billing_company', true) ? get_user_meta($userID, 'billing_company', true) : $aData['custom_order_deliver_storename']);
+		update_user_meta($userID, 'billing_first_name', get_user_meta($userID, 'billing_first_name', true) ? get_user_meta($userID, 'billing_first_name', true) : $aData['custom_order_deliver_cipname']);
+		update_user_meta($userID, 'billing_last_name', get_user_meta($userID, 'billing_last_name', true) ? get_user_meta($userID, 'billing_last_name', true) : $aData['custom_order_deliver_name']);
+		
+		update_user_meta($userID, 'shipping_state', get_user_meta($userID, 'shipping_state', true) ? get_user_meta($userID, 'shipping_state', true) : $aData['custom_order_deliver_pref']);
+		update_user_meta($userID, 'shipping_country', get_user_meta($userID, 'shipping_country', true) ? get_user_meta($userID, 'shipping_country', true) : 'JP');
+		update_user_meta($userID, 'shipping_postcode', get_user_meta($userID, 'shipping_postcode', true) ? get_user_meta($userID, 'shipping_postcode', true) : $aData['custom_order_deliver_postcode']);
+		update_user_meta($userID, 'shipping_city', get_user_meta($userID, 'shipping_city', true) ? get_user_meta($userID, 'shipping_city', true) : $aData['custom_order_deliver_city']);
+		update_user_meta($userID, 'shipping_address_1', get_user_meta($userID, 'shipping_address_1', true) ? get_user_meta($userID, 'shipping_address_1', true) : $aData['custom_order_deliver_addr1']);
+		update_user_meta($userID, 'shipping_address_2', get_user_meta($userID, 'shipping_address_2', true) ? get_user_meta($userID, 'shipping_address_2', true) : $aData['custom_order_deliver_addr2']);
+		update_user_meta($userID, 'shipping_company', get_user_meta($userID, 'shipping_company', true) ? get_user_meta($userID, 'shipping_company', true) : $aData['custom_order_deliver_storename']);
+		update_user_meta($userID, 'shipping_first_name', get_user_meta($userID, 'shipping_first_name', true) ? get_user_meta($userID, 'shipping_first_name', true) : $aData['custom_order_deliver_cipname']);
+		update_user_meta($userID, 'shipping_last_name', get_user_meta($userID, 'shipping_last_name', true) ? get_user_meta($userID, 'shipping_last_name', true) : $aData['custom_order_deliver_name']);
+		
 		// Redirect to thank you page
 		$payment = new WC_Other_Payment_Gateway();
 		$redirect = $payment->get_return_url($order);
@@ -580,6 +606,8 @@ function getOrderDetail($order_id) {
 		$aData = get_post_meta($order_id, 'cake_custom_order', true);
 	}
 	
+	if (!$aData || empty($aData)) return '';
+	
 	$fieldMapping = getCustomFormFieldMapping();
 	$divRow = '';
 	foreach ( $aData as $fieldName => $fieldValue )
@@ -641,3 +669,15 @@ function getOrderDetail($order_id) {
 	}
 	return $divRow;
 }
+
+function woocommerce_order_details_after_order_table_order_custom ($order){
+?>
+	<div class="custom_order_details">
+		<?php echo getOrderDetail($order->id); ?>
+	</div>
+	<br />
+<?php
+}
+add_action( 'woocommerce_order_details_after_order_table', 'woocommerce_order_details_after_order_table_order_custom', 10, 1 );
+add_action( 'woocommerce_email_after_order_table', 'woocommerce_order_details_after_order_table_order_custom', 10, 1 );
+

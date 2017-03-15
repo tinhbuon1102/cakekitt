@@ -89,6 +89,9 @@ jQuery(document).ready(function(){
 	//Kana
 	jQuery.fn.autoKana('#customer_name_last', '#customer_name_last_kana');
     jQuery.fn.autoKana('#customer_name_first', '#customer_name_first_kana');
+    
+    jQuery.fn.autoKana('#account_last_name', '#account_last_name_kana');
+    jQuery.fn.autoKana('#account_first_name', '#account_first_name_kana');
 	
   $('input:not(.labelauty)').iCheck({
     checkboxClass: 'icheckbox_square-pink',
