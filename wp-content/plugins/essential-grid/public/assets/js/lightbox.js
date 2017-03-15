@@ -1796,5 +1796,6 @@ jQuery('body').on('click', '.esgbox', function() {
     $this.addClass('esgbox.iframe').attr('href', $this.attr('href') + '?autoPlay=true').click();
     return false;
   }
+$(".kitt-wrap > .esgbox-skin").off();
   
 });
