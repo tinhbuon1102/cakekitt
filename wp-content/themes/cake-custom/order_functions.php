@@ -607,3 +607,85 @@ function getCustomFormFieldMapping(){
 	$cake_type_fields = array_merge($cake_type_fields, $mapping_fields);
 	return $cake_type_fields;
 }
+
+function getOrderDetail($order_id) {
+	if (!$order_id)
+	{
+		// Get from session during order form
+		$aData = array();
+		foreach ( $_SESSION['cake_custom_order'] as $step => $cakeStepData )
+		{
+			foreach ( $cakeStepData as $fieldName => $fieldValue )
+			{
+				if ( strpos($fieldName, 'custom_order_') !== false )
+				{
+					$aData[$fieldName] = $fieldValue;
+				}
+			}
+		}
+	}
+	else {
+		// Get from meta when order already completed
+		$aData = get_post_meta($order_id, 'cake_custom_order', true);
+	}
+	
+	$fieldMapping = getCustomFormFieldMapping();
+	$divRow = '';
+	foreach ( $aData as $fieldName => $fieldValue )
+	{
+		if ( $fieldName == 'custom_order_pickup_time' )
+		{
+			$fieldValue = $fieldValue < 12 ? $fieldValue . ' AM' : $fieldValue . ' PM';
+		}
+		// If field name has text custom_order_ will be show
+		if ( strpos($fieldName, 'custom_order_') !== false )
+		{
+			if ($order_id && 'custom_order_cakePic' == $fieldName)
+			{
+				$fieldValues = explode(PHP_EOL, $fieldValue);
+			}
+			else 
+			{
+				$fieldValues = (array) $fieldValue;
+			}
+			foreach ( $fieldValues as $fieldValue )
+			{
+				$divRow .= '<div class="row">';
+
+				$divRow .= '<div class="col-md-5 pt-md-5 pt-sm-6 pb-sm-5">';
+				$divRow .= $fieldName == 'custom_order_cake_type' ? __('Cake Type', 'cake') : $fieldMapping[$fieldName]['field']['label'];
+				$divRow .= '</div>';
+
+				$divRow .= '<div class="col-md-7 pt-md-7 pt-sm-6 pb-sm-7">';
+				if ( 'custom_order_cakePic' == $fieldName )
+				{
+					if (!$order_id)
+					{
+						$upload_dir = wp_upload_dir();
+						$temp_folder = $upload_dir['baseurl'] . '/temp/';
+	
+						if ( $fieldValue )
+						{
+							$fieldValue = $temp_folder . $fieldValue;
+						}
+					}
+					$divRow .= '<img style="max-width: 300px;" src="' . $fieldValue . '" />';
+				}
+				else
+				{
+					if ($fieldName == 'custom_order_deliver_pref')
+					{
+						$aCountrySates = getCountryState();
+						$fieldValue = $aCountrySates['states'][$fieldValue];
+					}
+					$divRow .= is_array(@$fieldMapping[$fieldName]['value'][$fieldValue]) ? $fieldMapping[$fieldName]['value'][$fieldValue] : (is_array(@$fieldMapping[$fieldName]['value']) ? $fieldMapping[$fieldName]['value'][$fieldValue] : $fieldValue);
+				}
+				$divRow .= '</div>';
+
+				$divRow .= '</div>';
+			}
+		}
+	}
+	echo($divRow);die;
+	$aResponse['confirm_html'] = $divRow;
+}
