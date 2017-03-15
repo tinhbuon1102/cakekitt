@@ -624,6 +624,7 @@ function getOrderDetail($order_id) {
 	
 	$fieldMapping = getCustomFormFieldMapping();
 	$divRow = '';
+	$divRow .= '<table class="order-detail-custom-table" style="width: 100%" border="1">';
 	foreach ( $aData as $fieldName => $fieldValue )
 	{
 		if ( $fieldName == 'custom_order_pickup_time' )
@@ -641,18 +642,17 @@ function getOrderDetail($order_id) {
 			{
 				$fieldValues = (array) $fieldValue;
 			}
-			$divRow .= '<table class="order-detail-custom-table" style="width: 100%">';
 			foreach ( $fieldValues as $fieldValue )
 			{
 				if($fieldValue == '' || $fieldValue === null) continue;
 				
 				$divRow .= '<tr class="row">';
 
-				$divRow .= '<td class="col-md-5 pt-md-5 pt-sm-6 pb-sm-5" style="width: 30%; text-align:left;color:#737373;border:1px solid #e4e4e4;padding:12px">';
+				$divRow .= '<td class="col-md-5 pt-md-5 pt-sm-6 pb-sm-5" style="width: 30%;">';
 				$divRow .= $fieldName == 'custom_order_cake_type' ? __('Cake Type', 'cake') : $fieldMapping[$fieldName]['field']['label'];
 				$divRow .= '</td>';
 
-				$divRow .= '<td class="col-md-7 pt-md-7 pt-sm-6 pb-sm-7" style="width: 70%; text-align:left;color:#737373;border:1px solid #e4e4e4;padding:12px">';
+				$divRow .= '<td class="col-md-7 pt-md-7 pt-sm-6 pb-sm-7" style="width: 70%;">';
 				if ( 'custom_order_cakePic' == $fieldName )
 				{
 					if (!$order_id)
@@ -680,9 +680,9 @@ function getOrderDetail($order_id) {
 
 				$divRow .= '</tr>';
 			}
-			$divRow .= '</table>';
 		}
 	}
+	$divRow .= '</table>';
 	return $divRow;
 }
 
