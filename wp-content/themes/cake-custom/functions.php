@@ -311,6 +311,7 @@ function custom_meta_order_detail_box_markup($post)
 		.order-detail-meta .col-left, .order-detail-meta .col-right {padding-bottom: 10px;}	
 		.order-detail-meta .col-right ul li {display: inline-block; margin-right: 10px;}
 		.order-detail-meta textarea {width: 100% !important; font-size: 11px;}
+		.order-detail-meta input[type="text"] {width: 60% !important;}
 		.disable {display: none}
 	</style>';
 	echo '<table class="order-detail-meta" style="clear:both; width: 100%">';
@@ -330,17 +331,33 @@ function custom_meta_order_detail_box_markup($post)
 			$class = ($showBlock != $fieldName && in_array($fieldName, array('custom_order_cakesize_round', 'custom_order_cakesize_square'))) ? 'disable' : '';
 			
 			$itemField = $fields['field'];
+			$defaultValue = isset($orderFormData[$fieldName]) ? (is_array($orderFormData[$fieldName]) ? implode(PHP_EOL, $orderFormData[$fieldName]) : $orderFormData[$fieldName]) : '';
+			if ($itemField['type'] == 'date_picker')
+			{
+				$defaultValue = $defaultValue ? $defaultValue : $itemField['display_format']; 
+			}
+			
 			echo '<tr id="'.$itemField['name'].'_wraper" class="'.$class.'">
 					<td class="col-left" style="text-align: left; width: 20%">'.$itemField['label'].'</td>
 					<td class="col-right" style="text-align; width: 80%">';
 			$args = array(
 				'type' => $itemField['type'],
 				'name' => 'custom_order_meta['.$itemField['name'].']',
-				'value' => isset($orderFormData[$fieldName]) ? (is_array($orderFormData[$fieldName]) ? implode(PHP_EOL, $orderFormData[$fieldName]) : $orderFormData[$fieldName]) : '',
+				'value' => $defaultValue,
 				'choices' => isset($fields['value']) ? $fields['value'] : ''
 			);
 			
-			echo do_action('acf/create_field', $args);
+			if ($fieldName == 'custom_order_cake_type')
+			{
+				echo do_action('acf/create_field', $args);
+			}
+			else {
+				$itemField['name'] = 'custom_order_meta['.$itemField['name'].']';
+				$itemField['value'] = $defaultValue;
+					
+				echo do_action('acf/create_field', $itemField);
+			}
+			
 			echo '</td></tr>';
 		}
 	}
