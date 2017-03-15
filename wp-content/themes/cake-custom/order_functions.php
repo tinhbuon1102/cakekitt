@@ -466,7 +466,10 @@ function submit_form_order(){
 			}
 		}// Get price
 		//@TODO add price
-		$totalPrice = calculateCustomOrderPrice($aData);
+		$totalPriceIncluded = $totalPrice = calculateCustomOrderPrice($aData);
+		
+		//@TODO add tax fee and shipping fee
+		
 		update_post_meta( $post_id, '_regular_price', $totalPrice );
 		update_post_meta( $post_id, '_sale_price', $totalPrice );
 		update_post_meta( $post_id, '_price', $totalPrice );
@@ -528,6 +531,8 @@ function submit_form_order(){
 		update_post_meta( $order->id, '_payment_method', 'other_payment' );
 		update_post_meta( $order->id, '_payment_method_title', 'Waiting Payment' );
 		update_post_meta( $order->id, '_customer_user', get_current_user_id() );
+		update_post_meta( $order->id, '_order_total', $totalPriceIncluded );
+		
 
 		// Mark as on-hold (we're awaiting the payment)
 		$order->update_status('on-hold', __( 'Awaiting payment', 'woocommerce-other-payment-gateway' ));
