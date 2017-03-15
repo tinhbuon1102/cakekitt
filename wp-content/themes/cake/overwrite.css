@@ -1845,13 +1845,16 @@ div#contact-section .col-sm-8 {
 /*delivery*/
 .del-list {
     margin: 0;
+    padding: 10px 0;
+    border-bottom: 1px solid #efefef;
 }
 .del-list label {
     padding: 0 10px;
-    /*background: rgb(233,159,188);
-    background: rgba(233,159,188,1);
-    color: #FFF;*/
+    margin: 0;
     min-width: 110px;
+}
+.del-list i {
+    margin-right: 20px;
 }
 /*access*/
 div#access-con {
