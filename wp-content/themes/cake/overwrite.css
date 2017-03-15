@@ -1972,6 +1972,29 @@ ul.ac-info-list li i {
     font-size: inherit;
 	display: inline-block;
 }
+/*特定商法*/
+#asct-info h3 {
+	text-align: left;
+	margin-bottom: 40px;
+	font-size: 30px;
+}
+table.terms td, table.terms th {
+    font-size: 12px;
+}
+.terms th {
+    padding: 20px;
+    border-right: 1px solid #dfdfdf;
+}
+.terms td {
+    padding: 20px 20px 20px 40px;
+}
+.terms a {
+	color: #222222;
+}
+.terms a:hover {
+	color: rgb(233,184,203);
+    color: rgba(233,184,203,1);
+}
 /*pastel blue*/
 .cpblue {
 color: rgb(163,210,224);
