@@ -1034,6 +1034,89 @@ font-weight:600;
 font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
 /*header*/
+#menu_left .sub-menu, #menu_right .sub-menu {
+    display: none;
+    text-align: left;
+    position: absolute;
+    top: 58px;
+    left: -50%;
+    margin-left: -15px;
+    z-index: 9999!important;
+    line-height: normal!important;
+    width: 200px;
+    padding: 15px;
+    background: #FFF;
+    border: 1px solid #e5e5e5;
+}
+#menu_left .sub-menu, #menu_right .sub-menu {
+    background: #FFF;
+    border-color: #FFF;
+}
+.cake-dropdown-cart {
+    display: none;
+    text-align: left;
+    position: absolute;
+    top: 35px;
+    right: 0;
+	left: auto;
+    z-index: 9999!important;
+    line-height: normal!important;
+    width: 300px;
+    padding: 15px;
+	background: #FFF;
+    border: 1px solid #e9e9e9;
+    border-top: 3px solid rgba(233,184,203,1);
+}
+.cake-dropdown-cart a.remove, .woocommerce .cake-dropdown-cart a.remove {
+    float: right;
+    color: #222!important;
+    display: block;
+    font-size: 1.5em;
+    height: 1em;
+    width: 1em;
+    text-align: center;
+    line-height: 1;
+    border-radius: 100%;
+    text-decoration: none;
+    font-weight: 700;
+    border: 0;
+    clear: both;
+}
+.cake-dropdown-cart ul.product_list_widget li dl {
+    margin-bottom: 20px;
+}
+.cake-dropdown-cart p.buttons {
+    margin-bottom: 0;
+}
+body .cake-dropdown-cart a.button, body .cake-dropdown-cart a.button:hover {
+    background: #fff;
+    font-size: 11px!important;
+    color: #000 !important;
+    font-weight: bold !important;
+    text-decoration: none;
+    border-radius: 0px;
+    padding: 12px 23px;
+    margin-right: 10px;
+    font-family: "brandon-grotesque", "Helvetica Neue", sans-serif;
+    border: 2px solid #222;
+    line-height: 1;
+    vertical-align: middle;
+    height: auto;
+}
+body .cake-dropdown-cart a.button:hover {
+    color: rgba(233,184,203,1) !important;
+    border: 2px solid rgb(233,184,203);
+	border: 2px solid rgba(233,184,203,1);
+}
+#menu_left .sub-menu li a, #menu_left .sub-menu li a:visited, #menu_right .sub-menu li a, #menu_right .sub-menu li a:visited {
+    color: #222;
+}
+#menu .dropdown-menu a, .navbar-brand-cake .cake-dropdown-cart, .navbar-brand-cake .cake-dropdown-cart a, .navbar-brand-cake .cake-dropdown-cart ul>li>a, .navbar-brand-cake .dropdown-menu a, .navbar-brand-cake .show-menu:hover i {
+    color: #222;
+}
+ul#submenu_right li .cake-dropdown-cart li.mini_cart_item {
+    margin: 0;
+}
 .navbar-brand-cake a, .navbar-brand-cake a.navbar-brand, .navbar-brand-cake ul>li>a {
 font-family: 'bebas_neuebold';
 font-weight:600;
@@ -1238,7 +1321,6 @@ ul#submenu_right li, .menu-sub-menu-left-container ul li {
 }
 .scroll .nav-container {
     border-bottom: 1px solid #F8F8F8;
-	overflow: hidden;
 }
 }
 .scroll a.logolink:before {
