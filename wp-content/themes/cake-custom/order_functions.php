@@ -292,7 +292,7 @@ function cake_steps_store(){
 	echo json_encode($aResponse);die;
 }
 
-function attachImageToProduct ($image, $post_id)
+function attachImageToProduct ($image, $post_id, $setThumbnail = false)
 {
 	// $filename should be the path to a file in the upload directory.
 	$upload_dir = wp_upload_dir();
@@ -309,8 +309,11 @@ function attachImageToProduct ($image, $post_id)
 		return '';
 	}
 
-	// Generate the metadata for the attachment, and update the database record.
-	set_post_thumbnail( $post_id, $attach_id );
+	if ($setThumbnail)
+	{
+		// Generate the metadata for the attachment, and update the database record.
+		set_post_thumbnail( $post_id, $attach_id );
+	}
 	return $attach_id;
 }
 
@@ -425,7 +428,7 @@ function submit_form_order(){
 			$aAttachUrl = array();
 			foreach ($aData['custom_order_cakePic'] as $image)
 			{
-				$attach_id = attachImageToProduct ($image, $post_id);
+				$attach_id = attachImageToProduct ($image, $post_id, true);
 				if ($attach_id)
 				{
 					$aAttachIds[] = $attach_id;
@@ -439,7 +442,13 @@ function submit_form_order(){
 				update_post_meta($post_id,'_product_image_gallery', implode(',', $aAttachIds));
 			}
 		}
-
+		
+		if ($aData['custom_order_photocakepic'])
+		{
+			$attach_id = attachImageToProduct ($aData['custom_order_photocakepic'], $post_id);
+			$aData['custom_order_photocakepic'] = wp_get_attachment_url( $attach_id );
+		}
+		
 		// Create Custom Order
 		$address = array(
 			'first_name' => $aData['custom_order_deliver_cipname'] ? $aData['custom_order_deliver_cipname'] : $aData['custom_order_customer_name_first'],
@@ -640,7 +649,7 @@ function getOrderDetail($order_id) {
 				$divRow .= '</td>';
 
 				$divRow .= '<td class="col-md-7 pt-md-7 pt-sm-6 pb-sm-7" style="width: 70%;">';
-				if ( 'custom_order_cakePic' == $fieldName )
+				if ( 'custom_order_cakePic' == $fieldName || 'custom_order_photocakepic' == $fieldName )
 				{
 					if (!$order_id)
 					{

@@ -379,11 +379,12 @@ if ($inspired_pic)
 									</div>
 									<?php }?>
 									<?php if ($value == 'print') {?>
-									<div id="optionbox07" class="suboption_box disable">
+									<div id="optionbox07" class="suboption_box disable upload_cakePic_wraper">
 										<div class="sub_form">
-											<div class="inspired_images"></div>
+											<ul class="inspired_images"></ul>
 											<span class="option_label">写真アップロード</span>
-											<input type="file" class="filestyle" name="custom_order_photocakepic">
+											<div class="image_loading"></div>
+											<input type="file" class="filestyle upload_cakePic" name="upload_cakePic" id="custom_order_photocakepic">
 										</div>
 									</div>
 									<?php }?>
@@ -445,12 +446,12 @@ if ($inspired_pic)
 							<?php }?>
 						</ul>
 					</li>
-					<li class="main-option">
+					<li class="main-option upload_cakePic_wraper">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">8</span>
 							<span class="display-table-cell pl-2">Inspired Pics</span>
 						</h4>
-						<ul id="inspired_images">
+						<ul id="inspired_images" class="inspired_images">
 							<?php if ($inspired_pic) {?>
 							<li>
 								<img alt="" src="<?php echo $inspired_pic?>"   class="cake_upload_preview" />
@@ -458,8 +459,8 @@ if ($inspired_pic)
 								<span class="glyphicon glyphicon-remove remove-image" ></span>
 							<?php }?>
 						</ul>
-						<div id="image_loading"></div>
-						<input type="file" class="filestyle" name="upload_cakePic" id="upload_cakePic">
+						<div id="image_loading" class="image_loading"></div>
+						<input type="file" class="filestyle upload_cakePic" name="upload_cakePic" id="custom_order_cakePic[]">
 					</li>
 				</ul>
 			</div>

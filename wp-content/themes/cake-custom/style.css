@@ -13,13 +13,18 @@
 	margin-bottom: 20px;
 }
 
-#inspired_images li {
-	display: inline-block;
-	margin-right: 20px;
-	position: relative;
+.suboption_box .cake_upload_preview {
+	max-width: 150px;
 }
 
-#inspired_images li span.remove-image {
+.inspired_images li {
+	display: inline-block;
+	margin-right: 20px !important;
+	position: relative;
+	padding: 0 !important;
+}
+
+.inspired_images li span.remove-image {
 	color: #F00;
 	position: absolute;
 	top: 0;

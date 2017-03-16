@@ -277,26 +277,35 @@ $(function(){
         	actionLoginRegister(e, i, n);
         });
         
+        var picWraper = '';
+        var picHiddenName = '';
     	function showUploadResponse(response, statusText, xhr, $form){
 
     		response = $.parseJSON(response);
+    		if (picHiddenName == 'custom_order_photocakepic')
+    		{
+    			picWraper.find(".inspired_images").html('');
+    		}
 
     	    if(response.error){
-    	    	$('#image_loading').html(response.message);
+    	    	picWraper.find(".image_loading").html(response.message);
 
     		}else{
     			// remove loading when done
-    			$("#omOrder #image_loading").html('');
+    			picWraper.find(".image_loading").html('');
     			
     			var new_image = '<img alt="" src="'+ (response.file_src) +'?t='+ (new Date().getTime()) +'"   class="cake_upload_preview" />';
-    			new_image += '<input type="hidden" class="filestyle" name="custom_order_cakePic[]" value="'+response.file_name+'">';
-    			$('#inspired_images').append('<li>'+new_image+'<span class="glyphicon glyphicon-remove remove-image" ></span></li>');
-    	    	$('#custom_order_cakePic').val(response.file_name);    	    	
+    			new_image += '<input type="hidden" class="filestyle" class="custom_order_cakePic" name="'+picHiddenName+'" value="'+response.file_name+'">';
+    			picWraper.find(".inspired_images").append('<li>'+new_image+'<span class="glyphicon glyphicon-remove remove-image" ></span></li>');
+    			picWraper.find('.custom_order_cakePic').val(response.file_name);    	    	
     		}
         }
     	
-    	$('body').on('change', '#upload_cakePic', function() {
-            $("#omOrder #image_loading").html('<img class="loading-image" style="width: auto !important" src="'+ gl_templateUrl +'/images/loading.gif" />');
+    	$('body').on('change', '.upload_cakePic', function() {
+    		picWraper = $(this).closest('.upload_cakePic_wraper');
+    		picHiddenName = $(this).attr('id');
+    		
+    		picWraper.find(".image_loading").html('<img class="loading-image" style="width: auto !important" src="'+ gl_templateUrl +'/images/loading.gif" />');
             $("form#omOrder").ajaxForm({
             	url: gl_ajaxUrl,
             	data: {action: 'cake_file_upload'}, 
@@ -338,6 +347,10 @@ $(function(){
     		{
     			$(this).closest('li').find('label').trigger('click');
     		}
+    	});
+    	
+    	$('input[type="checkbox"]:checked, input[type="radio"]:checked').each(function(){
+    		$(this).trigger('change');
     	});
     }
    if ($("form#omOrder").length)
