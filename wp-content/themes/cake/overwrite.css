@@ -1973,13 +1973,30 @@ ul.ac-info-list li i {
 	display: inline-block;
 }
 /*特定商法*/
-#asct-info h3 {
-	text-align: left;
-	margin-bottom: 40px;
-	font-size: 30px;
+.entry-content h1.line-back {
+	position: relative;
+	margin-top: 0;
+	margin-bottom: 60px;
+	font-size: 20px;
+	letter-spacing: 2px;
+	color: #222;
+}
+.entry-content h1.line-back:after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: #e6e6e6;
+    margin-top: -10px;
+}
+.entry-content h1.line-back span {
+    background: #FFF;
+    display: inline-block;
+    padding: 0 15px;
+    z-index: 2;
 }
 table.terms td, table.terms th {
-    font-size: 12px;
+    font-size: 14px;
 }
 .terms th {
     padding: 20px;
@@ -1994,6 +2011,26 @@ table.terms td, table.terms th {
 .terms a:hover {
 	color: rgb(233,184,203);
     color: rgba(233,184,203,1);
+}
+/*Privacy Policy*/
+#pv-info  h3:first-child {
+    margin-top: 0px;
+}
+#pv-info  h3 {
+	font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    margin-top: 50px;
+	letter-spacing: 1px;
+}
+ul.style-num {
+}
+ul.style-num li {
+	list-style: decimal;
+}
+.block-element p {
+    font-size: 14px;
+    margin: 5px 0 0 0;
 }
 /*pastel blue*/
 .cpblue {
