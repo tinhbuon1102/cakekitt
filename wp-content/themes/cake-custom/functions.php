@@ -434,11 +434,107 @@ function autoLoginUser($user_id){
 
 add_action( 'register_new_user', 'autoLoginUser', 10, 1 );
 
+
 function woocommerce_save_account_details_custom ($userID)
 {
 	update_user_meta($userID, 'first_name_kana', $_POST['account_first_name_kana']);
 	update_user_meta($userID, 'last_name_kana', $_POST['account_last_name_kana']);
 	update_user_meta($userID, 'tel', $_POST['account_tel']);
+	update_user_meta($userID, 'company', $_POST['account_company']);
 }
 add_action( 'woocommerce_save_account_details', 'woocommerce_save_account_details_custom' );
+
+function extraFieldForShipping(){
+	return array(
+		'shipping_phone' => array(
+			'label'     => __('Phone', 'woocommerce'),
+			'placeholder'   => _x('Phone', 'placeholder', 'woocommerce'),
+			'required'  => false,
+			'class'     => array('form-row-wide'),
+			'clear'     => true
+		),
+	);
+}
+
+function extraFieldForBilling(){
+	return array(
+		'billing_first_name_kana' => array(
+			'label'     => __('First Name Kana', 'woocommerce'),
+			'placeholder'   => _x('First Name Kana', 'placeholder', 'woocommerce'),
+			'required'  => false,
+			'class'     => array('form-row-first'),
+			'clear'     => false
+		),
+		
+		'billing_last_name_kana' => array(
+			'label'     => __('Last Name Kana', 'woocommerce'),
+			'placeholder'   => _x('Last Name Kana', 'placeholder', 'woocommerce'),
+			'required'  => false,
+			'class'     => array('form-row-last'),
+			'clear'     => true
+		),
+	);
+}
+
+add_filter( 'woocommerce_admin_shipping_fields', 'woocommerce_admin_shipping_fields_extra', 10, 1 );
+function woocommerce_admin_shipping_fields_extra($fields){
+	$fields['phone'] = array(
+		'label' => __( 'Phone', 'woocommerce' ),
+		'show'  => false
+	);
+	return $fields;
+}
+
+// Add phone and store name in shipping address
+add_filter( 'woocommerce_checkout_fields' , 'shipping_override_checkout_fields' );
+function shipping_override_checkout_fields( $fields ) {
+	$fields['shipping'] = $fields['shipping'] + extraFieldForShipping();
+	return $fields;
+}
+
+add_filter( 'woocommerce_shipping_fields', 'custom_woocommerce_shipping_fields' );
+function custom_woocommerce_shipping_fields( $fields ) {
+	$fields = $fields + extraFieldForShipping();
+	return $fields;
+}
+
+// Billing address
+
+add_filter( 'woocommerce_admin_billing_fields', 'woocommerce_admin_billing_fields_extra', 10, 1 );
+function woocommerce_admin_billing_fields_extra($fields){
+	$fieldExtras['first_name_kana'] = array(
+		'label' => __( 'First Name Kana', 'woocommerce' ),
+		'show'  => false
+	);
+	
+	$fieldExtras['last_name_kana'] = array(
+		'label' => __( 'Last Name Kana', 'woocommerce' ),
+		'show'  => false
+	);
+	$fields = insertAtSpecificIndex($fields, $fieldExtras, array_search('last_name', array_keys($fields)) + 1);
+	return $fields;
+}
+
+// Add phone and store name in billing address
+add_filter( 'woocommerce_checkout_fields' , 'billing_override_checkout_fields' );
+function billing_override_checkout_fields( $fields ) {
+	$fieldExtras = extraFieldForBilling();
+	$fields['billing'] = insertAtSpecificIndex($fields['billing'], $fieldExtras, array_search('billing_last_name', array_keys($fields['billing'])) + 1);
+	return $fields;
+}
+
+add_filter( 'woocommerce_billing_fields', 'custom_woocommerce_billing_fields' );
+function custom_woocommerce_billing_fields( $fields ) {
+	$fieldExtras = extraFieldForBilling();
+	$fields = insertAtSpecificIndex($fields, $fieldExtras, array_search('billing_last_name', array_keys($fields)) + 1);
+	return $fields;
+}
+
+
+function insertAtSpecificIndex($array = [], $item = [], $position = 0) {
+	$previous_items = array_slice($array, 0, $position, true);
+	$next_items     = array_slice($array, $position, NULL, true);
+	return $previous_items + $item + $next_items;
+}
+
 ?>

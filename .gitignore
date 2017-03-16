@@ -7,4 +7,5 @@ wp-content/uploads
 .project
 .htaccess
 .gitconfig
+dataAddress/test.log
 wp-config.php

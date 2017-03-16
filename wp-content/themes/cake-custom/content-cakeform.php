@@ -502,31 +502,31 @@ if ($inspired_pic)
 							<div class="row">
 								<div class="field col-md-6">
 									<label class="label">姓</label>
-									<input placeholder="佐藤" class="input validate[required]" required="required" type="text" name="custom_order_customer_name_last" id="customer_name_last" value="<?php echo get_user_meta($userID, 'last_name', true)?>">
+									<input placeholder="佐藤" class="input validate[required]" required="required" type="text" name="custom_order_customer_name_last" id="customer_name_last" value="<?php echo get_user_meta($userID, 'billing_last_name', true) ? get_user_meta($userID, 'billing_last_name', true) : get_user_meta($userID, 'last_name', true)?>">
 								</div>
 								<div class="field col-md-6">
 									<label class="label">名</label>
-									<input placeholder="太郎" class="input validate[required]" required="required" type="text" name="custom_order_customer_name_first" id="customer_name_first" value="<?php echo get_user_meta($userID, 'first_name', true)?>">
+									<input placeholder="太郎" class="input validate[required]" required="required" type="text" name="custom_order_customer_name_first" id="customer_name_first" value="<?php echo get_user_meta($userID, 'billing_first_name', true) ? get_user_meta($userID, 'billing_first_name', true) : get_user_meta($userID, 'first_name', true)?>">
 								</div>
 							</div>
 							<div class="row">
 								<div class="field col-md-6">
 									<label class="label">姓(ふりがな)</label>
-									<input placeholder="さとう" class="input validate[required]" required="required" type="text" name="custom_order_customer_name_last_kana" id="customer_name_last_kana" value="<?php echo get_user_meta($userID, 'last_name_kana', true)?>">
+									<input placeholder="さとう" class="input validate[required]" required="required" type="text" name="custom_order_customer_name_last_kana" id="customer_name_last_kana" value="<?php echo get_user_meta($userID, 'billing_last_name_kana', true) ? get_user_meta($userID, 'billing_last_name_kana', true) : get_user_meta($userID, 'last_name_kana', true)?>">
 								</div>
 								<div class="field col-md-6">
 									<label class="label">名(ふりがな)</label>
-									<input placeholder="たろう" class="input validate[required]" required="required" type="text" name="custom_order_customer_name_first_kana" id="customer_name_first_kana" value="<?php echo get_user_meta($userID, 'first_name_kana', true)?>">
+									<input placeholder="たろう" class="input validate[required]" required="required" type="text" name="custom_order_customer_name_first_kana" id="customer_name_first_kana" value="<?php echo get_user_meta($userID, 'billing_first_name_kana', true) ? get_user_meta($userID, 'billing_first_name_kana', true) : get_user_meta($userID, 'first_name_kana', true)?>">
 								</div>
 							</div>
 							<div class="row">
 								<div class="field col-md-6">
 									<label class="label">電話番号<small class="help-info">ハイフンなし</small></label>
-									<input placeholder="09012345678" class="input validate[required,custom[phone]]" required="required" type="tel" name="custom_order_customer_tel" id="customer_tel" value="<?php echo get_user_meta($userID, 'tel', true)?>">
+									<input placeholder="09012345678" class="input validate[required,custom[phone]]" required="required" type="tel" name="custom_order_customer_tel" id="customer_tel" value="<?php echo get_user_meta($userID, 'billing_phone', true) ? get_user_meta($userID, 'billing_phone', true) : get_user_meta($userID, 'tel', true)?>">
 								</div>
 								<div class="field col-md-6">
 									<label class="label">メールアドレス</label>
-									<input placeholder="taro@kitt.jp" class="input validate[required,custom[email]]" required="required" type="email" name="custom_order_customer_email" id="customer_email" value="<?php echo $user_data->user_email?>">
+									<input placeholder="taro@kitt.jp" class="input validate[required,custom[email]]" required="required" type="email" name="custom_order_customer_email" id="customer_email" value="<?php echo get_user_meta($userID, 'billing_email', true) ? get_user_meta($userID, 'billing_email', true) : $user_data->user_email?>">
 								</div>
 							</div>
 							
@@ -536,47 +536,47 @@ if ($inspired_pic)
 									<div class="row">
 										<div class="field col-md-6">
 											<label class="label">宛名</label>
-											<input placeholder="" class="input validate[required]" required="required" type="text" name="custom_order_deliver_name" id="deliver_name" value="<?php echo get_user_meta($userID, 'billing_last_name', true)?>">
+											<input placeholder="" class="input validate[required]" required="required" type="text" name="custom_order_deliver_name" id="deliver_name" value="<?php echo get_user_meta($userID, 'shipping_last_name', true)?>">
 										</div>
 										<div class="field col-md-6">
 											<label class="label">店舗名</label>
-											<input placeholder="" class="input validate[required]" required="required" type="text" name="custom_order_deliver_storename" id="deliver_storename" value="<?php echo get_user_meta($userID, 'billing_company', true)?>">
+											<input placeholder="" class="input validate[required]" required="required" type="text" name="custom_order_deliver_storename" id="deliver_storename" value="<?php echo get_user_meta($userID, 'shipping_company', true)?>">
 										</div>
 									</div>
 									<div class="row">
 										<div class="field col-md-6">
 											<label class="label">担当者様名</label>
-											<input placeholder="" class="input validate[required]" required="required" type="text" name="custom_order_deliver_cipname" id="deliver_cipname" value="<?php echo get_user_meta($userID, 'billing_first_name', true)?>">
+											<input placeholder="" class="input validate[required]" required="required" type="text" name="custom_order_deliver_cipname" id="deliver_cipname" value="<?php echo get_user_meta($userID, 'shipping_first_name', true)?>">
 										</div>
 										<div class="field col-md-6">
 											<label class="label">電話番号</label>
-											<input placeholder="0312345678" class="input validate[required]" required="required" type="tel" name="custom_order_deliver_tel" id="deliver_tel" value="<?php echo get_user_meta($userID, 'billing_phone', true)?>">
+											<input placeholder="0312345678" class="input validate[required]" required="required" type="tel" name="custom_order_deliver_tel" id="deliver_tel" value="<?php echo get_user_meta($userID, 'shipping_phone', true)?>">
 										</div>
 									</div>
 									<div class="row">
 										<div class="address-field">
 											<div class="field col-md-12">
 												<label class="label">住所</label>
-												<input placeholder="郵便番号" class="input validate[required]" required="required" type="text" name="custom_order_deliver_postcode" id="deliver_postcode" value="<?php echo get_user_meta($userID, 'billing_postcode', true)?>">
+												<input placeholder="郵便番号" class="input validate[required]" required="required" type="text" name="custom_order_deliver_postcode" id="deliver_postcode" value="<?php echo get_user_meta($userID, 'shipping_postcode', true)?>">
 											</div>
 											<div class="field col-md-6">
 												<div class="select-wrapper">
 													<select name="custom_order_deliver_pref" id="deliver_state" class="form-control select select-primary" data-toggle="select">
 														<option value=""><?php echo __('Choose Prefecture', 'cake')?></option>
 														<?php foreach ($default_county_states as $stateKey => $stateVal) {?>
-															<option value="<?php echo $stateKey?>" <?php echo get_user_meta($userID, 'billing_state', true) == $stateKey ? 'selected' : ''?>><?php echo $stateVal;?></option>
+															<option value="<?php echo $stateKey?>" <?php echo get_user_meta($userID, 'shipping_state', true) == $stateKey ? 'selected' : ''?>><?php echo $stateVal;?></option>
 														<?php }?>
 													</select>
 												</div>
 											</div>
 											<div class="field col-md-6">
-												<input placeholder="市区町村" class="input validate[required]" required="required" type="text" name="custom_order_deliver_city" id="deliver_city" value="<?php echo get_user_meta($userID, 'billing_city', true)?>">
+												<input placeholder="市区町村" class="input validate[required]" required="required" type="text" name="custom_order_deliver_city" id="deliver_city" value="<?php echo get_user_meta($userID, 'shipping_city', true)?>">
 											</div>
 											<div class="field col-md-6">
-												<input placeholder="番地等" class="input validate[required]" required="required" type="text" name="custom_order_deliver_addr1" id="deliver_addr1" value="<?php echo get_user_meta($userID, 'billing_address_1', true)?>">
+												<input placeholder="番地等" class="input validate[required]" required="required" type="text" name="custom_order_deliver_addr1" id="deliver_addr1" value="<?php echo get_user_meta($userID, 'shipping_address_1', true)?>">
 											</div>
 											<div class="field col-md-6">
-												<input placeholder="ビル・マンション名等" class="input validate[required]" type="text" name="custom_order_deliver_addr2" id="deliver_addr2" value="<?php echo get_user_meta($userID, 'billing_address_2', true)?>">
+												<input placeholder="ビル・マンション名等" class="input validate[required]" type="text" name="custom_order_deliver_addr2" id="deliver_addr2" value="<?php echo get_user_meta($userID, 'shipping_address_2', true)?>">
 											</div>
 										</div>
 									</div>

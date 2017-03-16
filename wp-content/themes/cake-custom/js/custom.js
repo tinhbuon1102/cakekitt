@@ -92,14 +92,26 @@ jQuery(document).ready(function(){
     
     jQuery.fn.autoKana('#account_last_name', '#account_last_name_kana');
     jQuery.fn.autoKana('#account_first_name', '#account_first_name_kana');
+    
+    jQuery.fn.autoKana('#billing_first_name', '#billing_first_name_kana');
+    jQuery.fn.autoKana('#billing_last_name', '#billing_last_name_kana');
 	
-  $('input:not(.labelauty)').iCheck({
-    checkboxClass: 'icheckbox_square-pink',
-    radioClass: 'iradio_square-pink',
-    increaseArea: '20%' 
-  });
+    
+    function loadIcheck(){
+    	$("input.labelauty").labelauty();
+    	
+    	$('input:not(.labelauty)').iCheck({
+    	    checkboxClass: 'icheckbox_square-pink',
+    	    radioClass: 'iradio_square-pink',
+    	    increaseArea: '20%' 
+    	  });
+    }
+    $( document.body ).on( 'updated_cart_totals, updated_checkout', function(){
+    	loadIcheck();
+    });
 
-  $("input.labelauty").labelauty();
+    loadIcheck();
+  
 	jQuery('#BSbtndanger').filestyle({
 				buttonName : 'btn-danger',
                 buttonText : ' File selection'
@@ -178,9 +190,10 @@ $('button#toggleMenu').click(function(){
       }
 });
 
-$('body').on('keyup change', '#deliver_postcode', function(){
+$('body').on('keyup change', '#deliver_postcode, #billing_postcode, #shipping_postcode', function(){
 	var zip1 = $.trim($(this).val());
     var zipcode = zip1;
+    var elementChange = $(this);
 
     $.ajax({
         type: "post",
@@ -192,19 +205,28 @@ $('body').on('keyup change', '#deliver_postcode', function(){
     }).done(function(data){
         if(data[0] == ""){
         } else {
-        	$('#deliver_state option').each(function(){
-        		if($(this).text() == data[0])
+        	var address = [
+        		{postcode : '#deliver_postcode', state : '#deliver_state', city: '#deliver_city', address1: '#deliver_addr1'},
+        		{postcode : '#billing_postcode', state : '#billing_state', city: '#billing_city', address1: '#billing_address_1'},
+        		{postcode : '#shipping_postcode', state : '#shipping_state', city: '#shipping_city', address1: '#shipping_address_1'},
+        	]
+        	$.each(address, function(index, addressItem){
+        		if ($(addressItem['postcode']).length && ('#'+elementChange.attr('id') == addressItem['postcode']))
         		{
-        			$('#deliver_state').val($(this).attr('value')).change();
+        			console.log(addressItem['state']);
+        			$(addressItem['state'] + ' option').each(function(){
+                		if($(this).text() == data[0])
+                		{
+                			$(addressItem['state']).val($(this).attr('value')).change();
+                		}
+                	});
+                	
+                    $(addressItem['city']).val(data[1]);
+                    var address1 = $(addressItem['address1']).val();
+                    address1 = address1.replace(data[2], '');
+                    $(addressItem['address1']).val(data[2] + address1);
         		}
         	});
-        	
-//            $('#deliver_state').val(data[0]).change();
-            $('#deliver_city').val(data[1]);
-//            $('#deliver_addr1').val(data[2]);
-            var address1 = $('#deliver_addr1').val();
-            address1 = address1.replace(data[2], '');
-            $('#deliver_addr1').val(data[2] + address1);
         }
     }).fail(function(XMLHttpRequest, textStatus, errorThrown){
     });

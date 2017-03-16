@@ -56,6 +56,11 @@ do_action( 'woocommerce_before_edit_account_form' ); ?>
 		<input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="account_tel" id="account_tel" value="<?php echo get_user_meta($user->ID, 'tel', true); ?>" />
 	</p>
 	
+	<p class="woocommerce-FormRow woocommerce-FormRow--wide form-row form-row-wide">
+		<label for="account_company"><?php _e( 'Company', 'woocommerce' ); ?> <span class="required"></span></label>
+		<input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="account_company" id="account_company" value="<?php echo get_user_meta($user->ID, 'company', true); ?>" />
+	</p>
+	
 	<div class="clear"></div>
 	<br />
 
