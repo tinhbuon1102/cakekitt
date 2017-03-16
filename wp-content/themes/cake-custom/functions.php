@@ -340,7 +340,7 @@ function custom_meta_order_detail_box_markup($post)
 			echo '<tr id="'.$itemField['name'].'_wraper" class="'.$class.'">
 					<td class="col-left" style="text-align: left; width: 20%">'.$itemField['label'].'</td>
 					<td class="col-right" style="text-align; width: 80%">';
-			if ('custom_order_cakePic' == $fieldName)
+			if ('custom_order_cakePic' == $fieldName || 'custom_order_photocakepic' == $fieldName)
 			{
 				$images = explode(PHP_EOL, $defaultValue);
 				foreach ($images as $image)
