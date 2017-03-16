@@ -106,7 +106,10 @@ jQuery(document).ready(function(){
     	    increaseArea: '20%' 
     	  });
     }
-    $( document.body ).on( 'updated_cart_totals, updated_checkout', function(){
+    $( document.body ).on( 'updated_cart_totals', function(){
+    	loadIcheck();
+    });
+    $( document.body ).on( 'updated_checkout', function(){
     	loadIcheck();
     });
 
