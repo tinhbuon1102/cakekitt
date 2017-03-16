@@ -542,6 +542,9 @@ h2.entry-title {
     padding: 6px;
     color: #222;
 }
+p#billing_country_field, p#shipping_country_field {
+    display: none;
+}
 /*woo product single page*/
 .woocommerce ul.products li.product a img {
     margin: 0;

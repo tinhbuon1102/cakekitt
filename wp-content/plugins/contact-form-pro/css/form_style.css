@@ -1,0 +1,334 @@
+/**
+ * Styles for form
+ */
+.cntctfrm_contact_form * {
+	line-height: normal !important;
+}
+.cntctfrm_contact_form.cntctfrm_ltr * {
+	text-align: left !important;
+	direction: ltr;
+}
+.cntctfrm_contact_form.cntctfrm_rtl * {
+	text-align: right !important;
+	direction: rtl;
+}
+.cntctfrm_contact_form .cntctfrm_contact_submit {
+	margin-bottom: 10px !important;
+	cursor: pointer !important;
+	text-align: center !important;
+	border-style: solid !important;
+}
+.cntctfrm_contact_form p {
+	margin: 0 !important;
+}
+.cntctfrm_clear {
+	clear: both;
+}
+.cntctfrm_contact_form .required {
+	padding: 0 0 0 5px;
+}
+.cntctfrm_label,
+.cntctfrm_input,
+.cntctfrm_select,
+.cntctfrm_checkbox,
+.cntctfrm_error_text {
+	position: relative;
+}
+.cntctfrm_label,
+.cntctfrm_input,
+.cntctfrm_select,
+.cntctfrm_checkbox,
+.cntctfrm_error_text {
+	box-sizing: border-box;
+	max-width: 320px;
+	width: 100%;
+}
+.cntctfrm_input.cntctfrm_input_submit {
+	max-width: none !important;
+}
+.cntctfrm_labels_position_top #cntctfrm_main_error_text.cntctfrm_error_text,
+.cntctfrm_labels_position_bottom #cntctfrm_main_error_text.cntctfrm_error_text {
+	max-width: 650px;
+}
+.cntctfrm_one_column.cntctfrm_labels_position_left #cntctfrm_main_error_text.cntctfrm_error_text,
+.cntctfrm_one_column.cntctfrm_labels_position_right #cntctfrm_main_error_text.cntctfrm_error_text {
+	max-width: 460px;
+}
+.cntctfrm_two_columns.cntctfrm_labels_position_left #cntctfrm_main_error_text.cntctfrm_error_text,
+.cntctfrm_two_columns.cntctfrm_labels_position_right #cntctfrm_main_error_text.cntctfrm_error_text {
+	max-width: 910px;
+}
+.cntctfrm_labels_position_top.cntctfrm_labels_align_center #cntctfrm_main_error_text.cntctfrm_error_text,
+.cntctfrm_labels_position_bottom.cntctfrm_labels_align_center .cntctfrm_error_text {
+	max-width: none;
+}
+.cntctfrm_labels_position_left .cntctfrm_label,
+.cntctfrm_labels_position_right .cntctfrm_label {
+	min-height: 1px;
+	max-width: 160px;
+	width: 100%;
+}
+.cntctfrm_labels_position_left .cntctfrm_label {
+	float: left;
+}
+.cntctfrm_labels_position_right .cntctfrm_label {
+	float: right;
+}
+.cntctfrm_labels_position_left .cntctfrm_input,
+.cntctfrm_labels_position_left .cntctfrm_select,
+.cntctfrm_labels_position_left .cntctfrm_checkbox {
+	float: left;
+	max-width: 290px;
+	width: 100%;
+}
+.cntctfrm_labels_position_right .cntctfrm_input,
+.cntctfrm_labels_position_right .cntctfrm_select,
+.cntctfrm_labels_position_right .cntctfrm_checkbox {
+	float: right;
+	max-width: 290px;
+	width: 100%;
+}
+.cntctfrm_contact_form input[type="text"],
+.cntctfrm_contact_form input[type="file"],
+.cntctfrm_contact_form select,
+.cntctfrm_contact_form textarea,
+.widget .cntctfrm_contact_form input[type="text"],
+.widget .cntctfrm_contact_form input[type="file"],
+.widget .cntctfrm_contact_form select,
+.widget .cntctfrm_contact_form textarea {
+	max-width: 320px;
+	width: 100%;
+	margin: 0 !important;
+	box-sizing: border-box;
+}
+.cntctfrm_contact_form input[type="checkbox"],
+.cntctfrm_contact_form input[type="radio"]
+.cntctfrm_contact_form input[type="submit"],
+.widget .cntctfrm_contact_form input[type="checkbox"],
+.widget .cntctfrm_contact_form input[type="radio"],
+.widget .cntctfrm_contact_form input[type="submit"] {
+	margin: 0;
+}
+.cntctfrm_ltr .cntctfrm_column {
+	float: left;
+}
+.cntctfrm_rtl .cntctfrm_column {
+	float: right;
+}
+.cntctfrm_column {
+	position: relative;
+	min-height: 1px;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	clear: none !important;
+}
+.cntctfrm_two_columns.cntctfrm_labels_position_top .cntctfrm_column,
+.cntctfrm_two_columns.cntctfrm_labels_position_bottom .cntctfrm_column,
+.cntctfrm_one_column.cntctfrm_labels_position_top .cntctfrm_column,
+.cntctfrm_one_column.cntctfrm_labels_position_bottom .cntctfrm_column {
+	max-width: 320px;
+}
+.cntctfrm_two_columns.cntctfrm_labels_position_left .cntctfrm_column,
+.cntctfrm_two_columns.cntctfrm_labels_position_right .cntctfrm_column,
+.cntctfrm_one_column.cntctfrm_labels_position_left .cntctfrm_column,
+.cntctfrm_one_column.cntctfrm_labels_position_right .cntctfrm_column {
+	max-width: 450px;
+}
+.cntctfrm_two_columns.cntctfrm_ltr #cntctfrm_first_column,
+.cntctfrm_two_columns.cntctfrm_ltr #cntctfrm_submit_first_column {
+	margin: 0 10px 0 0;
+}
+.cntctfrm_two_columns.cntctfrm_rtl #cntctfrm_first_column,
+.cntctfrm_two_columns.cntctfrm_rtl #cntctfrm_submit_first_column {
+	margin: 0 0 0 10px;
+}
+.cntctfrm_field_wrap {
+	margin: 0 0 5px;
+}
+.cntctfrm_one_column #cntctfrm_second_column {
+	display: none;
+}
+.cntctfrm_contact_form.cntctfrm_form_tooltips.cntctfrm_labels_position_top .cntctfrm_label,
+.cntctfrm_contact_form.cntctfrm_form_tooltips.cntctfrm_labels_position_top .cntctfrm_input,
+.cntctfrm_contact_form.cntctfrm_form_tooltips.cntctfrm_labels_position_top .cntctfrm_select,
+.cntctfrm_contact_form.cntctfrm_form_tooltips.cntctfrm_labels_position_top .cntctfrm_checkbox,
+.cntctfrm_contact_form.cntctfrm_form_tooltips.cntctfrm_labels_position_top .cntctfrm_error_text,
+.cntctfrm_contact_form.cntctfrm_form_tooltips.cntctfrm_labels_position_bottom .cntctfrm_label,
+.cntctfrm_contact_form.cntctfrm_form_tooltips.cntctfrm_labels_position_bottom .cntctfrm_input,
+.cntctfrm_contact_form.cntctfrm_form_tooltips.cntctfrm_labels_position_bottom .cntctfrm_select,
+.cntctfrm_contact_form.cntctfrm_form_tooltips.cntctfrm_labels_position_bottom .cntctfrm_checkbox,
+.cntctfrm_contact_form.cntctfrm_form_tooltips.cntctfrm_labels_position_bottom .cntctfrm_error_text {
+	padding-right: 40px;
+}
+.cntctfrm_contact_form.cntctfrm_form_tooltips.cntctfrm_labels_position_left .cntctfrm_input,
+.cntctfrm_contact_form.cntctfrm_form_tooltips.cntctfrm_labels_position_left .cntctfrm_select,
+.cntctfrm_contact_form.cntctfrm_form_tooltips.cntctfrm_labels_position_left .cntctfrm_checkbox,
+.cntctfrm_contact_form.cntctfrm_form_tooltips.cntctfrm_labels_position_left .cntctfrm_error_text {
+	padding-right: 40px;
+}
+.cntctfrm_contact_form.cntctfrm_form_tooltips.cntctfrm_labels_position_right .cntctfrm_input,
+.cntctfrm_contact_form.cntctfrm_form_tooltips.cntctfrm_labels_position_right .cntctfrm_select,
+.cntctfrm_contact_form.cntctfrm_form_tooltips.cntctfrm_labels_position_right .cntctfrm_checkbox,
+.cntctfrm_contact_form.cntctfrm_form_tooltips.cntctfrm_labels_position_right .cntctfrm_error_text  {
+	padding-left: 40px;
+}
+.cntctfrm_contact_form.cntctfrm_labels_position_left .cntctfrm_label {
+	padding-right: 5px;
+}
+.cntctfrm_contact_form.cntctfrm_labels_position_right .cntctfrm_label {
+	padding-left: 5px;
+}
+.cntctfrm_help_box {
+	position: relative;
+	width: 28px;
+	height: 28px;
+	margin: 0 5px;
+	vertical-align: middle;
+    background-image: url('../images/tooltip_icons.png');
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.cntctfrm_help_box.cntctfrm_help_box_error {
+	background-position: 0 -27px;
+}
+.cntctfrm_contact_form.cntctfrm_labels_position_left .cntctfrm_help_box,
+.cntctfrm_contact_form.cntctfrm_labels_position_top .cntctfrm_help_box,
+.cntctfrm_contact_form.cntctfrm_labels_position_bottom .cntctfrm_help_box {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.cntctfrm_contact_form.cntctfrm_labels_position_right .cntctfrm_help_box {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.cntctfrm_hidden_help_text {
+	box-sizing: border-box;
+	position: absolute;
+	min-width: 150px;
+	width: auto;
+	padding: 5px 10px;
+	font-size: 12px !important;
+	line-height: 1.5;
+	color: #000000;
+	background: #F4F4F4;
+	border: 1px solid #DCDCDC;
+	border-radius: 4px;
+	z-index: 5;
+}
+.cntctfrm_hidden_help_text p {
+	margin: 0;
+}
+.cntctfrm_hidden_help_text img {
+	position: relative !important;
+	margin: 0 !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+}
+.cntctfrm_contact_form.cntctfrm_labels_position_left .cntctfrm_hidden_help_text:before,
+.cntctfrm_contact_form.cntctfrm_labels_position_top .cntctfrm_hidden_help_text:before,
+.cntctfrm_contact_form.cntctfrm_labels_position_bottom .cntctfrm_hidden_help_text:before {
+    content: url('../images/help-left.png');
+    left: -10px;
+    position: absolute;
+    top: 7px;
+}
+.cntctfrm_contact_form.cntctfrm_labels_position_right .cntctfrm_hidden_help_text:before {
+    content: url('../images/help-right.png');
+    right: -10px;
+    position: absolute;
+    top: 7px;
+}
+.cntctfrm_contact_form.cntctfrm_labels_position_left .cntctfrm_hidden_help_text,
+.cntctfrm_contact_form.cntctfrm_labels_position_top .cntctfrm_hidden_help_text,
+.cntctfrm_contact_form.cntctfrm_labels_position_bottom .cntctfrm_hidden_help_text {
+	left: 42px;
+}
+.cntctfrm_contact_form.cntctfrm_labels_position_right .cntctfrm_hidden_help_text {
+	right: 100%;
+	margin: 0 15px 0 0;
+}
+.cntctfrm_hidden_help_text {
+	display: none;
+}
+.cntctfrm_help_box:hover .cntctfrm_hidden_help_text {
+    display: block;
+}
+.cntctfrm_labels_align_left .cntctfrm_label,
+.cntctfrm_labels_align_left .cntctfrm_error_text {
+	text-align: left !important;
+}
+.cntctfrm_labels_align_center .cntctfrm_label,
+.cntctfrm_labels_align_center .cntctfrm_error_text,
+.cntctfrm_labels_align_center .cptchpr_error {
+	text-align: center !important;
+}
+.cntctfrm_labels_align_right .cntctfrm_label,
+.cntctfrm_labels_align_right .cntctfrm_error_text,
+.cntctfrm_labels_align_right .cptchpr_error {
+	text-align: right !important;
+}
+.cntctfrm_error_text {
+	margin: 5px 0;
+}
+.cntctfrm_contact_attachment_extensions {
+	font-size: 10px !important;
+}
+.cntctfrm_one_column.cntctfrm_labels_position_top,
+.cntctfrm_one_column.cntctfrm_labels_position_bottom {
+	max-width: 330px;
+	width: 100%;
+}
+.cntctfrm_two_columns.cntctfrm_labels_position_top,
+.cntctfrm_two_columns.cntctfrm_labels_position_bottom {
+	max-width: 650px;
+	width: 100%;
+}
+.cntctfrm_form_align_left {
+	float: left;
+}
+.cntctfrm_form_align_center {
+	margin: 0 auto;
+}
+.cntctfrm_form_align_right {
+	float: right;
+}
+.cntctfrm_contact_form label,
+.cntctfrm_contact_form .cntctfrm_contact_submit {
+    display: inline;
+}
+/* fix captcha - remove double label */
+.cntctfrm_contact_form.cntctfrm_labels_position_left .cntctfrm_input_captcha .cptch_block .cptch_title,
+.cntctfrm_contact_form.cntctfrm_labels_position_right .cntctfrm_input_captcha .cptch_block .cptch_title,
+.cntctfrm_contact_form.cntctfrm_labels_position_top .cntctfrm_input_captcha .cptch_block .cptch_title,
+.cntctfrm_contact_form.cntctfrm_labels_position_bottom .cntctfrm_input_captcha .cptch_block .cptch_title,
+.cntctfrm_contact_form.cntctfrm_labels_position_left .cntctfrm_input_captcha .cptchpls_block .cptchpls_title,
+.cntctfrm_contact_form.cntctfrm_labels_position_right .cntctfrm_input_captcha .cptchpls_block .cptchpls_title,
+.cntctfrm_contact_form.cntctfrm_labels_position_top .cntctfrm_input_captcha .cptchpls_block .cptchpls_title,
+.cntctfrm_contact_form.cntctfrm_labels_position_bottom .cntctfrm_input_captcha .cptchpls_block .cptchpls_title,
+.cntctfrm_contact_form.cntctfrm_labels_position_left .cntctfrm_input_captcha .cptchpr_block .cptchpr_title,
+.cntctfrm_contact_form.cntctfrm_labels_position_right .cntctfrm_input_captcha .cptchpr_block .cptchpr_title,
+.cntctfrm_contact_form.cntctfrm_labels_position_top .cntctfrm_input_captcha .cptchpr_block .cptchpr_title,
+.cntctfrm_contact_form.cntctfrm_labels_position_bottom .cntctfrm_input_captcha .cptchpr_block .cptchpr_title {
+	display: none !important;
+}
+.cntctfrm_input_captcha .cptch_block ~ .gglcptch,
+.cntctfrm_input_captcha .cptchpls_block ~ .gglcptch,
+.cntctfrm_input_captcha .cptchpr_block ~ .gglcptch,
+.cntctfrm_input_captcha .cptch_block ~ .gglcptchpr,
+.cntctfrm_input_captcha .cptchpls_block ~ .gglcptchpr,
+.cntctfrm_input_captcha .cptchpr_block ~ .gglcptchpr,
+.cntctfrm_input_captcha .cptch_wrap ~ .gglcptch,
+.cntctfrm_input_captcha .cptchpls_wrap ~ .gglcptch,
+.cntctfrm_input_captcha .cptchpr_wrap ~ .gglcptch,
+.cntctfrm_input_captcha .cptch_wrap ~ .gglcptchpr,
+.cntctfrm_input_captcha .cptchpls_wrap ~ .gglcptchpr,
+.cntctfrm_input_captcha .cptchpr_wrap ~ .gglcptchpr {
+	padding: 20px 0 0;
+}
+.cntctfrm_contact_form .gglcptch #recaptcha_widget_div,
+.cntctfrm_contact_form .gglcptchpr #recaptcha_widget_div {
+	width: 320px !important;
+}

@@ -501,6 +501,9 @@ function woocommerce_admin_shipping_fields_extra($fields){
 		'label' => __( 'Phone', 'woocommerce' ),
 		'show'  => false
 	);
+	// Check if set, if its not set add an error.
+    if ( ! $_POST['phone'] )
+        wc_add_notice( __( 'required field!' ), 'error' );
 	return $fields;
 }
 
@@ -508,6 +511,11 @@ function woocommerce_admin_shipping_fields_extra($fields){
 add_filter( 'woocommerce_checkout_fields' , 'shipping_override_checkout_fields' );
 function shipping_override_checkout_fields( $fields ) {
 	$fields['shipping'] = $fields['shipping'] + extraFieldForShipping();
+	$fields['shipping']['shipping_last_name']['label'] = 'Atena';
+	$fields['shipping']['shipping_first_name']['label'] = 'Store name';
+	$fields['shipping']['shipping_company']['label'] = 'Cip name';
+	// required
+	$fields['shipping']['shipping_company']['required'] = true;
 	return $fields;
 }
 
@@ -539,6 +547,14 @@ add_filter( 'woocommerce_checkout_fields' , 'billing_override_checkout_fields' )
 function billing_override_checkout_fields( $fields ) {
 	$fieldExtras = extraFieldForBilling();
 	$fields['billing'] = insertAtSpecificIndex($fields['billing'], $fieldExtras, array_search('billing_first_name', array_keys($fields['billing'])) + 1);
+    unset($fields['billing']['billing_address_1']);
+    unset($fields['billing']['billing_address_2']);
+    unset($fields['billing']['billing_city']);
+    unset($fields['billing']['billing_postcode']);
+    unset($fields['billing']['billing_country']);
+    unset($fields['billing']['billing_state']);
+    unset($fields['billing']['billing_postcode']);
+    unset($fields['billing']['billing_city']);
 	return $fields;
 }
 
