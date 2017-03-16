@@ -538,14 +538,14 @@ function woocommerce_admin_billing_fields_extra($fields){
 add_filter( 'woocommerce_checkout_fields' , 'billing_override_checkout_fields' );
 function billing_override_checkout_fields( $fields ) {
 	$fieldExtras = extraFieldForBilling();
-	$fields['billing'] = insertAtSpecificIndex($fields['billing'], $fieldExtras, array_search('billing_last_name', array_keys($fields['billing'])) + 1);
+	$fields['billing'] = insertAtSpecificIndex($fields['billing'], $fieldExtras, array_search('billing_first_name', array_keys($fields['billing'])) + 1);
 	return $fields;
 }
 
 add_filter( 'woocommerce_billing_fields', 'custom_woocommerce_billing_fields' );
 function custom_woocommerce_billing_fields( $fields ) {
 	$fieldExtras = extraFieldForBilling();
-	$fields = insertAtSpecificIndex($fields, $fieldExtras, array_search('billing_last_name', array_keys($fields)) + 1);
+	$fields = insertAtSpecificIndex($fields, $fieldExtras, array_search('billing_first_name', array_keys($fields)) + 1);
 	return $fields;
 }
 
@@ -612,32 +612,4 @@ function insertAtSpecificIndex($array = [], $item = [], $position = 0) {
 	$next_items     = array_slice($array, $position, NULL, true);
 	return $previous_items + $item + $next_items;
 }
-//woocommerce checkout
-/*add_filter("woocommerce_checkout_fields", "order_fields");
-
-function order_fields($fields) {
-
-    $order = array(
-		"billing_last_name", 
-        "billing_first_name",
-		"billing_last_name_kana",
-		"billing_first_name_kana",
-        "billing_company",
-		"billing_phone",
-		"billing_email",
-		"billing_country",
-		"billing_postcode",
-        "billing_address_1", 
-        "billing_address_2"
-
-    );
-    foreach($order as $field)
-    {
-        $ordered_fields[$field] = $fields["billing"][$field];
-    }
-
-    $fields["billing"] = $ordered_fields;
-    return $fields;
-
-}*/
 ?>
