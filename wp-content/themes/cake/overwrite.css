@@ -536,11 +536,13 @@ h2.entry-title {
     font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
 /*woocommerce*/
+/* woo checkout page*/
 .woocommerce form .form-row input.input-text, .woocommerce form .form-row textarea {
     line-height: 25px;
     padding: 6px;
     color: #222;
 }
+/*woo product single page*/
 .woocommerce ul.products li.product a img {
     margin: 0;
 }
