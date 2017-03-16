@@ -614,7 +614,7 @@ function insertAtSpecificIndex($array = [], $item = [], $position = 0) {
 	return $previous_items + $item + $next_items;
 }
 //woocommerce checkout
-add_filter("woocommerce_checkout_fields", "order_fields");
+/*add_filter("woocommerce_checkout_fields", "order_fields");
 
 function order_fields($fields) {
 
@@ -640,5 +640,5 @@ function order_fields($fields) {
     $fields["billing"] = $ordered_fields;
     return $fields;
 
-}
+}*/
 ?>
