@@ -25,36 +25,36 @@ do_action( 'woocommerce_before_edit_account_form' ); ?>
 <form class="woocommerce-EditAccountForm edit-account" action="" method="post">
 
 	<?php do_action( 'woocommerce_edit_account_form_start' ); ?>
-
 	<p class="woocommerce-FormRow woocommerce-FormRow--first form-row form-row-first">
-		<label for="account_first_name"><?php _e( 'First name', 'woocommerce' ); ?> <span class="required">*</span></label>
-		<input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="account_first_name" id="account_first_name" value="<?php echo esc_attr( $user->first_name ); ?>" />
-	</p>
-	<p class="woocommerce-FormRow woocommerce-FormRow--last form-row form-row-last">
 		<label for="account_last_name"><?php _e( 'Last name', 'woocommerce' ); ?> <span class="required">*</span></label>
 		<input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="account_last_name" id="account_last_name" value="<?php echo esc_attr( $user->last_name ); ?>" />
 	</p>
-	<div class="clear"></div>
+
+	<p class="woocommerce-FormRow woocommerce-FormRow--last form-row form-row-last">
+		<label for="account_first_name"><?php _e( 'First name', 'woocommerce' ); ?> <span class="required">*</span></label>
+		<input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="account_first_name" id="account_first_name" value="<?php echo esc_attr( $user->first_name ); ?>" />
+	</p>
 	
 	<p class="woocommerce-FormRow woocommerce-FormRow--first form-row form-row-first">
-		<label for="account_first_name_kana"><?php _e( 'First name Kana', 'woocommerce' ); ?> <span class="required">*</span></label>
-		<input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="account_first_name_kana" id="account_first_name_kana" value="<?php echo esc_attr( get_user_meta($user->ID, 'first_name_kana', true) ); ?>" />
-	</p>
-	<p class="woocommerce-FormRow woocommerce-FormRow--last form-row form-row-last">
 		<label for="account_last_name_kana"><?php _e( 'Last name Kana', 'woocommerce' ); ?> <span class="required">*</span></label>
 		<input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="account_last_name_kana" id="account_last_name_kana" value="<?php echo get_user_meta($user->ID, 'last_name_kana', true); ?>" />
 	</p>
-	<div class="clear"></div>
+	
+	<p class="woocommerce-FormRow woocommerce-FormRow--last form-row form-row-last">
+		<label for="account_first_name_kana"><?php _e( 'First name Kana', 'woocommerce' ); ?> <span class="required">*</span></label>
+		<input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="account_first_name_kana" id="account_first_name_kana" value="<?php echo esc_attr( get_user_meta($user->ID, 'first_name_kana', true) ); ?>" />
+	</p>
+	<p class="woocommerce-FormRow woocommerce-FormRow--last form-row form-row-first">
+		<label for="account_tel"><?php _e( 'Tel', 'woocommerce' ); ?> <span class="required">*</span></label>
+		<input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="account_tel" id="account_tel" value="<?php echo get_user_meta($user->ID, 'tel', true); ?>" />
+	</p>
+	
 
-	<p class="woocommerce-FormRow woocommerce-FormRow--first form-row form-row-first">
+	<p class="woocommerce-FormRow woocommerce-FormRow--first form-row form-row-last">
 		<label for="account_email"><?php _e( 'Email address', 'woocommerce' ); ?> <span class="required">*</span></label>
 		<input type="email" class="woocommerce-Input woocommerce-Input--email input-text" name="account_email" id="account_email" value="<?php echo esc_attr( $user->user_email ); ?>" />
 	</p>
 	
-	<p class="woocommerce-FormRow woocommerce-FormRow--last form-row form-row-last">
-		<label for="account_tel"><?php _e( 'Tel', 'woocommerce' ); ?> <span class="required">*</span></label>
-		<input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="account_tel" id="account_tel" value="<?php echo get_user_meta($user->ID, 'tel', true); ?>" />
-	</p>
 	
 	<p class="woocommerce-FormRow woocommerce-FormRow--wide form-row form-row-wide">
 		<label for="account_company"><?php _e( 'Company', 'woocommerce' ); ?> <span class="required"></span></label>

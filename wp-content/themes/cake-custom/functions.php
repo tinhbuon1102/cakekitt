@@ -482,7 +482,7 @@ function extraFieldForBilling(){
 			'label'     => __('First Name Kana', 'woocommerce'),
 			'placeholder'   => _x('First Name Kana', 'placeholder', 'woocommerce'),
 			'required'  => false,
-			'class'     => array('form-row-first'),
+			'class'     => array('form-row-last'),
 			'clear'     => false
 		),
 		
@@ -490,7 +490,7 @@ function extraFieldForBilling(){
 			'label'     => __('Last Name Kana', 'woocommerce'),
 			'placeholder'   => _x('Last Name Kana', 'placeholder', 'woocommerce'),
 			'required'  => false,
-			'class'     => array('form-row-last'),
+			'class'     => array('form-row-first'),
 			'clear'     => true
 		),
 	);
@@ -613,5 +613,32 @@ function insertAtSpecificIndex($array = [], $item = [], $position = 0) {
 	$next_items     = array_slice($array, $position, NULL, true);
 	return $previous_items + $item + $next_items;
 }
+//woocommerce checkout
+add_filter("woocommerce_checkout_fields", "order_fields");
 
+function order_fields($fields) {
+
+    $order = array(
+		"billing_last_name", 
+        "billing_first_name",
+		"billing_last_name_kana",
+		"billing_first_name_kana",
+        "billing_company",
+		"billing_phone",
+		"billing_email",
+		"billing_country",
+		"billing_postcode",
+        "billing_address_1", 
+        "billing_address_2"
+
+    );
+    foreach($order as $field)
+    {
+        $ordered_fields[$field] = $fields["billing"][$field];
+    }
+
+    $fields["billing"] = $ordered_fields;
+    return $fields;
+
+}
 ?>
