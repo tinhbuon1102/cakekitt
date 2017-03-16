@@ -478,19 +478,18 @@ function extraFieldForShipping(){
 
 function extraFieldForBilling(){
 	return array(
-		'billing_first_name_kana' => array(
-			'label'     => __('First Name Kana', 'woocommerce'),
-			'placeholder'   => _x('First Name Kana', 'placeholder', 'woocommerce'),
-			'required'  => false,
-			'class'     => array('form-row-last'),
-			'clear'     => false
-		),
-		
 		'billing_last_name_kana' => array(
 			'label'     => __('Last Name Kana', 'woocommerce'),
 			'placeholder'   => _x('Last Name Kana', 'placeholder', 'woocommerce'),
 			'required'  => false,
 			'class'     => array('form-row-first'),
+			'clear'     => false
+		),
+		'billing_first_name_kana' => array(
+			'label'     => __('First Name Kana', 'woocommerce'),
+			'placeholder'   => _x('First Name Kana', 'placeholder', 'woocommerce'),
+			'required'  => false,
+			'class'     => array('form-row-last'),
 			'clear'     => true
 		),
 	);
