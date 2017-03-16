@@ -28,8 +28,10 @@ global $product;
 	        <!--<a href="<?php //echo esc_url( $wishlist_url )?>" rel="nofollow">
 	            <?php //echo apply_filters( 'yith-wcwl-browse-wishlist-label', $browse_wishlist_text )?>
 	        </a>-->
-	        <a class="remove_from_wishlist_custom button alt btn-style-border-blk gray" href="#" rel="nofollow" data-product-id="<?php echo $product_id ?>">
-				<?php _e( 'added to wishlist', 'yith-wcwl' ) ?>
+	        <a class="remove_from_wishlist_custom round_button alt btn-style-border-blk gray" href="#" rel="nofollow" data-product-id="<?php echo $product_id ?>">
+				<?php if (!is_product()) echo '<span>';?>
+        <?php _e( 'お気に入りから外す', 'yith-wcwl' ) ?>
+        <?php if (!is_product()) echo '</span>';?>
 	        </a>
 	    </div>
 	    
@@ -39,8 +41,10 @@ global $product;
 	       <!--<a href="<?php //echo esc_url( $wishlist_url ) ?>" rel="nofollow">
 	            <?php //echo apply_filters( 'yith-wcwl-browse-wishlist-label', $browse_wishlist_text )?>
 	        </a>-->
-	      <a class="remove_from_wishlist_custom round_button alt" href="#" rel="nofollow" data-product-id="<?php echo $product_id ?>">
-	            <?php _e( 'added to wishlist', 'yith-wcwl' ) ?>
+	      <a class="remove_from_wishlist_custom round_button alt btn-style-border-blk gray" href="#" rel="nofollow" data-product-id="<?php echo $product_id ?>">
+	            <?php if (!is_product()) echo '<span>';?>
+        <?php _e( 'お気に入りから外す', 'yith-wcwl' ) ?>
+        <?php if (!is_product()) echo '</span>';?>
 	        </a>
 	    </div>
 	    <!--/after added-->
@@ -49,7 +53,7 @@ global $product;
 	    <div class="yith-wcwl-wishlistexistsbrowse removebuttondiv hide mark1" style="display:none;">
 	        <a class="remove_from_wishlist_custom button alt btn-style-border-blk gray" href="#" rel="nofollow" data-product-id="<?php echo $product_id ?>">
 	        	<?php if (!is_product()) echo '<span>';?>
-	            <?php _e( 'remove from wishlist', 'yith-wcwl' ) ?>
+	            <?php _e( 'お気に入りから外す', 'yith-wcwl' ) ?>
 	            <?php if (!is_product()) echo '</span>';?>
 	        </a>
 		    <img src="<?php echo esc_url( YITH_WCWL_URL . 'assets/images/wpspin_light.gif' ) ?>" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />
@@ -58,7 +62,7 @@ global $product;
 	    <div class="yith-wcwl-wishlistexistsbrowse removebuttondiv <?php echo ( $exists && ! $available_multi_wishlist ) ? 'show' : 'hide' ?>" style="display:<?php echo ( $exists && ! $available_multi_wishlist ) ? 'block' : 'none' ?> mark2">
 	        <a class="remove_from_wishlist_custom round_button alt btn-style-border-blk gray" href="#" rel="nofollow" data-product-id="<?php echo $product_id ?>">
 	        <?php if (!is_product()) echo '<span>';?>
-		        <?php _e( 'remove from wishlist', 'yith-wcwl' ) ?>
+		        <?php _e( 'お気に入りから外す', 'yith-wcwl' ) ?>
 		    <?php if (!is_product()) echo '</span>';?>
 	        </a>
 		    <img src="<?php echo esc_url( YITH_WCWL_URL . 'assets/images/wpspin_light.gif' ) ?>" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden" />

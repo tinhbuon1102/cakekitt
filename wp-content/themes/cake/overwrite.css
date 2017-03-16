@@ -97,13 +97,14 @@ input[type="text"]:focus, input[type="tel"]:focus, input[type="email"]:focus {
     height: 30px;
     color: #fff !important;
     text-align: center;
+	border: none;
     border-radius: 100%;
     background: rgba(0,0,0,.1) !important;
     outline: none;
     -webkit-transition: background .4s;
     transition: background .4s;
 }
-.remove_from_wishlist_custom.round_button:before {
+.remove_from_wishlist_custom.round_button:before, .remove_from_wishlist_custom.round_button:before {
 	content: "\e9bb";
     display: inline-block;
     margin: 8px 0 0 1px;
@@ -132,14 +133,12 @@ input[type="text"]:focus, input[type="tel"]:focus, input[type="email"]:focus {
     font-size: 18px;
     font-size: 1.125rem;
 }
-.cake-product-img-table .add_to_wishlist span {
-    width: 120px;
-    right: 50%;
-    margin-right: -60px;
+.cake-product-img-table .add_to_wishlist span, .cake-product-img-table .yith-wcwl-wishlistexistsbrowse a span, .cake-product-img-table .yith-wcwl-wishlistaddedbrowse a span {
+    min-width: 140px;
+    margin-right: -20px;
 }
-.cake-product-img-table .add_to_wishlist span::after {
-    right: 50%;
-    margin-right: -8px;
+.cake-product-img-table .add_to_wishlist span::after, .cake-product-img-table .yith-wcwl-wishlistexistsbrowse a span::after, .cake-product-img-table .yith-wcwl-wishlistaddedbrowse a span::after {
+    right: 18px;
 }
 .cake-woo-button span, .add_to_wishlist span, .yith-wcwl-wishlistaddedbrowse a span, .yith-wcwl-wishlistexistsbrowse a span {
     background: rgb(233,184,203);
@@ -537,6 +536,18 @@ h2.entry-title {
     font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
 /*woocommerce*/
+.woocommerce form .form-row input.input-text, .woocommerce form .form-row textarea {
+    line-height: 25px;
+    padding: 6px;
+    color: #222;
+}
+.woocommerce ul.products li.product a img {
+    margin: 0;
+}
+.cycle-carousel-wrap > .product-thumbnails-item.cycle-slide {
+    max-width: 25%;
+    padding: 0 5px;
+}
 .reset_variations, .single-product .entry-summary .yith-wcwl-add-to-wishlist a, .single-product .entry-summary a.compare, .woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button, .yith-wcwl-wishlistexistsbrowse a {
     font-size: 14px;
     font-weight: 400;
@@ -815,7 +826,7 @@ a.remove_from_wishlist_custom.button {
     border-top: none;
     position: relative;
     width: auto;
-    margin: 0 -1px;
+    margin: 0 -5px;
 }
 .product-thumbnails .cdo-cycle-next, .product-thumbnails .cdo-cycle-prev {
     font-size: 25px;
