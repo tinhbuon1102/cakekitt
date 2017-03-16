@@ -301,6 +301,10 @@ function custom_meta_order_detail_box_markup($post)
 	$field_mappings = getCustomFormFieldMapping();
 	
 	$order = new WC_Order($post->ID);
+	$items = $order->get_items();
+	$item_keys = array_keys($items);
+	$order_type = wc_get_order_item_meta( @$item_keys[0], '_order_type');
+	
 	$orderFormData = get_post_meta($order->id, 'cake_custom_order', true);
 	
 	echo '<script>
@@ -317,56 +321,72 @@ function custom_meta_order_detail_box_markup($post)
 	echo '<table class="order-detail-meta" style="clear:both; width: 100%">';
 	if (!empty($orderFormData))
 	{
-		foreach ($field_mappings as $fieldName => $fields)
+		if ($order_type == KITT_CUSTOM_ORDER)
 		{
-			$showBlock = '';
-			if (in_array($orderFormData['custom_order_cake_shape'], getArrayRoundShape()))
+			foreach ($field_mappings as $fieldName => $fields)
 			{
-				$showBlock = 'custom_order_cakesize_round';
-			}
-			else {
-				$showBlock = 'custom_order_cakesize_square';
-			}
-			
-			$class = ($showBlock != $fieldName && in_array($fieldName, array('custom_order_cakesize_round', 'custom_order_cakesize_square'))) ? 'disable' : '';
-			
-			$itemField = $fields['field'];
-			$defaultValue = isset($orderFormData[$fieldName]) ? (is_array($orderFormData[$fieldName]) ? implode(PHP_EOL, $orderFormData[$fieldName]) : $orderFormData[$fieldName]) : '';
-			if ($itemField['type'] == 'date_picker')
-			{
-				$defaultValue = $defaultValue ? $defaultValue : $itemField['display_format']; 
-			}
-			
-			echo '<tr id="'.$itemField['name'].'_wraper" class="'.$class.'">
-					<td class="col-left" style="text-align: left; width: 20%">'.$itemField['label'].'</td>
-					<td class="col-right" style="text-align; width: 80%">';
-			if ('custom_order_cakePic' == $fieldName || 'custom_order_photocakepic' == $fieldName)
-			{
-				$images = explode(PHP_EOL, $defaultValue);
-				foreach ($images as $image)
+				$showBlock = '';
+				if (in_array($orderFormData['custom_order_cake_shape'], getArrayRoundShape()))
 				{
-					echo '<img style="margin-right: 5px;max-width: 200px;" src="' . $image . '" />';
+					$showBlock = 'custom_order_cakesize_round';
 				}
+				else {
+					$showBlock = 'custom_order_cakesize_square';
+				}
+				
+				$class = ($showBlock != $fieldName && in_array($fieldName, array('custom_order_cakesize_round', 'custom_order_cakesize_square'))) ? 'disable' : '';
+				
+				$itemField = $fields['field'];
+				$defaultValue = isset($orderFormData[$fieldName]) ? (is_array($orderFormData[$fieldName]) ? implode(PHP_EOL, $orderFormData[$fieldName]) : $orderFormData[$fieldName]) : '';
+				if ($itemField['type'] == 'date_picker')
+				{
+					$defaultValue = $defaultValue ? $defaultValue : $itemField['display_format']; 
+				}
+				
+				echo '<tr id="'.$itemField['name'].'_wraper" class="'.$class.'">
+						<td class="col-left" style="text-align: left; width: 20%">'.$itemField['label'].'</td>
+						<td class="col-right" style="text-align; width: 80%">';
+				if ('custom_order_cakePic' == $fieldName || 'custom_order_photocakepic' == $fieldName)
+				{
+					$images = explode(PHP_EOL, $defaultValue);
+					foreach ($images as $image)
+					{
+						echo '<img style="margin-right: 5px;max-width: 200px;" src="' . $image . '" />';
+					}
+				}
+				$args = array(
+					'type' => $itemField['type'],
+					'name' => 'custom_order_meta['.$itemField['name'].']',
+					'value' => $defaultValue,
+					'choices' => isset($fields['value']) ? $fields['value'] : ''
+				);
+				
+				if ($fieldName == 'custom_order_cake_type')
+				{
+					echo do_action('acf/create_field', $args);
+				}
+				else {
+					$itemField['name'] = 'custom_order_meta['.$itemField['name'].']';
+					$itemField['value'] = $defaultValue;
+						
+					echo do_action('acf/create_field', $itemField);
+				}
+				
+				echo '</td></tr>';
 			}
-			$args = array(
-				'type' => $itemField['type'],
-				'name' => 'custom_order_meta['.$itemField['name'].']',
-				'value' => $defaultValue,
-				'choices' => isset($fields['value']) ? $fields['value'] : ''
-			);
-			
-			if ($fieldName == 'custom_order_cake_type')
+		}
+		else {
+			foreach ($orderFormData as $metaItemKey => $metaItemVal)
 			{
-				echo do_action('acf/create_field', $args);
+				$field_mappings[$metaItemKey]['field']['name'] = 'custom_order_meta['.$metaItemKey.']';
+				$field_mappings[$metaItemKey]['field']['value'] = $metaItemVal;
+				
+				echo '<tr id="'.$metaItemKey.'_wraper" >
+					<td class="col-left" style="text-align: left; width: 20%">'.$field_mappings[$metaItemKey]['field']['label'].'</td>
+					<td class="col-right" style="text-align; width: 80%"> ';
+					echo do_action('acf/create_field', $field_mappings[$metaItemKey]['field']);
+				echo '</td></tr>';
 			}
-			else {
-				$itemField['name'] = 'custom_order_meta['.$itemField['name'].']';
-				$itemField['value'] = $defaultValue;
-					
-				echo do_action('acf/create_field', $itemField);
-			}
-			
-			echo '</td></tr>';
 		}
 	}
 	echo '</table>';
@@ -528,6 +548,63 @@ function custom_woocommerce_billing_fields( $fields ) {
 	$fieldExtras = extraFieldForBilling();
 	$fields = insertAtSpecificIndex($fields, $fieldExtras, array_search('billing_last_name', array_keys($fields)) + 1);
 	return $fields;
+}
+
+
+add_action( 'woocommerce_checkout_after_customer_details', 'extra_delivery_fields_in_checkout_page' );
+function extra_delivery_fields_in_checkout_page( $checkout ) {
+?>
+	<ul>
+		<li class="main-option">
+			<h4 class="heading-form display-table mb-3">
+				<span class="display-table-cell pl-2">When do you want your order delivered?</span>
+			</h4>
+			<div class="row">
+				<div class="col-md-6 columns">
+					<label class="label mb-2">
+						<i class="icon-outline-kitt_icons_calendar01"></i>
+						Pick Up Date
+					</label>
+					<div class="calendar"></div>
+					<input type="hidden" name="cake_custom_order[custom_order_pickup_date]" id="custom_order_pickup_date" value="<?php echo date('Y-m-d')?>"/>
+				</div>
+				<div class="col-md-6 columns">
+					<label class="label mb-2">
+						<i class="icon-outline-kitt_icons_clock"></i>
+						Pick Up Time
+					</label>
+					<div class="timepicker">
+						<div class="timepick">
+						<h3 class="input no-interaction text-center display-table width-full"><div class="display-table-cell"><output></output></div></h3>
+							<div class="time-range display-table width-full mt-2">
+								<div class="time-range__minus display-table-cell">
+									<button type="button" class="button button--ghost circle">-</button>
+								</div>
+								<div class="display-table-cell">
+									<input type="range" id="order_pickup_time" name="cake_custom_order[custom_order_pickup_time]" min="1" max="24" step="1" value="9" data-rangeslider />
+								</div>
+								<div class="time-range__plus display-table-cell">
+									<button type="button" class="button button--ghost circle">+</button>
+								</div>
+							</div>
+							<!--/time-range-->
+						</div>
+						<!--/timepick-->
+					</div>
+					<!--/timepicker-->
+				</div>
+			</div>
+		</li>
+	</ul>
+<?php
+}
+
+add_action( 'woocommerce_checkout_update_order_meta', 'kitt_custom_checkout_field_update_order_meta' );
+function kitt_custom_checkout_field_update_order_meta( $order_id ) 
+{
+	if ( isset($_POST['cake_custom_order']) ) {
+		update_post_meta( $order_id, 'cake_custom_order', $_POST['cake_custom_order'] ) ;
+	}
 }
 
 
