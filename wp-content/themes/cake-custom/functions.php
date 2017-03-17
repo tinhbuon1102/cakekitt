@@ -314,6 +314,24 @@ function custom_meta_order_detail_box_markup($post)
 	
 	$orderFormData = get_post_meta($order->id, 'cake_custom_order', true);
 	
+	$addressFields = array(
+		'custom_order_customer_name_last',
+		'custom_order_customer_name_first',
+		'custom_order_customer_name_last_kana',
+		'custom_order_customer_name_first_kana',
+		'custom_order_customer_tel',
+		'custom_order_customer_email',
+		'custom_order_deliver_name',
+		'custom_order_deliver_storename',
+		'custom_order_deliver_cipname',
+		'custom_order_deliver_tel',
+		'custom_order_deliver_postcode',
+		'custom_order_deliver_pref',
+		'custom_order_deliver_city',
+		'custom_order_deliver_addr1',
+		'custom_order_deliver_addr2',
+		
+	);
 	echo '<script>
 		var gl_ajaxUrl = "'. admin_url('admin-ajax.php') .'";	
 		var roundGroup = '. json_encode(getArrayRoundShape()) .';
@@ -332,6 +350,12 @@ function custom_meta_order_detail_box_markup($post)
 		{
 			foreach ($field_mappings as $fieldName => $fields)
 			{
+				// Remove address and user info fields
+				if (in_array($fieldName, $addressFields))
+				{
+					continue;
+				}
+				
 				$showBlock = '';
 				if (in_array($orderFormData['custom_order_cake_shape'], getArrayRoundShape()))
 				{
