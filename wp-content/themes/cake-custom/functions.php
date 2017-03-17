@@ -438,7 +438,11 @@ function tp_remove_metabox_from_all_post_types ()
 add_action('add_meta_boxes', 'tp_remove_metabox_from_all_post_types', 999);
 
 //My Account
-
+function remove_fields_my_account_page($fields) {
+    unset( $fields ['account_company'] );
+    return $fields;
+}
+add_filter( 'woocommerce_my_account_edit_address_title', 'remove_fields_my_account_page' );
 
 // Add accepted status for payment
 function woocommerce_valid_order_statuses_for_payment_custom_order ( $valid_order_statuses )
