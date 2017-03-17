@@ -539,10 +539,19 @@ add_filter( 'woocommerce_shipping_fields', 'custom_woocommerce_shipping_fields' 
 function custom_woocommerce_shipping_fields( $fields ) {
 	$fieldExtras = extraFieldForShipping();
 	$fields = insertAtSpecificIndex($fields, $fieldExtras, array_search('shipping_company', array_keys($fields)) + 1);
-	$fields['shipping_last_name']['label'] = '宛名';
-	$fields['shipping_first_name']['label'] = '店舗名';
 	
 	//change class
+	$fields['shipping_last_name'] = array(
+	'label'     => __('宛名', 'woocommerce'),
+    'required'  => true,
+    'class'     => array('form-row-first')
+     );
+	$fields['shipping_first_name'] = array(
+	'label'     => __('店舗名', 'woocommerce'),
+    'required'  => true,
+    'class'     => array('form-row-last'),
+	'clear'     => true
+     );
 	$fields['shipping_company'] = array(
 	'label'     => __('担当者名', 'woocommerce'),
     'required'  => true,
@@ -580,8 +589,8 @@ function custom_woocommerce_shipping_fields( $fields ) {
 	
 	//change order
 	$order = array(
-        "shipping_first_name", 
         "shipping_last_name", 
+        "shipping_first_name", 
         "shipping_company", 
         "shipping_phone", 
         "shipping_postcode", 
@@ -637,6 +646,30 @@ add_filter( 'woocommerce_billing_fields', 'custom_woocommerce_billing_fields' );
 function custom_woocommerce_billing_fields( $fields ) {
 	$fieldExtras = extraFieldForBilling();
 	$fields = insertAtSpecificIndex($fields, $fieldExtras, array_search('billing_first_name', array_keys($fields)) + 1);
+	
+	//change class
+	$fields['billing_last_name'] = array(
+	'label'     => __('姓', 'woocommerce'),
+    'required'  => true,
+    'class'     => array('form-row-first')
+     );
+	$fields['billing_first_name'] = array(
+	'label'     => __('名', 'woocommerce'),
+    'required'  => true,
+    'class'     => array('form-row-last'),
+	'clear'     => true
+     );
+	$fields['billing_last_name_kana'] = array(
+	'label'     => __('姓(ふりがな)', 'woocommerce'),
+    'required'  => true,
+    'class'     => array('form-row-first')
+     );
+	$fields['billing_first_name_kana'] = array(
+	'label'     => __('名(ふりがな)', 'woocommerce'),
+    'required'  => true,
+    'class'     => array('form-row-last'),
+	'clear'     => true
+     );
 	
 	//change order
 	$order = array(
