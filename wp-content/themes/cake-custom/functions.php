@@ -534,9 +534,6 @@ function override_address_to_edit( $fields ) {
 // Add phone and store name in shipping address
 add_filter( 'woocommerce_checkout_fields' , 'shipping_override_checkout_fields' );
 function shipping_override_checkout_fields( $fields ) {
-// 	$fieldExtras = extraFieldForShipping();
-// 	$fields['shipping'] = insertAtSpecificIndex($fields['shipping'], $fieldExtras, array_search('shipping_company', array_keys($fields)) + 1);
-	
 	$fields['shipping'] = $fields['shipping'] + extraFieldForShipping();
 	$fields['shipping']['shipping_last_name']['label'] = '宛名';
 	$fields['shipping']['shipping_first_name']['label'] = '店舗名';
