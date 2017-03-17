@@ -532,7 +532,7 @@ function custom_woocommerce_shipping_fields( $fields ) {
 	return $fields;
 }
 //show shipping fields forcely when delivery is selected
-add_action( 'woocommerce_checkout_fields','woo_remove_shippinginfo' );
+/*add_action( 'woocommerce_checkout_fields','woo_remove_shippinginfo' );
 function woo_remove_shippinginfo() {
 global $woocommerce;
 
@@ -547,7 +547,7 @@ global $woocommerce;
 	//add_filter( 'woocommerce_ship_to_different_address_checked', '__return_false' );
 }
 
-}
+}*/
 // Billing address
 
 add_filter( 'woocommerce_admin_billing_fields', 'woocommerce_admin_billing_fields_extra', 10, 1 );
