@@ -519,7 +519,7 @@ function woocommerce_admin_shipping_fields_extra($fields){
 }
 
 //change label of my account address for shipping
-add_filter( 'woocommerce_address_to_edit', 'override_address_to_edit' );
+add_filter( 'woocommerce_process_myaccount_field_', 'override_address_to_edit' );
 function override_address_to_edit( $fields ) {
 	$fields['shipping']['shipping_last_name']['label'] = '宛名';
 	$fields['shipping']['shipping_first_name']['label'] = '店舗名';
