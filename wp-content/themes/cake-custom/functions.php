@@ -531,25 +531,6 @@ function shipping_override_checkout_fields( $fields ) {
 	$fields['shipping']['shipping_address_2']['label'] = '建物・マンション名以降';
 	// required
 	$fields['shipping']['shipping_company']['required'] = true;
-	//change order
-	$order = array(
-        "shipping_first_name", 
-        "shipping_last_name", 
-        "shipping_company", 
-        "shipping_phone", 
-        "shipping_postcode", 
-        "shipping_state", 
-        "shipping_city", 
-        "shipping_address_1", 
-        "shipping_address_2"
-
-    );
-    foreach($order as $field)
-    {
-        $ordered_fields[$field] = $fields["billing"][$field];
-    }
-
-    $fields["billing"] = $ordered_fields;
 	
 	return $fields;
 }
@@ -560,9 +541,6 @@ function custom_woocommerce_shipping_fields( $fields ) {
 	$fields = insertAtSpecificIndex($fields, $fieldExtras, array_search('shipping_company', array_keys($fields)) + 1);
 	$fields['shipping_last_name']['label'] = '宛名';
 	$fields['shipping_first_name']['label'] = '店舗名';
-	$fields['shipping_city']['label'] = '市区町村';
-	$fields['shipping_address_1']['label'] = '町名・番地';
-	$fields['shipping_address_2']['label'] = '建物・マンション名以降';
 	
 	//change class
 	$fields['shipping_company'] = array(
@@ -582,26 +560,46 @@ function custom_woocommerce_shipping_fields( $fields ) {
     'class'     => array('form-row-first'),
     'clear'     => true
      );
+	$fields['shipping_city'] = array(
+	'label'     => __('市区町村', 'woocommerce'),
+    'required'  => true,
+    'class'     => array('form-row-last'),
+    'clear'     => true
+     );
+	$fields['shipping_address_1'] = array(
+	'label'     => __('町名・番地', 'woocommerce'),
+    'required'  => true,
+    'class'     => array('form-row-first')
+     );
+	$fields['shipping_address_2'] = array(
+	'label'     => __('建物・マンション名以降', 'woocommerce'),
+    'required'  => true,
+    'class'     => array('form-row-last'),
+    'clear'     => true
+     );
+	
+	//change order
+	$order = array(
+        "shipping_first_name", 
+        "shipping_last_name", 
+        "shipping_company", 
+        "shipping_phone", 
+        "shipping_postcode", 
+        "shipping_state", 
+        "shipping_city", 
+        "shipping_address_1", 
+        "shipping_address_2"
+
+    );
+    foreach($order as $field)
+    {
+        $ordered_fields[$field] = $fields[$field];
+    }
+
+    $fields = $ordered_fields;
 	
 	return $fields;
 }
-//show shipping fields forcely when delivery is selected
-/*add_action( 'woocommerce_checkout_fields','woo_remove_shippinginfo' );
-function woo_remove_shippinginfo() {
-global $woocommerce;
-
-//if ( is_admin() && ! defined( 'DOING_AJAX' ) )
-//return;
-
- $chosen_methods = WC()->session->get( 'chosen_shipping_methods' );
- $chosen_shipping = $chosen_methods[0]; 
-
- if ($chosen_shipping == 'local_delivery') {   
-    unset($fields['shipping']);
-	//add_filter( 'woocommerce_ship_to_different_address_checked', '__return_false' );
-}
-
-}*/
 // Billing address
 
 add_filter( 'woocommerce_admin_billing_fields', 'woocommerce_admin_billing_fields_extra', 10, 1 );
@@ -639,6 +637,25 @@ add_filter( 'woocommerce_billing_fields', 'custom_woocommerce_billing_fields' );
 function custom_woocommerce_billing_fields( $fields ) {
 	$fieldExtras = extraFieldForBilling();
 	$fields = insertAtSpecificIndex($fields, $fieldExtras, array_search('billing_first_name', array_keys($fields)) + 1);
+	
+	//change order
+	$order = array(
+        "billing_last_name", 
+        "billing_first_name", 
+		"billing_last_name_kana", 
+        "billing_first_name_kana", 
+        "billing_company", 
+        "billing_email", 
+        "billing_phone"
+
+    );
+    foreach($order as $field)
+    {
+        $ordered_fields[$field] = $fields[$field];
+    }
+
+    $fields = $ordered_fields;
+	
 	return $fields;
 }
 
