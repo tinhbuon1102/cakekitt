@@ -141,7 +141,7 @@ function hide_plugin_order_by_product ()
 		'wpcustom-category-image/load.php',
 		'login-with-ajax/login-with-ajax.php',
 		'advanced-custom-fields/acf.php',
-		'wcp-contact-form/wcp-contact-form.php'
+// 		'wcp-contact-form/wcp-contact-form.php'
 	);
 	$myplugins = $wp_list_table->items;
 	foreach ( $myplugins as $key => $val )
@@ -515,19 +515,6 @@ function woocommerce_admin_shipping_fields_extra($fields){
 		'label' => __( 'Phone', 'woocommerce' ),
 		'show'  => false
 	);
-	return $fields;
-}
-
-//change label of my account address for shipping
-add_filter( 'woocommerce_address_to_edit', 'override_address_to_edit' );
-function override_address_to_edit( $fields ) {
-	$fields['shipping']['shipping_last_name']['label'] = '宛名';
-	$fields['shipping']['shipping_first_name']['label'] = '店舗名';
-	$fields['shipping']['shipping_company']['label'] = 'Cip name';
-	$fields['shipping']['shipping_address_1']['label'] = '番地';
-	$fields['shipping']['shipping_address_2']['label'] = '建物・マンション名以降';
-	// required
-	$fields['shipping']['shipping_company']['required'] = true;
 	return $fields;
 }
 
