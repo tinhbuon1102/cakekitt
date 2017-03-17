@@ -502,31 +502,31 @@ if ($inspired_pic)
 							<div class="row">
 								<div class="field col-md-6">
 									<label class="label">姓</label>
-									<input placeholder="佐藤" class="input validate[required]" required="required" type="text" name="custom_order_customer_name_last" id="customer_name_last" value="<?php echo get_user_meta($userID, 'billing_last_name', true) ? get_user_meta($userID, 'billing_last_name', true) : get_user_meta($userID, 'last_name', true)?>">
+									<input placeholder="佐藤" class="input validate[required]" required="required" type="text" name="custom_order_customer_name_last" id="customer_name_last" value="<?php echo get_user_meta($userID, 'last_name', true)?>">
 								</div>
 								<div class="field col-md-6">
 									<label class="label">名</label>
-									<input placeholder="太郎" class="input validate[required]" required="required" type="text" name="custom_order_customer_name_first" id="customer_name_first" value="<?php echo get_user_meta($userID, 'billing_first_name', true) ? get_user_meta($userID, 'billing_first_name', true) : get_user_meta($userID, 'first_name', true)?>">
+									<input placeholder="太郎" class="input validate[required]" required="required" type="text" name="custom_order_customer_name_first" id="customer_name_first" value="<?php echo get_user_meta($userID, 'first_name', true)?>">
 								</div>
 							</div>
 							<div class="row">
 								<div class="field col-md-6">
 									<label class="label">姓(ふりがな)</label>
-									<input placeholder="さとう" class="input validate[required]" required="required" type="text" name="custom_order_customer_name_last_kana" id="customer_name_last_kana" value="<?php echo get_user_meta($userID, 'billing_last_name_kana', true) ? get_user_meta($userID, 'billing_last_name_kana', true) : get_user_meta($userID, 'last_name_kana', true)?>">
+									<input placeholder="さとう" class="input validate[required]" required="required" type="text" name="custom_order_customer_name_last_kana" id="customer_name_last_kana" value="<?php echo get_user_meta($userID, 'last_name_kana', true)?>">
 								</div>
 								<div class="field col-md-6">
 									<label class="label">名(ふりがな)</label>
-									<input placeholder="たろう" class="input validate[required]" required="required" type="text" name="custom_order_customer_name_first_kana" id="customer_name_first_kana" value="<?php echo get_user_meta($userID, 'billing_first_name_kana', true) ? get_user_meta($userID, 'billing_first_name_kana', true) : get_user_meta($userID, 'first_name_kana', true)?>">
+									<input placeholder="たろう" class="input validate[required]" required="required" type="text" name="custom_order_customer_name_first_kana" id="customer_name_first_kana" value="<?php echo get_user_meta($userID, 'first_name_kana', true)?>">
 								</div>
 							</div>
 							<div class="row">
 								<div class="field col-md-6">
 									<label class="label">電話番号<small class="help-info">ハイフンなし</small></label>
-									<input placeholder="09012345678" class="input validate[required,custom[phone]]" required="required" type="tel" name="custom_order_customer_tel" id="customer_tel" value="<?php echo get_user_meta($userID, 'billing_phone', true) ? get_user_meta($userID, 'billing_phone', true) : get_user_meta($userID, 'tel', true)?>">
+									<input placeholder="09012345678" class="input validate[required,custom[phone]]" required="required" type="tel" name="custom_order_customer_tel" id="customer_tel" value="<?php echo get_user_meta($userID, 'tel', true)?>">
 								</div>
 								<div class="field col-md-6">
 									<label class="label">メールアドレス</label>
-									<input placeholder="taro@kitt.jp" class="input validate[required,custom[email]]" required="required" type="email" name="custom_order_customer_email" id="customer_email" value="<?php echo get_user_meta($userID, 'billing_email', true) ? get_user_meta($userID, 'billing_email', true) : $user_data->user_email?>">
+									<input placeholder="taro@kitt.jp" class="input validate[required,custom[email]]" required="required" type="email" name="custom_order_customer_email" id="customer_email" value="<?php echo $user_data->user_email?>">
 								</div>
 							</div>
 							
@@ -664,6 +664,7 @@ if ($inspired_pic)
 				</div>
 			<div class="row">
 				<div class="col-md-12">
+					<input class="cdo-button submit_prev" type="button" name="submit_prev" value="<?php echo esc_html__( 'Previous', 'cake')?>" />
 					<input type="button" class="cdo-button" name="submit" value="Submit" id="submit_form_order"/>
 				</div>
 			</div>

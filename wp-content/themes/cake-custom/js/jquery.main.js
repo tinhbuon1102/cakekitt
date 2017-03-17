@@ -117,7 +117,7 @@ $(function(){
                     if (currentStepActive == 3)
                     {
                     	// Hide Next button
-                    	$('form#omOrder .submit_next').hide();
+                    	$('#button_wraper').hide();
                     	$('#confirmation_wraper').removeClass('disable');
                     	$('#confirmation_content').html('<div><img src="'+ gl_templateUrl +'/images/loading-1.gif"/></div>');
                     }	
@@ -130,9 +130,9 @@ $(function(){
         	
         });
         
-        $('body').on('click', 'form#omOrder .submit_prev', function(){
+        $('body').on('click', '.submit_prev', function(){
         	// Show Next button
-        	$('form#omOrder .submit_next').show();
+        	$('#button_wraper').show();
         	$('#confirmation_wraper').addClass('disable');
         	$('#confirmation_content').html('');
         	$('#confirmation_footer').addClass('disable');
