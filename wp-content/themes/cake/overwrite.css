@@ -653,6 +653,17 @@ div#customer_login {
 .woocommerce form.login p.form-row span.pass:before, .woocommerce form.register p.form-row span.pass:before {
     content: "\e919";
 }
+/* woo acccount page*/
+.woocommerce-MyAccount-content h3 {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+.woocommerce-account .woocommerce-MyAccount-content, .woocommerce-account .woocommerce-MyAccount-navigation {
+    padding: 0 15px;
+}
 /*cart page*/
 p {
     font-size: inherit;

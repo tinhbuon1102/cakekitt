@@ -518,6 +518,19 @@ function woocommerce_admin_shipping_fields_extra($fields){
 	return $fields;
 }
 
+//change label of my account address for shipping
+add_filter( 'woocommerce_address_to_edit', 'override_address_to_edit' );
+function override_address_to_edit( $fields ) {
+	$fields['shipping']['shipping_last_name']['label'] = '宛名';
+	$fields['shipping']['shipping_first_name']['label'] = '店舗名';
+	$fields['shipping']['shipping_company']['label'] = 'Cip name';
+	$fields['shipping']['shipping_address_1']['label'] = '番地';
+	$fields['shipping']['shipping_address_2']['label'] = '建物・マンション名以降';
+	// required
+	$fields['shipping']['shipping_company']['required'] = true;
+	return $fields;
+}
+
 // Add phone and store name in shipping address
 add_filter( 'woocommerce_checkout_fields' , 'shipping_override_checkout_fields' );
 function shipping_override_checkout_fields( $fields ) {
