@@ -2,14 +2,17 @@
 # This file is distributed under the same license as the Plugins - WooCommerce - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-03-16 13:44:07+0000\n"
+"PO-Revision-Date: 2017-03-17 20:20+0900\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: GlotPress/2.4.0-alpha\n"
+"X-Generator: Poedit 1.8.12\n"
 "Language: ja_JP\n"
 "Project-Id-Version: Plugins - WooCommerce - Stable (latest release)\n"
+"POT-Creation-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
 
 #: includes/api/class-wc-rest-webhooks-controller.php:82
 msgid "Webhook secret."
@@ -15456,7 +15459,6 @@ msgstr "商品 %1$s のバリエーション #%2$s の在庫は %3$s から %4$s
 msgid "Order status changed from %1$s to %2$s."
 msgstr "注文状況を %1$s から %2$s に変更しました。"
 
-#. #-#-#-#-#  tmp-woocommerce.pot (WooCommerce 2.6.14)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: includes/abstracts/abstract-wc-order.php:2320
 #: includes/abstracts/abstract-wc-order.php:2321
@@ -20230,3 +20232,9 @@ msgstr "オーランド諸島"
 #: i18n/countries.php:18
 msgid "Afghanistan"
 msgstr "アフガニスタン"
+
+msgid "Last name Kana"
+msgstr "姓(ふりがな)"
+
+msgid "First name Kana"
+msgstr "名(ふりがな)"
