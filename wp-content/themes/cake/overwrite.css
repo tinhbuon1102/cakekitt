@@ -664,6 +664,26 @@ div#customer_login {
 .woocommerce-account .woocommerce-MyAccount-content, .woocommerce-account .woocommerce-MyAccount-navigation {
     padding: 0 15px;
 }
+/* order details*/
+.order-detail-custom-table .form-row {
+    display: table;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 30px;
+}
+.order-detail-custom-table .form-row .label-div, .order-detail-custom-table .form-row .show-value {
+    display: table-cell;
+	vertical-align:middle;
+}
+.order-detail-custom-table .form-row .label-div {
+    width: 130px;
+    font-weight: bold;
+    vertical-align: bottom;
+    padding-bottom: 0;
+}
+.order-detail-custom-table .form-row .show-value {
+    border-bottom: 1px solid #222;
+}
 /*cart page*/
 p {
     font-size: inherit;

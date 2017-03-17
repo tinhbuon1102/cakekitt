@@ -709,11 +709,11 @@ function getOrderDetail($order_id) {
 				
 				$divRow .= '<div class="form-row">';
 				
-				$divRow .= '<div class="col-md-5 pt-md-5 pt-sm-6 pb-sm-5 label-div">';
+				$divRow .= '<div class="label-div">';
 				$divRow .= $fieldName == 'custom_order_cake_type' ? __('Cake Type', 'cake') : $fieldMapping[$fieldName]['field']['label'];
 				$divRow .= '</div>';
 
-				$divRow .= '<div class="col-md-7 pt-md-7 pt-sm-6 pb-sm-7 show-value">';
+				$divRow .= '<div class="show-value">';
 				if ( 'custom_order_cakePic' == $fieldName || 'custom_order_photocakepic' == $fieldName )
 				{
 					if (!$order_id)

@@ -20,31 +20,31 @@ $field_mappings = getCustomFormFieldMapping();
 	<?php get_template_part('inc/page-header');?>
 
 	<div id="content-wrapper">
-	<div class="container">
-		<div class="row">
-			
-			<div id="primary" class="<?php echo esc_attr($col['colclass']); ?> content-area" style="<?php echo esc_attr($col['position']);?>">
+		<div class="container">
+			<div class="row">
+				
+				<div id="primary" class="<?php echo esc_attr($col['colclass']); ?> content-area" style="<?php echo esc_attr($col['position']);?>">
 					<main id="main" class="site-main">
-			
+				
 						<?php while ( have_posts() ) : the_post(); ?>
 			
 							<?php get_template_part( 'content', 'page' ); ?>
 							
 										
 						<?php endwhile; // end of the loop. ?>
-			
-				</main><!-- #main -->
-			</div><!-- #primary -->
-			
-			<?php if($col['position']){ ?>
-			<div id="secondary" class="<?php echo esc_attr($col['colsidebar']);?> widget-area" role="complementary">
-				<?php get_sidebar(); ?>
-			</div><!-- #secondary -->
-			<?php } ?>
-			
-			
-		</div><!-- .row -->
-	</div><!-- .container -->
+				
+					</main><!-- #main -->
+				</div><!-- #primary -->
+				
+				<?php if($col['position']){ ?>
+				<div id="secondary" class="<?php echo esc_attr($col['colsidebar']);?> widget-area" role="complementary">
+					<?php get_sidebar(); ?>
+				</div><!-- #secondary -->
+				<?php } ?>
+				
+				
+			</div><!-- .row -->
+		</div><!-- .container -->
 	</div><!-- #content-wrapper -->
 	<script type="text/javascript">
 		var imgBtnInterval = null;
@@ -99,22 +99,22 @@ $field_mappings = getCustomFormFieldMapping();
 							$('div.esgbox-skin').addClass((aspectRatio < 1) ? 'portrait' : 'landscape');
 							$('div.galcon-inner > .row > div').addClass((aspectRatio < 1) ? 'col-md-6' : 'col-md-12');
 							$(window).on('load resize', function(){
-							//height値を取得する
-							var hsize = $(window).height();
-							var hinsize = hsize - 150;
-							var galconWidth = $('.ordercake-cart-sidebar-container').width();
-							if (imgHeight <= hsize) {
-								$(".kitt-wrap .esgbox-skin .galcon-inner .image-inner").css("height", imgHeight + "px");
-								$(".kitt-wrap .esgbox-skin .galcon-inner .image-inner").css("width", imgWidth + "px");
-								$(".kitt-wrap .esgbox-skin").css("width", imgWidth + 50 + "px");
-								$('.esgbox-wrap').addClass('nofullbox');
-								//$(".kitt-wrap .esgbox-skin .galcon-inner").css("height", hsize - 100 + "px");
-							} else if (imgHeight >= hsize) {
-								$('.esgbox-wrap').addClass('fullbox');
-								$(".kitt-wrap .esgbox-skin .galcon-inner .image-inner").css("height", hinsize + "px");
-								$(".kitt-wrap .esgbox-skin .galcon-inner .image-inner").css("width", hinsize * aspectRatio + "px");
-								$(".kitt-wrap > .esgbox-skin > .galcon-inner").css("height", hsize - 100 + "px");
-							}
+								//height値を取得する
+								var hsize = $(window).height();
+								var hinsize = hsize - 150;
+								var galconWidth = $('.ordercake-cart-sidebar-container').width();
+								if (imgHeight <= hsize) {
+									$(".kitt-wrap .esgbox-skin .galcon-inner .image-inner").css("height", imgHeight + "px");
+									$(".kitt-wrap .esgbox-skin .galcon-inner .image-inner").css("width", imgWidth + "px");
+									$(".kitt-wrap .esgbox-skin").css("width", imgWidth + 50 + "px");
+									$('.esgbox-wrap').addClass('nofullbox');
+									//$(".kitt-wrap .esgbox-skin .galcon-inner").css("height", hsize - 100 + "px");
+								} else if (imgHeight >= hsize) {
+									$('.esgbox-wrap').addClass('fullbox');
+									$(".kitt-wrap .esgbox-skin .galcon-inner .image-inner").css("height", hinsize + "px");
+									$(".kitt-wrap .esgbox-skin .galcon-inner .image-inner").css("width", hinsize * aspectRatio + "px");
+									$(".kitt-wrap > .esgbox-skin > .galcon-inner").css("height", hsize - 100 + "px");
+								}
 							});
 						});
 						
@@ -126,7 +126,7 @@ $field_mappings = getCustomFormFieldMapping();
 						$('div.esgbox-title').append('<a href="<?php echo site_url()?>/order-made-form?type='+selectedCat+'&post_id='+selectedPost+'" class="gallery_type_btn"><input class="cdo-button" type="button" value="<?php echo esc_html__('Buy this', 'cake')?>"></a>');
 						clearInterval(imgBtnInterval);
 						imgBtnInterval = null;
-						
+						$('img.esgbox-image').resize();
 					}
 				}, 10);
 			});
