@@ -640,19 +640,43 @@ function getOrderDetail($order_id) {
 	if (!$aData || empty($aData)) return '';
 	
 	$aSeparateBlock = array(
-		'cake_info_wraper' => 'custom_order_customer_name_last',
+		'cake_info_wraper' => 'custom_order_cake_type',
 		'customer_info_wraper' => 'custom_order_customer_name_last',
-		'delivery_info_wraper' => 'custom_order_customer_name_last',
-		'time_info_wraper' => 'custom_order_customer_name_last',
+		'delivery_info_wraper' => 'custom_order_deliver_name',
+		'time_info_wraper' => 'custom_order_pickup_date',
 	);
+	
+	$aBlockInfo = array(
+		'cake_info_wraper' => array(
+			'label' => __('Cake Info', 'cake')
+		),
+		'customer_info_wraper' => array(
+			'label' => __('Customer Info', 'cake')
+		),
+		'delivery_info_wraper' => array(
+			'label' => __('Delivery Info', 'cake')
+		),
+		'time_info_wraper' => array(
+			'label' => __('Time Info', 'cake')
+		),
+	);
+	
 	$fieldMapping = getCustomFormFieldMapping();
 	$divRow = '';
 	$divRow .= '<div class="order-detail-custom-table">';
+	
+	$blockWraper = '';
+	$aDataKeys = array_keys($aData);
+
+	$indexItem = 0;
 	foreach ( $aData as $fieldName => $fieldValue )
 	{
-		if (!in_array($fieldName, $aSeparateBlock))
+		$indexItem++;
+		
+		$keyWraper = array_search($fieldName, $aSeparateBlock);
+		if ($keyWraper !== false)
 		{
-				
+			$blockWraper = $keyWraper;
 		}
 		
 		if ( $fieldName == 'custom_order_pickup_time' )
@@ -674,8 +698,15 @@ function getOrderDetail($order_id) {
 			{
 				if($fieldValue == '' || $fieldValue === null) continue;
 				
+				if ($blockWraper)
+				{
+					$divRow .= '<div class="'.$blockWraper.'">';
+					$divRow .= '<h3>'. $aBlockInfo[$blockWraper]['label'] .'</h3>';
+					$blockWraper = '';
+				}
+				
 				$divRow .= '<div class="form-row">';
-
+				
 				$divRow .= '<div class="col-md-5 pt-md-5 pt-sm-6 pb-sm-5 label-div">';
 				$divRow .= $fieldName == 'custom_order_cake_type' ? __('Cake Type', 'cake') : $fieldMapping[$fieldName]['field']['label'];
 				$divRow .= '</div>';
@@ -704,9 +735,16 @@ function getOrderDetail($order_id) {
 					}
 					$divRow .= is_array(@$fieldMapping[$fieldName]['value'][$fieldValue]) ? $fieldMapping[$fieldName]['value'][$fieldValue] : (is_array(@$fieldMapping[$fieldName]['value']) ? $fieldMapping[$fieldName]['value'][$fieldValue] : $fieldValue);
 				}
-				$divRow .= '</div>';
+				$divRow .= '</div>'; //End right column
 
-				$divRow .= '</div>';
+				$divRow .= '</div>'; //End row 
+				
+				$keyWraper = array_search($aDataKeys[$indexItem], $aSeparateBlock);
+				if ($keyWraper !== false)
+				{
+					$divRow .= '</div>'; //End info wraper block
+				}
+				
 			}
 		}
 	}
