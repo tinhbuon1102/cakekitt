@@ -541,7 +541,7 @@ function submit_form_order(){
 		update_user_meta($userID, 'billing_company', get_user_meta($userID, 'billing_company', true) ? get_user_meta($userID, 'billing_company', true) : get_user_meta($userID, 'company', true));
 		update_user_meta($userID, 'billing_first_name', get_user_meta($userID, 'billing_first_name', true) ? get_user_meta($userID, 'billing_first_name', true) : get_user_meta($userID, 'first_name', true));
 		update_user_meta($userID, 'billing_last_name', get_user_meta($userID, 'billing_last_name', true) ? get_user_meta($userID, 'billing_last_name', true) : get_user_meta($userID, 'last_name', true));
-		update_user_meta($userID, 'billing_first_name', get_user_meta($userID, 'billing_first_name_kana', true) ? get_user_meta($userID, 'billing_first_name_kana', true) : get_user_meta($userID, 'first_name_kana', true));
+		update_user_meta($userID, 'billing_first_name_kana', get_user_meta($userID, 'billing_first_name_kana', true) ? get_user_meta($userID, 'billing_first_name_kana', true) : get_user_meta($userID, 'first_name_kana', true));
 		update_user_meta($userID, 'billing_last_name_kana', get_user_meta($userID, 'billing_last_name_kana', true) ? get_user_meta($userID, 'billing_last_name_kana', true) : get_user_meta($userID, 'last_name_kana', true));
 		
 		update_user_meta($userID, 'shipping_state', get_user_meta($userID, 'shipping_state', true) ? get_user_meta($userID, 'shipping_state', true) : $shipping_address['state']);
@@ -640,13 +640,21 @@ function getOrderDetail($order_id) {
 	if (!$aData || empty($aData)) return '';
 	
 	$aSeparateBlock = array(
-		
+		'cake_info_wraper' => 'custom_order_customer_name_last',
+		'customer_info_wraper' => 'custom_order_customer_name_last',
+		'delivery_info_wraper' => 'custom_order_customer_name_last',
+		'time_info_wraper' => 'custom_order_customer_name_last',
 	);
 	$fieldMapping = getCustomFormFieldMapping();
 	$divRow = '';
 	$divRow .= '<div class="order-detail-custom-table">';
 	foreach ( $aData as $fieldName => $fieldValue )
 	{
+		if (!in_array($fieldName, $aSeparateBlock))
+		{
+				
+		}
+		
 		if ( $fieldName == 'custom_order_pickup_time' )
 		{
 			$fieldValue = $fieldValue < 12 ? $fieldValue . ' AM' : $fieldValue . ' PM';
