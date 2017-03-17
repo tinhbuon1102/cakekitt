@@ -23,7 +23,8 @@ jQuery(window).load(function(){
 				var shipping_mtd = $(this).find('label').text();
 				if(shipping_mtd != 'Local Pickup'){
 					$('#ship-to-different-address .icheckbox_square-pink').addClass('checked').css('display','none');
-					$('#ship-to-different-address label').text('別の住所へ配送しますか').css('padding-left','0px');
+					//$('#ship-to-different-address label').text('別の住所へ配送しますか').css('padding-left','0px');
+					$('#ship-to-different-address').text('Deliver Info');
 					$('.woocommerce-shipping-fields .shipping_address').css('display','block');
 				}
 			}
