@@ -703,7 +703,7 @@ class SCFP_FormEntries extends Agp_Module {
     	$fields = SCFP()->getSettings()->getFieldsSettings();
     	foreach ($fields as $fieldKey => $field)
     	{
-    		if ($field['name'] == 'Type' && $field['field_type'] == 'select')
+    		if (strpos($field['css_class'], 'type_wraper') !== false && $field['field_type'] == 'select')
     		{
     			$this->type_field_key = 'scfp_'.$fieldKey;
     			$options = $field['choices']['list'];
@@ -730,7 +730,7 @@ class SCFP_FormEntries extends Agp_Module {
     		$fields = SCFP()->getSettings()->getFieldsSettings();
     		foreach ($fields as $fieldKey => $field)
     		{
-    			if ($field['name'] == 'Type' && $field['field_type'] == 'select')
+    			if (strpos($field['css_class'], 'type_wraper') !== false && $field['field_type'] == 'select')
     			{
     				$this->type_field_key = 'scfp_'.$fieldKey;
     				break;
