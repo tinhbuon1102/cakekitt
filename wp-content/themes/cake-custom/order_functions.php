@@ -641,7 +641,7 @@ function getOrderDetail($order_id) {
 	
 	$fieldMapping = getCustomFormFieldMapping();
 	$divRow = '';
-	$divRow .= '<table class="order-detail-custom-table" style="width: 100%" border="1">';
+	$divRow .= '<div class="order-detail-custom-table">';
 	foreach ( $aData as $fieldName => $fieldValue )
 	{
 		if ( $fieldName == 'custom_order_pickup_time' )
@@ -663,13 +663,13 @@ function getOrderDetail($order_id) {
 			{
 				if($fieldValue == '' || $fieldValue === null) continue;
 				
-				$divRow .= '<tr class="row">';
+				$divRow .= '<div class="form-row">';
 
-				$divRow .= '<td class="col-md-5 pt-md-5 pt-sm-6 pb-sm-5" style="width: 30%;">';
+				$divRow .= '<div class="col-md-5 pt-md-5 pt-sm-6 pb-sm-5 label-div">';
 				$divRow .= $fieldName == 'custom_order_cake_type' ? __('Cake Type', 'cake') : $fieldMapping[$fieldName]['field']['label'];
-				$divRow .= '</td>';
+				$divRow .= '</div>';
 
-				$divRow .= '<td class="col-md-7 pt-md-7 pt-sm-6 pb-sm-7" style="width: 70%;">';
+				$divRow .= '<div class="col-md-7 pt-md-7 pt-sm-6 pb-sm-7 show-value">';
 				if ( 'custom_order_cakePic' == $fieldName || 'custom_order_photocakepic' == $fieldName )
 				{
 					if (!$order_id)
@@ -693,13 +693,13 @@ function getOrderDetail($order_id) {
 					}
 					$divRow .= is_array(@$fieldMapping[$fieldName]['value'][$fieldValue]) ? $fieldMapping[$fieldName]['value'][$fieldValue] : (is_array(@$fieldMapping[$fieldName]['value']) ? $fieldMapping[$fieldName]['value'][$fieldValue] : $fieldValue);
 				}
-				$divRow .= '</td>';
+				$divRow .= '</div>';
 
-				$divRow .= '</tr>';
+				$divRow .= '</div>';
 			}
 		}
 	}
-	$divRow .= '</table>';
+	$divRow .= '</div>';
 	return $divRow;
 }
 

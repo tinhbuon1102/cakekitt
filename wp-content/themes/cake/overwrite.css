@@ -2463,7 +2463,14 @@ div#latestNews {
     font-size: 14px;
 }
 /*order form*/
-
+/*confirmation*/
+table.order-detail-custom-table {
+    border: none;
+}
+table.order-detail-custom-table td, table.order-detail-custom-table th {
+    border: none;
+    border-bottom: 1px solid #E0E0E0;
+}
 /* select icon radio*/
 ul.round-icon-select {
     text-align: center;
