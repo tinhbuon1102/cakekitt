@@ -463,12 +463,6 @@ add_action('add_meta_boxes', 'tp_remove_metabox_from_all_post_types', 999);
 
 //My Account
 
-function remove_fields_my_account_page($fields) {
-    unset( $fields ['account_company'] );
-    return $fields;
-}
-add_filter( 'woocommerce_my_account_edit_address_title', 'remove_fields_my_account_page' );
-
 function storefront_child_remove_unwanted_form_fields($fields) {
     unset( $fields ['account_company'] );
     return $fields;
@@ -664,6 +658,19 @@ function woocommerce_admin_billing_fields_extra($fields){
 	$fields = insertAtSpecificIndex($fields, $fieldExtras, array_search('last_name', array_keys($fields)) + 1);
 	return $fields;
 }
+//My account menu name change
+function wpb_woo_my_account_order() {
+ $myorder = array(
+ 'dashboard' => __( 'Dashboard', 'woocommerce' ),
+ 'edit-account' => __( 'アカウント情報', 'woocommerce' ),
+ 'orders' => __( '注文履歴', 'woocommerce' ),
+ 'edit-address' => __( '配送先住所', 'woocommerce' ),
+ 'payment-methods' => __( 'Payment Methods', 'woocommerce' ),
+ 'customer-logout' => __( 'Logout', 'woocommerce' ),
+ );
+ return $myorder;
+}
+add_filter ( 'woocommerce_account_menu_items', 'wpb_woo_my_account_order' );
 
 // Add phone and store name in billing address
 add_filter( 'woocommerce_checkout_fields' , 'billing_override_checkout_fields' );

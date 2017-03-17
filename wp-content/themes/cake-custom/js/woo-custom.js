@@ -15,6 +15,8 @@ $(function() {
 	//$("span.pass:not(:has(.woocommerce-password-hint))").removeClass('pass');
 	$('#customer_login > div.u-column1 > h2, #customer_login > div.u-column1 > form').wrapAll('<div class="inner"></div>');
 	$('#customer_login > div.u-column2 > h2, #customer_login > div.u-column2 > form').wrapAll('<div class="inner"></div>');
+	$('body.woocommerce-edit-address .woocommerce .woocommerce-MyAccount-content .woocommerce-Addresses.col2-set > .col-1').hide();
+	$('body.woocommerce-edit-address .woocommerce .woocommerce-MyAccount-content .woocommerce-Addresses.col2-set > .col-2').removeClass('col-2');
 });
 jQuery(window).load(function(){
 	if($('.woocommerce-checkout #shipping_method').length > 0){
