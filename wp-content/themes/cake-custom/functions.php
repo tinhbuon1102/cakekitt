@@ -518,32 +518,39 @@ function woocommerce_admin_shipping_fields_extra($fields){
 	return $fields;
 }
 
-//change label of my account address for shipping
-add_filter( 'woocommerce_process_myaccount_field_', 'override_address_to_edit' );
-function override_address_to_edit( $fields ) {
-	$fields['shipping']['shipping_last_name']['label'] = '宛名';
-	$fields['shipping']['shipping_first_name']['label'] = '店舗名';
-	$fields['shipping']['shipping_company']['label'] = 'Cip name';
-	$fields['shipping']['shipping_address_1']['label'] = '番地';
-	$fields['shipping']['shipping_address_2']['label'] = '建物・マンション名以降';
-	// required
-	$fields['shipping']['shipping_company']['required'] = true;
-	return $fields;
-}
-
 // Add phone and store name in shipping address
 add_filter( 'woocommerce_checkout_fields' , 'shipping_override_checkout_fields' );
 function shipping_override_checkout_fields( $fields ) {
 	$fields['shipping'] = $fields['shipping'] + extraFieldForShipping();
 	$fields['shipping']['shipping_last_name']['label'] = '宛名';
 	$fields['shipping']['shipping_first_name']['label'] = '店舗名';
-	$fields['shipping']['shipping_company']['label'] = 'Cip name';
-	//$fields['shipping']['shipping_postcode']['label'] = '郵便番号';
-	//$fields['shipping']['shipping_city']['label'] = '市区町村';
-	$fields['shipping']['shipping_address_1']['label'] = '番地';
+	$fields['shipping']['shipping_company']['label'] = '担当者名';
+	$fields['shipping']['shipping_postcode']['label'] = '郵便番号';
+	$fields['shipping']['shipping_city']['label'] = '市区町村';
+	$fields['shipping']['shipping_address_1']['label'] = '町名・番地';
 	$fields['shipping']['shipping_address_2']['label'] = '建物・マンション名以降';
 	// required
 	$fields['shipping']['shipping_company']['required'] = true;
+	//change order
+	$order = array(
+        "shipping_first_name", 
+        "shipping_last_name", 
+        "shipping_company", 
+        "shipping_phone", 
+        "shipping_postcode", 
+        "shipping_state", 
+        "shipping_city", 
+        "shipping_address_1", 
+        "shipping_address_2"
+
+    );
+    foreach($order as $field)
+    {
+        $ordered_fields[$field] = $fields["billing"][$field];
+    }
+
+    $fields["billing"] = $ordered_fields;
+	
 	return $fields;
 }
 
@@ -551,6 +558,30 @@ add_filter( 'woocommerce_shipping_fields', 'custom_woocommerce_shipping_fields' 
 function custom_woocommerce_shipping_fields( $fields ) {
 	$fieldExtras = extraFieldForShipping();
 	$fields = insertAtSpecificIndex($fields, $fieldExtras, array_search('shipping_company', array_keys($fields)) + 1);
+	$fields['shipping_last_name']['label'] = '宛名';
+	$fields['shipping_first_name']['label'] = '店舗名';
+	$fields['shipping_city']['label'] = '市区町村';
+	$fields['shipping_address_1']['label'] = '町名・番地';
+	$fields['shipping_address_2']['label'] = '建物・マンション名以降';
+	
+	//change class
+	$fields['shipping_company'] = array(
+	'label'     => __('担当者名', 'woocommerce'),
+    'required'  => true,
+    'class'     => array('form-row-first')
+     );
+	$fields['shipping_phone'] = array(
+	'label'     => __('電話番号', 'woocommerce'),
+    'required'  => true,
+    'class'     => array('form-row-last'),
+	'clear'     => true
+     );
+	$fields['shipping_postcode'] = array(
+	'label'     => __('郵便番号', 'woocommerce'),
+    'required'  => true,
+    'class'     => array('form-row-first'),
+    'clear'     => true
+     );
 	
 	return $fields;
 }
