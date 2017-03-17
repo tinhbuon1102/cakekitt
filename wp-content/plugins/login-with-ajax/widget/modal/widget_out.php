@@ -96,8 +96,15 @@
 		                    <td>
 		                    	<label>
 		                        <?php $msg = __('E-mail','login-with-ajax') ?>
-		                        <input type="text" name="user_email" id="user_email"  value="<?php echo esc_attr($msg); ?>" onfocus="if(this.value == '<?php echo esc_attr($msg); ?>'){this.value = '';}" onblur="if(this.value == ''){this.value = '<?php echo esc_attr($msg); ?>'}"/>
-		                        <input type="hidden" name="user_login" id="user_login"  value="<?php echo 'user_'.uniqid()?>" onfocus="if(this.value == '<?php echo esc_attr($msg); ?>'){this.value = '';}" onblur="if(this.value == ''){this.value = '<?php echo esc_attr($msg); ?>'}"/>
+		                        <input type="text" name="user_email" id="user_email" class="input" <?php echo @$_SESSION['cake_custom_order'][3]['custom_order_customer_email']?>/>
+		                        </label>
+		                    </td>
+		                </tr>
+		                <tr class="lwa-username">
+		                    <td>
+		                    	<label>
+		                        <?php $msg = __('Username','login-with-ajax') ?>
+		                        <input type="text" name="user_login" id="user_login" class="input" value="<?php echo @$_SESSION['cake_custom_order'][3]['custom_order_customer_email']?>" />
 		                        </label>
 		                    </td>
 		                </tr>

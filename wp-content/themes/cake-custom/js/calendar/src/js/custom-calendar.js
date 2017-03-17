@@ -35,7 +35,10 @@ jQuery(function($) {
 
 		// Default Calendar
 		$('.calendar').pignoseCalendar({
-			select: onClickHandler
+			select: onClickHandler,
+			disabledRanges: [
+				['1011-10-05', moment().subtract(1, 'days').format('YYYY-MM-DD')],
+			]
 		});
 
 		// Input Calendar

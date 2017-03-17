@@ -251,6 +251,14 @@ $(function(){
         	}
         });
         
+        $('#custom_order_login_modal').on('show.bs.modal', function (e) {
+        	if ($('#customer_email').length)
+        	{
+        		$('#lwa_user_login').val($('#customer_email').val());
+        		$('#user_email').val($('#customer_email').val());
+        	}
+        });
+        
         $('#custom_order_login_modal').on('hidden.bs.modal', function (e) {
         	$('#submit_form_order').show();
         });

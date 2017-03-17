@@ -15,7 +15,7 @@
                         <label><?php esc_html_e( 'Username','login-with-ajax' ) ?></label>
                     </td>
                     <td class="lwa-username-input">
-                        <input type="text" name="log" />
+                        <input type="text" name="log" id="lwa_user_login"/>
                     </td>
                 </tr>
                 <tr class="lwa-password">
@@ -63,7 +63,7 @@
                 </tr>
                 <tr>
                     <td class="lwa-remember-email">  
-                        <?php $msg = __("Enter username or email", 'login-with-ajax'); ?>
+                        <?php $msg = __("Enter username", 'login-with-ajax'); ?>
                         <input type="text" name="user_login" class="lwa-user-remember" value="<?php echo esc_attr($msg); ?>" onfocus="if(this.value == '<?php echo esc_attr($msg); ?>'){this.value = '';}" onblur="if(this.value == ''){this.value = '<?php echo esc_attr($msg); ?>'}" />
                         <?php do_action('lostpassword_form'); ?>
                     </td>
@@ -87,8 +87,12 @@
 				<span class="lwa-status"></span>
 				<p class="lwa-email">
 					<label><?php esc_html_e('E-mail','login-with-ajax') ?><br />
-					<input type="text" name="user_email" id="user_email" class="input" size="25" />
-					<input type="hidden" name="user_login" id="user_login" class="input" size="25" value="<?php echo 'user_'.uniqid()?>" />
+					<input type="text" name="user_email" id="user_email" class="input" size="25" <?php echo @$_SESSION['cake_custom_order'][3]['custom_order_customer_email']?>/>
+					</label>
+				</p>
+				<p class="lwa-email">
+					<label><?php esc_html_e('Username','login-with-ajax') ?><br />
+					<input type="text" name="user_login" id="user_login" class="input" size="25" value="<?php echo @$_SESSION['cake_custom_order'][3]['custom_order_customer_email']?>" />
 					</label>
 				</p>
 				<p class="lwa-password">

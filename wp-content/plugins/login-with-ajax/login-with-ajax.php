@@ -206,7 +206,11 @@ class LoginWithAjax {
 	    
 	    if (!$_REQUEST['user_email']) {
 	    	$errors = new WP_Error();
-	    	$errors->add( 'user_login', __( '<strong>ERROR</strong>: Please type your email address', 'cake' ) );
+	    	$errors->add( 'user_email', __( '<strong>ERROR</strong>: Please type your email address', 'cake' ) );
+	    }
+	    if (!$_REQUEST['user_login']) {
+	    	$errors = new WP_Error();
+	    	$errors->add( 'empty_username', __( '<strong>ERROR</strong>: Please enter a username.' ) );
 	    }
 	    elseif ( $_POST['user_password'] !== $_POST['user_repeat_password'] ) {
 	    	$errors = new WP_Error();
@@ -227,7 +231,7 @@ class LoginWithAjax {
 	    }
 	    if ($_POST['user_email'])
 	    {
-	    	$_REQUEST['user_login'] = $_POST['user_login'] = $_POST['user_email'];
+	    	//$_REQUEST['user_login'] = $_POST['user_login'] = $_POST['user_email'];
 	    }
 	    
 	    if( get_option('users_can_register') ){
