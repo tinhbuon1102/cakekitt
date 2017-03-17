@@ -656,6 +656,16 @@ function woocommerce_admin_billing_fields_extra($fields){
 		'show'  => false
 	);
 	$fields = insertAtSpecificIndex($fields, $fieldExtras, array_search('last_name', array_keys($fields)) + 1);
+	
+	unset($fields['company']);
+	unset($fields['address_1']);
+	unset($fields['address_2']);
+	unset($fields['city']);
+	unset($fields['postcode']);
+	unset($fields['country']);
+	unset($fields['state']);
+	unset($fields['postcode']);
+	unset($fields['city']);
 	return $fields;
 }
 //My account menu name change
