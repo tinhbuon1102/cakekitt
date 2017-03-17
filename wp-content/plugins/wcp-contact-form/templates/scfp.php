@@ -47,19 +47,63 @@
 </div>
 <?php endif; ?>
 
+<style>
+	#contact-section h3.title {display: none}
+</style>
 <div class="scfp-form-content<?php echo $content_classes;?>">
-    <form class="scfp-form" id="<?php echo $id;?>"  method="post" action=""<?php echo !empty($formSettings['html5_enabled']) ? '' : ' novalidate';?>>
+	<form class="scfp-form wpcf7-form" id="<?php echo $id;?>"  method="post" action=""<?php echo !empty($formSettings['html5_enabled']) ? '' : ' novalidate';?>>
         <input type="hidden" name="form_id" value="<?php echo $id;?>"/>
         <input type="hidden" name="action" value="scfp-form-submit"/>
-        <?php 
-        foreach( $fieldsSettings as $key => $field ): 
-            if (!empty($field['visibility']) && !empty($field['field_type'])) :
-                echo SCFP()->getTemplate("form/{$field['field_type']}", array('id' => $id, 'form' => $form, 'key' => $key, 'field' => $field, 'formSettings' => $formSettings, 'formData' => $formData));
-            endif;
-        endforeach;
-        ?>
-        <div class="scfp-form-action scfp-form-button-position-<?php echo $button_position;?>">
-            <input class="scfp-form-submit" type="submit" value="<?php echo $formSettings['button_name']?>">
-        </div>        
-    </form>
+		<div class="row">
+			<div class="col-sm-6">
+				<span class="wpcf7-form-control-wrap your-name">
+					<input type="text" name="scfp-name" required value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="*お名前">
+				</span>
+			</div>
+			<div class="col-sm-6">
+				<span class="wpcf7-form-control-wrap text-company">
+					<input type="text" name="scfp-subject" value="" size="40" class="wpcf7-form-control wpcf7-text" aria-invalid="false" placeholder="会社名">
+				</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<span class="wpcf7-form-control-wrap your-email">
+					<input type="email" name="scfp-email" required value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" placeholder="*メールアドレス">
+				</span>
+			</div>
+			<div class="col-sm-6">
+				<span class="wpcf7-form-control-wrap tel-257">
+					<input type="tel" name="scfp-phone" required value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-tel wpcf7-validates-as-required wpcf7-validates-as-tel" aria-required="true" aria-invalid="false" placeholder="電話番号">
+				</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<span class="wpcf7-form-control-wrap menu-inquire">
+					<div class="wpcf7-select-parent">
+						<select name="scfp-61a5691189ac[]" class="wpcf7-form-control wpcf7-select wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
+							<option value="お見積もりのご依頼">お見積もりのご依頼</option>
+							<option value="お打ち合わせのご依頼">お打ち合わせのご依頼</option>
+							<option value="お問い合わせ・ご質問のみ">お問い合わせ・ご質問のみ</option>
+							<option value="その他">その他</option>
+						</select>
+						<div class="select-arrow icon-outline-kitt_icons_arrow_down"></div>
+					</div>
+				</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<span class="wpcf7-form-control-wrap your-message">
+					<textarea name="scfp-message" cols="40" required rows="10" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false" placeholder="*お問い合わせ内容"></textarea>
+				</span>
+			</div>
+		</div>
+		<p>
+			<input type="submit" value="Send" class="wpcf7-form-control wpcf7-submit">
+			<span class="ajax-loader"></span>
+		</p>
+		<div class="wpcf7-response-output wpcf7-display-none"></div>
+	</form>
 </div>
