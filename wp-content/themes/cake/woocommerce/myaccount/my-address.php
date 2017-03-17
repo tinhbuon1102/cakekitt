@@ -38,7 +38,7 @@ $col    = 1;
 ?>
 
 <p>
-	<?php echo apply_filters( 'woocommerce_my_account_my_address_description', __( 'The following addresses will be used on the checkout page by default.', 'woocommerce' ) ); ?>
+	<?php echo apply_filters( 'woocommerce_my_account_my_address_description', __( '配送にてお受け取りご希望の際に、以下の配送先情報をデフォルトとして使用します。', 'woocommerce' ) ); ?>
 </p>
 
 <?php if ( ! wc_ship_to_billing_address_only() && wc_shipping_enabled() ) echo '<div class="u-columns woocommerce-Addresses col2-set addresses">'; ?>
@@ -55,7 +55,7 @@ $col    = 1;
 				$address = apply_filters( 'woocommerce_my_account_my_address_formatted_address', array(
 					'last_name'   => get_user_meta( $customer_id, $name . '_last_name', true ),
 					'first_name'  => get_user_meta( $customer_id, $name . '_first_name', true ),
-					'company'     => get_user_meta( $customer_id, $name . '_company', true ),
+					//'company'     => get_user_meta( $customer_id, $name . '_company', true ),
 					'address_1'   => get_user_meta( $customer_id, $name . '_address_1', true ),
 					'address_2'   => get_user_meta( $customer_id, $name . '_address_2', true ),
 					'city'        => get_user_meta( $customer_id, $name . '_city', true ),
