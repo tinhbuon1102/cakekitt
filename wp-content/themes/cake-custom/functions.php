@@ -141,6 +141,7 @@ function hide_plugin_order_by_product ()
 		'wpcustom-category-image/load.php',
 		'login-with-ajax/login-with-ajax.php',
 		'advanced-custom-fields/acf.php',
+		'wcp-contact-form/wcp-contact-form.php'
 	);
 	$myplugins = $wp_list_table->items;
 	foreach ( $myplugins as $key => $val )
@@ -520,7 +521,9 @@ function woocommerce_admin_shipping_fields_extra($fields){
 // Add phone and store name in shipping address
 add_filter( 'woocommerce_checkout_fields' , 'shipping_override_checkout_fields' );
 function shipping_override_checkout_fields( $fields ) {
-	$fields['shipping'] = $fields['shipping'] + extraFieldForShipping();
+	$fieldExtras = extraFieldForShipping();
+	$fields['shipping'] = insertAtSpecificIndex($fields['shipping'], $fieldExtras, array_search('shipping_company', array_keys($fields)) + 1);
+	
 	$fields['shipping']['shipping_last_name']['label'] = '宛名';
 	$fields['shipping']['shipping_first_name']['label'] = '店舗名';
 	$fields['shipping']['shipping_company']['label'] = 'Cip name';
@@ -535,7 +538,9 @@ function shipping_override_checkout_fields( $fields ) {
 
 add_filter( 'woocommerce_shipping_fields', 'custom_woocommerce_shipping_fields' );
 function custom_woocommerce_shipping_fields( $fields ) {
-	$fields = $fields + extraFieldForShipping();
+	$fieldExtras = extraFieldForShipping();
+	$fields = insertAtSpecificIndex($fields, $fieldExtras, array_search('shipping_company', array_keys($fields)) + 1);
+	
 	return $fields;
 }
 //show shipping fields forcely when delivery is selected
