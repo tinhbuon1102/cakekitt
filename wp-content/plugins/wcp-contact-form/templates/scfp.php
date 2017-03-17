@@ -46,7 +46,11 @@
     <a class="scfp-form-notifications-close" title="Close" href="javascript:void(0);">x</a> 
 </div>
 <?php endif; ?>
-
+<?php 
+$fields = SCFP()->getSettings()->getFieldsSettings();
+$typeOptions = $fields['61a5691189ac']['choices']['list'];
+ 
+?>
 <style>
 	#contact-section h3.title {display: none}
 </style>
@@ -83,10 +87,9 @@
 				<span class="wpcf7-form-control-wrap menu-inquire">
 					<div class="wpcf7-select-parent">
 						<select name="scfp-61a5691189ac[]" class="wpcf7-form-control wpcf7-select wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
-							<option value="お見積もりのご依頼">お見積もりのご依頼</option>
-							<option value="お打ち合わせのご依頼">お打ち合わせのご依頼</option>
-							<option value="お問い合わせ・ご質問のみ">お問い合わせ・ご質問のみ</option>
-							<option value="その他">その他</option>
+							<?php foreach ($typeOptions as $typeOption) {?>
+							<option value="<?php echo $typeOption['value']?>"><?php echo $typeOption['label']?></option>
+							<?php }?>
 						</select>
 						<div class="select-arrow icon-outline-kitt_icons_arrow_down"></div>
 					</div>
