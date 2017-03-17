@@ -2462,6 +2462,14 @@ div#latestNews {
     color: #000;
     font-size: 14px;
 }
+/*woocommerce calender sec*/
+.select-datetime {
+    padding: 20px;
+}
+.select-datetime ul {
+    margin: 0;
+    list-style: none;
+}
 /*order form*/
 /*confirmation*/
 table.order-detail-custom-table {

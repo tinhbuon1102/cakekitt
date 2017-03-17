@@ -10,6 +10,7 @@ $(function() {
 	$('input#reg_email').wrapAll('<span class="email"></span>');
 	$('.checkout > h3#order_review_heading, .checkout > #order_review').wrapAll('<div class="col-md-4 columns position-static pt-md-4 pt-sm-2 pb-sm-4"></div>');
 	$('.checkout > #customer_details, .checkout > ul').wrapAll('<div class="col-md-8 columns"></div>');
+	$('.checkout > .col-md-8 > ul').wrap('<div class="select-datetime"></div>');
 	$('.checkout > .columns').wrapAll('<div class="row" id="checkoutbox"></div>');
 	//$("span.pass:not(:has(.woocommerce-password-hint))").removeClass('pass');
 	$('#customer_login > div.u-column1 > h2, #customer_login > div.u-column1 > form').wrapAll('<div class="inner"></div>');
