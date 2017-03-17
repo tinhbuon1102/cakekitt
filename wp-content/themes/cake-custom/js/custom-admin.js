@@ -3,18 +3,15 @@ jQuery(document).ready(function($){
     var cakeShape = $('#acf-field-custom_order_cake_shape');
     if (cakeShape.length){
         $('body').on('change', cakeShape, function(){
-
-        	console.log($(this).val());
-        	
         	var squareSize = $('#acf-custom_order_cakesize_square'),
 				roundSize = $('#acf-custom_order_cakesize_round');
 
-            if ($(this).val() == 'square') {
-                roundSize.show();
-                squareSize.hide();
-            } else {
-                squareSize.show();
+            if ($(cakeShape).val() == 'square') {
                 roundSize.hide();
+                squareSize.show();
+            } else {
+                squareSize.hide();
+                roundSize.show();
             }
         });
         cakeShape.trigger('change');

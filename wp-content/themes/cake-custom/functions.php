@@ -118,6 +118,12 @@ function colorpicker_scripts ()
 }
 add_action('wp_enqueue_scripts', 'colorpicker_scripts');
 
+function woojs_scripts ()
+{
+	wp_enqueue_script('woocustom_js', get_stylesheet_directory_uri() . '/js/woo-custom.js');
+}
+add_action('wp_enqueue_scripts', 'woojs_scripts');
+
 function gallery_scripts ()
 {
 // 	wp_enqueue_style('cubeportfolio_css', get_stylesheet_directory_uri() . '/js/cubeportfolio/css/cubeportfolio.css');
@@ -479,15 +485,15 @@ function extraFieldForShipping(){
 function extraFieldForBilling(){
 	return array(
 		'billing_last_name_kana' => array(
-			'label'     => __('Last Name Kana', 'woocommerce'),
-			'placeholder'   => _x('Last Name Kana', 'placeholder', 'woocommerce'),
+			'label'     => __('姓(ふりがな)', 'woocommerce'),
+			'placeholder'   => _x('姓(ふりがな)', 'placeholder', 'woocommerce'),
 			'required'  => false,
 			'class'     => array('form-row-first'),
 			'clear'     => false
 		),
 		'billing_first_name_kana' => array(
-			'label'     => __('First Name Kana', 'woocommerce'),
-			'placeholder'   => _x('First Name Kana', 'placeholder', 'woocommerce'),
+			'label'     => __('名(ふりがな)', 'woocommerce'),
+			'placeholder'   => _x('名(ふりがな)', 'placeholder', 'woocommerce'),
 			'required'  => false,
 			'class'     => array('form-row-last'),
 			'clear'     => true
@@ -501,9 +507,6 @@ function woocommerce_admin_shipping_fields_extra($fields){
 		'label' => __( 'Phone', 'woocommerce' ),
 		'show'  => false
 	);
-	// Check if set, if its not set add an error.
-    if ( ! $_POST['phone'] )
-        wc_add_notice( __( 'required field!' ), 'error' );
 	return $fields;
 }
 
@@ -511,9 +514,13 @@ function woocommerce_admin_shipping_fields_extra($fields){
 add_filter( 'woocommerce_checkout_fields' , 'shipping_override_checkout_fields' );
 function shipping_override_checkout_fields( $fields ) {
 	$fields['shipping'] = $fields['shipping'] + extraFieldForShipping();
-	$fields['shipping']['shipping_last_name']['label'] = 'Atena';
-	$fields['shipping']['shipping_first_name']['label'] = 'Store name';
+	$fields['shipping']['shipping_last_name']['label'] = '宛名';
+	$fields['shipping']['shipping_first_name']['label'] = '店舗名';
 	$fields['shipping']['shipping_company']['label'] = 'Cip name';
+	//$fields['shipping']['shipping_postcode']['label'] = '郵便番号';
+	//$fields['shipping']['shipping_city']['label'] = '市区町村';
+	$fields['shipping']['shipping_address_1']['label'] = '番地';
+	$fields['shipping']['shipping_address_2']['label'] = '建物・マンション名以降';
 	// required
 	$fields['shipping']['shipping_company']['required'] = true;
 	return $fields;
@@ -530,12 +537,12 @@ function custom_woocommerce_shipping_fields( $fields ) {
 add_filter( 'woocommerce_admin_billing_fields', 'woocommerce_admin_billing_fields_extra', 10, 1 );
 function woocommerce_admin_billing_fields_extra($fields){
 	$fieldExtras['first_name_kana'] = array(
-		'label' => __( 'First Name Kana', 'woocommerce' ),
+		'label' => __( '名(ふりがな)', 'woocommerce' ),
 		'show'  => false
 	);
 	
 	$fieldExtras['last_name_kana'] = array(
-		'label' => __( 'Last Name Kana', 'woocommerce' ),
+		'label' => __( '姓(ふりがな)', 'woocommerce' ),
 		'show'  => false
 	);
 	$fields = insertAtSpecificIndex($fields, $fieldExtras, array_search('last_name', array_keys($fields)) + 1);

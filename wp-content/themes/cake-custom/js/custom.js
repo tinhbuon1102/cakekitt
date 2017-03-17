@@ -76,6 +76,8 @@ jQuery(document).ready(function(){
 			}
 		}
 	});
+	$('#username').attr( 'placeholder', 'ユーザネームまたはメールアドレス' );
+	$('#password').attr( 'placeholder', 'パスワード' );
 	
 	$('input.radio_input, input.checkbox_input').on('ifUnchecked', function(event){
 		$(this).closest('li').find('.suboption_box').toggleClass('disable');
@@ -137,6 +139,7 @@ jQuery(document).ready(function(){
 	jQuery(".panel-group a#pickup").click(function(){
 		jQuery('.deliver-info').addClass('disable');
 });
+
 
 jQuery(".ordercake-cart-sidebar-container").pinBox({
 		//default 0px
