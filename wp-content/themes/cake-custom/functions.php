@@ -439,6 +439,13 @@ add_action('add_meta_boxes', 'tp_remove_metabox_from_all_post_types', 999);
 // Add accepted status for payment
 function woocommerce_valid_order_statuses_for_payment_custom_order ( $valid_order_statuses )
 {
+	foreach($valid_order_statuses as $index => $status)
+	{
+		if ($status == 'pending' || $status == 'failed')
+		{
+			unset($valid_order_statuses[$index]);
+		}
+	}
 	$valid_order_statuses[] = 'accepted';
 	return $valid_order_statuses;
 }
