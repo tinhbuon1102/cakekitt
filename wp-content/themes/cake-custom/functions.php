@@ -438,11 +438,7 @@ function tp_remove_metabox_from_all_post_types ()
 add_action('add_meta_boxes', 'tp_remove_metabox_from_all_post_types', 999);
 
 //My Account
-function storefront_child_remove_unwanted_form_fields($fields) {
-    unset( $fields ['account_company'] );
-    return $fields;
-}
-add_filter( 'woocommerce_default_address_fields', 'storefront_child_remove_unwanted_form_fields' );
+
 
 // Add accepted status for payment
 function woocommerce_valid_order_statuses_for_payment_custom_order ( $valid_order_statuses )
