@@ -132,6 +132,8 @@ jQuery(document).ready(function(){
 	jQuery(".panel-group a").click(function(){
 		jQuery('.panel-group a').removeClass('is-selected');
 		jQuery(this).addClass('is-selected');
+		$('#custom_order_shipping_' + $(this).attr('id')).iCheck('check');
+		$('#custom_order_shipping_' + $(this).attr('id')).change();
 });
 	jQuery(".panel-group a#delivery").click(function(){
 		jQuery('.deliver-info').removeClass('disable');

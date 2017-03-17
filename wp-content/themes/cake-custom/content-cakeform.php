@@ -486,8 +486,8 @@ if ($inspired_pic)
 								<img class="panel__image" src="<?php bloginfo('template_directory'); echo $index == 1 ? '/images/form/pickup.png' : '/images/form/delivery.png';?>">
 								<h4 class="mt-2"><?php echo @$separate_label[0]?></h4>
 								<h6 class="text-gray heading-uppercase mt-1"><?php echo @$separate_label[1]?></h6>
-								<div class="disable">
-									<input type="radio" name="custom_order_shipping" id="custom_order_shipping_<?php echo $value?>"  value=<?php echo $value?>/>
+								<div class="" style="opacity: 0">
+									<input type="radio" name="custom_order_shipping" id="custom_order_shipping_<?php echo $value?>"  value="<?php echo $value?>" <?php if ($value == 'pickup') echo 'checked'?>/>
 								</div>
 							</a>
 							<?php }?>
