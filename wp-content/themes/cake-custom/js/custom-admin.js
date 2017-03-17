@@ -50,4 +50,11 @@ jQuery(document).ready(function($){
 			
 		});
 	}
+	
+	if ($('#order_data').length && $('.edit_address:visible').length)
+	{
+		setTimeout(function(){
+			$('.edit_address:visible').trigger('click');
+		}, 500);
+	}
 });
