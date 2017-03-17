@@ -4,6 +4,7 @@ if (!function_exists('pr')) {
 	{
 		echo '<pre>';
 		print_r($data);
+		echo '</pre>';
 	}
 }
 include 'order_functions.php';

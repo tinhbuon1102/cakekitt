@@ -7,7 +7,6 @@ class SCFP_FormEntries extends Agp_Module {
      * @var object The single instance of the class 
      */
     protected static $_instance = null;    
-    private $type_field_key = '';
     
 	/**
 	 * Main Instance
@@ -49,6 +48,7 @@ class SCFP_FormEntries extends Agp_Module {
         add_action( 'load-edit.php', array( $this, 'customBulkActions' ) );               
         add_action( 'admin_notices', array( $this, 'customAdminNotices' ) ); 
         add_filter( 'views_edit-form-entries', array( $this, 'changeViews') ); 
+        
         add_action( 'admin_menu', array( $this, 'appendViewPage' ) ); 
         
         add_filter('manage_form-entries_posts_columns', array( $this, 'entrieColumns' ) );
@@ -64,9 +64,6 @@ class SCFP_FormEntries extends Agp_Module {
         add_filter( 'parent_file', array($this, 'currentMenu') ); 
         
         add_action( 'admin_bar_menu', array($this, 'adminBarMenu'), 999, 1 );
-        
-        add_action( 'restrict_manage_posts', array( $this, 'contact_type_filter_in_order' ), 50  );
-        add_action( 'posts_where', array( $this, 'contact_filter_where' ));
     }
     
     public function changeMenuLabels () {
@@ -663,10 +660,10 @@ class SCFP_FormEntries extends Agp_Module {
             }
         }
         
-        $mail = get_post_meta( $postId, "scfp_{$key}", true ); 
+        $email = $mail = get_post_meta( $postId, "scfp_{$key}", true ); 
         
         if (!empty($mail)) {
-            $name = get_post_meta( $postId, "scfp_{$nameField}", true );     
+            $username = $name = get_post_meta( $postId, "scfp_{$nameField}", true );     
             $subject = get_post_meta( $postId, "scfp_{$subjectField}", true );     
             $message = get_post_meta( $postId, "scfp_{$messageField}", true );     
             
@@ -688,61 +685,45 @@ class SCFP_FormEntries extends Agp_Module {
                 $mail .= '?' . $params;
             }
             
-            $result = sprintf('<a href="mailto:%s" %s><span class="dashicons dashicons-email-alt"></span>%s</a>', $mail, $atts_s, $title);
+            //$result = sprintf('<a href="mailto:%s" %s><span class="dashicons dashicons-email-alt"></span>%s</a>', $mail, $atts_s, $title);
+            $result = '
+                <div style="display: none;" id="'.$postId.'_reply_box">
+                  <form method="post" action="">
+                    <div class="row">        			
+	                	<div class="reply_label">'. __('Contact Email:', 'cake') . '</div>            		
+	                    <div class="reply_value">' . $email . '</div>
+                    </div>
+                    		
+                    <div class="row">        			
+	                	<div class="reply_label">' . __('Contact Name:', 'cake') . '</div>            		
+	                    <div class="reply_value">' . $username . '</div>
+                    </div>
+                    <div class="row">        			
+	                	<div class="reply_label">' . __('Contact Subject:', 'cake') . '</div>            		
+	                    <div class="reply_value">' . $subject . '</div>
+                    </div>
+                    		
+                    <div class="row">        			
+	                	<div class="reply_label">' . __('Contact Message:', 'cake') . '</div>            		
+	                    <div class="reply_value">' . $message . '</div>
+                    </div>
+                    
+					<div class="row reply_message_box">        			
+	                	<div class="reply_label">' . __('Your Reply message', 'cake') . '</div>            		
+	                    <div class="reply_value"><textarea name="reply_box" rows="8" class="reply_area"></textarea></div>
+                    </div>
+                        		
+                    <div class="row">        			
+	                	<div class="reply_label">&nbsp;</div>            		
+	                    <div class="reply_value"><input type="submit" name="submit" value="'.__('Send', 'cake').'"/></textarea></div>
+                    </div>
+                    		
+                  </form>	
+                </div>
+                <a href="#TB_inline?width=600&height=550&inlineId='.$postId.'_reply_box" '.$atts_s.' title="'.__('Reply message', 'cake').'"><span class="dashicons dashicons-email-alt"></span>'.$title.'</a>';
         }
         
         return $result;
     }
-    
-    function contact_type_filter_in_order(){
-    	global $typenow, $wpdb;
-    	
-    	if ( 'form-entries' != $typenow ) {
-    		return;
-    	}
-    	$fields = SCFP()->getSettings()->getFieldsSettings();
-    	foreach ($fields as $fieldKey => $field)
-    	{
-    		if ($field['name'] == 'Type' && $field['field_type'] == 'select')
-    		{
-    			$this->type_field_key = 'scfp_'.$fieldKey;
-    			$options = $field['choices']['list'];
-    			break;
-    		}
-    	}
-    	
-    	?>
-	    <span id="contact_type_filter_wrap">
-		    <select name="cotype" id="contact_type">
-		    	<option value=""><?php _e('All Types', 'cake'); ?></option>
-		    	<?php foreach ($options as $option) {?>
-		    		<option value="<?php echo $option['value']?>" <?php echo (isset($_REQUEST['cotype']) && $_REQUEST['cotype'] == $option['value']) ? 'selected' : '';?>><?php echo $option['label']; ?></option>
-		    	<?php }?>
-		    </select>
-		</span>
-	    <?php
-    }
-    
-    public function contact_filter_where( $where ) {
-    	global $wpdb;
-    	
-    	if( $_GET['filter_action'] && isset( $_GET['cotype'] ) && !empty( $_GET['cotype'] )) {
-    		$fields = SCFP()->getSettings()->getFieldsSettings();
-    		foreach ($fields as $fieldKey => $field)
-    		{
-    			if ($field['name'] == 'Type' && $field['field_type'] == 'select')
-    			{
-    				$this->type_field_key = 'scfp_'.$fieldKey;
-    				break;
-    			}
-    		}
-    		
-    		$type = $_GET['cotype'];
-    		$where .= " AND $wpdb->posts.ID IN (SELECT post_id FROM  $wpdb->postmeta WHERE $wpdb->postmeta.meta_key = '".$this->type_field_key."' AND $wpdb->postmeta.meta_value = 'a:1:{i:0;s:6:\"$type\";}') ";
-    	}
-    	
-    	return $where;
-    }
-    
 }
 
