@@ -16,3 +16,16 @@ $(function() {
 	$('#customer_login > div.u-column1 > h2, #customer_login > div.u-column1 > form').wrapAll('<div class="inner"></div>');
 	$('#customer_login > div.u-column2 > h2, #customer_login > div.u-column2 > form').wrapAll('<div class="inner"></div>');
 });
+jQuery(document).ready(function(){
+	if($('.woocommerce-checkout #shipping_method').length > 0){
+		$('.woocommerce-checkout #shipping_method li').each(function(){
+			if($(this).find('div').hasClass('checked')){
+				var shipping_mtd = $(this).find('label').text();
+				if(shipping_mtd != 'Local Pickup'){
+					$('#ship-to-different-address .icheckbox_square-pink').addClass('.checked');
+					$('#ship-to-different-address').css('display','none');
+				}
+			}
+		});
+	}
+});
