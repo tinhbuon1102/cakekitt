@@ -461,6 +461,13 @@ function tp_remove_metabox_from_all_post_types ()
 }
 add_action('add_meta_boxes', 'tp_remove_metabox_from_all_post_types', 999);
 
+//My Account
+function storefront_child_remove_unwanted_form_fields($fields) {
+    unset( $fields ['account_company'] );
+    return $fields;
+}
+add_filter( 'woocommerce_default_address_fields', 'storefront_child_remove_unwanted_form_fields' );
+
 // Add accepted status for payment
 function woocommerce_valid_order_statuses_for_payment_custom_order ( $valid_order_statuses )
 {
@@ -655,14 +662,6 @@ add_filter( 'woocommerce_checkout_fields' , 'billing_override_checkout_fields' )
 function billing_override_checkout_fields( $fields ) {
 	$fieldExtras = extraFieldForBilling();
 	$fields['billing'] = insertAtSpecificIndex($fields['billing'], $fieldExtras, array_search('billing_first_name', array_keys($fields['billing'])) + 1);
-    unset($fields['billing']['billing_address_1']);
-    unset($fields['billing']['billing_address_2']);
-    unset($fields['billing']['billing_city']);
-    unset($fields['billing']['billing_postcode']);
-    unset($fields['billing']['billing_country']);
-    unset($fields['billing']['billing_state']);
-    unset($fields['billing']['billing_postcode']);
-    unset($fields['billing']['billing_city']);
 	return $fields;
 }
 
@@ -670,6 +669,16 @@ add_filter( 'woocommerce_billing_fields', 'custom_woocommerce_billing_fields' );
 function custom_woocommerce_billing_fields( $fields ) {
 	$fieldExtras = extraFieldForBilling();
 	$fields = insertAtSpecificIndex($fields, $fieldExtras, array_search('billing_first_name', array_keys($fields)) + 1);
+	
+	unset($fields['billing_company']);
+    unset($fields['billing_address_1']);
+    unset($fields['billing_address_2']);
+    unset($fields['billing_city']);
+    unset($fields['billing_postcode']);
+    unset($fields['billing_country']);
+    unset($fields['billing_state']);
+    unset($fields['billing_postcode']);
+    unset($fields['billing_city']);
 	
 	//change class
 	$fields['billing_last_name'] = array(
@@ -701,7 +710,6 @@ function custom_woocommerce_billing_fields( $fields ) {
         "billing_first_name", 
 		"billing_last_name_kana", 
         "billing_first_name_kana", 
-        "billing_company", 
         "billing_email", 
         "billing_phone"
 
