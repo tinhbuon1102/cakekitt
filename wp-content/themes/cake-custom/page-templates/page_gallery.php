@@ -116,6 +116,24 @@ $field_mappings = getCustomFormFieldMapping();
 									$(".kitt-wrap > .esgbox-skin > .galcon-inner").css("height", hsize - 100 + "px");
 								}
 							});
+							
+							//height値を取得する
+							var hsize = $(window).height();
+							var hinsize = hsize - 150;
+							var galconWidth = $('.ordercake-cart-sidebar-container').width();
+							if (imgHeight <= hsize) {
+								$(".kitt-wrap .esgbox-skin .galcon-inner .image-inner").css("height", imgHeight + "px");
+								$(".kitt-wrap .esgbox-skin .galcon-inner .image-inner").css("width", imgWidth + "px");
+								$(".kitt-wrap .esgbox-skin").css("width", imgWidth + 50 + "px");
+								$('.esgbox-wrap').addClass('nofullbox');
+								//$(".kitt-wrap .esgbox-skin .galcon-inner").css("height", hsize - 100 + "px");
+							} else if (imgHeight >= hsize) {
+								$('.esgbox-wrap').addClass('fullbox');
+								$(".kitt-wrap .esgbox-skin .galcon-inner .image-inner").css("height", hinsize + "px");
+								$(".kitt-wrap .esgbox-skin .galcon-inner .image-inner").css("width", hinsize * aspectRatio + "px");
+								$(".kitt-wrap > .esgbox-skin > .galcon-inner").css("height", hsize - 100 + "px");
+							}
+							dfimage.resize(250,250);
 						});
 						
 						$('.esgbox-inner > img.esgbox-image').unwrap();
@@ -126,11 +144,11 @@ $field_mappings = getCustomFormFieldMapping();
 						$('div.esgbox-title').append('<a href="<?php echo site_url()?>/order-made-form?type='+selectedCat+'&post_id='+selectedPost+'" class="gallery_type_btn"><input class="cdo-button" type="button" value="<?php echo esc_html__('Buy this', 'cake')?>"></a>');
 						clearInterval(imgBtnInterval);
 						imgBtnInterval = null;
-						dfimage.resize();
+						esgbox.resize();
 					}
 				}, 10);
-				dfimage.resize();
-				esgbox.resize();
+				// dfimage.resize();
+				// esgbox.resize();
 			});
 			
 			
