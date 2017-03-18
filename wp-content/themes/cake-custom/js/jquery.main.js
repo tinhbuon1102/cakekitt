@@ -379,6 +379,7 @@ $(function(){
     	if (checkedType)
     	{
     		$('input.submit_next').trigger('click');
+    		jQuery('input[name="custom_order_cake_type"]:checked').iCheck('check');
     	}
     	
     	// trigger shape at initial
