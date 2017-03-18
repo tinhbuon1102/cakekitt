@@ -973,6 +973,8 @@ function getOrderDetail($order_id = false) {
 						break;
 							
 					case 'custom_order_cake_shape':
+						//$CakesizeValue = getCakesizeValue();
+						//$fieldValue = '<span class="shape-and-size">'.$fieldValue.'</span>';
 						$divRow .= '<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_shape-'.$fieldValue.' size30 blk"></i></span>';
 						break;
 							
@@ -1000,6 +1002,7 @@ function getOrderDetail($order_id = false) {
 					}
 					$divRow .= '<img style="max-width: 300px;" src="' . $fieldValue . '" />';
 				}
+				//added kyoko
 				elseif ( 'custom_order_cakesize_square' == $fieldName || 'custom_order_cakesize_round' == $fieldName ){
 						$divRow .= '<span class="size-data">'.$fieldValue.'</span>';
 				}
@@ -1014,6 +1017,7 @@ function getOrderDetail($order_id = false) {
 					/*elseif($fieldName == 'custom_order_cakecolor' && $fieldValue) {
 						$fieldMapping[$fieldName]['value'][$fieldValue] = '<span class="color-show color-choice head-custom color'.$fieldValue.'"></span>';
 					}*/
+					
 					elseif($fieldName == 'custom_order_cakecolor_other' && $fieldValue) {
 						$fieldValue = '<span class="color-show" style="background:'.$fieldValue.'"></span>';
 					}
