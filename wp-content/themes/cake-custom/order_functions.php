@@ -13,8 +13,9 @@ function kitt_woocommerce_hidden_order_itemmeta ($meta_array) {
 }
 add_filter( 'woocommerce_hidden_order_itemmeta', 'kitt_woocommerce_hidden_order_itemmeta', 10, 3);
 
-function kitt_woocommerce_cart_calculate_fees()
-{
+
+function getFormData(){
+	$aFormData = array();
 	foreach ( $_SESSION['cake_custom_order'] as $step => $cakeStepData )
 	{
 		foreach ( $cakeStepData as $fieldName => $fieldValue )
@@ -25,6 +26,11 @@ function kitt_woocommerce_cart_calculate_fees()
 			}
 		}
 	}
+	return $aFormData;
+}
+function kitt_woocommerce_cart_calculate_fees()
+{
+	$aFormData = getFormData();
 
 	if ($aFormData['custom_order_shipping'] == 'delivery')
 	{
@@ -336,17 +342,7 @@ function cake_steps_store(){
 
 
 function calculateProductCart(&$aData = array(), $cartTotal = 0){
-	foreach ( $_SESSION['cake_custom_order'] as $step => $cakeStepData )
-	{
-		foreach ( $cakeStepData as $fieldName => $fieldValue )
-		{
-			if ( strpos($fieldName, 'custom_order_') !== false )
-			{
-				$aFormData[$fieldName] = $fieldValue;
-			}
-		}
-	}
-	
+	$aFormData = getFormData();
 	$cart = WC()->instance()->cart;
 	$product_id = 0;
 	if (!empty($cart->cart_contents))
@@ -508,16 +504,9 @@ function kitt_create_temporary_product(&$aData) {
 	update_post_meta( $post_id, '_manage_stock', "no" );
 	update_post_meta( $post_id, '_backorders', "no" );
 	
-	foreach ( $_SESSION['cake_custom_order'] as $step => $cakeStepData )
-	{
-		foreach ( $cakeStepData as $fieldName => $fieldValue )
-		{
-			if ( strpos($fieldName, 'custom_order_') !== false )
-			{
-				$aData[$fieldName] = $fieldValue;
-			}
-		}
-	}// Get price
+	
+	$aData = getFormData();
+	// Get price
 	$totalPrice = calculateCustomOrderPrice($aData);
 	
 	update_post_meta( $post_id, '_regular_price', $totalPrice );
@@ -544,12 +533,6 @@ function kitt_create_temporary_product(&$aData) {
 		{
 			update_post_meta($post_id,'_product_image_gallery', implode(',', $aAttachIds));
 		}
-	}
-	
-	if ($aData['custom_order_photocakepic'])
-	{
-		$attach_id = attachImageToProduct ($aData['custom_order_photocakepic'], $post_id);
-		$aData['custom_order_photocakepic'] = wp_get_attachment_url( $attach_id );
 	}
 	
 	return $post_id;
@@ -581,7 +564,7 @@ function submit_form_order(){
 		$checkOut = new WC_Checkout();
 		$checkOut->shipping_methods = (array) WC()->session->get( 'chosen_shipping_methods' );
 		
-		$aData = array();
+		$aData = getFormData();
 		$product_id = calculateProductCart($aData);
 		$userID = (int) get_current_user_id();
 		
@@ -639,8 +622,8 @@ function submit_form_order(){
 			$shipping_items = $order->get_shipping_methods();
 			wc_update_order_item_meta( key($shipping_items), 'cost', WC()->cart->shipping_total );
 	
-			update_post_meta( $order->id, '_payment_method', 'other_payment' );
-			update_post_meta( $order->id, '_payment_method_title', 'Waiting Payment' );
+// 			update_post_meta( $order->id, '_payment_method', 'other_payment' );
+// 			update_post_meta( $order->id, '_payment_method_title', 'Waiting Payment' );
 			update_post_meta( $order->id, '_customer_user', get_current_user_id() );
 			update_post_meta( $order->id, '_order_total', $totalPrice );
 			
@@ -662,6 +645,13 @@ function submit_form_order(){
 				}
 			}
 	
+			
+			if ($aData['custom_order_photocakepic'])
+			{
+				$attach_id = attachImageToProduct ($aData['custom_order_photocakepic'], $product_id);
+				$aData['custom_order_photocakepic'] = wp_get_attachment_url( $attach_id );
+			}
+			
 			// Update order detail to meta
 			update_post_meta($order->id, 'cake_custom_order', $aData);
 	
@@ -814,17 +804,7 @@ function getOrderDetail($order_id = false) {
 	if (!$order_id)
 	{
 		// Get from session during order form
-		$aData = array();
-		foreach ( $_SESSION['cake_custom_order'] as $step => $cakeStepData )
-		{
-			foreach ( $cakeStepData as $fieldName => $fieldValue )
-			{
-				if ( strpos($fieldName, 'custom_order_') !== false )
-				{
-					$aData[$fieldName] = $fieldValue;
-				}
-			}
-		}
+		$aData = getFormData();
 	}
 	else {
 		// Get from meta when order already completed
