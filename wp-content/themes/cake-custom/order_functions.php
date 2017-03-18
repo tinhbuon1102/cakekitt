@@ -751,7 +751,13 @@ function getCustomFormFieldMapping(){
 	$cake_type_fields = array_merge($cake_type_fields, $mapping_fields);
 	return $cake_type_fields;
 }
-
+//added by kyoko
+function getCakeSizeValue(){
+	$CakeSize = array(
+		'custom_order_cakesize_square'
+	);
+	return $CakeSize;
+}
 function getDecorationGroup(){
 
 	$aDecoration = array(
@@ -1005,6 +1011,13 @@ function getOrderDetail($order_id = false) {
 				//added kyoko
 				elseif ( 'custom_order_cakesize_square' == $fieldName || 'custom_order_cakesize_round' == $fieldName ){
 						$divRow .= '<span class="size-data">'.$fieldValue.'</span>';
+				}
+				//show size value next to shape value
+				elseif ( 'custom_order_cake_shape' == $fieldName ){
+					$fieldValueName = is_array(@$fieldMapping[$fieldName]['value'][$fieldValue]) ? $fieldMapping[$fieldName]['value'][$fieldValue] : (is_array(@$fieldMapping[$fieldName]['value']) ? $fieldMapping[$fieldName]['value'][$fieldValue] : $fieldValue);
+					$fieldCakeSize =  getCakeSizeValue();
+					//$fieldValueSize = $fieldMapping['custom_order_cakesize_square']['value'];
+					$divRow .= '<span class="shape-and-size">'.$fieldValueName.'/'.$fieldCakeSize.'</span>';
 				}
 				else
 				{
