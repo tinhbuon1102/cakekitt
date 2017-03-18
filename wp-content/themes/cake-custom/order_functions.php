@@ -736,7 +736,7 @@ function getOrderDetail($order_id = false) {
 	$indexItem = 0;
 	
 	// Remove unessesary fields
-	if (isset($aData['custom_order_cakecolor_other']))
+	if (isset($aData['custom_order_cakecolor_other']) && $aData['custom_order_cakecolor_other'])
 	{
 		unset($aData['custom_order_cakecolor']);
 	}
