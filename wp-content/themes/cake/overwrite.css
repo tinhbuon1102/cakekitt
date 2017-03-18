@@ -749,14 +749,27 @@ div#customer_login {
     display: inline-block;
     vertical-align: middle;
 }
-.show-value span.qty:before {
+.show-value [class$="_qty"] span.decorate_option_label, .show-value [class$="_text"] span.decorate_option_label, .show-value [class$="_color"] span.decorate_option_label {
+    display: none;
+}
+.show-value span.decorate_option.custom_order_flowercolor span.decorate_option_label {
+    display: none;
+}
+.show-value [class$="_qty"] span.decorate_option_value:before {
     content: "qty-";
     font-family: "brandon-grotesque", "Helvetica Neue", sans-serif;
     display: inline-block;
     line-height: inherit;
     vertical-align: top;
 }
-.show-value span.color:before {
+.show-value [class$="_text"] span.decorate_option_value:before {
+    content: "notes-";
+    font-family: "brandon-grotesque", "Helvetica Neue", sans-serif;
+    display: inline-block;
+    line-height: inherit;
+    vertical-align: top;
+}
+.show-value span.decorate_option.custom_order_flowercolor span.decorate_option_value:before, .show-value [class$="_color"] span.decorate_option_value:before {
     content: "color-";
     font-family: "brandon-grotesque", "Helvetica Neue", sans-serif;
     display: inline-block;
