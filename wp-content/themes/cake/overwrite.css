@@ -665,6 +665,13 @@ div#customer_login {
     padding: 0 15px;
 }
 /* order details*/
+h2.order-head-title {
+    font-size: 1.8em;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #222;
+    color: #222;
+    margin-bottom: 20px;
+}
 .order-detail-custom-table .form-row {
     display: table;
     width: 100%;

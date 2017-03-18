@@ -34,6 +34,7 @@ if ( $order ) : ?>
 		</p>
 
 	<?php else : ?>
+		<h1 class="big-title big-thanks">Thank you!</h1>
 
 		<p class="woocommerce-thankyou-order-received"><?php echo apply_filters( 'woocommerce_thankyou_order_received_text', __( 'Thank you. Your order has been received.', 'woocommerce' ), $order ); ?></p>
 

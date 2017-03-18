@@ -793,7 +793,7 @@ function getOrderDetail($order_id = false) {
 				if ($blockWraper)
 				{
 					$divRow .= '<div class="'.$blockWraper.'">';
-					$divRow .= '<h3 class="col-xs-12">'. $aBlockInfo[$blockWraper]['label'] .'</h3>';
+					$divRow .= '<h3>'. $aBlockInfo[$blockWraper]['label'] .'</h3>';
 					$blockWraper = '';
 				}
 				

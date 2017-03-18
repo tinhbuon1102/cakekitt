@@ -751,6 +751,26 @@ function custom_woocommerce_billing_fields( $fields ) {
 }
 
 
+//thank you page
+
+function kittwp_title_order_received( $text, $order ) {
+	//$newtext = $text . 'ご注文を承りました。誠にありがとうございます。';
+		foreach( $order->get_items() as $item ) {
+		$_product = wc_get_product( $item['product_id'] );
+		// Add whatever product id you want below here
+		if ( $item['product_id'] == 1931 ) {
+			// change below text
+			return 'オーダーメイドケーキのご注文を承りました。誠にありがとうございます。';
+		} else {
+			return '以下のケーキのご注文を承りました。誠にありがとうございます。';
+		}
+	
+	}
+	//return $newtext;
+}
+add_filter( 'woocommerce_thankyou_order_received_text', 'kittwp_title_order_received', 10, 2 );
+
+
 add_action( 'woocommerce_checkout_after_customer_details', 'extra_delivery_fields_in_checkout_page' );
 function extra_delivery_fields_in_checkout_page( $checkout ) {
 ?>
