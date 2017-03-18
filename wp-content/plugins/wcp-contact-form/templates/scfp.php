@@ -105,6 +105,21 @@ $typeOptions = $fields['61a5691189ac']['choices']['list'];
 				</span>
 			</div>
 		</div>
+		
+		<?php 
+		foreach( $fieldsSettings as $key => $field ):
+		if (!empty($field['visibility']) && !empty($field['field_type']) && $field['field_type'] == 'captcha') :
+		?>
+		<div class="row">
+			<div class="col-sm-12 wpcf7-form-control-wrap">
+				<?php  echo SCFP()->getTemplate("form/{$field['field_type']}", array('id' => $id, 'form' => $form, 'key' => $key, 'field' => $field, 'formSettings' => $formSettings, 'formData' => $formData)); ?>
+			</div>
+		</div>
+		<?php
+		endif;
+		endforeach;
+		?>
+			
 		<p>
 			<input type="submit" value="Send" class="wpcf7-form-control wpcf7-submit" id="contact_form_submit_button">
 			<span class="ajax-loader"></span>
