@@ -638,28 +638,34 @@ function getOrderDetail($order_id) {
 		// Get from meta when order already completed
 		$aData = get_post_meta($order_id, 'cake_custom_order', true);
 	}
+	//wrap col
+	if ( 'custom_order_cake_shape' == $fieldName || 'custom_order_cakeflavor' == $fieldName ) {
+		$classColname = 'col-xs-4';
+	} else {
+		$classColname = 'col-xs-12';
+	}
 	
 	if (!$aData || empty($aData)) return '';
 	
 	$aSeparateBlock = array(
-		'cake_info_wraper' => 'custom_order_cake_type',
-		'customer_info_wraper' => 'custom_order_customer_name_last',
-		'delivery_info_wraper' => 'custom_order_deliver_name',
 		'time_info_wraper' => 'custom_order_pickup_date',
+		'cake_info_wraper' => 'custom_order_cake_type',
+		'customer_info_wraper col-xs-6' => 'custom_order_customer_name_last',
+		'delivery_info_wraper col-xs-6' => 'custom_order_deliver_name',
 	);
 	
 	$aBlockInfo = array(
+		'time_info_wraper' => array(
+			'label' => __('Time Info', 'cake')
+		),
 		'cake_info_wraper' => array(
 			'label' => __('Cake Info', 'cake')
 		),
-		'customer_info_wraper' => array(
+		'customer_info_wraper col-xs-6' => array(
 			'label' => __('Customer Info', 'cake')
 		),
-		'delivery_info_wraper' => array(
+		'delivery_info_wraper col-xs-6' => array(
 			'label' => __('Delivery Info', 'cake')
-		),
-		'time_info_wraper' => array(
-			'label' => __('Time Info', 'cake')
 		),
 	);
 	
@@ -707,8 +713,9 @@ function getOrderDetail($order_id) {
 					$blockWraper = '';
 				}
 				
-				$divRow .= '<div class="form-row">';
 				
+				$divRow .= '<div class="'.$classColname.'">';
+				$divRow .= '<div class="form-row">';
 				$divRow .= '<div class="label-div">';
 				$divRow .= $fieldName == 'custom_order_cake_type' ? __('Cake Type', 'cake') : $fieldMapping[$fieldName]['field']['label'];
 				$divRow .= '</div>';
@@ -738,8 +745,10 @@ function getOrderDetail($order_id) {
 					$divRow .= is_array(@$fieldMapping[$fieldName]['value'][$fieldValue]) ? $fieldMapping[$fieldName]['value'][$fieldValue] : (is_array(@$fieldMapping[$fieldName]['value']) ? $fieldMapping[$fieldName]['value'][$fieldValue] : $fieldValue);
 				}
 				$divRow .= '</div>'; //End right column
-
+				
 				$divRow .= '</div>'; //End row 
+				
+				$divRow .= '</div>'; //End wrap column
 				
 				$keyWraper = array_search($aDataKeys[$indexItem], $aSeparateBlock);
 				if ($keyWraper !== false)

@@ -682,7 +682,73 @@ div#customer_login {
     padding-bottom: 0;
 }
 .order-detail-custom-table .form-row .show-value {
-    border-bottom: 1px solid #222;
+     border-bottom: 1px solid rgba(0,0,0,.1);
+}
+.order-detail-custom-table .col-xs-4 .form-row {
+    display: block;
+	margin: 0;
+	text-align: center;
+}
+.order-detail-custom-table .col-xs-3 .form-row .label-div, .order-detail-custom-table .col-xs-3 .form-row .show-value {
+    width: 100%;
+    display: block;
+	text-align: center;
+}
+.order-detail-custom-table .col-xs-4 .form-row .label-div {
+    font-size: 12px;
+}
+.order-detail-custom-table .col-xs-4 .form-row .show-value {
+    border: none;
+}
+.order-detail-custom-table .row .row.border-btm-gray {
+	margin: 0;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #efefef;
+}
+.order-detail-custom-table .col-xs-4 .form-row i {
+    display: inline-block;
+}
+.order-detail-custom-table .show-value span {
+    padding-left: 10px;
+}
+.form-row.cake-deco .show-value:before {
+    content: "\e99e";
+    font-family: 'linericon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    border: 1px solid #CCC;
+    font-size: 10px;
+    width: 18px;
+    height: 18px;
+    padding: 3px;
+    margin-right: 5px;
+    margin-bottom: 4px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.show-value span.qty:before {
+    content: "qty-";
+    font-family: "brandon-grotesque", "Helvetica Neue", sans-serif;
+    display: inline-block;
+    line-height: inherit;
+    vertical-align: top;
+}
+.show-value span.color:before {
+    content: "color-";
+    font-family: "brandon-grotesque", "Helvetica Neue", sans-serif;
+    display: inline-block;
+    line-height: inherit;
+    vertical-align: top;
+}
+.order-detail-custom-table > div {
+    margin-top: 20px;
 }
 /*cart page*/
 p {
