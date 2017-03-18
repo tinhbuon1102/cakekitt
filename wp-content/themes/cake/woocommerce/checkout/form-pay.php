@@ -66,6 +66,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php endif; ?>
 		</tfoot>
 	</table>
+	
+	<div id="form_order_detail">
+		<?php do_action('woocommerce_form_pay_after_order_table', $order)?>
+	</div>
 
 	<div id="payment">
 		<?php if ( $order->needs_payment() ) : 

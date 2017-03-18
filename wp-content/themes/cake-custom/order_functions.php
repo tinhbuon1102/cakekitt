@@ -622,17 +622,11 @@ function submit_form_order(){
 			$shipping_items = $order->get_shipping_methods();
 			wc_update_order_item_meta( key($shipping_items), 'cost', WC()->cart->shipping_total );
 	
-// 			update_post_meta( $order->id, '_payment_method', 'other_payment' );
-// 			update_post_meta( $order->id, '_payment_method_title', 'Waiting Payment' );
+			update_post_meta( $order->id, '_payment_method', 'other_payment' );
+			update_post_meta( $order->id, '_payment_method_title', 'Waiting Payment' );
 			update_post_meta( $order->id, '_customer_user', get_current_user_id() );
 			update_post_meta( $order->id, '_order_total', $totalPrice );
 			
-	
-			// Delete notes
-			global $wpdb;
-			$posts_table = $wpdb->posts;
-			$query = "DELETE FROM ". $wpdb->comments ." WHERE comment_post_ID = " .$order->id;
-			$wpdb->query($query);
 	
 			// Update custom field for order
 			foreach ($aData as $fieldName => &$fieldValue)
@@ -691,6 +685,12 @@ function submit_form_order(){
 			// Mark as on-hold (we're awaiting the payment)
 			$order->update_status('on-hold', __( 'Awaiting payment', 'woocommerce-other-payment-gateway' ));
 			$order->update_status('pending', __( 'Awaiting payment', 'woocommerce-other-payment-gateway' ));
+			
+			// Delete notes
+			global $wpdb;
+			$posts_table = $wpdb->posts;
+			$query = "DELETE FROM ". $wpdb->comments ." WHERE comment_post_ID = " .$order->id;
+			$wpdb->query($query);
 			
 			// Redirect to thank you page
 			$payment = new WC_Other_Payment_Gateway();
@@ -1132,4 +1132,5 @@ function woocommerce_order_details_after_order_table_order_custom ($order){
 }
 add_action( 'woocommerce_order_details_after_order_table', 'woocommerce_order_details_after_order_table_order_custom', 30, 4 );
 add_action( 'woocommerce_email_after_order_table', 'woocommerce_order_details_after_order_table_order_custom', 30, 4 );
+add_action( 'woocommerce_form_pay_after_order_table', 'woocommerce_order_details_after_order_table_order_custom', 30, 4 );
 
