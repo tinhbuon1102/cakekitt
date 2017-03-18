@@ -691,20 +691,20 @@ h2.order-head-title {
 .order-detail-custom-table .form-row .show-value {
      border-bottom: 1px solid rgba(0,0,0,.1);
 }
-.order-detail-custom-table .col-xs-4 .form-row {
+.order-detail-custom-table .col-xs-3 .form-row {
     display: block;
 	margin: 0;
 	text-align: center;
 }
-.order-detail-custom-table .col-xs-4 .form-row .label-div, .order-detail-custom-table .col-xs-4 .form-row .show-value {
+.order-detail-custom-table .col-xs-3 .form-row .label-div, .order-detail-custom-table .col-xs-3 .form-row .show-value {
     width: 100%;
     display: block;
 	text-align: center;
 }
-.order-detail-custom-table .col-xs-4 .form-row .label-div {
+.order-detail-custom-table .col-xs-3 .form-row .label-div {
     font-size: 12px;
 }
-.order-detail-custom-table .col-xs-4 .form-row .show-value {
+.order-detail-custom-table .col-xs-3 .form-row .show-value {
     border: none;
 }
 .order-detail-custom-table .row.first-child {
@@ -713,23 +713,32 @@ h2.order-head-title {
     padding-bottom: 20px;
     border-bottom: 3px solid #efefef;
 }
-.order-detail-custom-table .col-xs-4 .form-row .display-table-cell {
+.order-detail-custom-table .col-xs-3 .form-row .display-table-cell {
     display: inline-block;
     width: 100%;
     margin: 10px 0;
 }
-.order-detail-custom-table .col-xs-4 .show-value span {
+.order-detail-custom-table .col-xs-3 .show-value span {
     padding: 0;
 }
-.order-detail-custom-table .col-xs-4 .show-value .round-img {
+.order-detail-custom-table .col-xs-3 .show-value .color-show {
+    display: block;
+    padding: 0;
+    margin: 0 auto;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+.order-detail-custom-table .col-xs-3 .show-value .round-img {
     display: inline-block;
     width: 100%;
     margin: 10px 0;
 }
-.order-detail-custom-table .col-xs-4 .show-value .round-img img {
+.order-detail-custom-table .col-xs-3 .show-value .round-img img {
     width: 60px;
 }
-.order-detail-custom-table .col-xs-4 .form-row .display-table-cell i {
+.order-detail-custom-table .col-xs-3 .form-row .display-table-cell i {
     font-size: 60px;
 }
 .order-detail-custom-table .show-value span {

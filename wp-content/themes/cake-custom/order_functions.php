@@ -914,11 +914,12 @@ function getOrderDetail($order_id = false) {
 			'custom_order_cake_type',
 			'custom_order_cake_shape',
 			'custom_order_cakeflavor',
+			'custom_order_cakecolor',
 		);
 		
 		//wrap col
 		if ( in_array($fieldName, $aClassxs4) ) {
-			$classColname = 'col-xs-4';
+			$classColname = 'col-xs-3';
 		} else {
 			$classColname = 'col-xs-12';
 		}
@@ -968,10 +969,14 @@ function getOrderDetail($order_id = false) {
 				$divRow .= '<div class="'.$classColname.'">';
 				
 				$divRow .= '<div class="form-row">';
+				//added kyoko
+				if ( 'custom_order_cakesize_square' == $fieldName || 'custom_order_cakesize_round' == $fieldName ){
+					
+				} else {
 				$divRow .= '<div class="label-div">';
-				
 				$divRow .= $fieldName == 'custom_order_cake_type' ? __('Cake Type', 'cake') : $fieldMapping[$fieldName]['field']['label'];
 				$divRow .= '</div>';
+				}
 
 				$divRow .= '<div class="show-value">';
 				
@@ -994,6 +999,11 @@ function getOrderDetail($order_id = false) {
 					case 'custom_order_cakeflavor':
 						$divRow .= '<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_'.$fieldValue.' size30 blk"></i></span>';
 						break;
+					//added kyoko
+					case 'custom_order_cakecolor':
+						$divRow .= '<span class="display-table-cell pr-2"><span class="color-show color-choice head-custom color'.$fieldValue.'"></span></span>';
+						break;
+					
 				}
 				
 				if ( 'custom_order_cakePic' == $fieldName || 'custom_order_photocakepic' == $fieldName )
@@ -1010,6 +1020,9 @@ function getOrderDetail($order_id = false) {
 					}
 					$divRow .= '<img style="max-width: 300px;" src="' . $fieldValue . '" />';
 				}
+				elseif ( 'custom_order_cakesize_square' == $fieldName || 'custom_order_cakesize_round' == $fieldName ){
+						$divRow .= '<span class="size-data">'.$fieldValue.'</span>';
+				}
 				else
 				{
 					if ($fieldName == 'custom_order_deliver_pref')
@@ -1017,10 +1030,10 @@ function getOrderDetail($order_id = false) {
 						$aCountrySates = getCountryState();
 						$fieldValue = $aCountrySates['states'][$fieldValue];
 					}
-					
-					elseif($fieldName == 'custom_order_cakecolor' && $fieldValue) {
+					//commented kyoko
+					/*elseif($fieldName == 'custom_order_cakecolor' && $fieldValue) {
 						$fieldMapping[$fieldName]['value'][$fieldValue] = '<span class="color-show color-choice head-custom color'.$fieldValue.'"></span>';
-					}
+					}*/
 					elseif($fieldName == 'custom_order_cakecolor_other' && $fieldValue) {
 						$fieldValue = '<span class="color-show" style="background:'.$fieldValue.'"></span>';
 					}
@@ -1092,7 +1105,7 @@ function getOrderDetail($order_id = false) {
 				$keyWraper = array_search($aDataKeys[$indexItem], $aSeparateBlock);
 				if ($keyWraper !== false)
 				{
-					$divRow .= '</div>'; //End info wraper block
+					$divRow .= 'wrapendhere</div>'; //End info wraper block
 				}
 				
 			}
@@ -1129,8 +1142,8 @@ function woocommerce_order_details_after_order_table_order_custom ($order){
 ?>
 	<div class="custom_order_details">
 		<?php echo getOrderDetail($order->id); ?>
-	</div>
-	<br />
+	</div><!--/custom_order_details-->
+
 <?php
 }
 add_action( 'woocommerce_order_details_after_order_table', 'woocommerce_order_details_after_order_table_order_custom', 30, 4 );
