@@ -887,7 +887,7 @@ function getOrderDetail($order_id = false) {
 												$aData[$deOption] = $temp_folder . $aData[$deOption];
 											}
 										}
-										$aData[$deOption] = '<img style="max-width: 300px;" src="' . $aData[$deOption] . '" />';
+										$aData[$deOption] = '<img style="max-width: 100px;" src="' . $aData[$deOption] . '" />';
 									}
 									
 									$divRow .= '<span class="decorate_option '.$deOption.'">
