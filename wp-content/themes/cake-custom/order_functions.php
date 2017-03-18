@@ -890,10 +890,12 @@ function getOrderDetail($order_id = false) {
 										$aData[$deOption] = '<img style="max-width: 100px;" src="' . $aData[$deOption] . '" />';
 									}
 									
+									if ($aData[$deOption]) {
 									$divRow .= '<span class="decorate_option '.$deOption.'">
 													<span class="decorate_option_label">'.@$fieldMapping[$deOption]['field']['label'].'</span> 
 													<span class="decorate_option_value">'. $aData[$deOption] . '</span>
 												</span>';
+									}
 								}
 							}
 						}
