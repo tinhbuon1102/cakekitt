@@ -157,8 +157,9 @@ var sideWidth = $('.ordercake-cart-sidebar-container').width();
 $('.cake-cart-sidebar').css('width', sideWidth + 'px');
 
 var divWidth = $('.round-icon-select #fixwh-inner').width();
+var divfixHeight = $('.round-icon-select #fixwh-inner .center-middle-fix').height();
 $('.round-icon-select #fixwh-inner').css('height', divWidth + 'px');
-/*$('.round-icon-select #fixwh-inner').height(divWidth);*/
+$('.round-icon-select #fixwh-inner .center-middle-fix').css('margin-top', '-' + (divfixHeight / 2 + 10) + 'px');
 });
 
 /* nav scroll*/

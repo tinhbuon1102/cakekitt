@@ -2680,6 +2680,30 @@ ul.round-icon-select.col_5 li.m-input__radio {
     display: inline-block;
 }
 
+.round-icon-select label.radio_label div#fixwh-inner .radio_option {
+    position: relative;
+    display: block;
+    height: 100%;
+}
+.center-middle-fix {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+}
+.round-icon-select label.cake_flavor_chocolate div#fixwh-inner .radio_option h5 {
+    max-width: 90px;
+    margin: 0 auto;
+}
+li.main-option .select-wrapper {
+    overflow: initial;
+    position: relative;
+}
+li.main-option .select-wrapper .formError.inline, .iradio_square-pink .formError.inline {
+    position: absolute !important;
+    top: initial !important;
+    bottom: -30px !important;
+    width: 100%;
+}
 ul.round-icon-select.col_5 li.m-input__radio {
     width: 20%;
     margin: 0;

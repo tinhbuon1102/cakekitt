@@ -126,8 +126,11 @@ $field_mappings = getCustomFormFieldMapping();
 						$('div.esgbox-title').append('<a href="<?php echo site_url()?>/order-made-form?type='+selectedCat+'&post_id='+selectedPost+'" class="gallery_type_btn"><input class="cdo-button" type="button" value="<?php echo esc_html__('Buy this', 'cake')?>"></a>');
 						clearInterval(imgBtnInterval);
 						imgBtnInterval = null;
+						dfimage.resize();
 					}
 				}, 10);
+				dfimage.resize();
+				esgbox.resize();
 			});
 			
 			
