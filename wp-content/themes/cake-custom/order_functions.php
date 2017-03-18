@@ -638,12 +638,6 @@ function getOrderDetail($order_id) {
 		// Get from meta when order already completed
 		$aData = get_post_meta($order_id, 'cake_custom_order', true);
 	}
-	//wrap col
-	if ( 'custom_order_cake_shape' == $fieldName || 'custom_order_cakeflavor' == $fieldName ) {
-		$classColname = 'col-xs-4';
-	} else {
-		$classColname = 'col-xs-12';
-	}
 	
 	if (!$aData || empty($aData)) return '';
 	
@@ -696,6 +690,14 @@ function getOrderDetail($order_id) {
 		{
 			$fieldValue = $fieldValue < 12 ? $fieldValue . ' AM' : $fieldValue . ' PM';
 		}
+		
+		//wrap col
+		if ( 'custom_order_cake_shape' == $fieldName || 'custom_order_cakeflavor' == $fieldName ) {
+			$classColname = 'col-xs-4';
+		} else {
+			$classColname = 'col-xs-12';
+		}
+		
 		// If field name has text custom_order_ will be show
 		if ( strpos($fieldName, 'custom_order_') !== false )
 		{
