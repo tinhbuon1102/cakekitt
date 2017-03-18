@@ -870,7 +870,10 @@ function getOrderDetail($order_id = false) {
 						$fieldValue = $aCountrySates['states'][$fieldValue];
 					}
 					
-					elseif($fieldName == 'custom_order_cakecolor_other') {
+					elseif($fieldName == 'custom_order_cakecolor' && $fieldValue) {
+						$fieldMapping[$fieldName]['value'][$fieldValue] = '<span class="color-show color-choice head-custom color'.$fieldValue.'"></span>';
+					}
+					elseif($fieldName == 'custom_order_cakecolor_other' && $fieldValue) {
 						$fieldValue = '<span class="color-show" style="background:'.$fieldValue.'"></span>';
 					}
 					
