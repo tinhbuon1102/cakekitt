@@ -77,7 +77,39 @@ $(function(){
     		showItemInCart();
     	});
     	
+    	$('input.radio_input, input.checkbox_input').on('ifChecked', function(event){
+    		$(this).closest('li').find('.suboption_box').toggleClass('disable');
+    		if ($(this).attr('name') == 'custom_order_cake_shape')
+    		{
+    			if (roundGroup.indexOf($(this).val()) != -1)
+    			{
+    				$('select[name="custom_order_cakesize_round"]').removeClass('disable');
+    				$('select[name="custom_order_cakesize_square"]').addClass('disable');
+    				$('select[name="custom_order_cakesize_round"]').addClass("validate[required]");
+    				$('select[name="custom_order_cakesize_square"]').removeClass("validate[required]");
+    			}
+    			else {
+    				$('select[name="custom_order_cakesize_round"]').addClass('disable');
+    				$('select[name="custom_order_cakesize_square"]').removeClass('disable');
+    				$('select[name="custom_order_cakesize_round"]').removeClass("validate[required]");
+    				$('select[name="custom_order_cakesize_square"]').addClass("validate[required]");
+    			}
+    		}
+    	});
+    	
+    	$("input:radio[name='custom_order_cake_type']").on('ifChecked', function(event){
+    		// Hide / show decoration print
+    		if (['cake_type_e', 'cake_type_f'].indexOf($(this).val()) != -1)
+    		{
+    			$('li.custom_order_cake_decorate_print').show();
+    		}
+    		else {
+    			$('li.custom_order_cake_decorate_print').hide();
+    		}
+    	});
+    	
         $('body').on('click', 'form#omOrder .submit_next', function(){
+        	$('.formError.inline').remove()
         	$("form#omOrder").validationEngine({promptPosition: 'inline', addFailureCssClassToField: "inputError", bindMethod:"live"});
         	
         	var currentStepActive = $('form#omOrder .step_wraper:visible').data('step');

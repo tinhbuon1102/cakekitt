@@ -952,6 +952,8 @@
 		* @return an error string if validation failed
 		*/
 		_required: function(field, rules, i, options, condRequired) {
+			if (['DIV', 'SPAN', 'A'].indexOf(field.prop("tagName")) != -1) return false;
+			
 			switch (field.prop("type")) {
 				case "radio":
 				case "checkbox":

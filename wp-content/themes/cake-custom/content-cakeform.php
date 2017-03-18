@@ -187,7 +187,7 @@ if ($inspired_pic)
 								<?php }?>
 							</select>
 							
-							<select name="custom_order_cakesize_round" class="form-control select select-primary" data-toggle="select">
+							<select name="custom_order_cakesize_round" class="form-control select select-primary validate[required]" data-toggle="select">
 								<option value=""><?php echo __('Choose Size', 'cake')?></option>
 								<!--for round shape-->
 								<?php 
@@ -247,7 +247,7 @@ if ($inspired_pic)
 							foreach ($field_mappings['custom_order_cake_decorate']['value'] as $value => $label) {
 								$indexDecorate ++;
 							?>
-								<li class="m-input__checkbox col-md-4">
+								<li class="m-input__checkbox col-md-4 custom_order_cake_decorate_<?php echo $value?>">
 									<input type="checkbox" name="custom_order_cake_decorate[<?php echo $indexDecorate - 1?>]" id="<?php echo $value?>" class="check_input checkbox_input labelauty has_subop" value="<?php echo $value?>" aria-label="<?php echo $label?>" data-labelauty="<?php echo $label?>">
 									<!--<label for="<?php echo $value?>" class="js-fixHeightChildText checkbox_label <?php echo $value?>">
 										<div class="check_option check_size">
