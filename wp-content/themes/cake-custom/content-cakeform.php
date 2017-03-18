@@ -683,8 +683,20 @@ if ($inspired_pic)
 					<img src="<?php bloginfo('template_directory'); ?>/images/form/ordersheet.png" width="80">
 					<h5 class="mt-2 text-ppink heading-uppercase">No details yet</h5>
 				</div>
-				<div class="border-top pt-3 mt-3 panel__full-width-item heading-uppercase disable" id="cart_total">
-					<div class="row">
+				<div class="border-top pt-3 mt-3 panel__full-width-item heading-uppercase disable" id="cart_total_wraper">
+					<div class="row" id="sub_total">
+						<div class="col-md-8 columns text-gray"><h6>Sub Total</h6></div>
+						<div class="col-md-4 columns text-green text-right"><h6>0</h6></div>
+					</div>
+					<div class="row" id="shipping_fee">
+						<div class="col-md-8 columns text-gray"><h6>Shipping Fee</h6></div>
+						<div class="col-md-4 columns text-green text-right"><h6>0</h6></div>
+					</div>
+					<div class="row disable" id="total_tax">
+						<div class="col-md-8 columns text-gray"><h6>Total Tax</h6></div>
+						<div class="col-md-4 columns text-green text-right"><h6>0</h6></div>
+					</div>
+					<div class="row" id="cart_total">
 						<div class="col-md-8 columns text-gray"><h4>Estimation</h4></div>
 						<div class="col-md-4 columns text-green text-right"><h4>¥6,500</h4></div>
 					</div>

@@ -1,6 +1,39 @@
 <?php
 define('KITT_NORMAL_ORDER', 1);
 define('KITT_CUSTOM_ORDER', 2);
+define('KITT_TEMP_PRODUCT_NAME', 'Custom Order Product');
+define('KITT_SHIPPING_PICKUP', 'local_pickup:2');
+define('KITT_SHIPPING_DELIVERY', 'flat_rate:3');
+define('KITT_SHIPPING_CITY_1_FEE', 30);
+define('KITT_SHIPPING_CITY_2_FEE', 50);
+
+function kitt_woocommerce_hidden_order_itemmeta ($meta_array) {
+	$meta_array[] = '_order_type';
+	return $meta_array;
+}
+add_filter( 'woocommerce_hidden_order_itemmeta', 'kitt_woocommerce_hidden_order_itemmeta', 10, 3);
+
+function kitt_woocommerce_cart_calculate_fees()
+{
+	foreach ( $_SESSION['cake_custom_order'] as $step => $cakeStepData )
+	{
+		foreach ( $cakeStepData as $fieldName => $fieldValue )
+		{
+			if ( strpos($fieldName, 'custom_order_') !== false )
+			{
+				$aFormData[$fieldName] = $fieldValue;
+			}
+		}
+	}
+
+	if ($aFormData['custom_order_shipping'] == 'delivery')
+	{
+		// modify shipping fee base on city
+		//@TODO add fee for city 
+		WC()->cart->shipping_total = KITT_SHIPPING_CITY_1_FEE;
+	}
+}
+add_action( 'woocommerce_cart_calculate_fees', 'kitt_woocommerce_cart_calculate_fees', 10 );
 
 add_action('woocommerce_add_order_item_meta', 'add_order_item_meta_custom', 10, 3);
 function add_order_item_meta_custom ( $item_id, $values, $cart_item_key )
@@ -9,7 +42,7 @@ function add_order_item_meta_custom ( $item_id, $values, $cart_item_key )
 	if ( $values )
 	{
 		$product_id = $values['product_id'];
-		$is_custom_order_product = get_post_meta($product_id, 'is_custom_order_product');
+		$is_custom_order_product = get_post_meta($product_id, 'is_custom_order_product', true);
 
 		$isCustomOrderProduct = KITT_NORMAL_ORDER;
 		if ( $is_custom_order_product == 1 )
@@ -270,18 +303,26 @@ function cake_steps_store(){
 									<span class="display-table-cell pr-5 price-value">FREE</span>
 								</h5>';
 						break;
-						
-					case 'custom_order_shipping' :
-						// @TODO add shipping free and tax to cart and confirmation page
-						
-						break;
 				}
 			}
 		}
 	}
 	
+	if (!defined('WOOCOMMERCE_CHECKOUT'))
+	{
+		define('WOOCOMMERCE_CHECKOUT', 1);
+	}
+	
+	$aData = array();
+	$product_id = calculateProductCart($aData, $cartTotal);
+	$cart = WC()->instance()->cart;
+	
+	$chosen_shipping_methods = WC()->session->get( 'chosen_shipping_methods' );
 	$aResponse['cart_html'] = $cartHtml;
-	$aResponse['cart_total'] = showCakePrice($cartTotal);
+	$aResponse['shipping_fee'] = $cart->get_cart_shipping_total();
+	$aResponse['sub_total'] = $cart->get_cart_subtotal();
+	$aResponse['total_tax'] = $cart->get_cart_tax();
+	$aResponse['cart_total'] = $cart->get_total();;
 
 	// Show COnfirmation page
 	if ($_POST['step'] >= 3)
@@ -291,6 +332,87 @@ function cake_steps_store(){
 	}
 
 	echo json_encode($aResponse);die;
+}
+
+
+function calculateProductCart(&$aData = array(), $cartTotal = 0){
+	foreach ( $_SESSION['cake_custom_order'] as $step => $cakeStepData )
+	{
+		foreach ( $cakeStepData as $fieldName => $fieldValue )
+		{
+			if ( strpos($fieldName, 'custom_order_') !== false )
+			{
+				$aFormData[$fieldName] = $fieldValue;
+			}
+		}
+	}
+	
+	$cart = WC()->instance()->cart;
+	$product_id = 0;
+	if (!empty($cart->cart_contents))
+	{
+		foreach ($cart->cart_contents as $cart_key => $cart_item)
+		{
+			if (!get_post_meta($cart_item['product_id'], 'is_custom_order_product', true))
+			{
+				$cart->set_quantity($cart_key, 0);
+			}
+			else {
+				if (!$cart_item['line_total'])
+				{
+					$cart->set_quantity($cart_key, 0);
+					wp_delete_post( $cart_item['product_id'], true);
+				}
+				else{
+					$product_id = $cart_item['product_id'];
+				}
+			}
+		}
+	}
+	
+	$cartTotal = $cartTotal ? $cartTotal : calculateCustomOrderPrice($aData);
+	
+	// If custom product not exist and has price -> Create product and add to cart
+	if (!$product_id && $cartTotal)
+	{
+		$product_id = kitt_create_temporary_product($aData);
+	}
+	
+	if ($product_id && $cartTotal)
+	{
+		// Modify product price and reset to cart
+		update_post_meta( $product_id, '_regular_price', $cartTotal );
+		update_post_meta( $product_id, '_sale_price', $cartTotal );
+		update_post_meta( $product_id, '_price', $cartTotal );
+	
+		// Reset cart
+		resetCustomCart();
+	
+		// Re add product to cart
+		kitt_add_product_to_cart($product_id);
+	
+		// Set shipping method
+		$shipping_method = $aFormData['custom_order_shipping'] == 'delivery' ? KITT_SHIPPING_DELIVERY : KITT_SHIPPING_PICKUP;
+		$chosen_shipping_methods = array($shipping_method);
+		WC()->session->set( 'chosen_shipping_methods', $chosen_shipping_methods );
+		WC()->cart->calculate_totals();
+	}
+	
+	return $product_id;
+}
+
+function resetCustomCart(){
+	$cart = WC()->instance()->cart;
+	if (!empty($cart->cart_contents))
+	{
+		foreach ($cart->cart_contents as $cart_key => $cart_item)
+		{
+			if (get_post_meta($cart_item['product_id'], 'is_custom_order_product', true))
+			{
+				$cart->set_quantity($cart_key, 0);
+			}
+		}
+	}
 }
 
 function attachImageToProduct ($image, $post_id, $setThumbnail = false)
@@ -358,6 +480,81 @@ function calculateCustomOrderPrice($aData){
 	return $totalPrice;
 }
 
+function kitt_create_temporary_product(&$aData) {
+	// Create Custom Product
+	$post = array(
+		'post_author' => 1,
+		'post_content' => '',
+		'post_status' => "private",
+		'post_title' => 'Custom Order Product',
+		'post_parent' => '',
+		'post_type' => "product",
+	);
+	
+	//Create post
+	$post_id = wp_insert_post( $post, $wp_error );
+	if($post_id){
+		$attach_id = get_post_meta($product->parent_id, "_thumbnail_id", true);
+		add_post_meta($post_id, '_thumbnail_id', $attach_id);
+	}
+	
+	wp_set_object_terms($post_id, 'simple', 'product_type');
+	update_post_meta( $post_id, '_visibility', 'hidden' );
+	update_post_meta( $post_id, '_stock_status', 'instock');
+	update_post_meta( $post_id, '_downloadable', 'no');
+	update_post_meta( $post_id, '_virtual', 'no');
+	update_post_meta( $post_id, '_featured', "no" );
+	update_post_meta( $post_id, 'is_custom_order_product', 1);
+	update_post_meta( $post_id, '_manage_stock', "no" );
+	update_post_meta( $post_id, '_backorders', "no" );
+	
+	foreach ( $_SESSION['cake_custom_order'] as $step => $cakeStepData )
+	{
+		foreach ( $cakeStepData as $fieldName => $fieldValue )
+		{
+			if ( strpos($fieldName, 'custom_order_') !== false )
+			{
+				$aData[$fieldName] = $fieldValue;
+			}
+		}
+	}// Get price
+	$totalPrice = calculateCustomOrderPrice($aData);
+	
+	update_post_meta( $post_id, '_regular_price', $totalPrice );
+	update_post_meta( $post_id, '_sale_price', $totalPrice );
+	update_post_meta( $post_id, '_price', $totalPrice );
+	
+	// Add images if exists
+	if (is_array($aData['custom_order_cakePic']) && !empty($aData['custom_order_cakePic']))
+	{
+		$aAttachIds = array();
+		$aAttachUrl = array();
+		foreach ($aData['custom_order_cakePic'] as $image)
+		{
+			$attach_id = attachImageToProduct ($image, $post_id, true);
+			if ($attach_id)
+			{
+				$aAttachIds[] = $attach_id;
+				$aAttachUrl[] =   wp_get_attachment_url( $attach_id );
+			}
+	
+		}
+	
+		if (!empty($aAttachIds))
+		{
+			update_post_meta($post_id,'_product_image_gallery', implode(',', $aAttachIds));
+		}
+	}
+	
+	if ($aData['custom_order_photocakepic'])
+	{
+		$attach_id = attachImageToProduct ($aData['custom_order_photocakepic'], $post_id);
+		$aData['custom_order_photocakepic'] = wp_get_attachment_url( $attach_id );
+	}
+	
+	return $post_id;
+}
+
 add_action('wp_ajax_nopriv_submit_form_order', 'submit_form_order');
 add_action('wp_ajax_submit_form_order', 'submit_form_order');
 function submit_form_order(){
@@ -375,194 +572,142 @@ function submit_form_order(){
 
 	if (!$errors->get_error_code())
 	{
-		// Create Custom Product
-		$post = array(
-			'post_author' => 1,
-			'post_content' => '',
-			'post_status' => "private",
-			'post_title' => 'Custom Order Product',
-			'post_parent' => '',
-			'post_type' => "product",
-		);
-
-		//Create post
-		$post_id = wp_insert_post( $post, $wp_error );
-		if($post_id){
-			$attach_id = get_post_meta($product->parent_id, "_thumbnail_id", true);
-			add_post_meta($post_id, '_thumbnail_id', $attach_id);
+		if (!defined('WOOCOMMERCE_CHECKOUT'))
+		{
+			define('WOOCOMMERCE_CHECKOUT', 1);
 		}
-
-		wp_set_object_terms($post_id, 'simple', 'product_type');
-		update_post_meta( $post_id, '_visibility', 'hidden' );
-		update_post_meta( $post_id, '_stock_status', 'instock');
-		update_post_meta( $post_id, '_downloadable', 'no');
-		update_post_meta( $post_id, '_virtual', 'no');
-		update_post_meta( $post_id, '_featured', "no" );
-		update_post_meta( $post_id, 'is_custom_order_product', 1);
-		update_post_meta( $post_id, '_manage_stock', "no" );
-		update_post_meta( $post_id, '_backorders', "no" );
-
+		
+		WC()->cart->calculate_totals();
+		$checkOut = new WC_Checkout();
+		$checkOut->shipping_methods = (array) WC()->session->get( 'chosen_shipping_methods' );
+		
 		$aData = array();
-		foreach ( $_SESSION['cake_custom_order'] as $step => $cakeStepData )
-		{
-			foreach ( $cakeStepData as $fieldName => $fieldValue )
-			{
-				if ( strpos($fieldName, 'custom_order_') !== false )
-				{
-					$aData[$fieldName] = $fieldValue;
-				}
-			}
-		}// Get price
-		//@TODO add price
-		$totalPriceIncluded = $totalPrice = calculateCustomOrderPrice($aData);
-		
-		//@TODO add tax fee and shipping fee
-		
-		update_post_meta( $post_id, '_regular_price', $totalPrice );
-		update_post_meta( $post_id, '_sale_price', $totalPrice );
-		update_post_meta( $post_id, '_price', $totalPrice );
-
-		// Add images if exists
-		if (is_array($aData['custom_order_cakePic']) && !empty($aData['custom_order_cakePic']))
-		{
-			$aAttachIds = array();
-			$aAttachUrl = array();
-			foreach ($aData['custom_order_cakePic'] as $image)
-			{
-				$attach_id = attachImageToProduct ($image, $post_id, true);
-				if ($attach_id)
-				{
-					$aAttachIds[] = $attach_id;
-					$aAttachUrl[] =   wp_get_attachment_url( $attach_id );
-				}
-
-			}
-				
-			if (!empty($aAttachIds))
-			{
-				update_post_meta($post_id,'_product_image_gallery', implode(',', $aAttachIds));
-			}
-		}
-		
-		if ($aData['custom_order_photocakepic'])
-		{
-			$attach_id = attachImageToProduct ($aData['custom_order_photocakepic'], $post_id);
-			$aData['custom_order_photocakepic'] = wp_get_attachment_url( $attach_id );
-		}
-		
+		$product_id = calculateProductCart($aData);
 		$userID = (int) get_current_user_id();
-
-		$order = wc_create_order();
-		$order->add_product( get_product( $post_id ), 1 ); //(get_product with id and next is for quantity)
 		
-		// Create Custom Order
-		$billing_address = array(
-			'first_name' => $aData['custom_order_customer_name_first'] ? $aData['custom_order_customer_name_first'] : get_user_meta( $userID, 'billing_first_name', true ),
-			'last_name'  => $aData['custom_order_customer_name_last'] ? $aData['custom_order_customer_name_last'] : get_user_meta( $userID, 'billing_last_name', true ),
-			'first_name_kana' => $aData['custom_order_customer_name_first_kana'] ? $aData['custom_order_customer_name_first_kana'] : get_user_meta( $userID, 'billing_first_name_kana', true ),
-			'last_name_kana'  => $aData['custom_order_customer_name_last_kana'] ? $aData['custom_order_customer_name_last_kana'] : get_user_meta( $userID, 'billing_last_name_kana', true ),
-			'company'    => get_user_meta($userID, 'company', true),
-			'email'      => $aData['custom_order_customer_email'] ? $aData['custom_order_customer_email'] : get_user_meta( $userID, 'billing_email', true ),
-			'phone'      => $aData['custom_order_customer_tel'] ? $aData['custom_order_customer_tel'] : get_user_meta( $userID, 'billing_tel', true ),
-			'address_1'  => get_user_meta( $userID, 'billing_address_1', true ),
-			'address_2'  => get_user_meta( $userID, 'billing_address_2', true ),
-			'city'       => get_user_meta( $userID, 'billing_city', true ),
-			'state'      => get_user_meta( $userID, 'billing_state', true ),
-			'postcode'   => get_user_meta( $userID, 'billing_postcode', true ),
-			'country'    => 'JP',
-		);
+		$totalPrice = WC()->instance()->cart->total;
 		
-		$shipping_address = array(
-			'last_name' => $aData['custom_order_deliver_name'] ? $aData['custom_order_deliver_name'] : get_user_meta( $userID, 'shipping_last_name', true ),
-			'first_name'  => $aData['custom_order_deliver_storename'] ? $aData['custom_order_deliver_storename'] : get_user_meta( $userID, 'shipping_first_name', true ),
-			'company'    => $aData['custom_order_deliver_cipname'] ? $aData['custom_order_deliver_cipname'] : get_user_meta( $userID, 'shipping_company', true ),
-			'email'      => $aData['custom_order_customer_email'] ,
-			'phone'      => $aData['custom_order_deliver_tel'] ? $aData['custom_order_deliver_tel'] : get_user_meta( $userID, 'shipping_phone', true ),
-			'address_1'  => $aData['custom_order_deliver_addr1'] ? $aData['custom_order_deliver_addr1'] : get_user_meta( $userID, 'shipping_address_1', true ),
-			'address_2'  => $aData['custom_order_deliver_addr2'] ? $aData['custom_order_deliver_addr2'] : get_user_meta( $userID, 'shipping_address_2', true ),
-			'city'       => $aData['custom_order_deliver_city'] ? $aData['custom_order_deliver_city'] : get_user_meta( $userID, 'shipping_city', true ),
-			'state'      => $aData['custom_order_deliver_pref'] ? $aData['custom_order_deliver_pref'] : get_user_meta( $userID, 'shipping_state', true ),
-			'postcode'   => $aData['custom_order_deliver_postcode'] ? $aData['custom_order_deliver_postcode'] : get_user_meta( $userID, 'shipping_postcode', true ),
-			'country'    => 'JP',
-		);
+		$order_id = $checkOut->create_order();
 		
-		$order->set_address( $billing_address, 'billing' );
-		$order->set_address( $shipping_address, 'shipping' );
-		$order->calculate_totals();
-
-		$orderDetail = new WC_Order( $order->id );
-
-		$items = $orderDetail->get_items();
-		$item_keys = array_keys($items);
-		wc_add_order_item_meta($item_keys[0], '_order_type', KITT_CUSTOM_ORDER);
-
-		update_post_meta( $order->id, '_payment_method', 'other_payment' );
-		update_post_meta( $order->id, '_payment_method_title', 'Waiting Payment' );
-		update_post_meta( $order->id, '_customer_user', get_current_user_id() );
-		update_post_meta( $order->id, '_order_total', $totalPriceIncluded );
-		
-
-		// Delete notes
-		global $wpdb;
-		$posts_table = $wpdb->posts;
-		$query = "DELETE FROM ". $wpdb->comments ." WHERE comment_post_ID = " .$order->id;
-		$wpdb->query($query);
-
-		// Update custom field for order
-		foreach ($aData as $fieldName => &$fieldValue)
+		if (!$order_id)
 		{
-			if (is_array($fieldValue)) {
-				if ($fieldName == 'custom_order_cakePic')
-				{
-					$fieldValue = implode(PHP_EOL, $aAttachUrl);
+			$errors->add( 'create_order_error', __("<strong>ERROR</strong>: Can not create order, please refresh and do gain"), 'cake' );
+		}
+		else {
+			// update product status to private
+			wp_update_post(array(
+				'ID'    =>  $product_id,
+				'post_status'   =>  'private'
+			));
+				
+			$order = wc_get_order( $order_id );
+			
+			// Create Custom Order
+			$billing_address = array(
+				'first_name' => $aData['custom_order_customer_name_first'] ? $aData['custom_order_customer_name_first'] : get_user_meta( $userID, 'billing_first_name', true ),
+				'last_name'  => $aData['custom_order_customer_name_last'] ? $aData['custom_order_customer_name_last'] : get_user_meta( $userID, 'billing_last_name', true ),
+				'first_name_kana' => $aData['custom_order_customer_name_first_kana'] ? $aData['custom_order_customer_name_first_kana'] : get_user_meta( $userID, 'billing_first_name_kana', true ),
+				'last_name_kana'  => $aData['custom_order_customer_name_last_kana'] ? $aData['custom_order_customer_name_last_kana'] : get_user_meta( $userID, 'billing_last_name_kana', true ),
+				'company'    => get_user_meta($userID, 'company', true),
+				'email'      => $aData['custom_order_customer_email'] ? $aData['custom_order_customer_email'] : get_user_meta( $userID, 'billing_email', true ),
+				'phone'      => $aData['custom_order_customer_tel'] ? $aData['custom_order_customer_tel'] : get_user_meta( $userID, 'billing_tel', true ),
+				'address_1'  => get_user_meta( $userID, 'billing_address_1', true ),
+				'address_2'  => get_user_meta( $userID, 'billing_address_2', true ),
+				'city'       => get_user_meta( $userID, 'billing_city', true ),
+				'state'      => get_user_meta( $userID, 'billing_state', true ),
+				'postcode'   => get_user_meta( $userID, 'billing_postcode', true ),
+				'country'    => 'JP',
+			);
+			
+			$shipping_address = array(
+				'last_name' => $aData['custom_order_deliver_name'] ? $aData['custom_order_deliver_name'] : get_user_meta( $userID, 'shipping_last_name', true ),
+				'first_name'  => $aData['custom_order_deliver_storename'] ? $aData['custom_order_deliver_storename'] : get_user_meta( $userID, 'shipping_first_name', true ),
+				'company'    => $aData['custom_order_deliver_cipname'] ? $aData['custom_order_deliver_cipname'] : get_user_meta( $userID, 'shipping_company', true ),
+				'email'      => $aData['custom_order_customer_email'] ,
+				'phone'      => $aData['custom_order_deliver_tel'] ? $aData['custom_order_deliver_tel'] : get_user_meta( $userID, 'shipping_phone', true ),
+				'address_1'  => $aData['custom_order_deliver_addr1'] ? $aData['custom_order_deliver_addr1'] : get_user_meta( $userID, 'shipping_address_1', true ),
+				'address_2'  => $aData['custom_order_deliver_addr2'] ? $aData['custom_order_deliver_addr2'] : get_user_meta( $userID, 'shipping_address_2', true ),
+				'city'       => $aData['custom_order_deliver_city'] ? $aData['custom_order_deliver_city'] : get_user_meta( $userID, 'shipping_city', true ),
+				'state'      => $aData['custom_order_deliver_pref'] ? $aData['custom_order_deliver_pref'] : get_user_meta( $userID, 'shipping_state', true ),
+				'postcode'   => $aData['custom_order_deliver_postcode'] ? $aData['custom_order_deliver_postcode'] : get_user_meta( $userID, 'shipping_postcode', true ),
+				'country'    => 'JP',
+			);
+			
+			$order->set_address( $billing_address, 'billing' );
+			$order->set_address( $shipping_address, 'shipping' );
+	
+			$shipping_items = $order->get_shipping_methods();
+			wc_update_order_item_meta( key($shipping_items), 'cost', WC()->cart->shipping_total );
+	
+			update_post_meta( $order->id, '_payment_method', 'other_payment' );
+			update_post_meta( $order->id, '_payment_method_title', 'Waiting Payment' );
+			update_post_meta( $order->id, '_customer_user', get_current_user_id() );
+			update_post_meta( $order->id, '_order_total', $totalPrice );
+			
+	
+			// Delete notes
+			global $wpdb;
+			$posts_table = $wpdb->posts;
+			$query = "DELETE FROM ". $wpdb->comments ." WHERE comment_post_ID = " .$order->id;
+			$wpdb->query($query);
+	
+			// Update custom field for order
+			foreach ($aData as $fieldName => &$fieldValue)
+			{
+				if (is_array($fieldValue)) {
+					if ($fieldName == 'custom_order_cakePic')
+					{
+						$fieldValue = implode(PHP_EOL, $aAttachUrl);
+					}
 				}
 			}
+	
+			// Update order detail to meta
+			update_post_meta($order->id, 'cake_custom_order', $aData);
+	
+			$userID     = (int) get_current_user_id();
+			update_user_meta($userID, 'first_name', get_user_meta($userID, 'first_name', true) ? get_user_meta($userID, 'first_name', true) : $aData['custom_order_customer_name_first']);
+			update_user_meta($userID, 'last_name', get_user_meta($userID, 'last_name', true) ? get_user_meta($userID, 'last_name', true) : $aData['custom_order_customer_name_last']);
+			update_user_meta($userID, 'first_name_kana', get_user_meta($userID, 'first_name_kana', true) ? get_user_meta($userID, 'first_name_kana', true) : $aData['custom_order_customer_name_first_kana']);
+			update_user_meta($userID, 'last_name_kana', get_user_meta($userID, 'last_name_kana', true) ? get_user_meta($userID, 'last_name_kana', true) : $aData['custom_order_customer_name_last_kana']);
+			update_user_meta($userID, 'tel', get_user_meta($userID, 'tel', true) ? get_user_meta($userID, 'tel', true) : $aData['custom_order_customer_tel']);
+			
+			update_user_meta($userID, 'billing_email', get_user_meta($userID, 'billing_email', true) ? get_user_meta($userID, 'billing_email', true) : $billing_address['email']);
+			update_user_meta($userID, 'billing_phone', get_user_meta($userID, 'billing_phone', true) ? get_user_meta($userID, 'billing_phone', true) : $billing_address['phone']);
+			update_user_meta($userID, 'billing_state', get_user_meta($userID, 'billing_state', true) ? get_user_meta($userID, 'billing_state', true) : $billing_address['state']);
+			update_user_meta($userID, 'billing_city', get_user_meta($userID, 'billing_city', true) ? get_user_meta($userID, 'billing_city', true) : $billing_address['city']);
+			update_user_meta($userID, 'billing_country', get_user_meta($userID, 'billing_country', true) ? get_user_meta($userID, 'billing_country', true) : 'JP');
+			update_user_meta($userID, 'billing_postcode', get_user_meta($userID, 'billing_postcode', true) ? get_user_meta($userID, 'billing_postcode', true) : $billing_address['postcode']);
+			update_user_meta($userID, 'billing_address_1', get_user_meta($userID, 'billing_address_1', true) ? get_user_meta($userID, 'billing_address_1', true) : $billing_address['address_1']);
+			update_user_meta($userID, 'billing_address_2', get_user_meta($userID, 'billing_address_2', true) ? get_user_meta($userID, 'billing_address_2', true) : $billing_address['address_2']);
+			update_user_meta($userID, 'billing_company', get_user_meta($userID, 'billing_company', true) ? get_user_meta($userID, 'billing_company', true) : get_user_meta($userID, 'company', true));
+			update_user_meta($userID, 'billing_first_name', get_user_meta($userID, 'billing_first_name', true) ? get_user_meta($userID, 'billing_first_name', true) : get_user_meta($userID, 'first_name', true));
+			update_user_meta($userID, 'billing_last_name', get_user_meta($userID, 'billing_last_name', true) ? get_user_meta($userID, 'billing_last_name', true) : get_user_meta($userID, 'last_name', true));
+			update_user_meta($userID, 'billing_first_name_kana', get_user_meta($userID, 'billing_first_name_kana', true) ? get_user_meta($userID, 'billing_first_name_kana', true) : get_user_meta($userID, 'first_name_kana', true));
+			update_user_meta($userID, 'billing_last_name_kana', get_user_meta($userID, 'billing_last_name_kana', true) ? get_user_meta($userID, 'billing_last_name_kana', true) : get_user_meta($userID, 'last_name_kana', true));
+			
+			update_user_meta($userID, 'shipping_state', get_user_meta($userID, 'shipping_state', true) ? get_user_meta($userID, 'shipping_state', true) : $shipping_address['state']);
+			update_user_meta($userID, 'shipping_country', get_user_meta($userID, 'shipping_country', true) ? get_user_meta($userID, 'shipping_country', true) : 'JP');
+			update_user_meta($userID, 'shipping_postcode', get_user_meta($userID, 'shipping_postcode', true) ? get_user_meta($userID, 'shipping_postcode', true) : $shipping_address['postcode']);
+			update_user_meta($userID, 'shipping_city', get_user_meta($userID, 'shipping_city', true) ? get_user_meta($userID, 'shipping_city', true) : $shipping_address['city']);
+			update_user_meta($userID, 'shipping_address_1', get_user_meta($userID, 'shipping_address_1', true) ? get_user_meta($userID, 'shipping_address_1', true) : $shipping_address['address_1']);
+			update_user_meta($userID, 'shipping_address_2', get_user_meta($userID, 'shipping_address_2', true) ? get_user_meta($userID, 'shipping_address_2', true) : $shipping_address['address_2']);
+			update_user_meta($userID, 'shipping_company', get_user_meta($userID, 'shipping_company', true) ? get_user_meta($userID, 'shipping_company', true) : $shipping_address['company']);
+			update_user_meta($userID, 'shipping_first_name', get_user_meta($userID, 'shipping_first_name', true) ? get_user_meta($userID, 'shipping_first_name', true) : $shipping_address['first_name']);
+			update_user_meta($userID, 'shipping_last_name', get_user_meta($userID, 'shipping_last_name', true) ? get_user_meta($userID, 'shipping_last_name', true) : $shipping_address['last_name']);
+			update_user_meta($userID, 'shipping_phone', get_user_meta($userID, 'shipping_phone', true) ? get_user_meta($userID, 'shipping_phone', true) : $shipping_address['phone']);
+			update_user_meta($userID, 'shipping_company', get_user_meta($userID, 'shipping_company', true) ? get_user_meta($userID, 'shipping_company', true) : $shipping_address['company']);
+			
+			// Mark as on-hold (we're awaiting the payment)
+			$order->update_status('on-hold', __( 'Awaiting payment', 'woocommerce-other-payment-gateway' ));
+			$order->update_status('pending', __( 'Awaiting payment', 'woocommerce-other-payment-gateway' ));
+			
+			// Redirect to thank you page
+			$payment = new WC_Other_Payment_Gateway();
+			$redirect = $payment->get_return_url($order);
 		}
-
-		// Update order detail to meta
-		update_post_meta($order->id, 'cake_custom_order', $aData);
-
-		$userID     = (int) get_current_user_id();
-		update_user_meta($userID, 'first_name', get_user_meta($userID, 'first_name', true) ? get_user_meta($userID, 'first_name', true) : $aData['custom_order_customer_name_first']);
-		update_user_meta($userID, 'last_name', get_user_meta($userID, 'last_name', true) ? get_user_meta($userID, 'last_name', true) : $aData['custom_order_customer_name_last']);
-		update_user_meta($userID, 'first_name_kana', get_user_meta($userID, 'first_name_kana', true) ? get_user_meta($userID, 'first_name_kana', true) : $aData['custom_order_customer_name_first_kana']);
-		update_user_meta($userID, 'last_name_kana', get_user_meta($userID, 'last_name_kana', true) ? get_user_meta($userID, 'last_name_kana', true) : $aData['custom_order_customer_name_last_kana']);
-		update_user_meta($userID, 'tel', get_user_meta($userID, 'tel', true) ? get_user_meta($userID, 'tel', true) : $aData['custom_order_customer_tel']);
-		
-		update_user_meta($userID, 'billing_email', get_user_meta($userID, 'billing_email', true) ? get_user_meta($userID, 'billing_email', true) : $billing_address['email']);
-		update_user_meta($userID, 'billing_phone', get_user_meta($userID, 'billing_phone', true) ? get_user_meta($userID, 'billing_phone', true) : $billing_address['phone']);
-		update_user_meta($userID, 'billing_state', get_user_meta($userID, 'billing_state', true) ? get_user_meta($userID, 'billing_state', true) : $billing_address['state']);
-		update_user_meta($userID, 'billing_city', get_user_meta($userID, 'billing_city', true) ? get_user_meta($userID, 'billing_city', true) : $billing_address['city']);
-		update_user_meta($userID, 'billing_country', get_user_meta($userID, 'billing_country', true) ? get_user_meta($userID, 'billing_country', true) : 'JP');
-		update_user_meta($userID, 'billing_postcode', get_user_meta($userID, 'billing_postcode', true) ? get_user_meta($userID, 'billing_postcode', true) : $billing_address['postcode']);
-		update_user_meta($userID, 'billing_address_1', get_user_meta($userID, 'billing_address_1', true) ? get_user_meta($userID, 'billing_address_1', true) : $billing_address['address_1']);
-		update_user_meta($userID, 'billing_address_2', get_user_meta($userID, 'billing_address_2', true) ? get_user_meta($userID, 'billing_address_2', true) : $billing_address['address_2']);
-		update_user_meta($userID, 'billing_company', get_user_meta($userID, 'billing_company', true) ? get_user_meta($userID, 'billing_company', true) : get_user_meta($userID, 'company', true));
-		update_user_meta($userID, 'billing_first_name', get_user_meta($userID, 'billing_first_name', true) ? get_user_meta($userID, 'billing_first_name', true) : get_user_meta($userID, 'first_name', true));
-		update_user_meta($userID, 'billing_last_name', get_user_meta($userID, 'billing_last_name', true) ? get_user_meta($userID, 'billing_last_name', true) : get_user_meta($userID, 'last_name', true));
-		update_user_meta($userID, 'billing_first_name_kana', get_user_meta($userID, 'billing_first_name_kana', true) ? get_user_meta($userID, 'billing_first_name_kana', true) : get_user_meta($userID, 'first_name_kana', true));
-		update_user_meta($userID, 'billing_last_name_kana', get_user_meta($userID, 'billing_last_name_kana', true) ? get_user_meta($userID, 'billing_last_name_kana', true) : get_user_meta($userID, 'last_name_kana', true));
-		
-		update_user_meta($userID, 'shipping_state', get_user_meta($userID, 'shipping_state', true) ? get_user_meta($userID, 'shipping_state', true) : $shipping_address['state']);
-		update_user_meta($userID, 'shipping_country', get_user_meta($userID, 'shipping_country', true) ? get_user_meta($userID, 'shipping_country', true) : 'JP');
-		update_user_meta($userID, 'shipping_postcode', get_user_meta($userID, 'shipping_postcode', true) ? get_user_meta($userID, 'shipping_postcode', true) : $shipping_address['postcode']);
-		update_user_meta($userID, 'shipping_city', get_user_meta($userID, 'shipping_city', true) ? get_user_meta($userID, 'shipping_city', true) : $shipping_address['city']);
-		update_user_meta($userID, 'shipping_address_1', get_user_meta($userID, 'shipping_address_1', true) ? get_user_meta($userID, 'shipping_address_1', true) : $shipping_address['address_1']);
-		update_user_meta($userID, 'shipping_address_2', get_user_meta($userID, 'shipping_address_2', true) ? get_user_meta($userID, 'shipping_address_2', true) : $shipping_address['address_2']);
-		update_user_meta($userID, 'shipping_company', get_user_meta($userID, 'shipping_company', true) ? get_user_meta($userID, 'shipping_company', true) : $shipping_address['company']);
-		update_user_meta($userID, 'shipping_first_name', get_user_meta($userID, 'shipping_first_name', true) ? get_user_meta($userID, 'shipping_first_name', true) : $shipping_address['first_name']);
-		update_user_meta($userID, 'shipping_last_name', get_user_meta($userID, 'shipping_last_name', true) ? get_user_meta($userID, 'shipping_last_name', true) : $shipping_address['last_name']);
-		update_user_meta($userID, 'shipping_phone', get_user_meta($userID, 'shipping_phone', true) ? get_user_meta($userID, 'shipping_phone', true) : $shipping_address['phone']);
-		update_user_meta($userID, 'shipping_company', get_user_meta($userID, 'shipping_company', true) ? get_user_meta($userID, 'shipping_company', true) : $shipping_address['company']);
-		
-		// Mark as on-hold (we're awaiting the payment)
-		$order->update_status('on-hold', __( 'Awaiting payment', 'woocommerce-other-payment-gateway' ));
-		$order->update_status('pending', __( 'Awaiting payment', 'woocommerce-other-payment-gateway' ));
-		
-		// Redirect to thank you page
-		$payment = new WC_Other_Payment_Gateway();
-		$redirect = $payment->get_return_url($order);
 	}
+	
 	$response = array('error' => (boolean)$errors->get_error_code(), 'message' => $errors->get_error_messages(), 'redirect' => $redirect);
 	echo json_encode($response);die;
 }
@@ -955,6 +1100,29 @@ function getOrderDetail($order_id = false) {
 	}
 	$divRow .= '</div>';
 	return $divRow;
+}
+
+function kitt_add_product_to_cart($product_id) {
+	$found = false;
+	//check if product already in cart
+	if ( sizeof( WC()->cart->get_cart() ) > 0 ) {
+		foreach ( WC()->cart->get_cart() as $cart_item_key => $values ) {
+			$_product = $values['data'];
+			if ( $_product->id == $product_id )
+				$found = true;
+		}
+		// if product not found, add it
+		if ( ! $found )
+			WC()->cart->add_to_cart( $product_id );
+	} else {
+		// if no products in cart, add it
+		wp_update_post(array(
+	        'ID'    =>  $product_id,
+	        'post_status'   =>  'publish'
+        ));
+		$product = new WC_Product($product_id);
+		WC()->cart->add_to_cart( $product_id );
+	}
 }
 
 function woocommerce_order_details_after_order_table_order_custom ($order){
