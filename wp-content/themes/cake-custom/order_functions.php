@@ -26,17 +26,21 @@ function getFormData(){
 			}
 		}
 	}
+	
 	return $aFormData;
 }
 function kitt_woocommerce_cart_calculate_fees()
 {
-	$aFormData = getFormData();
-
-	if ($aFormData['custom_order_shipping'] == 'delivery')
+	if ($_REQUEST['action'] == 'cake_steps_store' || $_REQUEST['action'] == 'submit_form_order')
 	{
-		// modify shipping fee base on city
-		//@TODO add fee for city 
-		WC()->cart->shipping_total = KITT_SHIPPING_CITY_1_FEE;
+		$aFormData = getFormData();
+	
+		if ($aFormData['custom_order_shipping'] == 'delivery')
+		{
+			// modify shipping fee base on city
+			//@TODO add fee for city 
+			WC()->cart->shipping_total = KITT_SHIPPING_CITY_1_FEE;
+		}
 	}
 }
 add_action( 'woocommerce_cart_calculate_fees', 'kitt_woocommerce_cart_calculate_fees', 10 );
@@ -70,8 +74,6 @@ function handle_file_upload(){
 	if(!function_exists('wp_handle_upload')){
 		require_once(ABSPATH . 'wp-admin/includes/file.php');
 	}
-
-	cleanTemporaryData();
 
 	$response = array();
 
@@ -482,7 +484,7 @@ function kitt_create_temporary_product(&$aData) {
 		'post_author' => 1,
 		'post_content' => '',
 		'post_status' => "private",
-		'post_title' => 'Custom Order Product',
+		'post_title' => KITT_TEMP_PRODUCT_NAME,
 		'post_parent' => '',
 		'post_type' => "product",
 	);
@@ -546,6 +548,9 @@ function submit_form_order(){
 	$redirect = '';
 	$errors = new WP_Error();
 
+	// Remove temporary data
+	cleanTemporaryData();
+	
 	//@TODO Validate required fields
 	// If not logged in -> error
 	if (!is_user_logged_in())

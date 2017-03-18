@@ -174,6 +174,32 @@ function cleanTemporaryData(){
 	$pastDate = date('Y-m-d',strtotime("-$pastDateNumber days"));
 	$upload_dir = wp_upload_dir();
 	
+	// Remove product created by custom order form but not completed the order
+	$args = array(
+		'post_status'      => 'publish',
+		'post_type'      => 'product',
+		'meta_query' => array(
+			array(
+				'key'     => 'is_custom_order_product',
+				'value'   => '1',
+				'compare' => '=',
+			),
+		),
+		'date_query'    => array(
+			'column'  => 'post_date',
+			'before'   => "-$pastDateNumber days"
+		)
+	);
+	
+	$remove_products = get_posts( $args );
+	if (!empty($remove_products))
+	{
+		foreach ($remove_products as $product)
+		{
+			wp_delete_post($product->ID);
+		}
+	}
+	
 	$tempFolders = array(
 		$upload_dir['basedir'] . '/temp/',
 	);
