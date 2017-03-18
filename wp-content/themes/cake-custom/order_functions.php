@@ -653,17 +653,17 @@ function getOrderDetail($order_id) {
 	);
 	
 	$aSeparateBlock = array(
-		'time_info_wraper' => 'custom_order_pickup_date',
-		'cake_info_wraper' => 'custom_order_cake_type',
+		'time_info_wraper col-xs-12' => 'custom_order_pickup_date',
+		'cake_info_wraper col-xs-12' => 'custom_order_cake_type',
 		'customer_info_wraper col-xs-6' => 'custom_order_customer_name_last',
 		'delivery_info_wraper col-xs-6' => 'custom_order_deliver_name',
 	);
 	
 	$aBlockInfo = array(
-		'time_info_wraper' => array(
+		'time_info_wraper col-xs-12' => array(
 			'label' => __('Time Info', 'cake')
 		),
-		'cake_info_wraper' => array(
+		'cake_info_wraper col-xs-12' => array(
 			'label' => __('Cake Info', 'cake')
 		),
 		'customer_info_wraper col-xs-6' => array(
@@ -676,7 +676,7 @@ function getOrderDetail($order_id) {
 	
 	$fieldMapping = getCustomFormFieldMapping();
 	$divRow = '';
-	$divRow .= '<div class="order-detail-custom-table">';
+	$divRow .= '<div class="order-detail-custom-table row">';
 	
 	$blockWraper = '';
 	$aDataKeys = array_keys($aData);
@@ -714,7 +714,7 @@ function getOrderDetail($order_id) {
 				if ($blockWraper)
 				{
 					$divRow .= '<div class="'.$blockWraper.'">';
-					$divRow .= '<h3>'. $aBlockInfo[$blockWraper]['label'] .'</h3>';
+					$divRow .= '<h3 class="col-xs-12">'. $aBlockInfo[$blockWraper]['label'] .'</h3>';
 					$blockWraper = '';
 				}
 				
