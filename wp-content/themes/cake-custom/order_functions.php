@@ -691,8 +691,14 @@ function getOrderDetail($order_id) {
 			$fieldValue = $fieldValue < 12 ? $fieldValue . ' AM' : $fieldValue . ' PM';
 		}
 		
+		$aClassxs4 = array(
+			'custom_order_cake_shape',
+			'custom_order_cakeflavor',
+			'custom_order_cake_type'
+		);
+		
 		//wrap col
-		if ( 'custom_order_cake_shape' == $fieldName || 'custom_order_cakeflavor' == $fieldName ) {
+		if ( in_array($fieldName, $aClassxs4) ) {
 			$classColname = 'col-xs-4';
 		} else {
 			$classColname = 'col-xs-12';
