@@ -177,7 +177,7 @@ function cake_steps_store(){
 
 			if ( in_array($fieldName, $aCartShowingItems) )
 			{
-				$fieldLabel = is_array($fieldMapping[$fieldName]['value']) ? $fieldMapping[$fieldName]['value'][$fieldValue] : $fieldValue;
+				$fieldLabel = is_array(@$fieldMapping[$fieldName]['value']) ? @$fieldMapping[$fieldName]['value'][$fieldValue] : $fieldValue;
 				switch ( $fieldName )
 				{
 					case 'custom_order_cake_type':
@@ -614,7 +614,55 @@ function getCustomFormFieldMapping(){
 	return $cake_type_fields;
 }
 
-function getOrderDetail($order_id) {
+function getDecorationGroup(){
+
+	$aDecoration = array(
+		'icingcookie' => array(
+			'custom_order_icingcookie_qty',
+			'custom_order_basecolor_text'	
+		),
+		'cupcake' => array(
+			'custom_order_cupcake_qty',
+			'custom_order_cpck_text'
+		),
+		'macaron' => array(
+			'custom_order_macaron_qty',
+			'custom_order_macaron_color'
+		),
+		'heartchoco' => array(
+		),
+		'fruit' => array(
+		),
+		'flower' => array(
+			'custom_order_flowercolor',
+		),
+		'print' => array(
+			'custom_order_photocakepic',
+		),
+		'candy' => array(
+			'custom_order_candy_text',
+		),
+		'figure' => array(
+			'custom_order_doll_text',
+		),
+		'sugarcoating' => array(
+		),
+	);
+	return $aDecoration;
+}
+
+function getDecorationOption(){
+	$aDecoration = getDecorationGroup();
+	$options = array();
+	foreach ($aDecoration as $decoration)
+	{
+		$options = array_merge($options, $decoration );
+	}
+	
+	return $options;
+}
+
+function getOrderDetail($order_id = false) {
 	if (!$order_id)
 	{
 		// Get from session during order form
@@ -669,12 +717,32 @@ function getOrderDetail($order_id) {
 	$divRow .= '<div class="order-detail-custom-table row">';
 	
 	$blockWraper = '';
-	$aDataKeys = array_keys($aData);
 
+	//Group Decoration
+	$aDecoration = getDecorationGroup();
+	$aDecoOptions = getDecorationOption();
+	
+	// move date time to first 
+	$aMoveFirst = array(
+		'custom_order_pickup_date' => $aData['custom_order_pickup_date'],
+		'custom_order_pickup_time' => $aData['custom_order_pickup_time'],
+	);
+	$aData = insertAtSpecificIndex($aData, $aMoveFirst, 0);
+	// move date time to first -- end
+	
+	// then get array keys
+	$aDataKeys = array_keys($aData);
+	
 	$indexItem = 0;
 	foreach ( $aData as $fieldName => $fieldValue )
 	{
 		$indexItem++;
+		
+		// Ignore, don't show main row as decoration options
+		if (in_array($fieldName, $aDecoOptions))
+		{
+			continue;
+		}
 		
 		$keyWraper = array_search($fieldName, $aSeparateBlock);
 		if ($keyWraper !== false)
@@ -795,6 +863,41 @@ function getOrderDetail($order_id) {
 						$fieldValue = $aCountrySates['states'][$fieldValue];
 					}
 					$divRow .= is_array(@$fieldMapping[$fieldName]['value'][$fieldValue]) ? $fieldMapping[$fieldName]['value'][$fieldValue] : (is_array(@$fieldMapping[$fieldName]['value']) ? $fieldMapping[$fieldName]['value'][$fieldValue] : $fieldValue);
+					
+					// Show decoration options next to main decoration
+					if ($fieldName == 'custom_order_cake_decorate')
+					{
+						$aDecoration = getDecorationGroup();
+						
+						foreach ($aDecoration as $decoVal => $aDeOptions)
+						{
+							if ($decoVal == $fieldValue)
+							{
+								foreach ($aDeOptions as $deOption)
+								{
+									if ('custom_order_photocakepic' == $deOption )
+									{
+										if (!$order_id)
+										{
+											$upload_dir = wp_upload_dir();
+											$temp_folder = $upload_dir['baseurl'] . '/temp/';
+									
+											if ( $aData[$deOption] )
+											{
+												$aData[$deOption] = $temp_folder . $aData[$deOption];
+											}
+										}
+										$aData[$deOption] = '<img style="max-width: 300px;" src="' . $aData[$deOption] . '" />';
+									}
+									
+									$divRow .= '<span class="decorate_option '.$deOption.'">
+													<span class="decorate_option_label">'.@$fieldMapping[$deOption]['field']['label'].'</span> 
+													<span class="decorate_option_value">'. $aData[$deOption] . '</span>
+												</span>';
+								}
+							}
+						}
+					}
 				}
 				$divRow .= '</div>'; //End right column
 				
