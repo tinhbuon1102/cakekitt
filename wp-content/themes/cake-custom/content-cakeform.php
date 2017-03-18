@@ -173,7 +173,7 @@ if ($inspired_pic)
 							<span class="display-table-cell pl-2"><?php echo __('Choose Size', 'cake')?></span>
 						</h4>
 						<div class="cake-size select-wrapper">
-							<select name="custom_order_cakesize_square" class="form-control select select-primary disable" data-toggle="select">
+							<select name="custom_order_cakesize_square" class="form-control select select-primary disable validate[required]" data-toggle="select">
 								<option value=""><?php echo __('Choose Size', 'cake')?></option>
 								<!--for round shape-->
 								<?php 
@@ -187,7 +187,7 @@ if ($inspired_pic)
 								<?php }?>
 							</select>
 							
-							<select name="custom_order_cakesize_round" class="form-control select select-primary" data-toggle="select">
+							<select name="custom_order_cakesize_round" class="form-control select select-primary validate[required]" data-toggle="select">
 								<option value=""><?php echo __('Choose Size', 'cake')?></option>
 								<!--for round shape-->
 								<?php 
