@@ -689,7 +689,7 @@ div#customer_login {
 	margin: 0;
 	text-align: center;
 }
-.order-detail-custom-table .col-xs-3 .form-row .label-div, .order-detail-custom-table .col-xs-3 .form-row .show-value {
+.order-detail-custom-table .col-xs-4 .form-row .label-div, .order-detail-custom-table .col-xs-4 .form-row .show-value {
     width: 100%;
     display: block;
 	text-align: center;
@@ -700,14 +700,30 @@ div#customer_login {
 .order-detail-custom-table .col-xs-4 .form-row .show-value {
     border: none;
 }
-.order-detail-custom-table .row .row.border-btm-gray {
+.order-detail-custom-table .row.first-child {
 	margin: 0;
     margin-bottom: 40px;
     padding-bottom: 20px;
     border-bottom: 3px solid #efefef;
 }
-.order-detail-custom-table .col-xs-4 .form-row i {
+.order-detail-custom-table .col-xs-4 .form-row .display-table-cell {
     display: inline-block;
+    width: 100%;
+    margin: 10px 0;
+}
+.order-detail-custom-table .col-xs-4 .show-value span {
+    padding: 0;
+}
+.order-detail-custom-table .col-xs-4 .show-value .round-img {
+    display: inline-block;
+    width: 100%;
+    margin: 10px 0;
+}
+.order-detail-custom-table .col-xs-4 .show-value .round-img img {
+    width: 60px;
+}
+.order-detail-custom-table .col-xs-4 .form-row .display-table-cell i {
+    font-size: 60px;
 }
 .order-detail-custom-table .show-value span {
     padding-left: 10px;
@@ -755,6 +771,9 @@ mark {
     background: rgb(250,219,229);
     background: rgba(250,219,229,.5);
 }
+.woocommerce table.shop_table th:first-child, .woocommerce table.shop_table td:first-child {
+    border-right: 1px solid #efefef;
+}
 .woocommerce-MyAccount-content > h2 {
     font-size: 24px;
     margin-bottom: 20px;
@@ -770,6 +789,19 @@ mark {
 p {
     font-size: inherit;
     line-height: inherit;
+}
+.woocommerce-checkout #payment {
+    background: none;
+    border-top: 1px solid rgba(0,0,0,.1);
+}
+#checkoutbox > .col-md-4 > .inner {
+    padding: 20px 0px;
+}
+table.woocommerce-checkout-review-order-table thead {
+    display: none;
+}
+#checkoutbox > .col-md-4 {
+    border: 1px solid rgba(1,1,1,.1);
 }
 .woocommerce td.product-name dl.variation dd {
     margin-top: 0;
