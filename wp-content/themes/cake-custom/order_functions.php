@@ -734,6 +734,13 @@ function getOrderDetail($order_id = false) {
 	$aDataKeys = array_keys($aData);
 	
 	$indexItem = 0;
+	
+	// Remove unessesary fields
+	if (isset($aData['custom_order_cakecolor_other']))
+	{
+		unset($aData['custom_order_cakecolor']);
+	}
+	
 	foreach ( $aData as $fieldName => $fieldValue )
 	{
 		$indexItem++;
@@ -862,6 +869,11 @@ function getOrderDetail($order_id = false) {
 						$aCountrySates = getCountryState();
 						$fieldValue = $aCountrySates['states'][$fieldValue];
 					}
+					
+					elseif($fieldName == 'custom_order_cakecolor_other') {
+						$fieldValue = '<span class="color-show" style="background:'.$fieldValue.'"></span>';
+					}
+					
 					$divRow .= is_array(@$fieldMapping[$fieldName]['value'][$fieldValue]) ? $fieldMapping[$fieldName]['value'][$fieldValue] : (is_array(@$fieldMapping[$fieldName]['value']) ? $fieldMapping[$fieldName]['value'][$fieldValue] : $fieldValue);
 					
 					// Show decoration options next to main decoration
