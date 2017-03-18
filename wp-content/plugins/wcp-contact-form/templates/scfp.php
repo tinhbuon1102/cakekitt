@@ -25,6 +25,7 @@
     }
     $content_classes = !empty($content_classes) ? ' '.implode(' ', $content_classes) : '';
 ?>
+<div id="notification_wraper">
 <?php if( !empty( $errors ) ): ?>
 <div class="scfp-form-error scfp-notifications<?php echo $content_classes;?>">
     <div class="scfp-form-notifications-content">
@@ -46,6 +47,7 @@
     <a class="scfp-form-notifications-close" title="Close" href="javascript:void(0);">x</a> 
 </div>
 <?php endif; ?>
+</div>
 <?php 
 $fields = SCFP()->getSettings()->getFieldsSettings();
 $typeOptions = $fields['61a5691189ac']['choices']['list'];
@@ -57,7 +59,7 @@ $typeOptions = $fields['61a5691189ac']['choices']['list'];
 <div class="scfp-form-content<?php echo $content_classes;?>">
 	<form class="scfp-form wpcf7-form" id="<?php echo $id;?>"  method="post" action=""<?php echo !empty($formSettings['html5_enabled']) ? '' : ' novalidate';?>>
         <input type="hidden" name="form_id" value="<?php echo $id;?>"/>
-        <input type="hidden" name="action" value="scfp-form-submit"/>
+        <input type="hidden" name="action" id="form_action" value="scfp-form-submit"/>
 		<div class="row">
 			<div class="col-sm-6">
 				<span class="wpcf7-form-control-wrap your-name">
@@ -104,7 +106,7 @@ $typeOptions = $fields['61a5691189ac']['choices']['list'];
 			</div>
 		</div>
 		<p>
-			<input type="submit" value="Send" class="wpcf7-form-control wpcf7-submit">
+			<input type="submit" value="Send" class="wpcf7-form-control wpcf7-submit" id="contact_form_submit_button">
 			<span class="ajax-loader"></span>
 		</p>
 		<div class="wpcf7-response-output wpcf7-display-none"></div>

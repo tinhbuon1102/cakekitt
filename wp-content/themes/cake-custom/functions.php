@@ -807,6 +807,68 @@ function kitt_custom_checkout_field_update_order_meta( $order_id )
 	}
 }
 
+add_action('wp_ajax_nopriv_wcp_contact_form_submit', 'wcp_contact_form_submit');
+add_action('wp_ajax_wcp_contact_form_submit', 'wcp_contact_form_submit');
+function wcp_contact_form_submit(){
+	$form = new SCFP_Form($_POST['form_id']);
+	$_POST['action'] = 'scfp-form-submit';
+	$form->submit($_POST);
+	
+	$errors = $form->getError();
+	$errorSettings = SCFP()->getSettings()->getErrorsSettings();
+	$fieldsSettings = SCFP()->getSettings()->getFieldsSettings();
+	$formSettings = SCFP()->getSettings()->getFormSettings();
+	$styleSettings = SCFP()->getSettings()->getStyleSettings();
+	$formData = $form->getData();
+	$notifications = $form->getNotifications();
+	
+	$button_position = !empty($formSettings['button_position']) ? $formSettings['button_position'] : 'left';
+	$no_border = !empty($styleSettings['no_border']) ? $styleSettings['no_border'] : '';
+	$no_background = !empty($styleSettings['no_background']) ? $styleSettings['no_background'] : '';
+	
+	$content_classes = array() ;
+	if (!empty($no_border)) {
+		$content_classes[] = "scfp-form-noborder";
+	}
+	if (!empty($no_background)) {
+		$content_classes[] = "scfp-form-nobackground";
+	}
+	if (!empty($formSettings['form_custom_css'])) {
+		$content_classes[] = $formSettings['form_custom_css'];
+	}
+	$content_classes = !empty($content_classes) ? ' '.implode(' ', $content_classes) : '';
+	
+	$aResponse = array();
+	ob_start();
+	if( !empty( $errors ) ) { 
+	?>
+	<div class="scfp-form-error scfp-notifications<?php echo $content_classes;?>">
+	    <div class="scfp-form-notifications-content">
+	        <?php foreach( $errors as $errors_key => $errors_value ): ?>
+	            <div class="scfp-error-item"><span><?php echo $fieldsSettings[$errors_key]['name'];?>:</span> <?php  echo $errorSettings['errors'][$errors_value ] ; ?></div>
+	        <?php endforeach; ?>
+	    </div>
+	    <a class="scfp-form-notifications-close" title="Close" href="#">x</a>
+	</div>
+	<?php } 
+	
+	if( !empty( $notifications ) ) { ?>
+	<div class="scfp-form-notification scfp-notifications<?php echo $content_classes;?>">
+	    <div class="scfp-form-notifications-content">
+	        <?php foreach( $notifications as $notification ): ?>
+	            <div class="scfp-notification-item"><?php echo $notification; ?></div>
+	        <?php endforeach; ?>
+	    </div>
+	    <a class="scfp-form-notifications-close" title="Close" href="javascript:void(0);">x</a> 
+	</div>
+	<?php }
+	$buffer = ob_get_contents();
+	ob_clean();
+	$aResponse['error'] = !empty($errors);
+	$aResponse['html'] = $buffer;
+	echo(json_encode($aResponse));
+	die();	
+}
 
 function insertAtSpecificIndex($array = [], $item = [], $position = 0) {
 	$previous_items = array_slice($array, 0, $position, true);

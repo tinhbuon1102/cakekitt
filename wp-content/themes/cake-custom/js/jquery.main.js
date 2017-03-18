@@ -365,4 +365,44 @@ $(function(){
    {
 	   initCustomOrderForm();
    }
+   
+   if ($('#contact_form_submit_button').length)
+   {
+	   $('body').on('click', '#contact_form_submit_button', function(e){
+		   e.preventDefault();
+		   var contact_form = $(this).closest('form');
+		   contact_form.find('#form_action').val('wcp_contact_form_submit');
+		   
+		   $('body').LoadingOverlay("show");
+		   $.ajax({
+	           url: gl_ajaxUrl,
+	           data: contact_form.serialize(), 
+	           method: 'POST',
+	           dataType: 'json',
+	           success: function(response){
+	        	   if (response.html)
+	        	   {
+	        		   $('#notification_wraper').html(response.html);
+	        	   }
+	        	   
+	        	   if (response.error)
+	        	   {
+	        		   $('#notification_wraper').addClass('form-error');
+	        	   }
+	        	   else {
+	        		   contact_form.find("input.wpcf7-text, textarea").val("");
+	        	   }
+	        	   
+	        	   $('html, body').animate({
+                       scrollTop: $('#notification_wraper').offset().top - $('.navbar-brand-cake').outerHeight() - 50
+                   }, 500);
+	        	   
+	        	   $('body').LoadingOverlay("hide");
+	           },
+	           error: function(response){
+	        	   $('body').LoadingOverlay("hide");
+	           }
+           });
+	   })
+   }
 });
