@@ -1014,7 +1014,9 @@ function getOrderDetail($order_id = false) {
 				//show size value next to shape value
 				elseif ( 'custom_order_cake_shape' == $fieldName ){
 					$fieldValueName = is_array(@$fieldMapping[$fieldName]['value'][$fieldValue]) ? $fieldMapping[$fieldName]['value'][$fieldValue] : (is_array(@$fieldMapping[$fieldName]['value']) ? $fieldMapping[$fieldName]['value'][$fieldValue] : $fieldValue);
-					$fieldCakeSize =  $fieldMapping['custom_order_cakesize_square']['field']['value'];
+					
+					//$cake_size_fields['custom_order_cakesize_square']['field'] = $csizevalue;
+					$fieldCakeSize =  $fieldMapping['custom_order_cakesize_square']['value'];
 					//$fieldValueCakeSize = 'show size here';
 					$divRow .= '<span class="shape-and-size">'.$fieldValueName.'/'.$fieldCakeSize.'</span>';
 				}
