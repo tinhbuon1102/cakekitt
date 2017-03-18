@@ -270,11 +270,16 @@ function cake_steps_store(){
 									<span class="display-table-cell pr-5 price-value">FREE</span>
 								</h5>';
 						break;
+						
+					case 'custom_order_shipping' :
+						// @TODO add shipping free and tax to cart and confirmation page
+						
+						break;
 				}
 			}
 		}
 	}
-
+	
 	$aResponse['cart_html'] = $cartHtml;
 	$aResponse['cart_total'] = showCakePrice($cartTotal);
 
@@ -517,7 +522,6 @@ function submit_form_order(){
 		// Update order detail to meta
 		update_post_meta($order->id, 'cake_custom_order', $aData);
 
-		//@TODO update account information
 		$userID     = (int) get_current_user_id();
 		update_user_meta($userID, 'first_name', get_user_meta($userID, 'first_name', true) ? get_user_meta($userID, 'first_name', true) : $aData['custom_order_customer_name_first']);
 		update_user_meta($userID, 'last_name', get_user_meta($userID, 'last_name', true) ? get_user_meta($userID, 'last_name', true) : $aData['custom_order_customer_name_last']);
@@ -525,7 +529,6 @@ function submit_form_order(){
 		update_user_meta($userID, 'last_name_kana', get_user_meta($userID, 'last_name_kana', true) ? get_user_meta($userID, 'last_name_kana', true) : $aData['custom_order_customer_name_last_kana']);
 		update_user_meta($userID, 'tel', get_user_meta($userID, 'tel', true) ? get_user_meta($userID, 'tel', true) : $aData['custom_order_customer_tel']);
 		
-		//@TODO Update shipping/billing info
 		update_user_meta($userID, 'billing_email', get_user_meta($userID, 'billing_email', true) ? get_user_meta($userID, 'billing_email', true) : $billing_address['email']);
 		update_user_meta($userID, 'billing_phone', get_user_meta($userID, 'billing_phone', true) ? get_user_meta($userID, 'billing_phone', true) : $billing_address['phone']);
 		update_user_meta($userID, 'billing_state', get_user_meta($userID, 'billing_state', true) ? get_user_meta($userID, 'billing_state', true) : $billing_address['state']);
@@ -890,7 +893,7 @@ function getOrderDetail($order_id = false) {
 							{
 								foreach ($aDeOptions as $deOption)
 								{
-									if ('custom_order_photocakepic' == $deOption )
+									if ('custom_order_photocakepic' == $deOption && $aData[$deOption])
 									{
 										if (!$order_id)
 										{
