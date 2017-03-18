@@ -186,10 +186,6 @@ function cake_steps_store(){
 						$attachment_id = get_option('categoryimage_' . $term_id);
 						$src = wp_get_attachment_image_src($attachment_id, 'thumbnail', false);
 
-						$cakeTypeImg = WPCustomCategoryImage::get_category_image(array(
-							'term_id' => $term_id,
-							'size' => 'thumbnail'
-						));
 						$cartHtml .= '
 							<h5 class="detail-row pt-1 pb-1" id="cart_' . $fieldName . '">
 								<span class="display-table-cell pr-2 cake-type-img">
@@ -692,9 +688,9 @@ function getOrderDetail($order_id) {
 		}
 		
 		$aClassxs4 = array(
+			'custom_order_cake_type',
 			'custom_order_cake_shape',
 			'custom_order_cakeflavor',
-			'custom_order_cake_type'
 		);
 		
 		//wrap col
@@ -727,13 +723,56 @@ function getOrderDetail($order_id) {
 				}
 				
 				
+				// wraper multiple columns
+				if ( in_array($fieldName, $aClassxs4) ) {
+					if (array_search($fieldName, $aClassxs4) === 0)
+					{
+						// start wraper
+						$startRowWraper = true;
+					}
+					else {
+						$startRowWraper = false;
+					}
+				} else {
+					$startRowWraper = true;
+				}
+				
+				if ($startRowWraper)
+				{
+					$divRow .= '<div class="row">';
+				}
+				// wrap colum xs4, xs12
 				$divRow .= '<div class="'.$classColname.'">';
+				
 				$divRow .= '<div class="form-row">';
 				$divRow .= '<div class="label-div">';
+				
 				$divRow .= $fieldName == 'custom_order_cake_type' ? __('Cake Type', 'cake') : $fieldMapping[$fieldName]['field']['label'];
 				$divRow .= '</div>';
 
 				$divRow .= '<div class="show-value">';
+				
+				// add icons
+				switch($fieldName)
+				{
+					case 'custom_order_cake_type':
+						$cakeTypeIndex = array_search($fieldValue, array_keys((array) $fieldMapping[$fieldName]['value']));
+						$term_id = $fieldMapping[$fieldName]['field'][$cakeTypeIndex]->term_id;
+						$attachment_id = get_option('categoryimage_' . $term_id);
+						$src = wp_get_attachment_image_src($attachment_id, 'thumbnail', false);
+				
+						$divRow .= '<span class="round-img"><img src="' . $src[0] . '" class="cake-row__img sb-1" /></span>';
+						break;
+							
+					case 'custom_order_cake_shape':
+						$divRow .= '<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_shape-'.$fieldValue.' size30 blk"></i></span>';
+						break;
+							
+					case 'custom_order_cakeflavor':
+						$divRow .= '<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_'.$fieldValue.' size30 blk"></i></span>';
+						break;
+				}
+				
 				if ( 'custom_order_cakePic' == $fieldName || 'custom_order_photocakepic' == $fieldName )
 				{
 					if (!$order_id)
@@ -762,6 +801,25 @@ function getOrderDetail($order_id) {
 				$divRow .= '</div>'; //End row 
 				
 				$divRow .= '</div>'; //End wrap column
+				
+				
+				if ( in_array($fieldName, $aClassxs4) ) {
+					if (array_search($fieldName, $aClassxs4) === count($aClassxs4) - 1)
+					{
+						// start wraper
+						$endRowWraper = true;
+					}
+					else {
+						$endRowWraper = false;
+					}
+				} else {
+					$endRowWraper = true;
+				}
+				
+				if ($endRowWraper)
+				{
+					$divRow .= '</div>';
+				}
 				
 				$keyWraper = array_search($aDataKeys[$indexItem], $aSeparateBlock);
 				if ($keyWraper !== false)
