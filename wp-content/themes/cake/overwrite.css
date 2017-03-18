@@ -750,6 +750,22 @@ div#customer_login {
 .order-detail-custom-table > div {
     margin-top: 20px;
 }
+/* woo shop order detail*/
+mark {
+    background: rgb(250,219,229);
+    background: rgba(250,219,229,.5);
+}
+.woocommerce-MyAccount-content > h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+.woocommerce table.shop_table {
+    border: none;
+    margin-bottom: 30px;
+}
+.woocommerce table.shop_table tr:nth-child(even) {
+    background: none;
+}
 /*cart page*/
 p {
     font-size: inherit;

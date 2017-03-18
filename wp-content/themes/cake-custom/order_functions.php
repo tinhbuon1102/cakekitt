@@ -647,6 +647,11 @@ function getOrderDetail($order_id) {
 	
 	if (!$aData || empty($aData)) return '';
 	
+	$aSeparateBlocks = array(
+		'row' => 'custom_order_pickup_date',
+		'row' => 'custom_order_cake_type',
+	);
+	
 	$aSeparateBlock = array(
 		'time_info_wraper' => 'custom_order_pickup_date',
 		'cake_info_wraper' => 'custom_order_cake_type',
