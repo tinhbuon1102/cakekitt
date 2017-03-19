@@ -42,6 +42,9 @@ jQuery(function($) {
 						$('[data-rangeslider]').val(currentHour).change();
 					}
 				}
+				else {
+					$('[data-rangeslider]').attr('min', 1);
+				}
 			}
 			
 
