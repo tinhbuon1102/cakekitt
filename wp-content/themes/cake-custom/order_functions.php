@@ -14,6 +14,13 @@ function kitt_woocommerce_hidden_order_itemmeta ($meta_array) {
 add_filter( 'woocommerce_hidden_order_itemmeta', 'kitt_woocommerce_hidden_order_itemmeta', 10, 3);
 
 
+add_action('wp','reset_custom_cart');
+function reset_custom_cart(){
+	if (!(defined('DOING_AJAX') && DOING_AJAX)) {
+		resetCustomCart();
+	}
+}
+
 function getFormData(){
 	$aFormData = array();
 	foreach ( $_SESSION['cake_custom_order'] as $step => $cakeStepData )

@@ -398,11 +398,22 @@ $(function(){
     	$('input[type="checkbox"]:checked, input[type="radio"]:checked').each(function(){
     		$(this).trigger('change');
     	});
+    	
     }
    if ($("form#omOrder").length)
    {
 	   initCustomOrderForm();
    }
+   
+   
+   //Trigger default calendar today
+   	if ($('div.calendar').length)
+	{
+	   setTimeout(function(){
+			$('.pignose-calendar-unit-active').trigger('click');
+		}, 300)
+	}
+	
    
    if ($('#contact_form_submit_button').length)
    {

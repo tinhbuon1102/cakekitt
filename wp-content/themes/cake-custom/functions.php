@@ -215,13 +215,6 @@ function register_cake_session(){
 		session_start();
 }
 
-add_action('wp','reset_custom_cart');
-function reset_custom_cart(){
-	if (!(defined('DOING_AJAX') && DOING_AJAX)) {
-		resetCustomCart();
-	}
-}
-
 function my_admin_enqueue( $hook ) {
 	wp_enqueue_script( 'admin_custom_script', get_stylesheet_directory_uri() . '/js/custom-admin.js' );
 }

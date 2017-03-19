@@ -29,7 +29,7 @@ jQuery( document ).ready(function() {
 				}
 				if ( _t.is( ':checkbox,:radio' ) ) {
 					wc_hcsa_settings.fields[_t.data( 'hcsaid' )] = _t.is(':checked');
-					_t.prop('checked', false);
+					//_t.prop('checked', false);
 				} else {
 					wc_hcsa_settings.fields[_t.data( 'hcsaid' )] = _t.val();
 					_t.val('');

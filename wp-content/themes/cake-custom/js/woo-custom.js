@@ -20,33 +20,3 @@ $(function() {
 	$('body.woocommerce-edit-address .woocommerce .woocommerce-MyAccount-content .woocommerce-Addresses.col2-set > .col-1').hide();
 	$('body.woocommerce-edit-address .woocommerce .woocommerce-MyAccount-content .woocommerce-Addresses.col2-set > .col-2').removeClass('col-2');
 });
-jQuery(window).load(function(){
-	if($('.woocommerce-checkout #shipping_method').length > 0){
-		$('.woocommerce-checkout #shipping_method li').each(function(){
-			if($(this).find('div').hasClass('checked')){
-				var shipping_mtd = $(this).find('label').text();
-				if(shipping_mtd != 'Local Pickup'){
-					$('#ship-to-different-address .icheckbox_square-pink').addClass('checked').css('display','none');
-					//$('#ship-to-different-address label').text('別の住所へ配送しますか').css('padding-left','0px');
-					$('#ship-to-different-address').text('Deliver Info');
-					$('.woocommerce-shipping-fields .shipping_address').css('display','block');
-				}
-			}
-		});
-	}
-});
-jQuery(document).ready(function(){
-	if($('.woocommerce-checkout #shipping_method').length > 0){
-		jQuery(".woocommerce-checkout #shipping_method li").click(function(){
-			if($(this).find('div').hasClass('checked')){
-				var shipping_mtd = $(this).find('label').text();
-				if(shipping_mtd != 'Local Pickup'){
-					$('#ship-to-different-address .icheckbox_square-pink').addClass('checked').css('display','none');
-					$('.woocommerce-shipping-fields .shipping_address').css('display','block');
-				}else{
-					$('.woocommerce-shipping-fields .shipping_address').css('display','none');
-				}
-			} 
-		});
-	}
-});

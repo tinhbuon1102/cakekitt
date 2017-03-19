@@ -30,12 +30,32 @@ jQuery(function($) {
 			}
 
 			$('#custom_order_pickup_date').val(chooseDate);
+			
+			if ($('[data-rangeslider]').length)
+			{
+				var currentHour = parseInt(moment().format("H")) + 1;
+				if (chooseDate == moment().format('YYYY-MM-DD'))
+				{
+					$('[data-rangeslider]').attr('min', currentHour);
+					$('[data-rangeslider]').val(currentHour).change();
+				}
+				else {
+					$('[data-rangeslider]').attr('min', 1);
+					$('[data-rangeslider]').val(9).change();
+				}
+			}
+			
+
+			$('[data-rangeslider]').rangeslider('update', true);
+
+			
 			$box.text(text);
 		}
 
 		// Default Calendar
 		$('.calendar').pignoseCalendar({
 			select: onClickHandler,
+			lang: 'jp',
 			disabledRanges: [
 				['1011-10-05', moment().subtract(1, 'days').format('YYYY-MM-DD')],
 			]
