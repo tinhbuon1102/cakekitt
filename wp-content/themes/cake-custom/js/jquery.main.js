@@ -76,7 +76,7 @@ $(function(){
             });
     	}
     	
-    	$('body').on('change', 'form#omOrder input[type="radio"], form#omOrder input[type="checkbox"], form#omOrder select', function(){
+    	$('body').on('change', 'form#omOrder input, form#omOrder select', function(){
     		showItemInCart();
     	});
     	
