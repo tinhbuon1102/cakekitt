@@ -796,6 +796,7 @@ function custom_woocommerce_billing_fields( $fields ) {
 //thank you page
 
 function kittwp_title_order_received( $text, $order ) {
+	if (!$order) return '';
 	foreach ( $order->get_items() as $item )
 	{
 		$_product = wc_get_product($item['product_id']);

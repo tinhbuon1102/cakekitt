@@ -77,7 +77,9 @@ if ($inspired_pic)
 							$terms = get_terms($cakeTypesArg); // Get all terms of a taxonomy
 							if ( $terms && !is_wp_error( $terms ) ){
 							?>	
-								<?php foreach ( $terms as $term_index => $term ) { ?>
+								<?php foreach ( $terms as $term_index => $term ) { 
+									if (strpos($term->slug, 'cake_type_') == false) continue;
+								?>
 									<li class="m-input__radio">
 										<input type="radio" name="custom_order_cake_type" id="<?php echo $term->slug?>" class="radio_input validate[required]" value="<?php echo $term->slug?>" <?php echo $_REQUEST['type'] == $term->slug ? 'checked' : ''?> >
 										<label for="<?php echo $term->slug?>" class="js-fixHeightChildText radio_label <?php echo $term->slug?>">

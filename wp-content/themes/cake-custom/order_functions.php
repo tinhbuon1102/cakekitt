@@ -791,15 +791,24 @@ function getCakesizeGroup(){
 	);
 	return $CakeSize;
 }
-function getCakeSizeOption(){
-	$CakeSize = getCakesizeGroup();
-	$CakeSizeValue = array();
-	foreach ($CakeSize as $CakeSizeValue)
-	{
-		$CakeSizeValue = $fieldMapping[$CakeSize]['value'];
-	}
+function getCakeSizeOption($shapeSelected, $aData){
+	$fieldMapping = getCustomFormFieldMapping();
 	
-	return $CakeSizeValue;
+	if (in_array($shapeSelected, getArrayRoundShape()))
+	{
+		foreach ($fieldMapping['custom_order_cakesize_round']['value'] as $sizeKey => $sizeVal)
+		{
+			if ($sizeVal == $aData['custom_order_cakesize_round'])
+				return $sizeVal;
+		}
+	}
+	else {
+		foreach ($fieldMapping['custom_order_cakesize_square']['value'] as $sizeKey => $sizeVal)
+		{
+			if ($sizeVal == $aData['custom_order_cakesize_square'])
+				return $sizeVal;
+		}
+	}
 }
 
 function getDecorationGroup(){
@@ -863,30 +872,113 @@ function getOrderDetail($order_id = false) {
 	
 	if (!$aData || empty($aData)) return '';
 	
-	$aSeparateBlocks = array(
-		'row' => 'custom_order_pickup_date',
-		'row' => 'custom_order_cake_type',
-	);
-	
-	$aSeparateBlock = array(
-		'time_info_wraper col-xs-12' => 'custom_order_pickup_date',
-		'cake_info_wraper col-xs-12' => 'custom_order_cake_type',
-		'customer_info_wraper col-xs-6' => 'custom_order_customer_name_last',
-		'delivery_info_wraper col-xs-6' => 'custom_order_deliver_name',
-	);
-	
-	$aBlockInfo = array(
-		'time_info_wraper col-xs-12' => array(
-			'label' => __('Time Info', 'cake')
+	$aDetailBlocks = array(
+		'time_info_wraper' => array(
+			'class' => 'col-xs-12',
+			'label' => __('Time Info', 'cake'),
+			'groups' => array(
+				array(
+					'custom_order_pickup_date' => array(
+						'class' => 'col-xs-12'
+					),
+					'custom_order_pickup_time' => array(
+						'class' => 'col-xs-12'
+					),
+				)
+			)
 		),
-		'cake_info_wraper col-xs-12' => array(
-			'label' => __('Cake Info', 'cake')
+		'cake_info_wraper' => array(
+			'class' => 'col-xs-12',
+			'label' => __('Cake Info', 'cake'),
+			'groups' => array(
+				array(
+					'custom_order_cake_type' => array(
+						'class' => 'col-xs-3'
+					),
+					'custom_order_cake_shape' => array(
+						'class' => 'col-xs-3'
+					),
+					'custom_order_cakeflavor' => array(
+						'class' => 'col-xs-3'
+					),
+					'custom_order_cakecolor' => array(
+						'class' => 'col-xs-3'
+					),
+				),
+				array(
+					'custom_order_msgplate' => array(
+						'class' => 'col-xs-12'
+					),
+					'custom_order_cake_decorate' => array(
+						'class' => 'col-xs-12'
+					),
+				)
+			)
 		),
-		'customer_info_wraper col-xs-6' => array(
-			'label' => __('Customer Info', 'cake')
+		
+		'customer_info_wraper' => array(
+			'class' => 'col-xs-6',
+			'label' => __('Customer Info', 'cake'),
+			'groups' => array(
+				array(
+					'custom_order_customer_name_last' => array(
+						'class' => 'col-xs-12'
+					),
+					'custom_order_customer_name_first' => array(
+						'class' => 'col-xs-12'
+					),
+					'custom_order_customer_name_last_kana' => array(
+						'class' => 'col-xs-12'
+					),
+					'custom_order_customer_name_first_kana' => array(
+						'class' => 'col-xs-12'
+					),
+					'custom_order_customer_tel' => array(
+						'class' => 'col-xs-12'
+					),
+					'custom_order_customer_email' => array(
+						'class' => 'col-xs-12'
+					),
+				)
+			)
 		),
-		'delivery_info_wraper col-xs-6' => array(
-			'label' => __('Delivery Info', 'cake')
+		'delivery_info_wraper' => array(
+			'class' => 'col-xs-6',
+			'label' => __('Delivery Info', 'cake'),
+			'groups' => array(
+				array(
+					'custom_order_shipping' => array(
+						'class' => 'col-xs-12'
+					),
+					'custom_order_deliver_name' => array(
+						'class' => 'col-xs-12'
+					),
+					'custom_order_deliver_storename' => array(
+						'class' => 'col-xs-12'
+					),
+					'custom_order_deliver_cipname' => array(
+						'class' => 'col-xs-12'
+					),
+					'custom_order_deliver_tel' => array(
+						'class' => 'col-xs-12'
+					),
+					'custom_order_deliver_postcode' => array(
+						'class' => 'col-xs-12'
+					),
+					'custom_order_deliver_pref' => array(
+						'class' => 'col-xs-12'
+					),
+					'custom_order_deliver_city' => array(
+						'class' => 'col-xs-12'
+					),
+					'custom_order_deliver_addr1' => array(
+						'class' => 'col-xs-12'
+					),
+					'custom_order_deliver_addr2' => array(
+						'class' => 'col-xs-12'
+					),
+				)
+			)
 		),
 	);
 	
@@ -900,17 +992,6 @@ function getOrderDetail($order_id = false) {
 	$aDecoration = getDecorationGroup();
 	$aDecoOptions = getDecorationOption();
 	
-	// move date time to first 
-	$aMoveFirst = array(
-		'custom_order_pickup_date' => $aData['custom_order_pickup_date'],
-		'custom_order_pickup_time' => $aData['custom_order_pickup_time'],
-	);
-	$aData = insertAtSpecificIndex($aData, $aMoveFirst, 0);
-	// move date time to first -- end
-	
-	// then get array keys
-	$aDataKeys = array_keys($aData);
-	
 	$indexItem = 0;
 	
 	// Remove unessesary fields
@@ -919,99 +1000,35 @@ function getOrderDetail($order_id = false) {
 		unset($aData['custom_order_cakecolor']);
 	}
 	
-	foreach ( $aData as $fieldName => $fieldValue )
+	foreach ($aDetailBlocks as $blockName => $blockContent)
 	{
-		$indexItem++;
+		$blockClass = $blockName . ' ' . $blockContent['class'];
+		$blockLabel = $blockContent['label'];
+		$blockGroups = $blockContent['groups'];
 		
-		// Ignore, don't show main row as decoration options
-		if (in_array($fieldName, $aDecoOptions))
+		$divRow .= '<div class="'.$blockClass.'"> <h3>'.$blockLabel.'</h3>';
+		foreach ($blockGroups as $blockGroup)
 		{
-			continue;
-		}
-		
-		$keyWraper = array_search($fieldName, $aSeparateBlock);
-		if ($keyWraper !== false)
-		{
-			$blockWraper = $keyWraper;
-		}
-		
-		if ( $fieldName == 'custom_order_pickup_time' )
-		{
-			$fieldValue = $fieldValue < 12 ? $fieldValue . ' AM' : $fieldValue . ' PM';
-		}
-		
-		$aClassxs4 = array(
-			'custom_order_cake_type',
-			'custom_order_cake_shape',
-			'custom_order_cakeflavor',
-			'custom_order_cakecolor',
-			'custom_order_cakecolor_other',
-		);
-		
-		//wrap col
-		if ( in_array($fieldName, $aClassxs4) ) {
-			$classColname = 'col-xs-3';
-		} else {
-			$classColname = 'col-xs-12';
-		}
-		
-		// If field name has text custom_order_ will be show
-		if ( strpos($fieldName, 'custom_order_') !== false )
-		{
-			if ($order_id && 'custom_order_cakePic' == $fieldName)
+			$divRow .= '<div class="row">'; // -- Start group row
+			foreach ($blockGroup as $fieldName => $blockVal)
 			{
-				$fieldValues = explode(PHP_EOL, $fieldValue);
-			}
-			else 
-			{
-				$fieldValues = (array) $fieldValue;
-			}
-			foreach ( $fieldValues as $fieldValue )
-			{
-				if($fieldValue == '' || $fieldValue === null) continue;
+				// Get field Label
+				$fieldLabel = $fieldName == 'custom_order_cake_type' ? __('Cake Type', 'cake') : $fieldMapping[$fieldName]['field']['label'];
+				$fieldValue = $aData[$fieldName];
 				
-				if ($blockWraper)
+				if (is_array($fieldValue))
 				{
-					$divRow .= '<div class="'.$blockWraper.'">';
-					$divRow .= '<h3>'. $aBlockInfo[$blockWraper]['label'] .'</h3>';
-					$blockWraper = '';
+					//
 				}
-				
-				
-				// wraper multiple columns
-				if ( in_array($fieldName, $aClassxs4) ) {
-					if (array_search($fieldName, $aClassxs4) === 0)
-					{
-						// start wraper
-						$startRowWraper = true;
-					}
-					else {
-						$startRowWraper = false;
-					}
-				} else {
-					$startRowWraper = true;
-				}
-				
-				if ($startRowWraper)
+				elseif (is_array($fieldMapping[$fieldName]) && is_array($fieldMapping[$fieldName]['value']) && isset($fieldMapping[$fieldName]['value'][$fieldValue]))
 				{
-					$divRow .= '<div class="row">';
+					$fieldValueName = $fieldMapping[$fieldName]['value'][$fieldValue];
 				}
-				// wrap colum xs4, xs12
-				$divRow .= '<div class="'.$classColname.'">';
-				
-				$divRow .= '<div class="form-row">';
-				//added kyoko
-				if ( 'custom_order_cakesize_square' == $fieldName || 'custom_order_cakesize_round' == $fieldName ){
-					
-				} else {
-				$divRow .= '<div class="label-div">';
-				$divRow .= $fieldName == 'custom_order_cake_type' ? __('Cake Type', 'cake') : $fieldMapping[$fieldName]['field']['label'];
-				$divRow .= '</div>';
+				else 
+				{
+					$fieldValueName = $fieldValue;
 				}
-
-				$divRow .= '<div class="show-value">';
-				
-				// add icons
+				// Get field Value
 				switch($fieldName)
 				{
 					case 'custom_order_cake_type':
@@ -1020,141 +1037,117 @@ function getOrderDetail($order_id = false) {
 						$attachment_id = get_option('categoryimage_' . $term_id);
 						$src = wp_get_attachment_image_src($attachment_id, 'thumbnail', false);
 				
-						$divRow .= '<span class="round-img"><img src="' . $src[0] . '" class="cake-row__img sb-1" /></span>';
+						$fieldValue = '<span class="round-img"><img src="' . $src[0] . '" class="cake-row__img sb-1" /></span><span class="value-text">'.$fieldValueName.'</span>';
 						break;
 							
 					case 'custom_order_cake_shape':
-						//$CakesizeValue = getCakesizeValue();
-						//$fieldValue = '<span class="shape-and-size">'.$fieldValue.'</span>';
-						$divRow .= '<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_shape-'.$fieldValue.' size30 blk"></i></span>';
+						$fieldCakeSize = getCakeSizeOption($fieldValue, $aData);	
+						$fieldValue = '<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_shape-'.$fieldValue.' size30 blk"></i></span>';
+						$fieldValue .= '<span class="shape-and-size">'.$fieldValueName.'/'.$fieldCakeSize.'</span>';
 						break;
 							
 					case 'custom_order_cakeflavor':
-						$divRow .= '<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_'.$fieldValue.' size30 blk"></i></span>';
+						$fieldValue = '<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_'.$fieldValue.' size30 blk"></i></span><span class="value-text">'.$fieldValueName.'</span>';
 						break;
-					//added kyoko
+						
 					case 'custom_order_cakecolor':
-						$divRow .= '<span class="display-table-cell pr-2"><span class="color-show color-choice head-custom color'.$fieldValue.'"></span></span>';
+						$fieldValue = '<span class="display-table-cell pr-2"><span class="color-show color-choice head-custom color'.$fieldValue.'"></span></span>';
 						break;
+						
 					case 'custom_order_cakecolor_other':
-						$divRow .= '<span class="display-table-cell pr-2"><span class="color-show color-choice head-custom color" style="background:'.$fieldValue.'";></span></span>';
+						$fieldValue = '<span class="display-table-cell pr-2"><span class="color-show color-choice head-custom color" style="background:'.$fieldValue.'";></span></span>';
 						break;
 					
-				}
-				
-				if ( 'custom_order_cakePic' == $fieldName || 'custom_order_photocakepic' == $fieldName )
-				{
-					if (!$order_id)
-					{
-						$upload_dir = wp_upload_dir();
-						$temp_folder = $upload_dir['baseurl'] . '/temp/';
-	
-						if ( $fieldValue )
+					case 'custom_order_cakePic':
+					case 'custom_order_photocakepic':
+						if (!$order_id)
 						{
-							$fieldValue = $temp_folder . $fieldValue;
+							$upload_dir = wp_upload_dir();
+							$temp_folder = $upload_dir['baseurl'] . '/temp/';
+						
+							if ( $fieldValue )
+							{
+								$fieldValue = $temp_folder . $fieldValue;
+							}
 						}
-					}
-					$divRow .= '<img style="max-width: 300px;" src="' . $fieldValue . '" />';
-				}
-				//added kyoko
-				elseif ( 'custom_order_cakesize_square' == $fieldName || 'custom_order_cakesize_round' == $fieldName ){
-						$divRow .= '<span class="size-data">'.$fieldValue.'</span>';
-				}
-				//show size value next to shape value
-				elseif ( 'custom_order_cake_shape' == $fieldName ){
-					$fieldValueName = is_array(@$fieldMapping[$fieldName]['value'][$fieldValue]) ? $fieldMapping[$fieldName]['value'][$fieldValue] : (is_array(@$fieldMapping[$fieldName]['value']) ? $fieldMapping[$fieldName]['value'][$fieldValue] : $fieldValue);
-					$fieldCakeSize = getCakeSizeOption();
-					$divRow .= '<span class="shape-and-size">'.$fieldValueName.'/'.$fieldCakeSize.'</span>';
-				}
-				else
-				{
-					if ($fieldName == 'custom_order_deliver_pref')
-					{
+						$fieldValue = '<img style="max-width: 300px;" src="' . $fieldValue . '" />';
+						break;
+							
+					case 'custom_order_deliver_pref':
 						$aCountrySates = getCountryState();
 						$fieldValue = $aCountrySates['states'][$fieldValue];
-					}
-					//commented kyoko
-					/*elseif($fieldName == 'custom_order_cakecolor' && $fieldValue) {
-						$fieldMapping[$fieldName]['value'][$fieldValue] = '<span class="color-show color-choice head-custom color'.$fieldValue.'"></span>';
-					}
-					
-					elseif($fieldName == 'custom_order_cakecolor_other' && $fieldValue) {
-						$fieldValue = '<span class="color-show" style="background:'.$fieldValue.'"></span>';
-					}*/
-					
-					$divRow .= is_array(@$fieldMapping[$fieldName]['value'][$fieldValue]) ? $fieldMapping[$fieldName]['value'][$fieldValue] : (is_array(@$fieldMapping[$fieldName]['value']) ? $fieldMapping[$fieldName]['value'][$fieldValue] : $fieldValue);
-					
-					// Show decoration options next to main decoration
+						break;
+						
+					default :
+						break;
+				}
+				
+				$divRow .= '<div class="'.$blockVal['class'].'">'; // -- Start group cols
 					if ($fieldName == 'custom_order_cake_decorate')
 					{
 						$aDecoration = getDecorationGroup();
 						
-						foreach ($aDecoration as $decoVal => $aDeOptions)
+						$fieldValues = $fieldValue;
+						$fieldValue = '';
+						foreach ($fieldValues as $decoreateMain)
 						{
-							if ($decoVal == $fieldValue)
+							foreach ($aDecoration as $decoVal => $aDeOptions)
 							{
-								foreach ($aDeOptions as $deOption)
+								if ($decoVal == $decoreateMain)
 								{
-									if ('custom_order_photocakepic' == $deOption && $aData[$deOption])
+									$divRowTmp = '';
+									$divRowTmp .= '<div class="form-row row-'.$fieldName.'">';
+									$divRowTmp .= '<div class="label-div">'.$fieldLabel.'</div>';
+									$divRowTmp .= '<div class="show-value">' . $fieldMapping[$fieldName]['value'][$decoreateMain];
+									
+									foreach ($aDeOptions as $deOption)
 									{
-										if (!$order_id)
+										if ('custom_order_photocakepic' == $deOption && $aData[$deOption])
 										{
-											$upload_dir = wp_upload_dir();
-											$temp_folder = $upload_dir['baseurl'] . '/temp/';
-									
-											if ( $aData[$deOption] )
+											if (!$order_id)
 											{
-												$aData[$deOption] = $temp_folder . $aData[$deOption];
+												$upload_dir = wp_upload_dir();
+												$temp_folder = $upload_dir['baseurl'] . '/temp/';
+													
+												if ( $aData[$deOption] )
+												{
+													$aData[$deOption] = $temp_folder . $aData[$deOption];
+												}
 											}
+											$aData[$deOption] = '<img style="max-width: 100px;" src="' . $aData[$deOption] . '" />';
 										}
-										$aData[$deOption] = '<img style="max-width: 100px;" src="' . $aData[$deOption] . '" />';
+											
+										if ($aData[$deOption]) {
+											$divRowTmp .= '<span class="decorate_option '.$deOption.'">
+																		<span class="decorate_option">'.@$fieldMapping[$deOption]['field']['label'].'</span>
+																		<span class="decorate_option_value">'. $aData[$deOption] . '</span>
+																	</span>';
+										}
+										else {
+											continue;
+										}
 									}
-									
-									if ($aData[$deOption]) {
-									$divRow .= '<span class="decorate_option '.$deOption.'">
-													<span class="decorate_option_label">'.@$fieldMapping[$deOption]['field']['label'].'</span> 
-													<span class="decorate_option_value">'. $aData[$deOption] . '</span>
-												</span>';
-									}
+									$divRowTmp .= '</div>'; // -- end show-value
+									$divRowTmp .= '</div>'; // -- end form-row
 								}
 							}
+							$divRow .= $divRowTmp;
 						}
 					}
-				}
-				$divRow .= '</div>'; //End right column
-				
-				$divRow .= '</div>'; //End row 
-				
-				$divRow .= '</div>'; //End wrap column
-				
-				
-				if ( in_array($fieldName, $aClassxs4) ) {
-					if (array_search($fieldName, $aClassxs4) === count($aClassxs4) - 1)
-					{
-						// start wraper
-						$endRowWraper = true;
-					}
 					else {
-						$endRowWraper = false;
+						$divRow .= '<div class="form-row row-'.$fieldName.'">';
+							$divRow .= '<div class="label-div">'.$fieldLabel.'</div>';
+							$divRow .= '<div class="show-value">'.$fieldValue.'</div>';
+						$divRow .= '</div>';
 					}
-				} else {
-					$endRowWraper = true;
-				}
-				
-				if ($endRowWraper)
-				{
-					$divRow .= '</div>';
-				}
-				
-				$keyWraper = array_search($aDataKeys[$indexItem], $aSeparateBlock);
-				if ($keyWraper !== false)
-				{
-					$divRow .= 'wrapendhere</div>'; //End info wraper block
-				}
-				
+					
+				$divRow .= '</div>'; // -- End group cols
 			}
+			$divRow .= '</div>'; // -- End group row
 		}
+		$divRow .= '</div>'; // --End block class div
 	}
+	
 	$divRow .= '</div>';
 	return $divRow;
 }
