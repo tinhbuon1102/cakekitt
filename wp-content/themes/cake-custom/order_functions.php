@@ -1051,11 +1051,15 @@ function getOrderDetail($order_id = false) {
 						break;
 						
 					case 'custom_order_cakecolor':
-						$fieldValue = '<span class="display-table-cell pr-2"><span class="color-show color-choice head-custom color'.$fieldValue.'"></span></span>';
-						break;
-						
-					case 'custom_order_cakecolor_other':
-						$fieldValue = '<span class="display-table-cell pr-2"><span class="color-show color-choice head-custom color" style="background:'.$fieldValue.'";></span></span>';
+						if (!$aData['custom_order_cakecolor_other'])
+						{
+							// This is normal color
+							$fieldValue = '<span class="display-table-cell pr-2"><span class="color-show color-choice head-custom color'.$fieldValue.'"></span></span>';
+						}
+						else {
+							// This is other color
+							$fieldValue = '<span class="display-table-cell pr-2"><span class="color-show color-choice head-custom color" style="background:'.$aData['custom_order_cakecolor_other'].'";></span></span>';
+						}
 						break;
 					
 					case 'custom_order_cakePic':
