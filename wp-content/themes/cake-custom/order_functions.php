@@ -959,19 +959,8 @@ function getOrderDetail($order_id = false) {
 						'class' => 'col-xs-12'
 					),
 					'custom_order_deliver_postcode' => array(
-						'class' => 'col-xs-12'
-					),
-					'custom_order_deliver_pref' => array(
-						'class' => 'col-xs-12'
-					),
-					'custom_order_deliver_city' => array(
-						'class' => 'col-xs-12'
-					),
-					'custom_order_deliver_addr1' => array(
-						'class' => 'col-xs-12'
-					),
-					'custom_order_deliver_addr2' => array(
-						'class' => 'col-xs-12'
+						'class' => 'col-xs-12',
+						'label' => __('Address', 'cake'),
 					),
 				)
 			)
@@ -1079,11 +1068,6 @@ function getOrderDetail($order_id = false) {
 						$fieldValue = '<img style="max-width: 300px;" src="' . $fieldValue . '" />';
 						break;
 							
-					case 'custom_order_deliver_pref':
-						$aCountrySates = getCountryState();
-						$fieldValue = $aCountrySates['states'][$fieldValue];
-						break;
-						
 					case 'custom_order_customer_name_last':
 						$fieldLabel = $blockVal['label'];
 						$fieldValue = $aData['custom_order_customer_name_last'] . $aData['custom_order_customer_name_first'];
@@ -1094,7 +1078,17 @@ function getOrderDetail($order_id = false) {
 						$fieldValue = $aData['custom_order_customer_name_last_kana'] . $aData['custom_order_customer_name_first_kana'];
 						break;
 						
+					case 'custom_order_deliver_postcode':
+						$aCountrySates = getCountryState();
+						
+						$fieldLabel = $blockVal['label'];
+						$fieldValue = '〒' . $aData['custom_order_deliver_postcode'] . '<br />' .
+								$aCountrySates['states'][$aData['custom_order_deliver_pref']] . $aData['custom_order_deliver_city'] .
+								$aData['custom_order_deliver_addr1'] . $aData['custom_order_deliver_addr2'];
+					case 'custom_order_cake_decorate' :
+						break;
 					default :
+						$fieldValue = $fieldValueName;
 						break;
 				}
 				
@@ -1192,6 +1186,14 @@ function kitt_add_product_to_cart($product_id) {
 }
 
 function woocommerce_order_details_after_order_table_order_custom ($order){
+	$orderDetail = new WC_Order( $order->id );
+	$items = $orderDetail->get_items();
+	$order_type = wc_get_order_item_meta( key($items), '_order_type');
+	// Do'nt show custom detail for normal order
+	if ($order_type == KITT_NORMAL_ORDER)
+	{
+		return '';
+	}
 ?>
 	<div class="custom_order_details">
 		<?php echo getOrderDetail($order->id); ?>
