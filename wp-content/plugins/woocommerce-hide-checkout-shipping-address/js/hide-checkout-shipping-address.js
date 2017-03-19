@@ -20,7 +20,7 @@ jQuery( document ).ready(function() {
 			wc_hcsa_settings.methods[m] = 'no';
 		}
 
-		if ( wc_hcsa_settings.methods[m] == 'yes' && s ) {
+		if ( wc_hcsa_settings.methods[m] == 'yes' ) {
 			t.find( ':input' ).each( function() {
 				var _t = jQuery( this );
 				if ( typeof _t.data( 'hcsaid' ) == 'undefined' ) {
@@ -45,7 +45,7 @@ jQuery( document ).ready(function() {
 				default:
 					t.slideUp( function() { t.addClass( 'shipping-fields-hidden' ); } );
 			}
-		} else if ( wc_hcsa_settings.methods[m] == 'no' && ! s ) {
+		} else if ( wc_hcsa_settings.methods[m] == 'no' ) {
 			jQuery('#ship-to-different-address-checkbox').prop('check');
 			jQuery('#ship-to-different-address-checkbox').iCheck('check');
 			jQuery('#ship-to-different-address-checkbox').change();
