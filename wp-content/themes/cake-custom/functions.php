@@ -579,9 +579,9 @@ function woocommerce_admin_shipping_fields_extra($fields){
 
 add_filter( 'woocommerce_admin_shipping_fields', 'woocommerce_admin_shipping_fields_label', 10, 1 );
 function woocommerce_admin_shipping_fields_label($fields){
-	$fields['shipping_last_name']['label'] = '宛名';
-	$fields['shipping_first_name']['label'] = '店舗名';
-	$fields['shipping_company']['label'] = '担当者名';
+	$fields['last_name']['label'] = '宛名';
+	$fields['first_name']['label'] = '店舗名';
+	$fields['company']['label'] = '担当者名';
 	return $fields;
 }
 
@@ -690,7 +690,15 @@ function woocommerce_admin_billing_fields_extra($fields){
 		'label' => __( '姓(ふりがな)', 'woocommerce' ),
 		'show'  => false
 	);
+	
 	$fields = insertAtSpecificIndex($fields, $fieldExtras, array_search('last_name', array_keys($fields)) + 1);
+	
+	$fields['last_name'] = array(
+		'label'     => __('姓', 'woocommerce'),
+	);
+	$fields['first_name'] = array(
+		'label'     => __('名', 'woocommerce'),
+	);
 	
 	unset($fields['company']);
 	unset($fields['address_1']);
