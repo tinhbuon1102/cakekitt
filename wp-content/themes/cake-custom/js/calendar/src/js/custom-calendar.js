@@ -37,11 +37,10 @@ jQuery(function($) {
 				if (chooseDate == moment().format('YYYY-MM-DD'))
 				{
 					$('[data-rangeslider]').attr('min', currentHour);
-					$('[data-rangeslider]').val(currentHour).change();
-				}
-				else {
-					$('[data-rangeslider]').attr('min', 1);
-					$('[data-rangeslider]').val(9).change();
+					if (parseInt($('[data-rangeslider]').val()) < currentHour)
+					{
+						$('[data-rangeslider]').val(currentHour).change();
+					}
 				}
 			}
 			
