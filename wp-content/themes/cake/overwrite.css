@@ -662,7 +662,81 @@ div#customer_login {
     margin-bottom: 20px;
 }
 .woocommerce-account .woocommerce-MyAccount-content, .woocommerce-account .woocommerce-MyAccount-navigation {
+	position: relative;
     padding: 0 15px;
+}
+/*dashboard*/
+.account-welcome {
+    margin-bottom: 30px;
+    padding-right: 230px;
+    word-break: break-all;
+}
+.account-box-content {
+    margin: 0 0 50px;
+    min-height: 80px;
+}
+.woocommerce-MyAccount-content h3.section-header {
+    font-size: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #222;
+}
+@media only screen and (max-width: 1357px) and (min-width: 768px) {
+.account-box-content {
+    margin-bottom: 30px;
+}
+.account-welcome {
+    margin-bottom: 34px;
+}
+}
+.account-logout {
+    position: absolute;
+    right: 15px;
+    top: 60px;
+}
+.button.simple, .buttonstyle.simple, .woocommerce .button.simple {
+    background-color: #fff;
+    color: #000;
+	border: 1px solid #000;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 17px;
+    letter-spacing: 1.1px;
+    line-height: .9;
+    padding: 10px;
+    text-align: center;
+    text-transform: uppercase;
+}
+.button.simple:hover, .buttonstyle.simple:hover, .woocommerce .button.simple:hover {
+	border-color: #000;
+	color: gray;
+	background: none;
+}
+.section-header-note {
+    text-decoration: underline;
+    float: right;
+    font-weight: 400;
+    text-transform: none;
+    color: gray;
+	font-size: 12px;
+}
+.account-logout .button {
+    width: 180px;
+}
+.account-box-image {
+	font-size: 60px;
+    float: left;
+    width: 100px;
+    height: 80px;
+    background-position: 0;
+    background-repeat: no-repeat;
+}
+.account-details .account-box-content p, .account-shipping-address .account-box-content p {
+    margin: 0 0 5px;
+	line-height: 1;
+	font-size: 12px;
+}
+.account-box-label, .account-box.account-order-history .label {
+    font-weight: bold;
 }
 /* order details*/
 h2.order-head-title {
