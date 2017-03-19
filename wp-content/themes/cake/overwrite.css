@@ -951,6 +951,16 @@ a:focus {
 }
 
 /* woo checkout page*/
+ul.notice {
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+	list-style-type: none;
+}
+ul.notice li {
+    line-height: 1.2;
+    padding: 5px 0;
+}
 .woocommerce-shipping-fields h3#ship-to-different-address {
     opacity: 0;
     height: 1px;

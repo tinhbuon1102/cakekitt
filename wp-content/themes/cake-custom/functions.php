@@ -815,6 +815,13 @@ add_filter( 'woocommerce_thankyou_order_received_text', 'kittwp_title_order_rece
 //shipping address checked
 add_filter( 'woocommerce_ship_to_different_address_checked', '__return_true' );
 
+//show notice for shipping
+function kitt_notice_shipping() {
+echo '<ul class="notice"><li>お届け先が商業施設の場合には必ず「ケーキの持ち込みが可能」であることをご確認ください。</li><li>お届け先にお客様が不在の場合は、必ず代理の方のお名前を担当者名としてご記入ください。</li><li>お届け後、ケーキのご利用まで長時間空いてしまう場合は、お届け先にケーキの収まる「冷蔵庫」があることをご確認ください。</li></ul>';
+}
+ 
+add_action( 'woocommerce_before_order_notes', 'kitt_notice_shipping' );
+
 //add birthday and sex for user account
 /**
  * Add new fields above 'Update' button.
