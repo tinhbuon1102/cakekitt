@@ -922,16 +922,12 @@ function getOrderDetail($order_id = false) {
 			'groups' => array(
 				array(
 					'custom_order_customer_name_last' => array(
-						'class' => 'col-xs-12'
-					),
-					'custom_order_customer_name_first' => array(
-						'class' => 'col-xs-12'
+						'class' => 'col-xs-12',
+						'label' => 'お名前'
 					),
 					'custom_order_customer_name_last_kana' => array(
-						'class' => 'col-xs-12'
-					),
-					'custom_order_customer_name_first_kana' => array(
-						'class' => 'col-xs-12'
+						'class' => 'col-xs-12',
+						'label' => 'ふりがな'
 					),
 					'custom_order_customer_tel' => array(
 						'class' => 'col-xs-12'
@@ -1058,7 +1054,8 @@ function getOrderDetail($order_id = false) {
 						}
 						else {
 							// This is other color
-							$fieldValue = '<span class="display-table-cell pr-2"><span class="color-show color-choice head-custom color" style="background:'.$aData['custom_order_cakecolor_other'].'";></span></span>';
+							$fieldValue = '<span class="display-table-cell pr-2"><span class="color-show color-choice head-custom color" style="background:'.$aData['custom_order_cakecolor_other'].'";></span></span>
+											<span class="value-text">'.$fieldMapping['custom_order_cakecolor']['value']['other'].'</span>';
 						}
 						break;
 					
@@ -1080,6 +1077,16 @@ function getOrderDetail($order_id = false) {
 					case 'custom_order_deliver_pref':
 						$aCountrySates = getCountryState();
 						$fieldValue = $aCountrySates['states'][$fieldValue];
+						break;
+						
+					case 'custom_order_customer_name_last':
+						$fieldLabel = $blockVal['label'];
+						$fieldValue = $aData['custom_order_customer_name_last'] . $aData['custom_order_customer_name_first'];
+						break;
+						
+					case 'custom_order_customer_name_last_kana':
+						$fieldLabel = $blockVal['label'];
+						$fieldValue = $aData['custom_order_customer_name_last_kana'] . $aData['custom_order_customer_name_first_kana'];
 						break;
 						
 					default :
