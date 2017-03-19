@@ -78,7 +78,7 @@ if ($inspired_pic)
 							if ( $terms && !is_wp_error( $terms ) ){
 							?>	
 								<?php foreach ( $terms as $term_index => $term ) { 
-									if (strpos($term->slug, 'cake_type_') == false) continue;
+									if (strpos($term->slug, 'cake_type_') === false) continue;
 								?>
 									<li class="m-input__radio">
 										<input type="radio" name="custom_order_cake_type" id="<?php echo $term->slug?>" class="radio_input validate[required]" value="<?php echo $term->slug?>" <?php echo $_REQUEST['type'] == $term->slug ? 'checked' : ''?> >
