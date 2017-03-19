@@ -951,6 +951,11 @@ a:focus {
 }
 
 /* woo checkout page*/
+.woocommerce-shipping-fields h3#ship-to-different-address {
+    opacity: 0;
+    height: 1px;
+    margin: 0;
+}
 .woocommerce div#customer_details .col-1, .woocommerce div#customer_details .col-2 {
     border: none;
     width: 100%;

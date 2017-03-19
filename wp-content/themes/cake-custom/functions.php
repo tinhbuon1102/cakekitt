@@ -795,6 +795,9 @@ function kittwp_title_order_received( $text, $order ) {
 }
 add_filter( 'woocommerce_thankyou_order_received_text', 'kittwp_title_order_received', 10, 2 );
 
+//shipping address checked
+add_filter( 'woocommerce_ship_to_different_address_checked', '__return_true' );
+
 //add birthday and sex for user account
 /**
  * Add new fields above 'Update' button.
