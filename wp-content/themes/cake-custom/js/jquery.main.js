@@ -55,7 +55,16 @@ $(function(){
                 		$('.cake-cart-sidebar #cart_items').append(response.cart_html);
                 		$('#cart_empty_block').addClass('disable');
                 		$('#cart_total_wraper').removeClass('disable');
-                		$('#shipping_fee .text-right h6').html(response.shipping_fee);
+                		if (response.shipping_fee)
+                		{
+                			$('#shipping_fee').removeClass('disable');
+                			$('#sub_total').removeClass('disable');
+                			$('#shipping_fee .text-right h6').html(response.shipping_fee);
+                		}
+                		else {
+                			$('#shipping_fee').addClass('disable');
+                			$('#sub_total').addClass('disable');
+                		}
                 		$('#total_tax .text-right h6').html(response.total_tax);
                 		$('#sub_total .text-right h6').html(response.sub_total);
                 		$('#cart_total .text-right h4').html(response.cart_total);
@@ -226,7 +235,16 @@ $(function(){
                 		$('.cake-cart-sidebar #cart_items').append(response.cart_html);
                 		$('#cart_empty_block').addClass('disable');
                 		$('#cart_total_wraper').removeClass('disable');
-                		$('#shipping_fee .text-right h6').html(response.shipping_fee);
+                		if (response.shipping_fee)
+                		{
+                			$('#shipping_fee').removeClass('disable');
+                			$('#shipping_fee .text-right h6').html(response.shipping_fee);
+                			$('#sub_total').removeClass('disable');
+                		}
+                		else {
+                			$('#shipping_fee').addClass('disable');
+                			$('#sub_total').addClass('disable');
+                		}
                 		$('#total_tax .text-right h6').html(response.total_tax);
                 		$('#sub_total .text-right h6').html(response.sub_total);
                 		$('#cart_total .text-right h4').html(response.cart_total);

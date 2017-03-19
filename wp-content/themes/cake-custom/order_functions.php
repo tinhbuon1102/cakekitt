@@ -340,7 +340,7 @@ function cake_steps_store(){
 	
 	$chosen_shipping_methods = WC()->session->get( 'chosen_shipping_methods' );
 	$aResponse['cart_html'] = $cartHtml;
-	$aResponse['shipping_fee'] = $cart->get_cart_shipping_total();
+	$aResponse['shipping_fee'] = $cart->shipping_total ? $cart->get_cart_shipping_total() : 0;
 	$aResponse['sub_total'] = $cart->get_cart_subtotal();
 	$aResponse['total_tax'] = $cart->get_cart_tax();
 	$aResponse['cart_total'] = $cart->get_total();;
