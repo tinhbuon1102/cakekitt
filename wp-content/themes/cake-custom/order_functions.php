@@ -748,9 +748,9 @@ function getCustomFormFieldMapping(){
 		// 	{
 		// 		die('Please add Advanced Custom Field with name "Cake Gallery Custom Fields"');
 		// 	}
-	$postID = 1532;
+	$postID = 1956;
 	// 	$postID = $post->ID;
-	$cake_custom_fields = apply_filters('acf/field_group/get_fields', array(), $postID);
+	$cake_custom_fields = acf_get_fields($postID);
 	foreach($cake_custom_fields as $field_name => $field_values)
 	{
 		if ($field_values && isset($field_values['type']))
