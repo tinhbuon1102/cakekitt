@@ -1012,6 +1012,11 @@ function getOrderDetail($order_id = false) {
 				$fieldLabel = $fieldName == 'custom_order_cake_type' ? __('Cake Type', 'cake') : $fieldMapping[$fieldName]['field']['label'];
 				$fieldValue = $aData[$fieldName];
 				
+				if ((is_array($fieldValue) && empty($fieldValue)) || !$fieldValue)
+				{
+					continue;
+				}
+				
 				if (is_array($fieldValue))
 				{
 					//
