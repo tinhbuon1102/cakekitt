@@ -13,7 +13,7 @@ $(function() {
 	$('.checkout > #customer_details, .checkout > ul').wrapAll('<div class="col-md-8 columns"></div>');
 	$('.checkout > .col-md-8 > ul').wrap('<div class="select-datetime"></div>');
 	$('.checkout > .columns').wrapAll('<div class="row" id="checkoutbox"></div>');
-	$(".cake_info_wraper > .row:has(.col-xs-4)").addClass('first-child');
+	$(".order-detail-custom-table > .cake_info_wraper > .row:has(.col-xs-3)").addClass('first-child');
 	//$("span.pass:not(:has(.woocommerce-password-hint))").removeClass('pass');
 	$('#customer_login > div.u-column1 > h2, #customer_login > div.u-column1 > form').wrapAll('<div class="inner"></div>');
 	$('#customer_login > div.u-column2 > h2, #customer_login > div.u-column2 > form').wrapAll('<div class="inner"></div>');
