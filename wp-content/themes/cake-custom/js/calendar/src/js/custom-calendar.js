@@ -29,26 +29,34 @@ jQuery(function($) {
 				text += date[1].format('YYYY-MM-DD');
 			}
 
-			$('#custom_order_pickup_date').val(chooseDate);
-			
-			if ($('[data-rangeslider]').length)
+			var currentDate = moment().format('YYYY-MM-DD');
+			if (!chooseDate)
 			{
-				var currentHour = parseInt(moment().format("H")) + 1;
-				if (chooseDate == moment().format('YYYY-MM-DD'))
+				$('.pignose-calendar-unit-date[data-date="'+currentDate+'"]').click();
+			}
+			else {
+				$('#custom_order_pickup_date').val(chooseDate);
+				
+				if ($('[data-rangeslider]').length)
 				{
-					$('[data-rangeslider]').attr('min', currentHour);
-					if (parseInt($('[data-rangeslider]').val()) < currentHour)
+					if (chooseDate == currentDate)
 					{
-						$('[data-rangeslider]').val(currentHour).change();
+						var currentHour = parseInt(moment().format("H")) + 1;
+						$('[data-rangeslider]').attr('min', currentHour);
+						if (parseInt($('[data-rangeslider]').val()) <= currentHour)
+						{
+							$('[data-rangeslider]').val(currentHour);
+							$('[data-rangeslider]').change()
+						}
+					}
+					else {
+						$('[data-rangeslider]').attr('min', 1);
 					}
 				}
-				else {
-					$('[data-rangeslider]').attr('min', 1);
-				}
-			}
-			
+				
 
-			$('[data-rangeslider]').rangeslider('update', true);
+				$('[data-rangeslider]').rangeslider('update', true);
+			}
 
 			
 			$box.text(text);
