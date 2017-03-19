@@ -29,7 +29,7 @@ jQuery( document ).ready(function() {
 				}
 				if ( _t.is( ':checkbox,:radio' ) ) {
 					wc_hcsa_settings.fields[_t.data( 'hcsaid' )] = _t.is(':checked');
-					//_t.prop('checked', false);
+					_t.prop('checked', false);
 				} else {
 					wc_hcsa_settings.fields[_t.data( 'hcsaid' )] = _t.val();
 					_t.val('');
@@ -46,6 +46,8 @@ jQuery( document ).ready(function() {
 					t.slideUp( function() { t.addClass( 'shipping-fields-hidden' ); } );
 			}
 		} else if ( wc_hcsa_settings.methods[m] == 'no' && ! s ) {
+			jQuery('#ship-to-different-address-checkbox').prop('check');
+			jQuery('#ship-to-different-address-checkbox').iCheck('check');
 			t.find( ':input' ).each( function() {
 				var _t = jQuery( this );
 				if ( typeof _t.data( 'hcsaid' ) != 'undefined' && typeof wc_hcsa_settings.fields[_t.data( 'hcsaid' )] != 'undefined' ) {
