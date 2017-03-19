@@ -577,6 +577,14 @@ function woocommerce_admin_shipping_fields_extra($fields){
 	return $fields;
 }
 
+add_filter( 'woocommerce_admin_shipping_fields', 'woocommerce_admin_shipping_fields_label', 10, 1 );
+function woocommerce_admin_shipping_fields_label($fields){
+	$fields['shipping_last_name']['label'] = '宛名';
+	$fields['shipping_first_name']['label'] = '店舗名';
+	$fields['shipping_company']['label'] = '担当者名';
+	return $fields;
+}
+
 // Add phone and store name in shipping address
 add_filter( 'woocommerce_checkout_fields' , 'shipping_override_checkout_fields' );
 function shipping_override_checkout_fields( $fields ) {
@@ -594,6 +602,7 @@ function shipping_override_checkout_fields( $fields ) {
 	return $fields;
 }
 
+//change label and class for shipping fields on front
 add_filter( 'woocommerce_shipping_fields', 'custom_woocommerce_shipping_fields' );
 function custom_woocommerce_shipping_fields( $fields ) {
 	$fieldExtras = extraFieldForShipping();
