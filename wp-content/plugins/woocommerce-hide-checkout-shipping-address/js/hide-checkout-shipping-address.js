@@ -16,6 +16,13 @@ jQuery( document ).ready(function() {
 
 	if ( t.length && typeof wc_hcsa_settings.methods == 'object' ) {
 		s = t.is( ':visible' );
+		if (s && !jQuery('#ship-to-different-address-checkbox').is(':checked'))
+		{
+			jQuery('#ship-to-different-address-checkbox').prop('check');
+			jQuery('#ship-to-different-address-checkbox').iCheck('check');
+			jQuery('#ship-to-different-address-checkbox').change();
+		}
+		
 		if ( typeof wc_hcsa_settings.methods[m] == 'undefined' ) {
 			wc_hcsa_settings.methods[m] = 'no';
 		}
