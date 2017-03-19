@@ -756,6 +756,38 @@ function getCustomFormFieldMapping(){
 	$cake_type_fields = array_merge($cake_type_fields, $mapping_fields);
 	return $cake_type_fields;
 }
+//get size per shape
+function getCakesizeGroup(){
+
+	$CakeSize = array(
+		'round' => array(
+			'custom_order_cakesize_round'
+		),
+		'square' => array(
+			'custom_order_cakesize_square'	
+		),
+		'heart' => array(
+			'custom_order_cakesize_square'	
+		),
+		'star' => array(
+			'custom_order_cakesize_square'	
+		),
+		'custom' => array(
+			'custom_order_cakesize_square'	
+		),
+	);
+	return $CakeSize;
+}
+function getCakeSizeOption(){
+	$CakeSize = getCakesizeGroup();
+	$CakeSizeValue = array();
+	foreach ($CakeSize as $CakeSizeValue)
+	{
+		$CakeSizeValue = $fieldMapping[$CakeSize]['value'];
+	}
+	
+	return $CakeSizeValue;
+}
 
 function getDecorationGroup(){
 
@@ -900,6 +932,7 @@ function getOrderDetail($order_id = false) {
 			'custom_order_cake_shape',
 			'custom_order_cakeflavor',
 			'custom_order_cakecolor',
+			'custom_order_cakecolor_other',
 		);
 		
 		//wrap col
@@ -990,6 +1023,9 @@ function getOrderDetail($order_id = false) {
 					case 'custom_order_cakecolor':
 						$divRow .= '<span class="display-table-cell pr-2"><span class="color-show color-choice head-custom color'.$fieldValue.'"></span></span>';
 						break;
+					case 'custom_order_cakecolor_other':
+						$divRow .= '<span class="display-table-cell pr-2"><span class="color-show color-choice head-custom color" style="background:'.$fieldValue.'";></span></span>';
+						break;
 					
 				}
 				
@@ -1014,10 +1050,7 @@ function getOrderDetail($order_id = false) {
 				//show size value next to shape value
 				elseif ( 'custom_order_cake_shape' == $fieldName ){
 					$fieldValueName = is_array(@$fieldMapping[$fieldName]['value'][$fieldValue]) ? $fieldMapping[$fieldName]['value'][$fieldValue] : (is_array(@$fieldMapping[$fieldName]['value']) ? $fieldMapping[$fieldName]['value'][$fieldValue] : $fieldValue);
-					
-					//$cake_size_fields['custom_order_cakesize_square']['field'] = $csizevalue;
-					$fieldCakeSize =  $fieldMapping['custom_order_cakesize_square']['value'];
-					//$fieldValueCakeSize = 'show size here';
+					$fieldCakeSize = getCakeSizeOption();
 					$divRow .= '<span class="shape-and-size">'.$fieldValueName.'/'.$fieldCakeSize.'</span>';
 				}
 				else
@@ -1030,11 +1063,11 @@ function getOrderDetail($order_id = false) {
 					//commented kyoko
 					/*elseif($fieldName == 'custom_order_cakecolor' && $fieldValue) {
 						$fieldMapping[$fieldName]['value'][$fieldValue] = '<span class="color-show color-choice head-custom color'.$fieldValue.'"></span>';
-					}*/
+					}
 					
 					elseif($fieldName == 'custom_order_cakecolor_other' && $fieldValue) {
 						$fieldValue = '<span class="color-show" style="background:'.$fieldValue.'"></span>';
-					}
+					}*/
 					
 					$divRow .= is_array(@$fieldMapping[$fieldName]['value'][$fieldValue]) ? $fieldMapping[$fieldName]['value'][$fieldValue] : (is_array(@$fieldMapping[$fieldName]['value']) ? $fieldMapping[$fieldName]['value'][$fieldValue] : $fieldValue);
 					
