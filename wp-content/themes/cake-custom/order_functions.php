@@ -742,15 +742,8 @@ function getCustomFormFieldMapping(){
 		$cake_type_fields['custom_order_cake_type']['value'][$term->slug] = $term->name;
 	}
 
-	// Get cake custom fields
-	// 	$post = get_page_by_title('Cake Gallery Custom Fields', OBJECT, 'acf');
-	// 	if (!$post)
-		// 	{
-		// 		die('Please add Advanced Custom Field with name "Cake Gallery Custom Fields"');
-		// 	}
-	$postID = 1956;
-	// 	$postID = $post->ID;
-	$cake_custom_fields = acf_get_fields($postID);
+	$cake_custom_fields = kitt_get_custom_fields();
+	
 	foreach($cake_custom_fields as $field_name => $field_values)
 	{
 		if ($field_values && isset($field_values['type']))
