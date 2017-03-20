@@ -706,7 +706,6 @@ function submit_form_order(){
 			update_user_meta($userID, 'shipping_company', get_user_meta($userID, 'shipping_company', true) ? get_user_meta($userID, 'shipping_company', true) : $shipping_address['company']);
 			
 			// Mark as on-hold (we're awaiting the payment)
-			$order->update_status('on-hold', __( 'Awaiting payment', 'woocommerce-other-payment-gateway' ));
 			$order->update_status('pending', __( 'Awaiting payment', 'woocommerce-other-payment-gateway' ));
 			
 			// Delete notes
@@ -1230,3 +1229,16 @@ function kitt_woocommerce_get_order_item_totals($total_rows, $order) {
 	return $total_rows;
 }
 add_filter('woocommerce_get_order_item_totals', 'kitt_woocommerce_get_order_item_totals', 10, 2);
+
+function kitt_send_email_customer_placed_order($orderID)
+{
+	global $woocommerce;
+	$mailer = $woocommerce->mailer();
+	$onHold = $mailer->emails['WC_Email_Customer_On_Hold_Order'];
+	$onHold->object = new WC_Order($orderID);
+	$onHold->template_html    = 'emails/customer-new-order.php';
+	$onHold->template_plain   = 'emails/plain/customer-new-order.php';
+	$onHold->send( $onHold->get_recipient(), $onHold->get_subject(), $onHold->get_content(), $onHold->get_headers(), $onHold->get_attachments() );
+}
+// send place order email when created order
+add_action( 'woocommerce_order_status_pending', 'kitt_send_email_customer_placed_order', 10, 3 );
