@@ -21,6 +21,10 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
+
+$customer_id = get_current_user_id();
+$customer = new WC_Customer($customer_id);
+
 ?>
 <h1 class="mb-5">My Account</h1>
 <div class="account-logout">
@@ -43,17 +47,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="account-box-content clearfix">
 		<!--show latest orders-->
 		<?php
-		$number_of_orders = 1;
+		
 		$customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_query', array(
-			'numberposts' => $order_count,
+			'numberposts' => 1,
 			'meta_key'    => '_customer_user',
 			'meta_value'  => get_current_user_id(),
 			'post_type'   => 'shop_order',
 			'post_status' => 'publish'
 		) ) );
+		
  
 if ( $customer_orders && count( $customer_orders >= $number_of_orders ) ) { ?>
-<h3 class="section-header"><?php _e( 'Order History', 'woocommerce' ); ?><a class="section-header-note" href="#"><?php _e( 'View all orders', 'woocommerce' ); ?></a></h3>
+<h3 class="section-header"><?php _e( 'Order History', 'woocommerce' ); ?><a class="section-header-note" href="<?php echo esc_url( wc_get_account_endpoint_url( 'orders' ) )?>"><?php _e( 'View all orders', 'woocommerce' ); ?></a></h3>
 <div class="account-box-image"><i class="linericon-clipboard-text"></i></div>
 <div class="latest-order-table">
 	<table class="shop_table my_account_latest_orders">
@@ -74,7 +79,7 @@ if ( $customer_orders && count( $customer_orders >= $number_of_orders ) ) { ?>
  
 				$order->populate( $customer_order );
  
-				$status     = get_term_by( 'slug', $order->status, 'shop_order_status' );
+				$status = wc_get_order_status_name( $order->get_status() );
 				$item_count = $order->get_item_count();
  
 				?>
@@ -88,7 +93,7 @@ if ( $customer_orders && count( $customer_orders >= $number_of_orders ) ) { ?>
 						<time datetime="<?php echo date( 'Y-m-d', strtotime( $order->order_date ) ); ?>" title="<?php echo esc_attr( strtotime( $order->order_date ) ); ?>"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $order->order_date ) ); ?></time>
 					</td>
 					<td class="order-status" style="text-align:left; white-space:nowrap;">
-						<?php echo ucfirst( __( $status->name, 'woocommerce' ) ); ?>
+						<?php echo $status; ?>
 					</td>
 					<td class="order-actions">
 						<?php
@@ -137,21 +142,21 @@ if ( $customer_orders && count( $customer_orders >= $number_of_orders ) ) { ?>
 	</div>
 </div>
 <div class="account-box account-details clearfix fleft">
-	<h3 class="section-header"><?php _e( 'Account Details', 'woocommerce' ); ?><a class="section-header-note" href="#"><?php _e( 'View details', 'woocommerce' ); ?></a></h3>
+	<h3 class="section-header"><?php _e( 'Account Details', 'woocommerce' ); ?><a class="section-header-note" href="<?php echo esc_url( wc_get_account_endpoint_url( 'edit-account' ) )?>"><?php _e( 'View details', 'woocommerce' ); ?></a></h3>
 	<div class="account-box-content clearfix">
 	<div class="account-box-image"><i class="linericon-clipboard-user"></i></div>
-		<p class="account-box-label">Lastname Firstname</p>
+		<p class="account-box-label"><?php echo  get_user_meta( $customer_id, 'billing_last_name', true ) . get_user_meta( $customer_id, 'billing_first_name', true );?></p>
 		<p>1989.11.22</p>
-		<p>kyoooko1122@icloud.com</p>
+		<p><?php echo  get_user_meta( $customer_id, 'billing_email', true )?></p>
 	</div>
 </div>
 <div class="account-box account-details clearfix fleft">
-	<h3 class="section-header"><?php _e( 'Shipping info', 'woocommerce' ); ?><a class="section-header-note" href="#"><?php _e( 'View details', 'woocommerce' ); ?></a></h3>
+	<h3 class="section-header"><?php _e( 'Shipping info', 'woocommerce' ); ?><a class="section-header-note" href="<?php echo esc_url( wc_get_account_endpoint_url( 'edit-address' ) )?>"><?php _e( 'View details', 'woocommerce' ); ?></a></h3>
 	<div class="account-box-content clearfix">
 	<div class="account-box-image"><i class="linericon-truck"></i></div>
-		<p class="account-box-label">Store Name</p>
-		<p>postcode</p>
-		<p>PrefCityAddress1Address2</p>
+		<p class="account-box-label"><?php echo  get_user_meta( $customer_id, 'shipping_first_name', true )?></p>
+		<p><?php echo $customer->postcode?></p>
+		<p><?php echo $customer->state . $customer->city . $customer->address_1 . $customer->address_2?></p>
 	</div>
 </div>
 <?php
