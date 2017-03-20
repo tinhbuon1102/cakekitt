@@ -1224,14 +1224,15 @@ function kitt_woocommerce_get_order_item_totals($total_rows, $order) {
 }
 add_filter('woocommerce_get_order_item_totals', 'kitt_woocommerce_get_order_item_totals', 10, 2);
 
-function kitt_send_email_customer_placed_order($orderID)
+function kitt_send_email_customer_placed_order($order_id)
 {
 	global $woocommerce;
 	$mailer = $woocommerce->mailer();
 	$onHold = $mailer->emails['WC_Email_Customer_On_Hold_Order'];
 	$onHold->template_html    = 'emails/customer-new-order.php';
 	$onHold->template_plain   = 'emails/plain/customer-new-order.php';
-	$onHold->trigger($orderID);
+	$onHold->trigger($order_id);
 }
 // send place order email when created order
 add_action( 'woocommerce_order_status_pending', 'kitt_send_email_customer_placed_order', 10, 3 );
+add_action( 'woocommerce_checkout_update_order_meta', 'kitt_send_email_customer_placed_order', 10, 3 );
