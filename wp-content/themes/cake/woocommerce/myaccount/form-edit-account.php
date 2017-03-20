@@ -73,6 +73,8 @@ do_action( 'woocommerce_before_edit_account_form' ); ?>
 	<?php 
 	$yearMonthDays = kitt_get_year_month_day();
 	$birth_date = get_user_meta( get_current_user_id(), 'birth_date', true);
+	$default	= array( 'day' => 1, 'month' => 1, 'year' => 1980, );
+	$birth_date = $birth_date ? $birth_date : $default;
 	?>
 	<p class="woocommerce-FormRow woocommerce-FormRow--last form-row form-row-last" >
 		<label for="birth_date"><?php _e( 'Birth date', 'cake' ); ?> <span class="required">*</span></label>
