@@ -1229,10 +1229,9 @@ function kitt_send_email_customer_placed_order($orderID)
 	global $woocommerce;
 	$mailer = $woocommerce->mailer();
 	$onHold = $mailer->emails['WC_Email_Customer_On_Hold_Order'];
-	$onHold->object = new WC_Order($orderID);
 	$onHold->template_html    = 'emails/customer-new-order.php';
 	$onHold->template_plain   = 'emails/plain/customer-new-order.php';
-	$onHold->send( $onHold->get_recipient(), $onHold->get_subject(), $onHold->get_content(), $onHold->get_headers(), $onHold->get_attachments() );
+	$onHold->trigger($orderID);
 }
 // send place order email when created order
 add_action( 'woocommerce_order_status_pending', 'kitt_send_email_customer_placed_order', 10, 3 );
