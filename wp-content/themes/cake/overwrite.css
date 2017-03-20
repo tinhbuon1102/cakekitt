@@ -973,6 +973,11 @@ p {
     font-size: inherit;
     line-height: inherit;
 }
+td.product-name .product-subtitle {
+    margin: 0;
+    line-height: 1;
+    font-size: 14px;
+}
 .woocommerce-checkout #payment {
     background: none;
     border-top: 1px solid rgba(0,0,0,.1);
@@ -1352,12 +1357,18 @@ color: rgba(213,78,130,1);
 .woocommerce div.product .product_title {
     text-align: left;
     margin: 0;
-    line-height: 1.4;
+    line-height: 1.2;
     font-size: 42px;
     text-transform: capitalize;
     color: #000;
     font-family: 'bebas_neuebold';
 	font-weight: normal;
+}
+.cake-single-product-summary h2.product-subtitle {
+    font-size: 14px;
+    font-weight: normal;
+    font-family: -apple-system, BlinkMacSystemFont, "Avenir Next", "Avenir", "Roboto", 'Noto Sans Japanese', "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", "Meiryo", sans-serif;
+    margin-bottom: 20px;
 }
 .product-images {
     float: left;
