@@ -18,6 +18,20 @@ function kitt_acf_render_field_wrap($field)
 	}
 }
 
+function kitt_get_order_type($order_id)
+{
+	$orderDetail = new WC_Order( $order_id );
+	$items = $orderDetail->get_items();
+	$order_type = wc_get_order_item_meta( key($items), '_order_type');
+	return $order_type;
+}
+
+function is_custom_order($order_id)
+{
+	$order_type = kitt_get_order_type($order_id);
+	return $order_type == KITT_CUSTOM_ORDER ? true : false;
+}
+
 function kitt_get_custom_fields()
 {
 	if (function_exists('acf_render_field_wrap')) {
@@ -358,9 +372,7 @@ function custom_meta_order_detail_box_markup($post)
 	$field_mappings = getCustomFormFieldMapping();
 	
 	$order = new WC_Order($post->ID);
-	$items = $order->get_items();
-	$item_keys = array_keys($items);
-	$order_type = wc_get_order_item_meta( @$item_keys[0], '_order_type');
+	$order_type = kitt_get_order_type($order->id);
 	
 	$orderFormData = get_post_meta($order->id, 'cake_custom_order', true);
 	

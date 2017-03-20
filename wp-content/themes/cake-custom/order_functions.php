@@ -203,6 +203,11 @@ function cake_steps_store(){
 		}
 	}
 	else {
+		if ($_POST['custom_order_cakecolor'] != 'other')
+		{
+			unset($_POST['custom_order_cakecolor_other']);
+		}
+		
 		$_SESSION['cake_custom_order'] = isset($_SESSION['cake_custom_order']) ? $_SESSION['cake_custom_order'] : array();
 		$_SESSION['cake_custom_order'][$_POST['step']] = $_POST;
 	}
@@ -1029,10 +1034,11 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER) {
 						break;
 						
 					case 'custom_order_cakecolor':
-						if (!$aData['custom_order_cakecolor_other'])
+						if (!$aData['custom_order_cakecolor_other'] && $aData['custom_order_cakecolor'] != 'other')
 						{
 							// This is normal color
-							$fieldValue = '<span class="display-table-cell pr-2"><span class="color-show color-choice head-custom color'.$fieldValue.'"></span></span>';
+							$fieldValue = '<span class="display-table-cell pr-2"><span class="color-show color-choice head-custom color'.$fieldValue.'"></span></span>
+									<span class="value-text">'.$fieldMapping['custom_order_cakecolor']['value'][$fieldValue].'</span>';
 						}
 						else {
 							// This is other color
@@ -1174,9 +1180,7 @@ function kitt_add_product_to_cart($product_id) {
 }
 
 function woocommerce_order_details_after_order_table_order_custom ($order){
-	$orderDetail = new WC_Order( $order->id );
-	$items = $orderDetail->get_items();
-	$order_type = wc_get_order_item_meta( key($items), '_order_type');
+	$order_type = kitt_get_order_type( $order->id);
 	// Do'nt show custom detail for normal order
 ?>
 	<div class="custom_order_details">
