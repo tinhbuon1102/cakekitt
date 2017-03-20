@@ -858,6 +858,7 @@ function getDecorationOption(){
 }
 
 function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER) {
+	$fieldMapping = getCustomFormFieldMapping();
 	if (!$order_id)
 	{
 		// Get from session during order form
@@ -867,6 +868,28 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER) {
 		// Get from meta when order already completed
 		$aData = get_post_meta($order_id, 'cake_custom_order', true);
 		$order = new WC_Order($order_id);
+		
+		// Fake custom order detail from billing + shipping detail
+		$aData['custom_order_customer_name_last'] = $order->billing_last_name . $order->billing_first_name;
+		$aData['custom_order_customer_name_last_kana'] = $order->billing_last_name_kana . $order->billing_first_name_kana;
+		$aData['custom_order_customer_tel'] = $order->billing_phone;
+		$aData['custom_order_customer_email'] = $order->billing_email;
+		
+		$items = $order->get_items('shipping');
+		$method_id = wc_get_order_item_meta( key($items), 'method_id');
+		$isPickup = $method_id == KITT_SHIPPING_PICKUP ? true : false; 
+		
+		$aData['custom_order_shipping'] = $isPickup ? $fieldMapping['custom_order_shipping']['value']['pickup'] : $fieldMapping['custom_order_shipping']['value']['delivery'];
+		$aData['custom_order_deliver_name'] = $order->shipping_last_name;
+		$aData['custom_order_deliver_storename'] = $order->shipping_first_name;
+		$aData['custom_order_deliver_cipname'] = $order->shipping_company;
+		$aData['custom_order_deliver_tel'] = $order->shipping_phone;
+		$aData['custom_order_deliver_postcode'] = $order->shipping_postcode;
+		$aData['custom_order_deliver_pref'] = $order->shipping_state;
+		$aData['custom_order_deliver_city'] = $order->shipping_city;
+		$aData['custom_order_deliver_addr1'] = $order->shipping_address_1;
+		$aData['custom_order_deliver_addr2'] = $order->shipping_address_2;
+		
 	}
 	
 	if (!$aData || empty($aData)) return '';
@@ -966,7 +989,12 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER) {
 		),
 	);
 	
-	$fieldMapping = getCustomFormFieldMapping();
+	// Remove Cake info if order type = normal
+	if ($order_type == KITT_NORMAL_ORDER)
+	{
+		unset($aDetailBlocks['cake_info_wraper']);
+	}
+	
 	$divRow = '';
 	$divRow .= '<div class="order-detail-custom-table row">';
 	
@@ -1192,4 +1220,10 @@ function woocommerce_order_details_after_order_table_order_custom ($order){
 add_action( 'woocommerce_order_details_after_order_table', 'woocommerce_order_details_after_order_table_order_custom', 30, 4 );
 add_action( 'woocommerce_email_after_order_table', 'woocommerce_order_details_after_order_table_order_custom', 30, 4 );
 add_action( 'woocommerce_form_pay_after_order_table', 'woocommerce_order_details_after_order_table_order_custom', 30, 4 );
+
+// Remove action email customer detail
+add_action( 'wp_head', 'remove_default_actions' );
+function remove_default_actions(){
+	remove_action('wp_footer', 'woocommerce_email_customer_details');
+}
 
