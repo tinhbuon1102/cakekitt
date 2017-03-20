@@ -1,5 +1,6 @@
 var order_form_data = {};
 $(function(){
+	var step_store_request;
     //original field values
     var field_values = {
             //id        :  value
@@ -43,7 +44,12 @@ $(function(){
     		}
     		
     		
-            $.ajax({
+    		if (step_store_request)
+    		{
+    			step_store_request.abort();
+    		}
+    		
+    		step_store_request = $.ajax({
             	url: gl_ajaxUrl,
             	data: order_form_data, 
                 method: 'POST',

@@ -601,10 +601,10 @@ function submit_form_order(){
 		}
 		else {
 			// update product status to private
-			wp_update_post(array(
-				'ID'    =>  $product_id,
-				'post_status'   =>  'private'
-			));
+// 			wp_update_post(array(
+// 				'ID'    =>  $product_id,
+// 				'post_status'   =>  'private'
+// 			));
 				
 			$order = wc_get_order( $order_id );
 			
