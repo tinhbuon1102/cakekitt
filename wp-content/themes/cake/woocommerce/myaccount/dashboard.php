@@ -25,6 +25,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 $customer_id = get_current_user_id();
 $customer = new WC_Customer($customer_id);
 
+$birth_date = get_user_meta( $customer_id, 'birth_date', true);
+$yearMonthDays = kitt_get_year_month_day();
+
 ?>
 <h1 class="mb-5">My Account</h1>
 <div class="account-logout">
@@ -146,7 +149,12 @@ if ( $customer_orders && count( $customer_orders >= $number_of_orders ) ) { ?>
 	<div class="account-box-content clearfix">
 	<div class="account-box-image"><i class="linericon-clipboard-user"></i></div>
 		<p class="account-box-label"><?php echo  get_user_meta( $customer_id, 'billing_last_name', true ) . get_user_meta( $customer_id, 'billing_first_name', true );?></p>
-		<p>1989.11.22</p>
+		<?php 
+		if ($birth_date)
+		{
+			echo '<p>' . $birth_date['year'] . '.' . $yearMonthDays['months'][$birth_date['month']] . '.' . $birth_date['day'] . '</p>';
+		}
+		?>
 		<p><?php echo  get_user_meta( $customer_id, 'billing_email', true )?></p>
 	</div>
 </div>

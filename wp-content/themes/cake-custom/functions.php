@@ -8,6 +8,32 @@ if (!function_exists('pr')) {
 	}
 }
 
+function kitt_get_year_month_day () {
+	for ( $i = 1930; $i <= (date('Y') - 1); $i++ ) {
+		$years[] = $i;
+	}
+	 
+	$months = array(
+		1 => __('January'),
+		2 => __('February'),
+		3 => __('March'),
+		4 => __('April'),
+		5 =>__('May'),
+		6 =>__('June'),
+		7 =>__('July'),
+		8 =>__('August'),
+		9 =>__('September'),
+		10 =>__('October'),
+		11 =>__('November'),
+		12 =>__('December')
+	);
+	
+	for ( $i = 1; $i <= 31; $i++ ) {
+		$days[] = $i;
+	}
+	
+	return array('years' => $years, 'months' => $months, 'days' => $days);
+}
 function kitt_acf_render_field_wrap($field)
 {
 	if (function_exists('acf_render_field_wrap')) {

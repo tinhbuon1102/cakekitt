@@ -71,44 +71,30 @@ do_action( 'woocommerce_before_edit_account_form' ); ?>
 	
 	
 	<?php 
-	$months = array(
-		1 => __('January'),
-		2 => __('February'),
-		3 => __('March'),
-		4 => __('April'),
-		5 =>__('May'),
-		6 =>__('June'),
-		7 =>__('July'),
-		8 =>__('August'),
-		9 =>__('September'),
-		10 =>__('October'),
-		11 =>__('November'),
-		12 =>__('December')
-	);
-	$default	= array( 'day' => '', 'month' => '', 'year' => '', );
-	$birth_date = wp_parse_args( get_the_author_meta( 'birth_date', $user->ID ), $default );
+	$yearMonthDays = kitt_get_year_month_day();
+	$birth_date = get_user_meta( get_current_user_id(), 'birth_date', true);
 	?>
 	<p class="woocommerce-FormRow woocommerce-FormRow--last form-row form-row-last" >
 		<label for="birth_date"><?php _e( 'Birth date', 'cake' ); ?> <span class="required">*</span></label>
 		<select id="birth-date-year" name="birth_date[year]" required>
 			<option value=""><?php echo __('Select Birth Year')?></option>
 			<?php
-   				 for ( $i = 1930; $i <= (date('Y') - 1); $i++ ) {
-   					 printf( '<option value="%1$s" %2$s>%1$s</option>', $i, selected( $birth_date['year'], $i, false ) );
+   				 foreach($yearMonthDays['years'] as $yearNumber) {
+   					 printf( '<option value="%1$s" %2$s>%1$s</option>', $yearNumber, selected( $birth_date['year'], $yearNumber, false ) );
    				 }
    			 ?></select>
    			 <select id="birth-date-month" name="birth_date[month]" required>
    			 <option value=""><?php echo __('Select Birth Month')?></option>
    			 <?php
-   				 foreach ( $months as $month ) {
-   					 printf( '<option value="%1$s" %2$s>%1$s</option>', $month, selected( $birth_date['month'], $month, false ) );
+   				 foreach ( $yearMonthDays['months'] as $monthNumber => $monthText ) {
+   					 printf( '<option value="%1$s" %2$s>%3$s</option>', $monthNumber, selected( $birth_date['month'], $monthNumber, false ), $monthText );
    				 }
    			 ?></select>
    			 <select id="birth-date-day" name="birth_date[day]" required>
    			 <option value=""><?php echo __('Select Birth Day')?></option>
    			 <?php
-   				 for ( $i = 1; $i <= 31; $i++ ) {
-   					 printf( '<option value="%1$s" %2$s>%1$s</option>', $i, selected( $birth_date['day'], $i, false ) );
+   			 foreach($yearMonthDays['days'] as $dayNumber) {
+   					 printf( '<option value="%1$s" %2$s>%1$s</option>', $dayNumber, selected( $birth_date['day'], $dayNumber, false ) );
    				 }
    			 ?></select>
    		 </td>
