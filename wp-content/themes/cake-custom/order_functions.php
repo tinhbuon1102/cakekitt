@@ -678,6 +678,8 @@ function submit_form_order(){
 			update_user_meta($userID, 'first_name_kana', get_user_meta($userID, 'first_name_kana', true) ? get_user_meta($userID, 'first_name_kana', true) : $aData['custom_order_customer_name_first_kana']);
 			update_user_meta($userID, 'last_name_kana', get_user_meta($userID, 'last_name_kana', true) ? get_user_meta($userID, 'last_name_kana', true) : $aData['custom_order_customer_name_last_kana']);
 			update_user_meta($userID, 'tel', get_user_meta($userID, 'tel', true) ? get_user_meta($userID, 'tel', true) : $aData['custom_order_customer_tel']);
+			update_user_meta($userID, 'sex', $aData['custom_order_customer_sex'] ? $aData['custom_order_customer_sex'] : get_user_meta($userID, 'sex', true));
+			update_user_meta($userID, 'birth_date', $aData['custom_order_customer_birth_date'] ? $aData['custom_order_customer_birth_date'] : get_user_meta($userID, 'birth_date', true));
 			
 			update_user_meta($userID, 'billing_email', get_user_meta($userID, 'billing_email', true) ? get_user_meta($userID, 'billing_email', true) : $billing_address['email']);
 			update_user_meta($userID, 'billing_phone', get_user_meta($userID, 'billing_phone', true) ? get_user_meta($userID, 'billing_phone', true) : $billing_address['phone']);

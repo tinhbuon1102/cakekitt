@@ -77,7 +77,6 @@ do_action( 'woocommerce_before_edit_account_form' ); ?>
 	$birth_date = $birth_date ? $birth_date : $default;
 	?>
 	<p class="woocommerce-FormRow woocommerce-FormRow--last form-row form-row-last" >
-		<label for="birth_date"><?php _e( 'Birth date', 'cake' ); ?> <span class="required">*</span></label>
 		<select id="birth-date-year" name="birth_date[year]" required>
 			<option value=""><?php echo __('Select Birth Year')?></option>
 			<?php

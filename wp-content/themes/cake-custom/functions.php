@@ -497,6 +497,9 @@ function custom_meta_order_detail_box_markup($post)
 		}
 		else {
 			
+			unset($orderFormData['custom_order_customer_sex']);
+			unset($orderFormData['custom_order_customer_birth_date']);
+			
 			foreach ($orderFormData as $metaItemKey => $metaItemVal)
 			{
 				$field_mappings[$metaItemKey]['field']['name'] = 'custom_order_meta['.$metaItemKey.']';
@@ -1030,14 +1033,92 @@ function extra_delivery_fields_in_checkout_page( $checkout ) {
 			</div>
 		</li>
 	</ul>
+	
+	<div class="row">
+		<div class="field col-md-6">
+			<label class="label">Sex</label>
+			<ul class="account_sex text-radio list-type">
+				<li class="m-input__radio">
+					<input type="radio" name="cake_custom_order[custom_order_customer_sex]" id="account_sex_male" class="radio_input validate[required]" <?php checked( get_user_meta(get_current_user_id(), 'sex', true), 'male', true )?> value="male">
+					<label for="account_sex_male" class="js-fixHeightChildText radio_label">
+						<div class="radio_option radio_size">
+							<h5 class="js-fixHeightChildTitle radio_option_caption">
+								<span class="caption_wrap">Male</span>
+							</h5>
+						</div>
+					</label>
+				</li>
+				<li class="m-input__radio">
+					<input type="radio" name="cake_custom_order[custom_order_customer_sex]" id="account_sex_female" class="radio_input validate[required]" <?php checked( get_user_meta(get_current_user_id(), 'sex', true), 'female', true )?> value="female">
+					<label for="account_sex_female" class="js-fixHeightChildText radio_label">
+						<div class="radio_option radio_size">
+							<h5 class="js-fixHeightChildTitle radio_option_caption">
+								<span class="caption_wrap">FeMale</span>
+							</h5>
+						</div>
+					</label>
+				</li>
+			</ul>
+		</div>
+		<div class="field col-md-6">
+			<label class="label">Birthday</label>
+			<?php 
+			$yearMonthDays = kitt_get_year_month_day();
+			$birth_date = get_user_meta( get_current_user_id(), 'birth_date', true);
+			$default	= array( 'day' => 1, 'month' => 1, 'year' => 1980, );
+			$birth_date = $birth_date ? $birth_date : $default;
+			?>
+			<p class="woocommerce-FormRow woocommerce-FormRow--last form-row form-row-wide" >
+				<select id="birth-date-year" name="cake_custom_order[custom_order_customer_birth_date_year]" required class="form-control select select-primary" data-toggle="select">>
+					<option value=""><?php echo __('Select Birth Year')?></option>
+					<?php
+		   				 foreach($yearMonthDays['years'] as $yearNumber) {
+		   					 printf( '<option value="%1$s" %2$s>%1$s</option>', $yearNumber, selected( $birth_date['year'], $yearNumber, false ) );
+		   				 }
+		   			 ?></select>
+		   			 <select id="birth-date-month" name="cake_custom_order[custom_order_customer_birth_date_month]" required class="form-control select select-primary" data-toggle="select">>
+		   			 <option value=""><?php echo __('Select Birth Month')?></option>
+		   			 <?php
+		   				 foreach ( $yearMonthDays['months'] as $monthNumber => $monthText ) {
+		   					 printf( '<option value="%1$s" %2$s>%3$s</option>', $monthNumber, selected( $birth_date['month'], $monthNumber, false ), $monthText );
+		   				 }
+		   			 ?></select>
+		   			 <select id="birth-date-day" name="cake_custom_order[custom_order_customer_birth_date_day]" required class="form-control select select-primary" data-toggle="select">>
+		   			 <option value=""><?php echo __('Select Birth Day')?></option>
+		   			 <?php
+		   			 foreach($yearMonthDays['days'] as $dayNumber) {
+		   					 printf( '<option value="%1$s" %2$s>%1$s</option>', $dayNumber, selected( $birth_date['day'], $dayNumber, false ) );
+		   				 }
+		   			 ?></select>
+		   		 </td>
+			</p>
+		</div>
+	</div>
 <?php
 }
 
 add_action( 'woocommerce_checkout_update_order_meta', 'kitt_custom_checkout_field_update_order_meta' );
 function kitt_custom_checkout_field_update_order_meta( $order_id ) 
 {
-	if ( isset($_POST['cake_custom_order']) ) {
-		update_post_meta( $order_id, 'cake_custom_order', $_POST['cake_custom_order'] ) ;
+	$userID = get_current_user_id();
+	if ( isset($_POST['cake_custom_order']) )
+	{
+		update_post_meta($order_id, 'cake_custom_order', $_POST['cake_custom_order']);
+		
+		if ( isset($_POST['cake_custom_order']['custom_order_customer_birth_date_year']) )
+		{
+			$birth_date = array(
+				'year' => $_POST['cake_custom_order']['custom_order_customer_birth_date_year'],
+				'month' => $_POST['cake_custom_order']['custom_order_customer_birth_date_month'],
+				'day' => $_POST['cake_custom_order']['custom_order_customer_birth_date_day']
+			);
+			update_user_meta($userID, 'birth_date', $birth_date);
+		}
+		
+		if ( isset($_POST['cake_custom_order']['custom_order_customer_sex']) )
+		{
+			update_user_meta($userID, 'sex', $_POST['cake_custom_order']['custom_order_customer_sex']);
+		}
 	}
 }
 
