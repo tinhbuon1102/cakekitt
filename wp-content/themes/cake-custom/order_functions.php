@@ -1221,9 +1221,3 @@ add_action( 'woocommerce_order_details_after_order_table', 'woocommerce_order_de
 add_action( 'woocommerce_email_after_order_table', 'woocommerce_order_details_after_order_table_order_custom', 30, 4 );
 add_action( 'woocommerce_form_pay_after_order_table', 'woocommerce_order_details_after_order_table_order_custom', 30, 4 );
 
-// Remove action email customer detail
-add_action( 'wp_head', 'remove_default_actions' );
-function remove_default_actions(){
-	remove_action('wp_footer', 'woocommerce_email_customer_details');
-}
-
