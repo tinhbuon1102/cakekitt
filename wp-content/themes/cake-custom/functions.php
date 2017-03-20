@@ -844,10 +844,10 @@ add_filter( 'woocommerce_ship_to_different_address_checked', '__return_true' );
 
 //show title for shipping on checkout page
 function kitt_title_shipping() {
-echo '<h3>Deliver Info</h3>';
+echo '<h4 class="heading-form mt-4 mb-2 text-gray">Where do you want your order delivered?</h3>';
 }
  
-add_action( 'woocommerce_before_checkout_shipping_form', 'kitt_title_shipping' );
+add_action( 'woocommerce_before_checkout_shipping_form', 'kitt_title_shipping', 1 );
 
 //show notice for shipping
 function kitt_notice_shipping() {
@@ -855,6 +855,17 @@ echo '<ul class="notice"><li>お届け先が商業施設の場合には必ず「
 }
  
 add_action( 'woocommerce_before_order_notes', 'kitt_notice_shipping' );
+
+//Change the Billing Address checkout label
+function wc_billing_field_strings( $translated_text, $text, $domain ) {
+switch ( $translated_text ) {
+case 'Billing Details' :
+$translated_text = __( 'Enter your information', 'woocommerce' );
+break;
+}
+return $translated_text;
+}
+add_filter( 'gettext', 'wc_billing_field_strings', 20, 3 );
 
 //add birthday and sex for user account
 /**

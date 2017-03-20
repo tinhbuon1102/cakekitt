@@ -8,15 +8,19 @@ $(function() {
 	$('input#password').wrap('<span class="pass"></span>');
 	//$('input#reg_password').wrap('<span class="pass"></span>');
 	$('input#reg_email').wrapAll('<span class="email"></span>');
-	$('.checkout > h3#order_review_heading, .checkout > #order_review').wrapAll('<div class="inner"></div>');
-	$('.checkout .inner').wrapAll('<div class="col-md-4 columns position-static pt-md-4 pt-sm-2 pb-sm-4"></div>');
-	$('.checkout > #customer_details, .checkout > ul').wrapAll('<div class="col-md-8 columns"></div>');
-	$('.checkout > .col-md-8 > ul').wrap('<div class="select-datetime"></div>');
-	$('.checkout > .columns').wrapAll('<div class="row" id="checkoutbox"></div>');
+	//$('.checkout > .columns').wrapAll('<div class="row" id="checkoutbox"></div>');
 	$(".order-detail-custom-table > .cake_info_wraper > .row:has(.col-xs-3)").addClass('first-child');
 	//$("span.pass:not(:has(.woocommerce-password-hint))").removeClass('pass');
 	$('#customer_login > div.u-column1 > h2, #customer_login > div.u-column1 > form').wrapAll('<div class="inner"></div>');
 	$('#customer_login > div.u-column2 > h2, #customer_login > div.u-column2 > form').wrapAll('<div class="inner"></div>');
 	$('body.woocommerce-edit-address .woocommerce .woocommerce-MyAccount-content .woocommerce-Addresses.col2-set > .col-1').hide();
 	$('body.woocommerce-edit-address .woocommerce .woocommerce-MyAccount-content .woocommerce-Addresses.col2-set > .col-2').removeClass('col-2');
+	//add numbering for label of customer info and shipping info of woo
+	$('#customer_details > .col-1 > .woocommerce-billing-fields > h3').addClass('numbering display-table');
+	$('#customer_details h3.numbering').wrapInner('<span class="display-table-cell pl-2"></span>');
+	$('<span class="title-number display-table-cell"></span>').insertBefore('#customer_details h3.numbering .pl-2');
+	$('<span class="title-number display-table-cell"></span>').insertBefore('#checkoutbox .columns h4.heading-form .pl-2');
+	$('#customer_details .col-1 h3.numbering .title-number').append('1');//numbering for Enter your info
+	$('#checkoutbox .columns h4.heading-form .title-number').append('2');//numbering for Deliver info
+	
 });

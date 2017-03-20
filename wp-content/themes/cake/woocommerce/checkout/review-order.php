@@ -21,12 +21,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <table class="shop_table woocommerce-checkout-review-order-table">
-	<thead>
+	<!--<thead>
 		<tr>
-			<th class="product-name"><?php _e( 'Product', 'woocommerce' ); ?></th>
-			<th class="product-total"><?php _e( 'Total', 'woocommerce' ); ?></th>
+			<th class="product-name"><?php //_e( 'Product', 'woocommerce' ); ?></th>
+			<th class="product-total"><?php //_e( 'Total', 'woocommerce' ); ?></th>
 		</tr>
-	</thead>
+	</thead>-->
 	<tbody>
 		<?php
 			do_action( 'woocommerce_review_order_before_cart_contents' );
@@ -37,13 +37,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 				if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_checkout_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
 					?>
 					<tr class="<?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?>">
-						<td class="product-name">
-							<?php echo apply_filters( 'woocommerce_cart_item_name', $_product->get_title(), $cart_item, $cart_item_key ) . '&nbsp;'; ?>
-							<?php echo apply_filters( 'woocommerce_checkout_cart_item_quantity', ' <strong class="product-quantity">' . sprintf( '&times; %s', $cart_item['quantity'] ) . '</strong>', $cart_item, $cart_item_key ); ?>
-							<?php echo WC()->cart->get_item_data( $cart_item ); ?>
-						</td>
-						<td class="product-total">
+						<td class="mini-cart-product-td" colspan="2">
+						<div class="mini-cart-product">
+						<div class="mini-cart-image-container">
+							<div class="mini-cart-image">
+								<?php echo apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key ); ?>
+							</div>
+						</div>
+						<div class="mini-cart-product-details">
+						<div class="mini-cart-name">
+						<?php echo apply_filters( 'woocommerce_cart_item_name', $_product->get_title(), $cart_item, $cart_item_key ) . '&nbsp;'; ?>
+						</div>
+						<div class="mini-cart-attributes">
+						<?php echo WC()->cart->get_item_data( $cart_item ); ?>
+						<div class="mini-cart-qty">
+						<span class="label-attribute">Qty:</span>
+							<?php echo apply_filters( 'woocommerce_checkout_cart_item_quantity', ' <span class="value">' . sprintf( '%s', $cart_item['quantity'] ) . '</span>', $cart_item, $cart_item_key ); ?>
+						</div>
+							
+						</div>
+						<div class="mini-cart-pricing">
 							<?php echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key ); ?>
+						</div>
+						</div><!--/product-details-->
+						</div>
 						</td>
 					</tr>
 					<?php
