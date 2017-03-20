@@ -708,12 +708,6 @@ function submit_form_order(){
 			// Mark as on-hold (we're awaiting the payment)
 			$order->update_status('pending', __( 'Awaiting payment', 'woocommerce-other-payment-gateway' ));
 			
-			// Delete notes
-			global $wpdb;
-			$posts_table = $wpdb->posts;
-			$query = "DELETE FROM ". $wpdb->comments ." WHERE comment_post_ID = " .$order->id;
-			$wpdb->query($query);
-			
 			// Redirect to thank you page
 			$payment = new WC_Other_Payment_Gateway();
 			$redirect = $payment->get_return_url($order);
