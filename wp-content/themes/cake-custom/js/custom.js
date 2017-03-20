@@ -87,11 +87,16 @@ jQuery(document).ready(function(){
     function loadIcheck(){
     	$("input.labelauty").labelauty();
     	
-    	$('input:not(.labelauty)').iCheck({
-    	    checkboxClass: 'icheckbox_square-pink',
-    	    radioClass: 'iradio_square-pink',
-    	    increaseArea: '20%' 
-    	  });
+    	$('input:radio:not(.labelauty), input:checkbox:not(.labelauty)').each(function(){
+    		if (!$(this).next().hasClass('iCheck-helper'))
+    		{
+    			$(this).iCheck({
+    	    	    checkboxClass: 'icheckbox_square-pink',
+    	    	    radioClass: 'iradio_square-pink',
+    	    	    increaseArea: '20%' 
+    	    	  });
+    		}
+    	})
     }
     $( document.body ).on( 'updated_cart_totals', function(){
     	loadIcheck();
