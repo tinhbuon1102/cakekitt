@@ -572,6 +572,8 @@ function woocommerce_save_account_details_custom ($userID)
 	update_user_meta($userID, 'last_name_kana', $_POST['account_last_name_kana']);
 	update_user_meta($userID, 'tel', $_POST['account_tel']);
 	update_user_meta($userID, 'company', $_POST['account_company']);
+	update_user_meta($userID, 'sex', $_POST['account_sex']);
+	update_user_meta($userID, 'birth_date', $_POST['birth_date']);
 }
 add_action( 'woocommerce_save_account_details', 'woocommerce_save_account_details_custom' );
 
