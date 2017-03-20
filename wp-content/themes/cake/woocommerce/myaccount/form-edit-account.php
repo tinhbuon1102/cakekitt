@@ -55,6 +55,64 @@ do_action( 'woocommerce_before_edit_account_form' ); ?>
 		<input type="email" class="woocommerce-Input woocommerce-Input--email input-text" name="account_email" id="account_email" value="<?php echo esc_attr( $user->user_email ); ?>" />
 	</p>
 	
+	<div class="woocommerce-FormRow woocommerce-FormRow--first form-row form-row-first">
+		<label ><?php _e( 'Sex', 'Cake' ); ?> <span class="required">*</span></label>
+		<ul class="form-row-wide text-radio list-type" style="list-style-type: none; margin: 0;">
+			<li class="m-input__radio">
+				<input type="radio" class="radio_input" name="account_sex" id="account_email_male" value="male" <?php checked( get_user_meta($user->ID, 'sex', true), 'male', true )?> required>
+				<label for="account_email_male" class="radio_label"><?php _e( 'Male', 'Cake' ); ?> </label>
+			</li>
+			<li class="m-input__radio">
+				<input type="radio" class="radio_input" name="account_sex" id="account_email_female" value="female" <?php checked( get_user_meta($user->ID, 'sex', true), 'female', true )?> required/>
+				<label for="account_email_female" class="radio_label"><?php _e( 'Female', 'Cake' ); ?> </label>
+			</li>
+		</ul>
+	</div>
+	
+	
+	<?php 
+	$months = array(
+		1 => __('January'),
+		2 => __('February'),
+		3 => __('March'),
+		4 => __('April'),
+		5 =>__('May'),
+		6 =>__('June'),
+		7 =>__('July'),
+		8 =>__('August'),
+		9 =>__('September'),
+		10 =>__('October'),
+		11 =>__('November'),
+		12 =>__('December')
+	);
+	$default	= array( 'day' => '', 'month' => '', 'year' => '', );
+	$birth_date = wp_parse_args( get_the_author_meta( 'birth_date', $user->ID ), $default );
+	?>
+	<p class="woocommerce-FormRow woocommerce-FormRow--last form-row form-row-last" >
+		<label for="birth_date"><?php _e( 'Birth date', 'cake' ); ?> <span class="required">*</span></label>
+		<select id="birth-date-year" name="birth_date[year]" required>
+			<option value=""><?php echo __('Select Birth Year')?></option>
+			<?php
+   				 for ( $i = 1930; $i <= (date('Y') - 1); $i++ ) {
+   					 printf( '<option value="%1$s" %2$s>%1$s</option>', $i, selected( $birth_date['year'], $i, false ) );
+   				 }
+   			 ?></select>
+   			 <select id="birth-date-month" name="birth_date[month]" required>
+   			 <option value=""><?php echo __('Select Birth Month')?></option>
+   			 <?php
+   				 foreach ( $months as $month ) {
+   					 printf( '<option value="%1$s" %2$s>%1$s</option>', $month, selected( $birth_date['month'], $month, false ) );
+   				 }
+   			 ?></select>
+   			 <select id="birth-date-day" name="birth_date[day]" required>
+   			 <option value=""><?php echo __('Select Birth Day')?></option>
+   			 <?php
+   				 for ( $i = 1; $i <= 31; $i++ ) {
+   					 printf( '<option value="%1$s" %2$s>%1$s</option>', $i, selected( $birth_date['day'], $i, false ) );
+   				 }
+   			 ?></select>
+   		 </td>
+	</p>
 	
 	<div class="clear"></div>
 	<br />
