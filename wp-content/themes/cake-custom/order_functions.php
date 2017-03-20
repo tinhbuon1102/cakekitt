@@ -1221,3 +1221,12 @@ add_action( 'woocommerce_order_details_after_order_table', 'woocommerce_order_de
 add_action( 'woocommerce_email_after_order_table', 'woocommerce_order_details_after_order_table_order_custom', 30, 4 );
 add_action( 'woocommerce_form_pay_after_order_table', 'woocommerce_order_details_after_order_table_order_custom', 30, 4 );
 
+function kitt_woocommerce_get_order_item_totals($total_rows, $order) {
+	if (is_custom_order($order->id) && in_array($order->post_status, array('wc-pending', 'wc-on-hold')) )
+	{
+		$total_rows['cart_subtotal']['label'] = '見積もり小計';
+		$total_rows['order_total']['label'] = '見積もり合計';
+	}
+	return $total_rows;
+}
+add_filter('woocommerce_get_order_item_totals', 'kitt_woocommerce_get_order_item_totals', 10, 2);
