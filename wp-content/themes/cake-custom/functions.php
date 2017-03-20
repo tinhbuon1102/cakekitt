@@ -7,6 +7,30 @@ if (!function_exists('pr')) {
 		echo '</pre>';
 	}
 }
+
+function kitt_acf_render_field_wrap($field)
+{
+	if (function_exists('acf_render_field_wrap')) {
+		acf_render_field_wrap($field);
+	}
+	else {
+		do_action('acf/create_field', $field);
+	}
+}
+
+function kitt_get_custom_fields()
+{
+	if (function_exists('acf_render_field_wrap')) {
+		$postID = 1956;
+		$cake_custom_fields = acf_get_fields($postID);
+	}
+	else {
+		$postID = 1532;
+		$cake_custom_fields = apply_filters('acf/field_group/get_fields', array(), $postID);
+	}
+	return $cake_custom_fields;
+}
+
 include 'order_functions.php';
 
 // 親テーマ引き継ぎ用関数
@@ -368,6 +392,8 @@ function custom_meta_order_detail_box_markup($post)
 		.order-detail-meta textarea {width: 100% !important; font-size: 11px;}
 		.order-detail-meta input[type="text"] {width: 60% !important;}
 		.disable {display: none}
+		.order-detail-meta .acf-label {display: none;}
+		.order-detail-meta .acf-field {margin: 0;}
 	</style>';
 	echo '<table class="order-detail-meta" style="clear:both; width: 100%">';
 	if (!empty($orderFormData))
@@ -420,19 +446,19 @@ function custom_meta_order_detail_box_markup($post)
 				
 				if ($fieldName == 'custom_order_cake_type')
 				{
-					echo do_action('acf/create_field', $args);
+					kitt_acf_render_field_wrap( $args);
 				}
 				else {
 					$itemField['name'] = 'custom_order_meta['.$itemField['name'].']';
 					$itemField['value'] = $defaultValue;
-						
-					echo do_action('acf/create_field', $itemField);
+					kitt_acf_render_field_wrap( $itemField);
 				}
 				
 				echo '</td></tr>';
 			}
 		}
 		else {
+			
 			foreach ($orderFormData as $metaItemKey => $metaItemVal)
 			{
 				$field_mappings[$metaItemKey]['field']['name'] = 'custom_order_meta['.$metaItemKey.']';
@@ -441,7 +467,7 @@ function custom_meta_order_detail_box_markup($post)
 				echo '<tr id="'.$metaItemKey.'_wraper" >
 					<td class="col-left" style="text-align: left; width: 20%">'.$field_mappings[$metaItemKey]['field']['label'].'</td>
 					<td class="col-right" style="text-align; width: 80%"> ';
-					echo do_action('acf/create_field', $field_mappings[$metaItemKey]['field']);
+				kitt_acf_render_field_wrap( $field_mappings[$metaItemKey]['field']);
 				echo '</td></tr>';
 			}
 		}
