@@ -852,7 +852,7 @@ function getDecorationOption(){
 	return $options;
 }
 
-function getOrderDetail($order_id = false) {
+function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER) {
 	if (!$order_id)
 	{
 		// Get from session during order form
@@ -861,6 +861,7 @@ function getOrderDetail($order_id = false) {
 	else {
 		// Get from meta when order already completed
 		$aData = get_post_meta($order_id, 'cake_custom_order', true);
+		$order = new WC_Order($order_id);
 	}
 	
 	if (!$aData || empty($aData)) return '';
@@ -971,12 +972,6 @@ function getOrderDetail($order_id = false) {
 	$aDecoOptions = getDecorationOption();
 	
 	$indexItem = 0;
-	
-	// Remove unessesary fields
-	if (isset($aData['custom_order_cakecolor_other']) && $aData['custom_order_cakecolor_other'])
-	{
-		unset($aData['custom_order_cakecolor']);
-	}
 	
 	foreach ($aDetailBlocks as $blockName => $blockContent)
 	{
@@ -1183,13 +1178,9 @@ function woocommerce_order_details_after_order_table_order_custom ($order){
 	$items = $orderDetail->get_items();
 	$order_type = wc_get_order_item_meta( key($items), '_order_type');
 	// Do'nt show custom detail for normal order
-	if ($order_type == KITT_NORMAL_ORDER)
-	{
-		return '';
-	}
 ?>
 	<div class="custom_order_details">
-		<?php echo getOrderDetail($order->id); ?>
+		<?php echo getOrderDetail($order->id, $order_type); ?>
 	</div><!--/custom_order_details-->
 
 <?php
