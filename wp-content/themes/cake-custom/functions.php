@@ -1033,8 +1033,14 @@ function extra_delivery_fields_in_checkout_page( $checkout ) {
 			</div>
 		</li>
 	</ul>
-	
-	<div class="row">
+<?php
+}
+
+add_action('woocommerce_after_checkout_billing_form', 'kitt_woocommerce_after_checkout_billing_form', 10, 3);
+function kitt_woocommerce_after_checkout_billing_form($checkout)
+{
+?>
+<div class="row">
 		<div class="field col-md-6">
 			<label class="label">Sex</label>
 			<ul class="account_sex text-radio list-type">
@@ -1094,9 +1100,8 @@ function extra_delivery_fields_in_checkout_page( $checkout ) {
 			</p>
 		</div>
 	</div>
-<?php
+<?php	
 }
-
 add_action( 'woocommerce_checkout_update_order_meta', 'kitt_custom_checkout_field_update_order_meta' );
 function kitt_custom_checkout_field_update_order_meta( $order_id ) 
 {
