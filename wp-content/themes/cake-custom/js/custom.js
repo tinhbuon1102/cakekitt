@@ -139,7 +139,6 @@ jQuery(".ordercake-cart-sidebar-container").pinBox({
 		MinWidth : '767px'
 		//events if scrolled or window resized 
 	});
-	
     // shape icons
 	jQuery('.cake_shape_round i').addClass('iconkitt-kitt_icons_cake-round');
 	jQuery('.cake_shape_square i').addClass('iconkitt-kitt_icons_shape-square');

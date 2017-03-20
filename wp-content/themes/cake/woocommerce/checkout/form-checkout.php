@@ -33,11 +33,10 @@ if ( ! $checkout->enable_signup && ! $checkout->enable_guest_checkout && ! is_us
 ?>
 
 <form name="checkout" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
-
+<div class="row" id="checkoutbox">
 	<?php if ( sizeof( $checkout->checkout_fields ) > 0 ) : ?>
-
+<div class="col-md-8 columns">
 		<?php do_action( 'woocommerce_checkout_before_customer_details' ); ?>
-
 		<div class="col2-set" id="customer_details">
 			<div class="col-1">
 				<?php do_action( 'woocommerce_checkout_billing' ); ?>
@@ -47,11 +46,17 @@ if ( ! $checkout->enable_signup && ! $checkout->enable_guest_checkout && ! is_us
 				<?php do_action( 'woocommerce_checkout_shipping' ); ?>
 			</div>
 		</div>
-
+		<div class="select-datetime">
 		<?php do_action( 'woocommerce_checkout_after_customer_details' ); ?>
+		</div>
+	</div>
+		
 
 	<?php endif; ?>
-
+<div class="col-md-4 columns position-static pt-md-4 pt-sm-2 pb-sm-4">
+	<div class="ordercake-cart-sidebar-container2">
+	<div class="cake-cart-sidebar">
+	<div class="panel mb-3">
 	<h3 id="order_review_heading"><?php _e( 'Your order', 'woocommerce' ); ?></h3>
 
 	<?php do_action( 'woocommerce_checkout_before_order_review' ); ?>
@@ -59,9 +64,13 @@ if ( ! $checkout->enable_signup && ! $checkout->enable_guest_checkout && ! is_us
 	<div id="order_review" class="woocommerce-checkout-review-order">
 		<?php do_action( 'woocommerce_checkout_order_review' ); ?>
 	</div>
-
 	<?php do_action( 'woocommerce_checkout_after_order_review' ); ?>
-
+	</div><!--/panel-->
+	</div><!--/cake-cart-sidebar-->
+	</div><!--/cake-cart-sidebar-container-->
+	</div><!--/col-md-4-->
+	
+	</div><!--/checkoutbox-->
 </form>
 
 <?php do_action( 'woocommerce_after_checkout_form', $checkout ); ?>

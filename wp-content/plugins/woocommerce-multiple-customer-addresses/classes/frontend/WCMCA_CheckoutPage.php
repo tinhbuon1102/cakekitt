@@ -6,7 +6,7 @@ class WCMCA_CheckoutPage
 		add_action('wp_footer', array( &$this,'add_custom_css'),99);
 		add_action('woocommerce_before_checkout_form', array(&$this, 'add_popup_html'));
 		add_action('woocommerce_before_checkout_billing_form', array(&$this, 'add_billing_address_select_menu'));
-		add_action('woocommerce_before_checkout_shipping_form', array(&$this, 'add_shipping_address_select_menu'));
+		add_action('woocommerce_before_checkout_shipping_form', array(&$this, 'add_shipping_address_select_menu'),2);
 		
 		add_action('woocommerce_checkout_update_order_meta', array( &$this, 'save_checkout_extra_field' ));
 	}
