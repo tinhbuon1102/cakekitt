@@ -708,6 +708,8 @@ function submit_form_order(){
 			// Mark as on-hold (we're awaiting the payment)
 			$order->update_status('pending', __( 'Awaiting payment', 'woocommerce-other-payment-gateway' ));
 			
+			kitt_send_email_customer_placed_order($order->id);
+			
 			// Redirect to thank you page
 			$payment = new WC_Other_Payment_Gateway();
 			$redirect = $payment->get_return_url($order);
@@ -1235,4 +1237,4 @@ function kitt_send_email_customer_placed_order($order_id)
 }
 // send place order email when created order
 add_action( 'woocommerce_order_status_pending', 'kitt_send_email_customer_placed_order', 10, 3 );
-add_action( 'woocommerce_checkout_update_order_meta', 'kitt_send_email_customer_placed_order', 10, 3 );
+add_action( 'woocommerce_checkout_order_processed', 'kitt_send_email_customer_placed_order', 10, 3 );
