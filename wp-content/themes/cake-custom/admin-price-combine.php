@@ -112,7 +112,7 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 					'choices' => $field_mappings['custom_order_cake_shape']['value']
 				);
 				
-				do_action('acf/create_field', $args);
+				kitt_acf_render_field_wrap( $args);
 				
 				?></td>
 				<td class="cake-size col2"><?php
@@ -125,7 +125,7 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 					'choices' => array('' => __('Select Size'))
 				);
 				
-				do_action('acf/create_field', $args);
+				kitt_acf_render_field_wrap( $args);
 				
 				// create field
 				$args = array(
@@ -135,7 +135,7 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 					'choices' => array('' => __('Select Size'))
 				);
 				
-				do_action('acf/create_field', $args);
+				kitt_acf_render_field_wrap( $args);
 				
 				?></td>
 				<td class="col3">
@@ -148,7 +148,7 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 					'placeholder' => __('Enter Price', 'cake')
 				);
 				
-				do_action('acf/create_field', $args);
+				kitt_acf_render_field_wrap( $args);
 				?>
 				</td>
 				<td class="add col4">
@@ -181,7 +181,7 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 					'choices' => $decorateChoices
 				);
 				
-				do_action('acf/create_field', $args);
+				kitt_acf_render_field_wrap( $args);
 				
 				?></td>
 				<td class="col2"></td>
@@ -195,7 +195,7 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 					'placeholder' => __('Enter Price', 'cake')
 				);
 				
-				do_action('acf/create_field', $args);
+				kitt_acf_render_field_wrap( $args);
 				?>
 				</td>
 				<td class="add col4">
