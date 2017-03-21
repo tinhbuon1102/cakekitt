@@ -1100,7 +1100,7 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER) {
 						break;
 						
 					case 'custom_order_msgplate' :
-						$fieldValue = $aData['custom_order_msgpt_text_yes'] ?  $fieldValue . '<span class="desc">' . $aData['custom_order_msgpt_text_yes'] . '</span>' : $fieldValue;
+						$fieldValue = $aData['custom_order_msgpt_text_yes'] ?  $fieldValueName . '<span class="desc">' . $aData['custom_order_msgpt_text_yes'] . '</span>' : $fieldValueName;
 						break;
 						
 					case 'custom_order_customer_name_last_kana':
