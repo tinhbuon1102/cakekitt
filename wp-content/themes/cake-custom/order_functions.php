@@ -1122,7 +1122,7 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER) {
 						
 						$fieldValues = $fieldValue;
 						$fieldValue = '';
-						foreach ($fieldValues as $decoreateMain)
+						foreach ($fieldValues as $decoMainKey => $decoreateMain)
 						{
 							foreach ($aDecoration as $decoVal => $aDeOptions)
 							{
@@ -1130,7 +1130,7 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER) {
 								{
 									$divRowTmp = '';
 									$divRowTmp .= '<div class="form-row row-'.$fieldName.'">';
-									$divRowTmp .= '<div class="label-div">'.$fieldLabel.'</div>';
+									$divRowTmp .= '<div class="label-div '.$decoMainKey.' " >'. ($decoMainKey != 0 ? '&nbsp;' : $fieldLabel).'</div>';
 									$divRowTmp .= '<div class="show-value">' . $fieldMapping[$fieldName]['value'][$decoreateMain];
 									
 									foreach ($aDeOptions as $deOption)
