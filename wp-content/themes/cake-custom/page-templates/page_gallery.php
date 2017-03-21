@@ -25,7 +25,30 @@ $field_mappings = getCustomFormFieldMapping();
 				
 				<div id="primary" class="<?php echo esc_attr($col['colclass']); ?> content-area" style="<?php echo esc_attr($col['position']);?>">
 					<main id="main" class="site-main">
-				
+						<?php
+							$terms = get_terms( array(
+								'taxonomy' => 'cakegal_taxonomy',
+								'hide_empty' => false,
+							) );
+							if(!empty($terms)){
+							?>
+							<select name="cakegal_cat" class="gal_cat" style="width:30%;float:right;margin:10px 0">
+							<?php
+								foreach($terms as $term){
+							?>
+								<option data-fid="<?php echo $term->term_id;?>" data-filter="filter-<?php echo $term->slug;?>" value="<?php echo $term->slug;?>"><?php echo $term->name;?></option>
+							<?php
+								}
+							?>
+							</select> 
+							<?php
+							}
+							
+							// $fields = get_field_objects();
+							// echo '<pre>';
+							// print_r( $fields ); 
+							
+						?>
 						<?php while ( have_posts() ) : the_post(); ?>
 			
 							<?php get_template_part( 'content', 'page' ); ?>

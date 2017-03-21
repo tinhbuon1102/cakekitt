@@ -1,6 +1,6 @@
 jQuery(document).ready(function(){
 	//Show Options
-	
+	//$('.gal_cat').SumoSelect();
 	$(function() {
 
         var $document = $(document);
