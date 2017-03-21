@@ -568,6 +568,16 @@ table.woocommerce-MyAccount-orders.shop_table.account-orders-table td.order-acti
 .show-value span.decorate_option.custom_order_flowercolor span.decorate_option, .show-value [class$="_color"] span.decorate_option {
     display: none;
 }
+/*.cake_info_wraper .col-xs-12 .row-custom_order_cake_decorate:first-child .label-div {
+    display: block;
+    width: 100%;
+}
+.cake_info_wraper .col-xs-12 .row-custom_order_cake_decorate .label-div {
+    display: none;
+}*/
+.cake_info_wraper .col-xs-12 .row-custom_order_cake_decorate:first-child .show-value {
+    display: block;
+}
 .latest-order-table {
     float: left;
     width: 86%;
