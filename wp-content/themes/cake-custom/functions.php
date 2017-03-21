@@ -889,7 +889,7 @@ add_filter( 'woocommerce_ship_to_different_address_checked', '__return_true' );
 
 //show title for shipping on checkout page
 function kitt_title_shipping() {
-echo '<h4 class="heading-form mt-4 mb-2 text-gray">Where do you want your order delivered?</h3>';
+echo '<h4 class="heading-form mt-4 mb-2 text-gray">どこにデリバリーをご希望ですか?</h3>';
 }
  
 add_action( 'woocommerce_before_checkout_shipping_form', 'kitt_title_shipping', 1 );
@@ -927,11 +927,11 @@ function tm_additional_profile_fields( $user ) {
 	$sexs = array('male' => __('Male', 'cake'), 'female' => __('Female', 'cake'));
 
     ?>
-    <h3>Extra profile information</h3>
+    <h3><?php _e( 'Extra profile information', 'woocommerce' ); ?></h3>
 
     <table class="form-table">
    	 <tr>
-   		 <th><label for="birth-date-day">Birth date</label></th>
+   		 <th><label for="birth-date-day"><?php _e( 'Birth date', 'woocommerce' ); ?></label></th>
    		 <td>
    		 <select id="birth-date-year" name="birth_date[year]"><?php
 	   		 foreach($yearMonthDays['years'] as $yearNumber) {
@@ -951,7 +951,7 @@ function tm_additional_profile_fields( $user ) {
    		 </td>
    	 </tr>
    	 <tr>
-   		 <th><label for="sex">Sex</label></th>
+   		 <th><label for="sex"><?php _e( 'Sex', 'woocommerce' ); ?></label></th>
    		 <td>
    		 <select id="sex" name="sex"><?php
    				 foreach ( $sexs as $sexKey => $sex ) {
@@ -997,13 +997,13 @@ function extra_delivery_fields_in_checkout_page( $checkout ) {
 	<ul>
 		<li class="main-option">
 			<h4 class="heading-form display-table mb-3">
-				<span class="display-table-cell pl-2"><?php _e('When do you want your order delivered?', 'cake')?></span>
+				<span class="display-table-cell pl-2"><?php _e('When do you want your order delivered?', 'woocommerce')?></span>
 			</h4>
 			<div class="row">
 				<div class="col-md-6 columns">
 					<label class="label mb-2">
 						<i class="icon-outline-kitt_icons_calendar01"></i>
-						<?php _e('Pick Up Date', 'cake')?>
+						<?php _e('Pick Up Date', 'woocommerce')?>
 					</label>
 					<div class="calendar"></div>
 					<input type="hidden" name="cake_custom_order[custom_order_pickup_date]" id="custom_order_pickup_date" value="<?php echo date('Y-m-d')?>"/>
@@ -1011,7 +1011,7 @@ function extra_delivery_fields_in_checkout_page( $checkout ) {
 				<div class="col-md-6 columns">
 					<label class="label mb-2">
 						<i class="icon-outline-kitt_icons_clock"></i>
-						<?php _e('Pick Up Time', 'cake')?>
+						<?php _e('Pick Up Time', 'woocommerce')?>
 					</label>
 					<div class="timepicker">
 						<div class="timepick">
@@ -1052,7 +1052,7 @@ function kitt_woocommerce_after_checkout_billing_form($checkout)
 					<label for="account_sex_male" class="js-fixHeightChildText radio_label">
 						<div class="radio_option radio_size">
 							<h5 class="js-fixHeightChildTitle radio_option_caption">
-								<span class="caption_wrap">Male</span>
+								<span class="caption_wrap"><?php _e( 'Male', 'woocommerce' ); ?></span>
 							</h5>
 						</div>
 					</label>
@@ -1062,7 +1062,7 @@ function kitt_woocommerce_after_checkout_billing_form($checkout)
 					<label for="account_sex_female" class="js-fixHeightChildText radio_label">
 						<div class="radio_option radio_size">
 							<h5 class="js-fixHeightChildTitle radio_option_caption">
-								<span class="caption_wrap">FeMale</span>
+								<span class="caption_wrap"><?php _e( 'Female', 'woocommerce' ); ?></span>
 							</h5>
 						</div>
 					</label>
@@ -1070,7 +1070,7 @@ function kitt_woocommerce_after_checkout_billing_form($checkout)
 			</ul>
 		</div>
 		<div class="field col-md-6">
-			<label class="label">Birthday</label>
+			<label class="label"><?php _e( 'Birthday', 'woocommerce' ); ?></label>
 			<?php 
 			$yearMonthDays = kitt_get_year_month_day();
 			$birth_date = get_user_meta( get_current_user_id(), 'birth_date', true);
@@ -1079,21 +1079,21 @@ function kitt_woocommerce_after_checkout_billing_form($checkout)
 			?>
 			<p class="woocommerce-FormRow woocommerce-FormRow--last form-row form-row-wide" >
 				<select id="birth-date-year" name="cake_custom_order[custom_order_customer_birth_date_year]" required class="form-control select select-primary" data-toggle="select">>
-					<option value=""><?php echo __('Select Birth Year')?></option>
+					<option value=""><?php echo __('Select Birth Year', 'woocommerce')?></option>
 					<?php
 		   				 foreach($yearMonthDays['years'] as $yearNumber) {
 		   					 printf( '<option value="%1$s" %2$s>%1$s</option>', $yearNumber, selected( $birth_date['year'], $yearNumber, false ) );
 		   				 }
 		   			 ?></select>
 		   			 <select id="birth-date-month" name="cake_custom_order[custom_order_customer_birth_date_month]" required class="form-control select select-primary" data-toggle="select">>
-		   			 <option value=""><?php echo __('Select Birth Month')?></option>
+		   			 <option value=""><?php echo __('Select Birth Month', 'woocommerce')?></option>
 		   			 <?php
 		   				 foreach ( $yearMonthDays['months'] as $monthNumber => $monthText ) {
 		   					 printf( '<option value="%1$s" %2$s>%3$s</option>', $monthNumber, selected( $birth_date['month'], $monthNumber, false ), $monthText );
 		   				 }
 		   			 ?></select>
 		   			 <select id="birth-date-day" name="cake_custom_order[custom_order_customer_birth_date_day]" required class="form-control select select-primary" data-toggle="select">>
-		   			 <option value=""><?php echo __('Select Birth Day')?></option>
+		   			 <option value=""><?php echo __('Select Birth Day', 'woocommerce')?></option>
 		   			 <?php
 		   			 foreach($yearMonthDays['days'] as $dayNumber) {
 		   					 printf( '<option value="%1$s" %2$s>%1$s</option>', $dayNumber, selected( $birth_date['day'], $dayNumber, false ) );
