@@ -541,6 +541,10 @@ h2.entry-title {
     border-color: rgba(233,159,188,1);
 }
 /*my account*/
+.woocommerce table.my_account_latest_orders thead th {
+    padding: 0 12px;
+	font-size: 12px;
+}
 .latest-order-table {
     float: left;
     width: 86%;
