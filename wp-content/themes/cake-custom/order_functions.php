@@ -735,7 +735,7 @@ function getCustomFormFieldMapping(){
 	$cake_type_fields = array();
 	
 	$cake_type_fields['custom_order_cake_type']['field'] = $terms;
-	$cake_type_fields['custom_order_cake_type']['field']['label'] = __('Cake Type', 'cacke');
+	$cake_type_fields['custom_order_cake_type']['field']['label'] = __('Cake Type', 'woocommerce');
 	$cake_type_fields['custom_order_cake_type']['field']['type'] = 'select';
 	$cake_type_fields['custom_order_cake_type']['field']['name'] = 'custom_order_cake_type';
 	
@@ -894,7 +894,7 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER) {
 	$aDetailBlocks = array(
 		'time_info_wraper' => array(
 			'class' => 'col-xs-12',
-			'label' => __('Time Info', 'cake'),
+			'label' => __('Time Info', 'woocommerce'),
 			'groups' => array(
 				array(
 					'custom_order_pickup_date' => array(
@@ -1016,7 +1016,7 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER) {
 			foreach ($blockGroup as $fieldName => $blockVal)
 			{
 				// Get field Label
-				$fieldLabel = $fieldName == 'custom_order_cake_type' ? __('Cake Type', 'cake') : $fieldMapping[$fieldName]['field']['label'];
+				$fieldLabel = $fieldName == 'custom_order_cake_type' ? __('Cake Type', 'woocommerce') : $fieldMapping[$fieldName]['field']['label'];
 				$fieldValue = $aData[$fieldName];
 				
 				if ((is_array($fieldValue) && empty($fieldValue)) || !$fieldValue)
