@@ -32,7 +32,7 @@ $field_mappings = getCustomFormFieldMapping();
 							) );
 							if(!empty($terms)){
 							?>
-							<select name="cakegal_cat" class="gal_cat" style="width:30%;float:right;margin:10px 0">
+							<select name="cakegal_cat" class="gal_cat" style="width:30%;float:right;margin:10px 5px">
 							<?php
 								foreach($terms as $term){
 							?>
@@ -43,11 +43,36 @@ $field_mappings = getCustomFormFieldMapping();
 							</select> 
 							<?php
 							}
-							
-							// $fields = get_field_objects();
-							// echo '<pre>';
-							// print_r( $fields ); 
-							
+							$field_id = 'field_58c8df4c9c53d';
+							$color_type = get_field_object($field_id);
+							if(!empty($color_type['choices'])){
+								?>
+								<select name="cakegal_color_type" class="gal_color_type" style="width:30%;float:right;margin:10px 5px">
+								<?php
+									foreach($color_type['choices'] as $key => $val){
+								?>
+									<option data-filter="filter-<?php echo $key;?>" value="<?php echo $key;?>"><?php echo $val;?></option>
+								<?php
+									}
+								?>
+								</select> 
+								<?php
+							}
+							$field_id = 'field_58c94f4841353';
+							$scene = get_field_object($field_id);
+							if(!empty($scene['choices'])){
+								?>
+								<select name="cakegal_scene" class="gal_scene" style="width:30%;float:right;margin:10px 5px">
+								<?php
+									foreach($scene['choices'] as $key => $val){
+								?>
+									<option data-filter="filter-<?php echo $key;?>" value="<?php echo $key;?>"><?php echo $val;?></option>
+								<?php
+									}
+								?>
+								</select> 
+								<?php
+							}
 						?>
 						<?php while ( have_posts() ) : the_post(); ?>
 			
