@@ -918,10 +918,11 @@ add_filter( 'gettext', 'wc_billing_field_strings', 20, 3 );
  */
 function tm_additional_profile_fields( $user ) {
 
-    $months 	= array( 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' );
-    $default	= array( 'day' => 1, 'month' => 'Jnuary', 'year' => 1950, );
-    $birth_date = wp_parse_args( get_the_author_meta( 'birth_date', $user->ID ), $default );
-	$sexs 	= array( 'Male', 'Female' );
+	$yearMonthDays = kitt_get_year_month_day();
+	$birth_date = get_user_meta( get_current_user_id(), 'birth_date', true);
+	$default	= array( 'day' => 1, 'month' => 1, 'year' => 1980, );
+	$birth_date = $birth_date ? $birth_date : $default;
+	$sexs = array('male' => __('Male', 'cake'), 'female' => __('Female', 'cake'));
 
     ?>
     <h3>Extra profile information</h3>
@@ -931,19 +932,19 @@ function tm_additional_profile_fields( $user ) {
    		 <th><label for="birth-date-day">Birth date</label></th>
    		 <td>
    		 <select id="birth-date-year" name="birth_date[year]"><?php
-   				 for ( $i = 1950; $i <= 2015; $i++ ) {
-   					 printf( '<option value="%1$s" %2$s>%1$s</option>', $i, selected( $birth_date['year'], $i, false ) );
-   				 }
+	   		 foreach($yearMonthDays['years'] as $yearNumber) {
+	   		 	printf( '<option value="%1$s" %2$s>%1$s</option>', $yearNumber, selected( $birth_date['year'], $yearNumber, false ) );
+	   		 }
    			 ?></select>
    			 <select id="birth-date-month" name="birth_date[month]"><?php
-   				 foreach ( $months as $month ) {
-   					 printf( '<option value="%1$s" %2$s>%1$s</option>', $month, selected( $birth_date['month'], $month, false ) );
-   				 }
+	   			 foreach ( $yearMonthDays['months'] as $monthNumber => $monthText ) {
+	   			 	printf( '<option value="%1$s" %2$s>%3$s</option>', $monthNumber, selected( $birth_date['month'], $monthNumber, false ), $monthText );
+	   			 }
    			 ?></select>
    			 <select id="birth-date-day" name="birth_date[day]"><?php
-   				 for ( $i = 1; $i <= 31; $i++ ) {
-   					 printf( '<option value="%1$s" %2$s>%1$s</option>', $i, selected( $birth_date['day'], $i, false ) );
-   				 }
+   			 foreach($yearMonthDays['days'] as $dayNumber) {
+   			 	printf( '<option value="%1$s" %2$s>%1$s</option>', $dayNumber, selected( $birth_date['day'], $dayNumber, false ) );
+   			 }
    			 ?></select>
    		 </td>
    	 </tr>
@@ -951,8 +952,8 @@ function tm_additional_profile_fields( $user ) {
    		 <th><label for="sex">Sex</label></th>
    		 <td>
    		 <select id="sex" name="sex"><?php
-   				 foreach ( $sexs as $sex ) {
-   					 printf( '<option value="%1$s" %2$s>%1$s</option>', $sex, selected( $sex, $sex, false ) );
+   				 foreach ( $sexs as $sexKey => $sex ) {
+   					 printf( '<option value="%1$s" %2$s>%3$s</option>', $sexKey, selected( get_user_meta(get_current_user_id(), 'sex', true), $sexKey, false ), $sex );
    				 }
    			 ?></select>
    		 </td>
