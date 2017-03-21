@@ -691,7 +691,7 @@ if ($inspired_pic)
 		</div>
 		
 		<div id="fourth_step" class="step_wraper" data-step="4">
-			<h3>Confirmation</h3>
+			<h3><?php echo __('Confirmation', 'cake')?></h3>
 		</div>
 		
 		<div id="button_wraper">
