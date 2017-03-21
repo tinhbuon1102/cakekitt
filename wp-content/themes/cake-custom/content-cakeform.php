@@ -138,7 +138,7 @@ if ($inspired_pic)
 									
 									<?php if ($value == 'custom') {?>
 									<div id="shape_custom" class="suboption_box disable">
-										<textarea name="custom_order_cake_shape_custom" class="subinfo txtLL empty" placeholder="Enter your custom shape"></textarea>
+										<textarea name="custom_order_cake_shape_custom" class="subinfo txtLL empty" placeholder="ご希望の形についてご記入ください。"></textarea>
 									</div>
 									<?php }?>
 								</li>

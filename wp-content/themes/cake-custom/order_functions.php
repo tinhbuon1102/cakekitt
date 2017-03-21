@@ -1054,8 +1054,9 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER) {
 							
 					case 'custom_order_cake_shape':
 						$fieldCakeSize = getCakeSizeOption($fieldValue, $aData);	
-						$fieldValue = '<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_shape-'.$fieldValue.' size30 blk"></i></span>';
-						$fieldValue .= '<span class="shape-and-size">'.$fieldValueName.'/'.$fieldCakeSize.'</span>';
+						$fieldValue = '<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_shape-'.$fieldValue.' size30 blk"></i></span>' . 
+										'<span class="shape-and-size">'.$fieldValueName.'/'.$fieldCakeSize.'</span>' . 
+										($fieldValue == 'custom' && $aData['custom_order_cake_shape_custom'] ? '<br/>'.$aData['custom_order_cake_shape_custom'] : '');
 						break;
 							
 					case 'custom_order_cakeflavor':
