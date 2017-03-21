@@ -830,6 +830,9 @@ h2.order-head-title {
     vertical-align: bottom;
     padding-bottom: 0;
 }
+.custom_order_details .order-detail-custom-table.row .cake_info_wraper .label-div {
+    width: 160px;
+}
 .order-detail-custom-table .form-row .show-value {
      border-bottom: 1px solid rgba(0,0,0,.1);
 }
@@ -843,8 +846,25 @@ h2.order-head-title {
     display: block;
 	text-align: center;
 }
-.order-detail-custom-table .col-xs-3 .form-row .label-div {
+.custom_order_details .order-detail-custom-table .col-xs-3 .form-row .label-div {
     font-size: 12px;
+    width: auto;
+}
+.order-detail-custom-table .col-xs-3 .show-value span.shape-and-size, .order-detail-custom-table .col-xs-3 .show-value span.value-text {
+    font-size: 12px;
+    line-height: 1;
+    word-break: break-all;
+}
+.order-detail-custom-table .customer_info_wraper .form-row .label-div, .order-detail-custom-table .delivery_info_wraper .form-row .label-div {
+    width: 120px;
+    font-size: 12px;
+}
+.order-detail-custom-table .customer_info_wraper .form-row, .order-detail-custom-table .delivery_info_wraper .form-row {
+    margin-bottom: 20px;
+}
+.custom_order_details h3 {
+    font-size: 16px;
+    margin-bottom: 20px;
 }
 .order-detail-custom-table .col-xs-3 .form-row .show-value {
     border: none;
