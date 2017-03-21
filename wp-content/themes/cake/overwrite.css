@@ -541,6 +541,15 @@ h2.entry-title {
     border-color: rgba(233,159,188,1);
 }
 /*my account*/
+.latest-order-table {
+    float: left;
+    width: 86%;
+    width: -webkit-calc(100% - 100px);
+    width: calc(100% - 100px);
+}
+.woocommerce .latest-order-table table.my_account_latest_orders {
+    margin: 0;
+}
 #customer_login .form-row input.woocommerce-Button.button {
     text-align: center;
     width: 100%;
