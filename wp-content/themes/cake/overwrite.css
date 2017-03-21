@@ -568,15 +568,33 @@ table.woocommerce-MyAccount-orders.shop_table.account-orders-table td.order-acti
 .show-value span.decorate_option.custom_order_flowercolor span.decorate_option, .show-value [class$="_color"] span.decorate_option {
     display: none;
 }
-/*.cake_info_wraper .col-xs-12 .row-custom_order_cake_decorate:first-child .label-div {
-    display: block;
-    width: 100%;
+.cake_info_wraper .col-xs-12 .row-custom_order_cake_decorate:first-child .label-div {
+
 }
-.cake_info_wraper .col-xs-12 .row-custom_order_cake_decorate .label-div {
-    display: none;
-}*/
 .cake_info_wraper .col-xs-12 .row-custom_order_cake_decorate:first-child .show-value {
-    display: block;
+ 
+}
+.cake_info_wraper .col-xs-12 .row-custom_order_cake_decorate {
+    margin-bottom: 12px;
+}
+.cake_info_wraper .col-xs-12 .row-custom_order_cake_decorate .show-value:before {
+    font-size: 10px;
+    padding: 3px;
+    border: 1px solid #CCC;
+    margin-right: 5px;
+    width: 19px;
+    height: 19px;
+    display: inline-block;
+    content: "\e99e";
+    font-family: 'linericon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 .latest-order-table {
     float: left;
