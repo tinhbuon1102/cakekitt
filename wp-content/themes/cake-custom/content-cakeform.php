@@ -176,7 +176,7 @@ if ($inspired_pic)
 						</h4>
 						<div class="cake-size select-wrapper">
 							<select name="custom_order_cakesize_square" class="form-control select select-primary disable" data-toggle="select">
-								<option value=""><?php echo __('Choose Size', 'cake')?></option>
+								<option value=""><?php echo __('Select Size', 'cake')?></option>
 								<!--for round shape-->
 								<?php 
 								$index = 0;
@@ -190,7 +190,7 @@ if ($inspired_pic)
 							</select>
 							
 							<select name="custom_order_cakesize_round" class="form-control select select-primary validate[required]" data-toggle="select">
-								<option value=""><?php echo __('Choose Size', 'cake')?></option>
+								<option value=""><?php echo __('Select Size', 'cake')?></option>
 								<!--for round shape-->
 								<?php 
 								$index = 0;
