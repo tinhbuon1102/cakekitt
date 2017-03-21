@@ -1056,7 +1056,7 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER) {
 						$fieldCakeSize = getCakeSizeOption($fieldValue, $aData);	
 						$fieldValue = '<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_shape-'.$fieldValue.' size30 blk"></i></span>' . 
 										'<span class="shape-and-size">'.$fieldValueName.'/'.$fieldCakeSize.'</span>' . 
-										($fieldValue == 'custom' && $aData['custom_order_cake_shape_custom'] ? '<span class="shape-desc">'.$aData['custom_order_cake_shape_custom'] . '</span>' : '');
+										($fieldValue == 'custom' && $aData['custom_order_cake_shape_custom'] ? '<span class="shape-desc desc">'.$aData['custom_order_cake_shape_custom'] . '</span>' : '');
 						break;
 							
 					case 'custom_order_cakeflavor':
@@ -1095,6 +1095,10 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER) {
 					case 'custom_order_customer_name_last':
 						$fieldLabel = $blockVal['label'];
 						$fieldValue = $aData['custom_order_customer_name_last'] . $aData['custom_order_customer_name_first'];
+						break;
+						
+					case 'custom_order_msgplate' :
+						$fieldValue = $aData['custom_order_msgpt_text_yes'] ?  $fieldValue . '<span class="desc">' . $aData['custom_order_msgpt_text_yes'] . '</span>' : $fieldValue;
 						break;
 						
 					case 'custom_order_customer_name_last_kana':
