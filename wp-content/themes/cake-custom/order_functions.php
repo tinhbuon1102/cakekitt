@@ -992,6 +992,14 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER) {
 		unset($aDetailBlocks['cake_info_wraper']);
 	}
 	
+	// Remove delivery detail of method = pickup
+	if ($aData['custom_order_shipping'] == 'pickup')
+	{
+		$custom_order_shipping = $aDetailBlocks['delivery_info_wraper']['groups']['custom_order_shipping'];
+		$aDetailBlocks['delivery_info_wraper']['groups'] = array();
+		$aDetailBlocks['delivery_info_wraper']['groups']['custom_order_shipping'] = $custom_order_shipping;
+	}
+	
 	$divRow = '';
 	$divRow .= '<div class="order-detail-custom-table row">';
 	
