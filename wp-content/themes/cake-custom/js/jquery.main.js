@@ -91,7 +91,7 @@ $(function(){
             });
     	}
     	
-    	$('body').on('change', 'form#omOrder input, form#omOrder select', function(){
+    	$('body').on('change', 'form#omOrder input:not([type="file"]), form#omOrder select', function(){
     		showItemInCart();
     	});
     	
