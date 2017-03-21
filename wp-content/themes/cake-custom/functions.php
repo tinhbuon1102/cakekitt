@@ -522,12 +522,25 @@ function custom_meta_order_detail_box_markup($post)
 function save_custom_order_detail_meta_box ( $post_id, $post, $update )
 {
 	if ( ! isset($_POST["meta-box-nonce"]) || ! wp_verify_nonce($_POST["meta-box-nonce"], basename(__FILE__)) ) return $post_id;
-
 	if ( ! current_user_can("edit_post", $post_id) ) return $post_id;
-
 	if ( defined("DOING_AUTOSAVE") && DOING_AUTOSAVE ) return $post_id;
-
-	update_post_meta($post_id, "cake_custom_order", $_POST['custom_order_meta']);
+	
+	// Change shipping custom meta if order admin change shipping method
+	if (is_custom_order($post_id) && $post->post_type == 'shop_order')
+	{
+		$order = new WC_Order($post_id);
+		$shipping_methods = $order->get_shipping_methods();
+		$aCustomeOrder = get_post_meta($post_id, 'cake_custom_order', true);
+		
+		foreach ($shipping_methods as $order_item_id => $shipping_method)
+		{	
+			$aCustomeOrder['custom_order_shipping'] = $shipping_method['method_id'] == 'flat_rate' ? 'delivery' : 'pickup';
+		}
+			
+		$updatedCustomOrder = $aCustomeOrder + $_POST['custom_order_meta'];
+		update_post_meta($post_id, "cake_custom_order", $updatedCustomOrder);
+	}
+	return $post_id;
 }
 add_action("save_post", "save_custom_order_detail_meta_box", 10, 3);
 
