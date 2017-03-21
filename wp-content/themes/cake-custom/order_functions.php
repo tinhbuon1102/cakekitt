@@ -646,7 +646,7 @@ function submit_form_order(){
 			wc_update_order_item_meta( key($shipping_items), 'cost', WC()->cart->shipping_total );
 	
 			update_post_meta( $order->id, '_payment_method', 'other_payment' );
-			update_post_meta( $order->id, '_payment_method_title', 'Waiting Payment' );
+			update_post_meta( $order->id, '_payment_method_title', __('Waiting Payment', 'cake') );
 			update_post_meta( $order->id, '_customer_user', get_current_user_id() );
 			update_post_meta( $order->id, '_order_total', $totalPrice );
 			
