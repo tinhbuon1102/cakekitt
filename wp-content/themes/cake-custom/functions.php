@@ -122,6 +122,8 @@ function icheck_scripts ()
 	wp_enqueue_script('kana_js', get_stylesheet_directory_uri() . '/js/jquery.autoKana.js', array());
 	wp_enqueue_style('cake_child_css', get_stylesheet_directory_uri() . '/style.css');
 	wp_enqueue_script('overlay_js', get_stylesheet_directory_uri() . '/js/loadingoverlay.js', array());
+	wp_enqueue_script('sumoselect_js', get_stylesheet_directory_uri() . '/js/jquery.sumoselect.js', array());
+	wp_enqueue_style('cake_child_css', get_stylesheet_directory_uri() . '/css/sumoselect.css');
 	wp_enqueue_script('custom_js', get_stylesheet_directory_uri() . '/js/custom.js', array());
 }
 add_action('wp_enqueue_scripts', 'icheck_scripts');

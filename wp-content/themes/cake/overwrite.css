@@ -802,11 +802,14 @@ h2.order-head-title {
 .order-detail-custom-table .col-xs-3 .show-value .color-show {
     display: block;
     padding: 0;
-    margin: 0 auto;
+    margin: 15px auto;
     border: none;
     width: 30px;
     height: 30px;
     border-radius: 50%;
+}
+.order-detail-custom-table .col-xs-3 .show-value .color-show.colorwhite {
+	border: 1px solid #BBBBBB;
 }
 .order-detail-custom-table .col-xs-3 .show-value .round-img {
     display: inline-block;
