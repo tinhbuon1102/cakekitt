@@ -308,7 +308,6 @@ if ($inspired_pic)
 										</div>
 										</div>
 										<div class="sub_form">
-											<span class="option_label"><?php _e( 'Design', 'woocommerce' ); ?></span>
 											<textarea name="custom_order_cpck_text" class="subinfo txtLL empty" placeholder="ご希望のデザイン詳細をご記入ください。"></textarea>
 										</div>
 									</div>
@@ -334,7 +333,6 @@ if ($inspired_pic)
 											</div>
 										</div>
 										<div class="sub_form">
-											<span class="option_label"><?php _e( 'Color', 'woocommerce' ); ?></span>
 											<ul class="macaron-color text-radio list-type row">
 												<?php 
 												$index = 0;
@@ -362,7 +360,6 @@ if ($inspired_pic)
 									<?php if ($value == 'flower') {?>
 									<div id="optionbox06" class="suboption_box disable">
 										<div class="sub_form">
-											<span class="option_label"><?php _e( 'Color', 'woocommerce' ); ?></span>
 											<ul class="macaron-color text-radio list-type row">
 												<?php 
 												$index = 0;
@@ -400,7 +397,6 @@ if ($inspired_pic)
 									<?php if ($value == 'candy') {?>
 									<div id="optionbox08" class="suboption_box disable">
 										<div class="sub_form">
-											<span class="option_label"><?php _e( 'Design', 'woocommerce' ); ?></span>
 											<textarea name="custom_order_candy_text" class="subinfo txtLL empty" placeholder="ご希望のデザイン詳細をご記入ください。"></textarea>
 										</div>
 									</div>
@@ -409,7 +405,6 @@ if ($inspired_pic)
 									<?php if ($value == 'figure') {?>
 									<div id="optionbox09" class="suboption_box disable">
 										<div class="sub_form">
-											<span class="option_label"><?php _e( 'Design', 'woocommerce' ); ?></span>
 											<textarea name="custom_order_doll_text" class="subinfo txtLL empty" placeholder="ご希望のデザイン詳細をご記入ください。"></textarea>
 										</div>
 									</div>

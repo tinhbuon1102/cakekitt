@@ -3315,6 +3315,7 @@ ul.text-radio li.m-input__radio.col-md-12:first-child {
 @media screen and (min-width: 780px) {
 #omc-form .form-fields .row:nth-child(4) .field .select2-container {
     float: left;
+	width: 33.333%;
 }
 #omc-form .form-fields .row:nth-child(4) .field .select2-container {
     border-radius: 0px;
@@ -3338,6 +3339,12 @@ div#confirmation_content .order-detail-custom-table.row h3 {
 }
 div#confirmation_content .order-detail-custom-table .cake_info_wraper .label-div {
     width: 160px;
+}
+.sub_form .option_label {
+    border-bottom: 1px solid #E0E0E0;
+    display: block;
+    margin-bottom: 10px;
+    margin-top: -10px;
 }
 ul.list-type li {
 	display: list-item;
