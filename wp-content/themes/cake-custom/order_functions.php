@@ -877,16 +877,18 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER) {
 		$isPickup = $method_id == KITT_SHIPPING_PICKUP ? true : false; 
 		
 		$aData['custom_order_shipping'] = $isPickup ? $fieldMapping['custom_order_shipping']['value']['pickup'] : $fieldMapping['custom_order_shipping']['value']['delivery'];
-		$aData['custom_order_deliver_name'] = $order->shipping_last_name;
-		$aData['custom_order_deliver_storename'] = $order->shipping_first_name;
-		$aData['custom_order_deliver_cipname'] = $order->shipping_company;
-		$aData['custom_order_deliver_tel'] = $order->shipping_phone;
-		$aData['custom_order_deliver_postcode'] = $order->shipping_postcode;
-		$aData['custom_order_deliver_pref'] = $order->shipping_state;
-		$aData['custom_order_deliver_city'] = $order->shipping_city;
-		$aData['custom_order_deliver_addr1'] = $order->shipping_address_1;
-		$aData['custom_order_deliver_addr2'] = $order->shipping_address_2;
-		
+		if (!$isPickup)
+		{
+			$aData['custom_order_deliver_name'] = $order->shipping_last_name;
+			$aData['custom_order_deliver_storename'] = $order->shipping_first_name;
+			$aData['custom_order_deliver_cipname'] = $order->shipping_company;
+			$aData['custom_order_deliver_tel'] = $order->shipping_phone;
+			$aData['custom_order_deliver_postcode'] = $order->shipping_postcode;
+			$aData['custom_order_deliver_pref'] = $order->shipping_state;
+			$aData['custom_order_deliver_city'] = $order->shipping_city;
+			$aData['custom_order_deliver_addr1'] = $order->shipping_address_1;
+			$aData['custom_order_deliver_addr2'] = $order->shipping_address_2;
+		}
 	}
 	
 	if (!$aData || empty($aData)) return '';
@@ -990,14 +992,6 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER) {
 	if ($order_type == KITT_NORMAL_ORDER)
 	{
 		unset($aDetailBlocks['cake_info_wraper']);
-	}
-	
-	// Remove delivery detail of method = pickup
-	if ($aData['custom_order_shipping'] == 'pickup')
-	{
-		$custom_order_shipping = $aDetailBlocks['delivery_info_wraper']['groups']['custom_order_shipping'];
-		$aDetailBlocks['delivery_info_wraper']['groups'] = array();
-		$aDetailBlocks['delivery_info_wraper']['groups']['custom_order_shipping'] = $custom_order_shipping;
 	}
 	
 	$divRow = '';
