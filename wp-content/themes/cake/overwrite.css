@@ -944,12 +944,23 @@ h2.order-head-title {
     line-height: inherit;
     vertical-align: top;
 }
+.show-value [class$="_text"] span.decorate_option_value {
+    padding-left: 25px;
+    width: 100%;
+    display: inline-block;
+    font-size: 12px;
+}
 .show-value [class$="_text"] span.decorate_option_value:before {
     content: "notes-";
     font-family: "brandon-grotesque", "Helvetica Neue", sans-serif;
     display: inline-block;
     line-height: inherit;
     vertical-align: top;
+}
+.order-detail-custom-table .col-xs-3 .show-value span.shape-desc {
+	font-size: 12px;
+	line-height: 1.2;
+	display: inline-block;
 }
 .show-value span.decorate_option.custom_order_flowercolor span.decorate_option_value:before, .show-value [class$="_color"] span.decorate_option_value:before {
     content: "color-";
@@ -3332,6 +3343,12 @@ ul.text-radio li.m-input__radio.col-md-12:first-child {
     border-radius: 0px 5px 5px 0px;
     border-left: 0px;
 }
+}
+li.main-option .form-fields .address-field label.label {
+    padding: 0;
+}
+#MessageOptionbox textarea.subinfo {
+    min-width: 320px;
 }
 div#confirmation_content .order-detail-custom-table.row h3 {
     font-size: 16px;
