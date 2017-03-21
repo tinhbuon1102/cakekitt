@@ -348,9 +348,11 @@ $(function(){
         
         var picWraper = '';
         var picHiddenName = '';
+        var picElement = '';
     	function showUploadResponse(response, statusText, xhr, $form){
 
     		response = $.parseJSON(response);
+    		picElement.replaceWith('<input type="file" class="filestyle upload_cakePic" name="upload_cakePic" id="'+ picElement.attr('id') +'" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">')
     		if (picHiddenName == 'custom_order_photocakepic')
     		{
     			picWraper.find(".inspired_images").html('');
@@ -373,11 +375,12 @@ $(function(){
     	$('body').on('change', '.upload_cakePic', function() {
     		picWraper = $(this).closest('.upload_cakePic_wraper');
     		picHiddenName = $(this).attr('id');
+    		picElement = $(this);
     		
     		picWraper.find(".image_loading").html('<img class="loading-image" style="width: auto !important" src="'+ gl_templateUrl +'/images/loading.gif" />');
             $("form#omOrder").ajaxForm({
             	url: gl_ajaxUrl,
-            	data: {action: 'cake_file_upload'}, 
+            	data: {action: 'cake_file_upload', fileName: picElement.attr('id')}, 
                 type: 'POST',
                 contentType: 'text',
                 success:    showUploadResponse 
