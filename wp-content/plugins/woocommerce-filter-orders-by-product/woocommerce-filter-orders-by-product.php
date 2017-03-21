@@ -25,8 +25,46 @@ class FOA_Woo_Filter_Orders_by_Product{
 		add_action( 'restrict_manage_posts', array( $this, 'product_filter_in_order' ), 50  );
 		add_action( 'posts_where', array( $this, 'product_filter_where' ));
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts_and_styles' ));
+		add_filter( 'wp_count_posts', array( $this, 'kitt_wp_count_posts' ), 10, 3);
 	}
 
+	public function kitt_wp_count_posts($counts, $type, $perm){
+		
+		if (is_admin() && $type == 'product')
+		{
+			global $wpdb;
+			
+			$where = ' AND ID NOT IN (SELECT post_id FROM '.$wpdb->prefix . 'postmeta WHERE meta_key="is_custom_order_product") ';
+			
+			
+			$cache_key = _count_posts_cache_key( $type, $perm );
+		
+			$query = "SELECT post_status, COUNT( * ) AS num_posts FROM {$wpdb->posts} WHERE post_type = %s" . $where;
+			if ( 'readable' == $perm && is_user_logged_in() ) {
+				$post_type_object = get_post_type_object($type);
+				if ( ! current_user_can( $post_type_object->cap->read_private_posts ) ) {
+					$query .= $wpdb->prepare( " AND (post_status != 'private' OR ( post_author = %d AND post_status = 'private' ))",
+							get_current_user_id()
+							);
+				}
+			}
+			$query .= ' GROUP BY post_status';
+		
+			$results = (array) $wpdb->get_results( $wpdb->prepare( $query, $type ), ARRAY_A );
+			$counts = array_fill_keys( get_post_stati(), 0 );
+		
+			foreach ( $results as $row ) {
+				$counts[ $row['post_status'] ] = $row['num_posts'];
+			}
+		
+			$counts = (object) $counts;
+			wp_cache_set( $cache_key, $counts, 'counts' );
+				
+			
+			return $counts;
+		}
+	}
+	
 	public static function instance() {
 		if ( null == self::$instance ) {
 			self::$instance = new self;
