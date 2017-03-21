@@ -135,6 +135,12 @@ if ($inspired_pic)
 										</div><!--/radio_option radio_size-->
                                         </div><!--/fixwh-inner-->
 									</label>
+									
+									<?php if ($value == 'custom') {?>
+									<div id="shape_custom" class="suboption_box disable">
+										<textarea name="custom_order_cake_shape_custom" class="subinfo txtLL empty" placeholder="Enter your custom shape"></textarea>
+									</div>
+									<?php }?>
 								</li>
 							<?php }?>
 						</ul>
