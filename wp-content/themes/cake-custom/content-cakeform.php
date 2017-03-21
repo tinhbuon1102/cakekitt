@@ -122,7 +122,7 @@ if ($inspired_pic)
 								$cake_shape_index ++;
 							?>
 								<li class="m-input__radio">
-									<input type="radio" name="custom_order_cake_shape" id="cake_shape_<?php echo $value?>" class="radio_input validate[required]" <?php echo $field_mappings['custom_order_cake_shape']['field']['default_value'] == $value || (!$field_mappings['custom_order_cake_shape']['field']['default_value'] && $index == 1)  ? '' : ''?> value="<?php echo $value?>">
+									<input type="radio" name="custom_order_cake_shape" id="cake_shape_<?php echo $value?>" class="radio_input validate[required]" <?php echo $field_mappings['custom_order_cake_shape']['field']['default_value'] == $value   ? '' : ''?> value="<?php echo $value?>">
 									<label for="cake_shape_<?php echo $value?>" class="js-fixHeightChildText radio_label cake_shape_<?php echo $value?>">
                                     <div id="fixwh-inner">
 										<div class="radio_option radio_size">
@@ -270,7 +270,7 @@ if ($inspired_pic)
 													foreach ($field_mappings['custom_order_icingcookie_qty']['value'] as $value => $label) {
 														$index ++;
 													?>
-														<option value="<?php echo $value?>" <?php echo $field_mappings['custom_order_icingcookie_qty']['field']['default_value'] == $value || (!$field_mappings['custom_order_icingcookie_qty']['field']['default_value'] && $index == 1)  ? 'selected' : ''; ?>>
+														<option value="<?php echo $value?>" <?php echo $field_mappings['custom_order_icingcookie_qty']['field']['default_value'] == $value  ? 'selected' : ''; ?>>
 															<?php echo $label?>
 														</option>
 													<?php }?>
@@ -294,7 +294,7 @@ if ($inspired_pic)
 											foreach ($field_mappings['custom_order_cupcake_qty']['value'] as $value => $label) {
 												$index ++;
 											?>
-												<option value="<?php echo $value?>" <?php echo $field_mappings['custom_order_cupcake_qty']['field']['default_value'] == $value || (!$field_mappings['custom_order_cupcake_qty']['field']['default_value'] && $index == 1)  ? 'selected' : ''; ?>>
+												<option value="<?php echo $value?>" <?php echo $field_mappings['custom_order_cupcake_qty']['field']['default_value'] == $value  ? 'selected' : ''; ?>>
 													<?php echo $label?>
 												</option>
 											<?php }?>
@@ -320,7 +320,7 @@ if ($inspired_pic)
 												foreach ($field_mappings['custom_order_macaron_qty']['value'] as $value => $label) {
 													$index ++;
 												?>
-													<option value="<?php echo $value?>" <?php echo $field_mappings['custom_order_macaron_qty']['field']['default_value'] == $value || (!$field_mappings['custom_order_macaron_qty']['field']['default_value'] && $index == 1)  ? 'selected' : ''; ?>>
+													<option value="<?php echo $value?>" <?php echo $field_mappings['custom_order_macaron_qty']['field']['default_value'] == $value  ? 'selected' : ''; ?>>
 														<?php echo $label?>
 													</option>
 												<?php }?>
@@ -337,7 +337,7 @@ if ($inspired_pic)
 												?>
 													<li class="m-input__radio col-md-12">
 														<input type="radio" name="custom_order_macaron_color" id="macaron_color_<?php echo $value?>" class="radio_input"
-														<?php echo $field_mappings['custom_order_macaron_color']['field']['default_value'] == $value || (!$field_mappings['custom_order_macaron_color']['field']['default_value'] && $index == 1)  ? 'checked' : ''?>
+														<?php echo $field_mappings['custom_order_macaron_color']['field']['default_value'] == $value  ? 'checked' : ''?>
 														value="<?php echo $value?>">
 														<label for="macaron_color_<?php echo $value?>" class="js-fixHeightChildText radio_label cake_color_white">
 															<div class="radio_option radio_size">
@@ -365,7 +365,7 @@ if ($inspired_pic)
 												?>
 													<li class="m-input__radio col-md-12">
 														<input type="radio" name="custom_order_flowercolor" id="flower_color_<?php echo $value?>" class="radio_input" 
-														<?php echo $field_mappings['custom_order_flowercolor']['field']['default_value'] == $value || (!$field_mappings['custom_order_flowercolor']['field']['default_value'] && $index == 1)  ? 'checked' : ''?>
+														<?php echo $field_mappings['custom_order_flowercolor']['field']['default_value'] == $value  ? 'checked' : ''?>
 														value="<?php echo $value?>">
 														<label for="flower_color_<?php echo $value?>" class="js-fixHeightChildText radio_label">
 															<div class="radio_option radio_size">
