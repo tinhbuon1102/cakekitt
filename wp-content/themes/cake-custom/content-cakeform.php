@@ -558,7 +558,7 @@ if ($inspired_pic)
 									</ul>
 								</div>
 								<div class="field col-md-6">
-									<label class="label"><?php _e( 'Birthday', 'cake' ); ?></label>
+									<label class="label"><?php _e( 'Birthday', 'woocommerce' ); ?></label>
 									<?php 
 									$yearMonthDays = kitt_get_year_month_day();
 									$birth_date = get_user_meta( get_current_user_id(), 'birth_date', true);
@@ -759,7 +759,7 @@ if ($inspired_pic)
 					</div>
 					<div class="row" id="cart_total">
 						<div class="col-md-8 columns text-gray"><h4><?php _e( 'Estimation', 'woocommerce' ); ?></h4></div>
-						<div class="col-md-4 columns text-green text-right"><h4>¥6,500</h4></div>
+						<div class="col-md-4 columns text-green text-right"><h4>¥-</h4></div>
 					</div>
 				</div>
 			</div>

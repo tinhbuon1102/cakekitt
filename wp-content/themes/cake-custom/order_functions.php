@@ -151,7 +151,7 @@ function getCountryState(){
 
 function showCakePrice($price = 0){
 	$price = $price ? $price : 0;
-	return get_woocommerce_currency_symbol() . number_format($price, 0);
+	return get_woocommerce_currency_symbol() . ($price ? number_format($price, 0) : '-');
 }
 
 // action for Cake store step form data
@@ -348,7 +348,7 @@ function cake_steps_store(){
 	$aResponse['shipping_fee'] = $cart->shipping_total ? $cart->get_cart_shipping_total() : 0;
 	$aResponse['sub_total'] = $cart->get_cart_subtotal();
 	$aResponse['total_tax'] = $cart->get_cart_tax();
-	$aResponse['cart_total'] = $cart->get_total();;
+	$aResponse['cart_total'] = $cart->total ? $cart->get_total() : showCakePrice($cakePrice);
 
 	// Show COnfirmation page
 	if ($_POST['step'] >= 3)
