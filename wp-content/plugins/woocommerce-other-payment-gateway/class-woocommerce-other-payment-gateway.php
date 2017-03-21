@@ -4,8 +4,8 @@ class WC_Other_Payment_Gateway extends WC_Payment_Gateway{
 
 	public function __construct(){
 		$this->id = 'other_payment';
-		$this->method_title = __('Waiting Payment','woocommerce-other-payment-gateway');
-		$this->title = __('Waiting Payment','woocommerce-other-payment-gateway');
+		$this->method_title = __('Waiting Payment','cake');
+		$this->title = __('Waiting Payment','cake');
 		$this->has_fields = true;
 		$this->init_form_fields();
 		$this->init_settings();
@@ -26,7 +26,7 @@ class WC_Other_Payment_Gateway extends WC_Payment_Gateway{
 						'title' 		=> __( 'Method Title', 'woocommerce-other-payment-gateway' ),
 						'type' 			=> 'text',
 						'description' 	=> __( 'This controls the title', 'woocommerce-other-payment-gateway' ),
-						'default'		=> __( 'Waiting Payment', 'woocommerce-other-payment-gateway' ),
+						'default'		=> __( 'Waiting Payment', 'cake' ),
 						'desc_tip'		=> true,
 					),
 					'description' => array(
@@ -76,8 +76,7 @@ class WC_Other_Payment_Gateway extends WC_Payment_Gateway{
 		global $woocommerce;
 		$order = new WC_Order( $order_id );
 		// Mark as on-hold (we're awaiting the cheque)
-		$order->update_status('on-hold', __( 'Awaiting payment', 'woocommerce-other-payment-gateway' ));
-		$order->update_status('pending', __( 'Awaiting payment', 'woocommerce-other-payment-gateway' ));
+		$order->update_status('pending', __( 'Waiting Payment', 'cake' ));
 		// Reduce stock levels
 		// Remove cart
 		$woocommerce->cart->empty_cart();
