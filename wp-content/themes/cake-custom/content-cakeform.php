@@ -57,13 +57,13 @@ if ($inspired_pic)
 			<div id="progress_text">0% Complete</div>
 		</div>-->
 		<div id="first_step" class="step_wraper" data-step="1">
-			<h1 class="order-heading">Select Cake Type</h1>
+			<h1 class="order-heading"><?php _e('Select Cake Type', 'cake')?></h1>
 			<div class="m-section_content_selectOption">
 				<ul class="cake-type">
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">1</span>
-							<span class="display-table-cell pl-2">Choose cake type</span>
+							<span class="display-table-cell pl-2"><?php _e('Choose cake type', 'cake'))?></span>
 						</h4>
 						<small class="help-block">ケーキのタイプを1つ選択してください</small>
 						<ul class="type-cake c-list_3Column">
@@ -107,13 +107,13 @@ if ($inspired_pic)
 		</div>
 		<!-- #second_step -->
 		<div id="second_step" class="step_wraper" data-step="2">
-			<h1 class="order-heading">About Cake Design</h1>
+			<h1 class="order-heading"><?php _e('About Cake Design', 'cake')?></h1>
 			<div class="m-section_content_selectOption">
 				<ul class="about-design">
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">2</span>
-							<span class="display-table-cell pl-2">Choose shape</span>
+							<span class="display-table-cell pl-2"><?php _e('Choose shape', 'cake')?></span>
 						</h4>
 						<ul class="cake-shape text-radio list-type round-icon-select col_5">
 							<?php 
@@ -142,7 +142,7 @@ if ($inspired_pic)
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">3</span>
-							<span class="display-table-cell pl-2">Choose flavor</span>
+							<span class="display-table-cell pl-2"><?php _e('Choose flavor', 'cake')?></span>
 						</h4>
 						<ul class="cake-flavor text-radio list-type round-icon-select col_5">
 							<?php 
@@ -207,7 +207,7 @@ if ($inspired_pic)
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">5</span>
-							<span class="display-table-cell pl-2">Choose color</span>
+							<span class="display-table-cell pl-2"><?php _e('Choose color', 'cake')?></span>
 						</h4>
 						<ul class="cake-color text-radio list-type">
 							<?php 
@@ -241,7 +241,7 @@ if ($inspired_pic)
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">6</span>
-							<span class="display-table-cell pl-2">Choose decorations</span>
+							<span class="display-table-cell pl-2"><?php _e('Choose decorations', 'cake')?></span>
 						</h4>
 						<ul class="cake-decorate text-radio list-type row">
 							<?php 
@@ -264,7 +264,7 @@ if ($inspired_pic)
 										<div class="sub_form">
 										<div class="select-wrapper">
 												<select name="custom_order_icingcookie_qty" class="form-control select select-primary" data-toggle="select">
-												<option value="" selected>choose qty</option>
+												<option value="" selected><?php _e('choose qty', 'cake')?></option>
 													<?php 
 													$index = 0;
 													foreach ($field_mappings['custom_order_icingcookie_qty']['value'] as $value => $label) {
@@ -288,7 +288,7 @@ if ($inspired_pic)
 										<div class="sub_form">
 											<div class="select-wrapper">
 											<select name="custom_order_cupcake_qty" class="form-control select select-primary" data-toggle="select">
-											<option value="" selected>choose qty</option>
+											<option value="" selected><?php _e('choose qty', 'cake')?></option>
 											<?php 
 											$index = 0;
 											foreach ($field_mappings['custom_order_cupcake_qty']['value'] as $value => $label) {
@@ -314,7 +314,7 @@ if ($inspired_pic)
 											
 											<div class="select-wrapper">
 											<select name="custom_order_macaron_qty" class="form-control select select-primary" data-toggle="select">
-												<option value="" selected>choose qty</option>
+												<option value="" selected><?php _e('choose qty', 'cake')?></option>
 												<?php 
 												$index = 0;
 												foreach ($field_mappings['custom_order_macaron_qty']['value'] as $value => $label) {
@@ -415,7 +415,7 @@ if ($inspired_pic)
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">7</span>
-							<span class="display-table-cell pl-2">Message Plate</span>
+							<span class="display-table-cell pl-2"><?php _e('Message Plate', 'cake')?></span>
 						</h4>
 						<ul class="cake-message text-radio list-type">
 							<?php 
@@ -451,7 +451,7 @@ if ($inspired_pic)
 					<li class="main-option upload_cakePic_wraper">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">8</span>
-							<span class="display-table-cell pl-2">Inspired Pics</span>
+							<span class="display-table-cell pl-2"><?php _e('Inspired Pics', 'cake')?></span>
 						</h4>
 						<ul id="inspired_images" class="inspired_images">
 							<?php if ($inspired_pic) {?>
@@ -475,7 +475,7 @@ if ($inspired_pic)
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">1</span>
-							<span class="display-table-cell pl-2">How to get your cake?</span>
+							<span class="display-table-cell pl-2"><?php _e('How to get your cake?', 'cake')?></span>
 						</h4>
 						<div class="overflow-hidden panel-group">
 							<?php 
@@ -498,7 +498,7 @@ if ($inspired_pic)
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">2</span>
-							<span class="display-table-cell pl-2">Enter your information</span>
+							<span class="display-table-cell pl-2"><?php _e('Enter your information', 'cake')?></span>
 						</h4>
 						<div class="form-fields">
 							<div class="row">
@@ -533,14 +533,14 @@ if ($inspired_pic)
 							</div>
 							<div class="row">
 								<div class="field col-md-6">
-									<label class="label">Sex</label>
+									<label class="label"><?php _e('Sex', 'cake')?></label>
 									<ul class="account_sex text-radio list-type">
 										<li class="m-input__radio">
 											<input type="radio" name="custom_order_customer_sex" id="account_sex_male" class="radio_input validate[required]" <?php checked( get_user_meta(get_current_user_id(), 'sex', true), 'male', true )?> value="male">
 											<label for="account_sex_male" class="js-fixHeightChildText radio_label">
 												<div class="radio_option radio_size">
 													<h5 class="js-fixHeightChildTitle radio_option_caption">
-														<span class="caption_wrap">Male</span>
+														<span class="caption_wrap"><?php _e('Male', 'cake')?></span>
 													</h5>
 												</div>
 											</label>
@@ -550,7 +550,7 @@ if ($inspired_pic)
 											<label for="account_sex_female" class="js-fixHeightChildText radio_label">
 												<div class="radio_option radio_size">
 													<h5 class="js-fixHeightChildTitle radio_option_caption">
-														<span class="caption_wrap">FeMale</span>
+														<span class="caption_wrap"><?php _e('Female', 'cake')?></span>
 													</h5>
 												</div>
 											</label>
@@ -558,7 +558,7 @@ if ($inspired_pic)
 									</ul>
 								</div>
 								<div class="field col-md-6">
-									<label class="label">Birthday</label>
+									<label class="label"><?php _e('Birthday', 'cake')?></label>
 									<?php 
 									$yearMonthDays = kitt_get_year_month_day();
 									$birth_date = get_user_meta( get_current_user_id(), 'birth_date', true);
@@ -592,7 +592,7 @@ if ($inspired_pic)
 								</div>
 							</div>
 							<div class="mt-2 deliver-info disable">
-								<h4 class="heading-form mt-4 mb-2 text-gray">Where do you want your order delivered?</h4>
+								<h4 class="heading-form mt-4 mb-2 text-gray"><?php _e('Where do you want your order delivered?', 'cake')?></h4>
 								<div class="form-fields">
 									<div class="row">
 										<div class="field col-md-6">
@@ -648,13 +648,13 @@ if ($inspired_pic)
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">3</span>
-							<span class="display-table-cell pl-2">When do you want your order delivered?</span>
+							<span class="display-table-cell pl-2"><?php _e('When do you want your order delivered?', 'cake')?></span>
 						</h4>
 						<div class="row">
 							<div class="col-md-6 columns">
 								<label class="label mb-2">
 									<i class="icon-outline-kitt_icons_calendar01"></i>
-									Pick Up Date
+									<?php _e('Pick Up Date', 'cake')?>
 								</label>
 								<div class="calendar"></div>
 								<input type="hidden" name="custom_order_pickup_date" id="custom_order_pickup_date" value="<?php echo date('Y-m-d')?>"/>
@@ -662,7 +662,7 @@ if ($inspired_pic)
 							<div class="col-md-6 columns">
 								<label class="label mb-2">
 									<i class="icon-outline-kitt_icons_clock"></i>
-									Pick Up Time
+									<?php _e('Pick Up Time', 'cake')?>
 								</label>
 								<div class="timepicker">
 									<div class="timepick">

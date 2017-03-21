@@ -997,13 +997,13 @@ function extra_delivery_fields_in_checkout_page( $checkout ) {
 	<ul>
 		<li class="main-option">
 			<h4 class="heading-form display-table mb-3">
-				<span class="display-table-cell pl-2">When do you want your order delivered?</span>
+				<span class="display-table-cell pl-2"><?php _e('When do you want your order delivered?', 'cake')?></span>
 			</h4>
 			<div class="row">
 				<div class="col-md-6 columns">
 					<label class="label mb-2">
 						<i class="icon-outline-kitt_icons_calendar01"></i>
-						Pick Up Date
+						<?php _e('Pick Up Date', 'cake')?>
 					</label>
 					<div class="calendar"></div>
 					<input type="hidden" name="cake_custom_order[custom_order_pickup_date]" id="custom_order_pickup_date" value="<?php echo date('Y-m-d')?>"/>
@@ -1011,7 +1011,7 @@ function extra_delivery_fields_in_checkout_page( $checkout ) {
 				<div class="col-md-6 columns">
 					<label class="label mb-2">
 						<i class="icon-outline-kitt_icons_clock"></i>
-						Pick Up Time
+						<?php _e('Pick Up Time', 'cake')?>
 					</label>
 					<div class="timepicker">
 						<div class="timepick">
