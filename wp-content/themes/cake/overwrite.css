@@ -3300,10 +3300,37 @@ ul.text-radio li.m-input__radio.col-md-12:first-child {
 #omc-form .form-fields .row:nth-child(4) .field p {
     margin: 0;
 }
+#omc-form .form-fields .row:nth-child(4) .field p:after {
+    clear: both;
+    content: '';
+    display: block;
+}
 #omc-form .form-fields .row:nth-child(4) .field .select2-container {
     border: 1px solid #e5e5e5;
     border-radius: 5px;
-	width: 33.333%;
+    width: 100%;
+    max-width: 100%;
+	min-width: initial;
+}
+@media screen and (min-width: 780px) {
+#omc-form .form-fields .row:nth-child(4) .field .select2-container {
+    float: left;
+}
+#omc-form .form-fields .row:nth-child(4) .field .select2-container {
+    border-radius: 0px;
+}
+#omc-form .form-fields .row:nth-child(4) .field .select2-container:first-child {
+    -webkit-border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 0px 0px 5px;
+    border-right: 0px;
+}
+#omc-form .form-fields .row:nth-child(4) .field div#s2id_birth-date-day {
+	-webkit-border-radius: 0px 5px 5px 0px;
+	-moz-border-radius: 0px 5px 5px 0px;
+    border-radius: 0px 5px 5px 0px;
+    border-left: 0px;
+}
 }
 div#confirmation_content .order-detail-custom-table.row h3 {
     font-size: 16px;
