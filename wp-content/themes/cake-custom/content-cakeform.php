@@ -261,7 +261,7 @@ if ($inspired_pic)
 									
 									<?php if ($value == 'icingcookie') {?>
 									<div id="optionbox01" class="suboption_box disable">
-										<div class="sub_form"> 
+										<div class="sub_form">
 										<div class="select-wrapper">
 												<select name="custom_order_icingcookie_qty" class="form-control select select-primary" data-toggle="select">
 												<!--<option value="" selected><?php //_e( 'choose qty', 'woocommerce' ); ?></option>-->
