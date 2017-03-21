@@ -264,7 +264,7 @@ if ($inspired_pic)
 										<div class="sub_form">
 										<div class="select-wrapper">
 												<select name="custom_order_icingcookie_qty" class="form-control select select-primary" data-toggle="select">
-												<!--<option value="" selected><?php //_e( 'choose qty', 'woocommerce' ); ?></option>-->
+												<option value="" selected><?php _e( 'choose qty', 'woocommerce' ); ?></option>
 													<?php 
 													$index = 0;
 													foreach ($field_mappings['custom_order_icingcookie_qty']['value'] as $value => $label) {
@@ -288,7 +288,7 @@ if ($inspired_pic)
 										<div class="sub_form">
 											<div class="select-wrapper">
 											<select name="custom_order_cupcake_qty" class="form-control select select-primary" data-toggle="select">
-											<!--<option value="" selected><?php// _e( 'choose qty', 'woocommerce' ); ?></option>-->
+											<option value="" selected><?php _e( 'choose qty', 'woocommerce' ); ?></option>
 											<?php 
 											$index = 0;
 											foreach ($field_mappings['custom_order_cupcake_qty']['value'] as $value => $label) {
@@ -314,7 +314,7 @@ if ($inspired_pic)
 											
 											<div class="select-wrapper">
 											<select name="custom_order_macaron_qty" class="form-control select select-primary" data-toggle="select">
-												<!--<option value="" selected><?php// _e( 'choose qty', 'woocommerce' ); ?></option>-->
+												<option value="" selected><?php _e( 'choose qty', 'woocommerce' ); ?></option>
 												<?php 
 												$index = 0;
 												foreach ($field_mappings['custom_order_macaron_qty']['value'] as $value => $label) {
@@ -558,7 +558,7 @@ if ($inspired_pic)
 									</ul>
 								</div>
 								<div class="field col-md-6">
-									<label class="label"><?php _e( 'Birthday', 'cake' ); ?></label>
+									<label class="label"><?php _e( 'Birthday', 'woocommerce' ); ?></label>
 									<?php 
 									$yearMonthDays = kitt_get_year_month_day();
 									$birth_date = get_user_meta( get_current_user_id(), 'birth_date', true);
