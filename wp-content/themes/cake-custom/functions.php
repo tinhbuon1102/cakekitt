@@ -587,7 +587,8 @@ add_action( 'wp', 'disable_page_wpautop' );
 
 function autoLoginUser($user_id){
 	$user = get_user_by( 'id', $user_id );
-	if( $user && $user->user_pass && !$user->user_activation_key ) {
+	if( $user && isset($_POST['login-with-ajax']) ) {
+		wp_set_password($_POST['user_password'], $user_id);
 		wp_set_current_user( $user_id, $user->user_login );
 		wp_set_auth_cookie( $user_id );
 		do_action( 'wp_login', $user->user_login, $user);
