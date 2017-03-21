@@ -1,7 +1,7 @@
 <?php
 define('KITT_NORMAL_ORDER', 1);
 define('KITT_CUSTOM_ORDER', 2);
-define('KITT_TEMP_PRODUCT_NAME', 'Custom Order Product');
+define('KITT_TEMP_PRODUCT_NAME', __('Custom Order Product', 'cake'));
 define('KITT_SHIPPING_PICKUP', 'local_pickup:2');
 define('KITT_SHIPPING_DELIVERY', 'flat_rate:3');
 define('KITT_SHIPPING_CITY_1_FEE', 1500);
