@@ -12,6 +12,8 @@
 var gl_templateUrl = '<?= get_stylesheet_directory_uri(); ?>';
 var gl_ajaxUrl = '<?= admin_url('admin-ajax.php');  ?>';
 var gl_siteUrl = '<?= get_site_url();  ?>';
+var gl_timeAM = '<?= _e('AM', 'cake');  ?>';
+var gl_timePM = '<?= _e('PM', 'cake');  ?>';
 try{Typekit.load({ async: true });}catch(e){}</script>
 </head>
 

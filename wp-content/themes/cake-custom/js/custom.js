@@ -14,7 +14,7 @@ jQuery(document).ready(function(){
         function valueOutput(element) {
             var value = element.value;
             var output = $('.timepicker .timepick output').get(0)
-            value = value < 12 ? (value + ' AM') : (value + ' PM');
+            value = value < 12 ? (value + gl_timeAM) : (value + gl_timePM);
             if (output)
             {
             	output[textContent] = value;

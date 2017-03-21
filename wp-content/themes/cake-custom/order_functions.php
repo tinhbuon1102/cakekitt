@@ -1039,6 +1039,10 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER) {
 				// Get field Value
 				switch($fieldName)
 				{
+					case 'custom_order_pickup_time':
+						$fieldValue = $fieldValue < 12 ? ($fieldValue . __('AM', 'cake')) : ($fieldValue . __('PM', 'cake'));
+						break;
+						
 					case 'custom_order_cake_type':
 						$cakeTypeIndex = array_search($fieldValue, array_keys((array) $fieldMapping[$fieldName]['value']));
 						$term_id = $fieldMapping[$fieldName]['field'][$cakeTypeIndex]->term_id;
