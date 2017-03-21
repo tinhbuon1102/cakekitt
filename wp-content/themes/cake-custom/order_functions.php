@@ -502,7 +502,7 @@ function kitt_create_temporary_product(&$aData) {
 		'post_author' => 1,
 		'post_content' => '',
 		'post_status' => "private",
-		'post_title' => KITT_TEMP_PRODUCT_NAME,
+		'post_title' => __('Custom Order Product', 'cake'),
 		'post_parent' => '',
 		'post_type' => "product",
 	);
