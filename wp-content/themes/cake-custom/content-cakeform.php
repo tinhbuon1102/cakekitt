@@ -558,7 +558,7 @@ if ($inspired_pic)
 									</ul>
 								</div>
 								<div class="field col-md-6">
-									<label class="label"><?php _e( 'Birthday', 'woocommerce' ); ?></label>
+									<label class="label"><?php _e( 'Birthday', 'cake' ); ?></label>
 									<?php 
 									$yearMonthDays = kitt_get_year_month_day();
 									$birth_date = get_user_meta( get_current_user_id(), 'birth_date', true);
