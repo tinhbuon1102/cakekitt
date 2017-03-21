@@ -165,7 +165,7 @@ if ( $customer_orders && count( $customer_orders >= $number_of_orders ) ) { ?>
 	<div class="account-box-image"><i class="linericon-truck"></i></div>
 		<p class="account-box-label"><?php echo  get_user_meta( $customer_id, 'shipping_first_name', true )?></p>
 		<p><?php echo $customer->postcode?></p>
-		<p><?php echo @$aCountrySates['state'][$customer->shipping_state] . $customer->shipping_city . $customer->shipping_address_1 . $customer->shipping_address_2?></p>
+		<p><?php echo @$aCountrySates['states'][$customer->shipping_state] . $customer->shipping_city . $customer->shipping_address_1 . $customer->shipping_address_2?></p>
 	</div>
 </div>
 <?php
