@@ -1160,7 +1160,7 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER) {
 										if ($aData[$deOption]) {
 											$divRowTmp .= '<span class="decorate_option '.$deOption.'">
 																		<span class="decorate_option">'.@$fieldMapping[$deOption]['field']['label'].'</span>
-																		<span class="decorate_option_value">'. @$fieldMapping[$deOption]['field']['value'][$aData[$deOption]] . '</span>
+																		<span class="decorate_option_value">'. is_array($fieldMapping[$deOption]['field']['value']) ? @$fieldMapping[$deOption]['field']['value'][$deOption] : $aData[$deOption] . '</span>
 																	</span>';
 										}
 										else {
