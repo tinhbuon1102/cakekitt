@@ -405,6 +405,7 @@ function custom_meta_order_detail_box_markup($post)
 	$orderFormData = get_post_meta($order->id, 'cake_custom_order', true);
 	
 	$addressFields = array(
+		'custom_order_shipping',
 		'custom_order_customer_name_last',
 		'custom_order_customer_name_first',
 		'custom_order_customer_name_last_kana',
