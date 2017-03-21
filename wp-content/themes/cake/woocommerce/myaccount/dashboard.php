@@ -27,6 +27,7 @@ $customer = new WC_Customer($customer_id);
 
 $birth_date = get_user_meta( $customer_id, 'birth_date', true);
 $yearMonthDays = kitt_get_year_month_day();
+$aCountrySates = getCountryState();
 
 ?>
 <h1 class="mb-5">My Account</h1>
@@ -164,7 +165,7 @@ if ( $customer_orders && count( $customer_orders >= $number_of_orders ) ) { ?>
 	<div class="account-box-image"><i class="linericon-truck"></i></div>
 		<p class="account-box-label"><?php echo  get_user_meta( $customer_id, 'shipping_first_name', true )?></p>
 		<p><?php echo $customer->postcode?></p>
-		<p><?php echo $customer->state . $customer->city . $customer->address_1 . $customer->address_2?></p>
+		<p><?php echo @$aCountrySates['state'][$customer->state] . $customer->city . $customer->address_1 . $customer->address_2?></p>
 	</div>
 </div>
 <?php
