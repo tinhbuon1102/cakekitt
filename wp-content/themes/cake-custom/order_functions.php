@@ -533,28 +533,6 @@ function kitt_create_temporary_product(&$aData) {
 	update_post_meta( $post_id, '_sale_price', $totalPrice );
 	update_post_meta( $post_id, '_price', $totalPrice );
 	
-	// Add images if exists
-	if (is_array($aData['custom_order_cakePic']) && !empty($aData['custom_order_cakePic']))
-	{
-		$aAttachIds = array();
-		$aAttachUrl = array();
-		foreach ($aData['custom_order_cakePic'] as $image)
-		{
-			$attach_id = attachImageToProduct ($image, $post_id, true);
-			if ($attach_id)
-			{
-				$aAttachIds[] = $attach_id;
-				$aAttachUrl[] =   wp_get_attachment_url( $attach_id );
-			}
-	
-		}
-	
-		if (!empty($aAttachIds))
-		{
-			update_post_meta($post_id,'_product_image_gallery', implode(',', $aAttachIds));
-		}
-	}
-	
 	return $post_id;
 }
 
@@ -605,6 +583,28 @@ function submit_form_order(){
 // 				'ID'    =>  $product_id,
 // 				'post_status'   =>  'private'
 // 			));
+
+			// Add images if exists
+			if (is_array($aData['custom_order_cakePic']) && !empty($aData['custom_order_cakePic']))
+			{
+				$aAttachIds = array();
+				$aAttachUrl = array();
+				foreach ($aData['custom_order_cakePic'] as $image)
+				{
+					$attach_id = attachImageToProduct ($image, $product_id, true);
+					if ($attach_id)
+					{
+						$aAttachIds[] = $attach_id;
+						$aAttachUrl[] =   wp_get_attachment_url( $attach_id );
+					}
+			
+				}
+			
+				if (!empty($aAttachIds))
+				{
+					update_post_meta($product_id,'_product_image_gallery', implode(',', $aAttachIds));
+				}
+			}
 				
 			$order = wc_get_order( $order_id );
 			
@@ -930,6 +930,9 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER) {
 					'custom_order_msgplate' => array(
 						'class' => 'col-xs-12'
 					),
+					'custom_order_cakePic' => array(
+						'class' => 'col-xs-12'
+					),
 					'custom_order_cake_decorate' => array(
 						'class' => 'col-xs-12'
 					),
@@ -1083,15 +1086,30 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER) {
 					case 'custom_order_photocakepic':
 						if (!$order_id)
 						{
+							$aPics = array();
+							$aPicsTmp = (array)$fieldValue;
 							$upload_dir = wp_upload_dir();
 							$temp_folder = $upload_dir['baseurl'] . '/temp/';
 						
-							if ( $fieldValue )
+							foreach ($aPicsTmp as $picTmp)
 							{
-								$fieldValue = $temp_folder . $fieldValue;
+								if ( $picTmp )
+								{
+									$aPics[] = $temp_folder . $picTmp;
+								}
 							}
 						}
-						$fieldValue = '<img style="max-width: 300px;" src="' . $fieldValue . '" />';
+						else {
+							$aPics = explode(PHP_EOL, $fieldValue);
+						}
+						$fieldValue = '';
+						if (!empty($aPics) && $aPics[0])
+						{
+							foreach ($aPics as $pic)
+							{
+								$fieldValue .= '<img style="max-width: 300px;" src="' . $pic . '" />';
+							}
+						}
 						break;
 							
 					case 'custom_order_customer_name_last':
