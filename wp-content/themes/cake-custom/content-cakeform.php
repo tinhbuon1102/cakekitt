@@ -63,7 +63,7 @@ if ($inspired_pic)
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">1</span>
-							<span class="display-table-cell pl-2"><?php _e('Choose cake type', 'cake'))?></span>
+							<span class="display-table-cell pl-2"><?php _e('Choose cake type', 'cake')?></span>
 						</h4>
 						<small class="help-block">ケーキのタイプを1つ選択してください</small>
 						<ul class="type-cake c-list_3Column">
