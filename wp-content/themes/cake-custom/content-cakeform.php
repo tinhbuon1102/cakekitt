@@ -57,13 +57,13 @@ if ($inspired_pic)
 			<div id="progress_text">0% Complete</div>
 		</div>-->
 		<div id="first_step" class="step_wraper" data-step="1">
-			<h1 class="order-heading"><?php _e('Select Cake Type', 'cake')?></h1>
+			<h1 class="order-heading"><?php echo __('Select Cake Type', 'cake')?></h1>
 			<div class="m-section_content_selectOption">
 				<ul class="cake-type">
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">1</span>
-							<span class="display-table-cell pl-2"><?php _e('Choose cake type', 'cake')?></span>
+							<span class="display-table-cell pl-2"><?php echo __('Choose cake type', 'cake')?></span>
 						</h4>
 						<small class="help-block">ケーキのタイプを1つ選択してください</small>
 						<ul class="type-cake c-list_3Column">
@@ -107,13 +107,13 @@ if ($inspired_pic)
 		</div>
 		<!-- #second_step -->
 		<div id="second_step" class="step_wraper" data-step="2">
-			<h1 class="order-heading"><?php _e('About Cake Design', 'cake')?></h1>
+			<h1 class="order-heading"><?php echo __('About Cake Design', 'cake')?></h1>
 			<div class="m-section_content_selectOption">
 				<ul class="about-design">
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">2</span>
-							<span class="display-table-cell pl-2"><?php _e('Choose shape', 'cake')?></span>
+							<span class="display-table-cell pl-2"><?php echo __('Choose shape', 'cake')?></span>
 						</h4>
 						<ul class="cake-shape text-radio list-type round-icon-select col_5">
 							<?php 
@@ -142,7 +142,7 @@ if ($inspired_pic)
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">3</span>
-							<span class="display-table-cell pl-2"><?php _e('Choose flavor', 'cake')?></span>
+							<span class="display-table-cell pl-2"><?php echo __('Choose flavor', 'cake')?></span>
 						</h4>
 						<ul class="cake-flavor text-radio list-type round-icon-select col_5">
 							<?php 
@@ -207,7 +207,7 @@ if ($inspired_pic)
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">5</span>
-							<span class="display-table-cell pl-2"><?php _e('Choose color', 'cake')?></span>
+							<span class="display-table-cell pl-2"><?php _e( 'Choose color', 'cake' ); ?></span>
 						</h4>
 						<ul class="cake-color text-radio list-type">
 							<?php 
@@ -229,7 +229,7 @@ if ($inspired_pic)
 									
 									<?php if ($value == 'other') {?>
 									<div id="ColorOptionbox" class="suboption_box disable">
-										<a href="#" class="btn btn-default cp-select" id="custom_order_color_picker">Color Picker</a>
+										<a href="#" class="btn btn-default cp-select" id="custom_order_color_picker"><?php _e( 'Color Picker', 'cake' ); ?></a>
 										<div class="selected-color"></div>
 										<input type="hidden" name="custom_order_cakecolor_other" id="custom_order_cakecolor_other" value=""/>
 									</div>
@@ -241,7 +241,7 @@ if ($inspired_pic)
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">6</span>
-							<span class="display-table-cell pl-2"><?php _e('Choose decorations', 'cake')?></span>
+							<span class="display-table-cell pl-2"><?php _e( 'Choose decorations', 'cake' ); ?></span>
 						</h4>
 						<ul class="cake-decorate text-radio list-type row">
 							<?php 
@@ -264,7 +264,7 @@ if ($inspired_pic)
 										<div class="sub_form">
 										<div class="select-wrapper">
 												<select name="custom_order_icingcookie_qty" class="form-control select select-primary" data-toggle="select">
-												<option value="" selected><?php _e('choose qty', 'cake')?></option>
+												<option value="" selected><?php _e( 'choose qty', 'woocommerce' ); ?></option>
 													<?php 
 													$index = 0;
 													foreach ($field_mappings['custom_order_icingcookie_qty']['value'] as $value => $label) {
@@ -288,7 +288,7 @@ if ($inspired_pic)
 										<div class="sub_form">
 											<div class="select-wrapper">
 											<select name="custom_order_cupcake_qty" class="form-control select select-primary" data-toggle="select">
-											<option value="" selected><?php _e('choose qty', 'cake')?></option>
+											<option value="" selected><?php _e( 'choose qty', 'woocommerce' ); ?></option>
 											<?php 
 											$index = 0;
 											foreach ($field_mappings['custom_order_cupcake_qty']['value'] as $value => $label) {
@@ -302,7 +302,7 @@ if ($inspired_pic)
 										</div>
 										</div>
 										<div class="sub_form">
-											<span class="option_label">デザイン</span>
+											<span class="option_label"><?php _e( 'Design', 'woocommerce' ); ?></span>
 											<textarea name="custom_order_cpck_text" class="subinfo txtLL empty" placeholder="ご希望のデザイン詳細をご記入ください。"></textarea>
 										</div>
 									</div>
@@ -314,7 +314,7 @@ if ($inspired_pic)
 											
 											<div class="select-wrapper">
 											<select name="custom_order_macaron_qty" class="form-control select select-primary" data-toggle="select">
-												<option value="" selected><?php _e('choose qty', 'cake')?></option>
+												<option value="" selected><?php _e( 'choose qty', 'woocommerce' ); ?></option>
 												<?php 
 												$index = 0;
 												foreach ($field_mappings['custom_order_macaron_qty']['value'] as $value => $label) {
@@ -328,7 +328,7 @@ if ($inspired_pic)
 											</div>
 										</div>
 										<div class="sub_form">
-											<span class="option_label">色</span>
+											<span class="option_label"><?php _e( 'Color', 'woocommerce' ); ?></span>
 											<ul class="macaron-color text-radio list-type row">
 												<?php 
 												$index = 0;
@@ -356,7 +356,7 @@ if ($inspired_pic)
 									<?php if ($value == 'flower') {?>
 									<div id="optionbox06" class="suboption_box disable">
 										<div class="sub_form">
-											<span class="option_label">色</span>
+											<span class="option_label"><?php _e( 'Color', 'woocommerce' ); ?></span>
 											<ul class="macaron-color text-radio list-type row">
 												<?php 
 												$index = 0;
@@ -384,7 +384,7 @@ if ($inspired_pic)
 									<div id="optionbox07" class="suboption_box disable upload_cakePic_wraper">
 										<div class="sub_form">
 											<ul class="inspired_images"></ul>
-											<span class="option_label">写真アップロード</span>
+											<span class="option_label"><?php _e( 'Upload pictures', 'woocommerce' ); ?></span>
 											<div class="image_loading"></div>
 											<input type="file" class="filestyle upload_cakePic" name="upload_cakePic" id="custom_order_photocakepic">
 										</div>
@@ -394,7 +394,7 @@ if ($inspired_pic)
 									<?php if ($value == 'candy') {?>
 									<div id="optionbox08" class="suboption_box disable">
 										<div class="sub_form">
-											<span class="option_label">デザイン</span>
+											<span class="option_label"><?php _e( 'Design', 'woocommerce' ); ?></span>
 											<textarea name="custom_order_candy_text" class="subinfo txtLL empty" placeholder="ご希望のデザイン詳細をご記入ください。"></textarea>
 										</div>
 									</div>
@@ -403,7 +403,7 @@ if ($inspired_pic)
 									<?php if ($value == 'figure') {?>
 									<div id="optionbox09" class="suboption_box disable">
 										<div class="sub_form">
-											<span class="option_label">デザイン</span>
+											<span class="option_label"><?php _e( 'Design', 'woocommerce' ); ?></span>
 											<textarea name="custom_order_doll_text" class="subinfo txtLL empty" placeholder="ご希望のデザイン詳細をご記入ください。"></textarea>
 										</div>
 									</div>
@@ -415,7 +415,7 @@ if ($inspired_pic)
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">7</span>
-							<span class="display-table-cell pl-2"><?php _e('Message Plate', 'cake')?></span>
+							<span class="display-table-cell pl-2"><?php _e( 'Message Plate', 'woocommerce' ); ?></span>
 						</h4>
 						<ul class="cake-message text-radio list-type">
 							<?php 
@@ -451,7 +451,7 @@ if ($inspired_pic)
 					<li class="main-option upload_cakePic_wraper">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">8</span>
-							<span class="display-table-cell pl-2"><?php _e('Inspired Pics', 'cake')?></span>
+							<span class="display-table-cell pl-2"><?php _e( 'Inspired Pics', 'woocommerce' ); ?></span>
 						</h4>
 						<ul id="inspired_images" class="inspired_images">
 							<?php if ($inspired_pic) {?>
@@ -469,13 +469,13 @@ if ($inspired_pic)
 		</div>
 		<!-- #third_step -->
 		<div id="third_step" class="step_wraper" data-step="3">
-			<h1 class="order-heading">Deliver Info</h1>
+			<h1 class="order-heading"><?php _e( 'Deliver Info', 'woocommerce' ); ?></h1>
 			<div class="m-section_content_selectOption">
 				<ul class="about-deliver">
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">1</span>
-							<span class="display-table-cell pl-2"><?php _e('How to get your cake?', 'cake')?></span>
+							<span class="display-table-cell pl-2"><?php _e( 'How to get your cake?', 'woocommerce' ); ?></span>
 						</h4>
 						<div class="overflow-hidden panel-group">
 							<?php 
@@ -498,49 +498,49 @@ if ($inspired_pic)
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">2</span>
-							<span class="display-table-cell pl-2"><?php _e('Enter your information', 'cake')?></span>
+							<span class="display-table-cell pl-2"><?php _e( 'Enter your information', 'woocommerce' ); ?></span>
 						</h4>
 						<div class="form-fields">
 							<div class="row">
 								<div class="field col-md-6">
-									<label class="label">姓</label>
+									<label class="label"><?php _e( 'Last Name', 'woocommerce' ); ?></label>
 									<input placeholder="佐藤" class="input validate[required]" required="required" type="text" name="custom_order_customer_name_last" id="customer_name_last" value="<?php echo get_user_meta($userID, 'last_name', true)?>">
 								</div>
 								<div class="field col-md-6">
-									<label class="label">名</label>
+									<label class="label"><?php _e( 'First Name', 'woocommerce' ); ?></label>
 									<input placeholder="太郎" class="input validate[required]" required="required" type="text" name="custom_order_customer_name_first" id="customer_name_first" value="<?php echo get_user_meta($userID, 'first_name', true)?>">
 								</div>
 							</div>
 							<div class="row">
 								<div class="field col-md-6">
-									<label class="label">姓(ふりがな)</label>
+									<label class="label"><?php _e( 'Last name Kana', 'woocommerce' ); ?></label>
 									<input placeholder="さとう" class="input validate[required]" required="required" type="text" name="custom_order_customer_name_last_kana" id="customer_name_last_kana" value="<?php echo get_user_meta($userID, 'last_name_kana', true)?>">
 								</div>
 								<div class="field col-md-6">
-									<label class="label">名(ふりがな)</label>
+									<label class="label"><?php _e( 'First name Kana', 'woocommerce' ); ?></label>
 									<input placeholder="たろう" class="input validate[required]" required="required" type="text" name="custom_order_customer_name_first_kana" id="customer_name_first_kana" value="<?php echo get_user_meta($userID, 'first_name_kana', true)?>">
 								</div>
 							</div>
 							<div class="row">
 								<div class="field col-md-6">
-									<label class="label">電話番号<small class="help-info">ハイフンなし</small></label>
+									<label class="label"><?php _e( 'Tel', 'woocommerce' ); ?><small class="help-info">ハイフンなし</small></label>
 									<input placeholder="09012345678" class="input validate[required,custom[phone]]" required="required" type="tel" name="custom_order_customer_tel" id="customer_tel" value="<?php echo get_user_meta($userID, 'tel', true)?>">
 								</div>
 								<div class="field col-md-6">
-									<label class="label">メールアドレス</label>
+									<label class="label"><?php _e( 'Email address', 'woocommerce' ); ?></label>
 									<input placeholder="taro@kitt.jp" class="input validate[required,custom[email]]" required="required" type="email" name="custom_order_customer_email" id="customer_email" value="<?php echo $user_data->user_email?>">
 								</div>
 							</div>
 							<div class="row">
 								<div class="field col-md-6">
-									<label class="label"><?php _e('Sex', 'cake')?></label>
+									<label class="label"><?php _e( 'Sex', 'woocommerce' ); ?></label>
 									<ul class="account_sex text-radio list-type">
 										<li class="m-input__radio">
 											<input type="radio" name="custom_order_customer_sex" id="account_sex_male" class="radio_input validate[required]" <?php checked( get_user_meta(get_current_user_id(), 'sex', true), 'male', true )?> value="male">
 											<label for="account_sex_male" class="js-fixHeightChildText radio_label">
 												<div class="radio_option radio_size">
 													<h5 class="js-fixHeightChildTitle radio_option_caption">
-														<span class="caption_wrap"><?php _e('Male', 'cake')?></span>
+														<span class="caption_wrap"><?php _e( 'Male', 'woocommerce' ); ?></span>
 													</h5>
 												</div>
 											</label>
@@ -550,7 +550,7 @@ if ($inspired_pic)
 											<label for="account_sex_female" class="js-fixHeightChildText radio_label">
 												<div class="radio_option radio_size">
 													<h5 class="js-fixHeightChildTitle radio_option_caption">
-														<span class="caption_wrap"><?php _e('Female', 'cake')?></span>
+														<span class="caption_wrap"><?php _e( 'Female', 'woocommerce' ); ?></span>
 													</h5>
 												</div>
 											</label>
@@ -558,7 +558,7 @@ if ($inspired_pic)
 									</ul>
 								</div>
 								<div class="field col-md-6">
-									<label class="label"><?php _e('Birthday', 'cake')?></label>
+									<label class="label"><?php _e( 'Birthday', 'woocommerce' ); ?></label>
 									<?php 
 									$yearMonthDays = kitt_get_year_month_day();
 									$birth_date = get_user_meta( get_current_user_id(), 'birth_date', true);
@@ -567,21 +567,21 @@ if ($inspired_pic)
 									?>
 									<p class="woocommerce-FormRow woocommerce-FormRow--last form-row form-row-wide" >
 										<select id="birth-date-year" name="custom_order_customer_birth_date[year]" required class="form-control select select-primary" data-toggle="select">>
-											<option value=""><?php echo __('Select Birth Year', 'cake')?></option>
+											<option value=""><?php echo __('Select Birth Year', 'woocommerce')?></option>
 											<?php
 								   				 foreach($yearMonthDays['years'] as $yearNumber) {
 								   					 printf( '<option value="%1$s" %2$s>%1$s</option>', $yearNumber, selected( $birth_date['year'], $yearNumber, false ) );
 								   				 }
 								   			 ?></select>
 								   			 <select id="birth-date-month" name="custom_order_customer_birth_date[month]" required class="form-control select select-primary" data-toggle="select">>
-								   			 <option value=""><?php echo __('Select Birth Month', 'cake')?></option>
+								   			 <option value=""><?php echo __('Select Birth Month', 'woocommerce')?></option>
 								   			 <?php
 								   				 foreach ( $yearMonthDays['months'] as $monthNumber => $monthText ) {
 								   					 printf( '<option value="%1$s" %2$s>%3$s</option>', $monthNumber, selected( $birth_date['month'], $monthNumber, false ), $monthText );
 								   				 }
 								   			 ?></select>
 								   			 <select id="birth-date-day" name="custom_order_customer_birth_date[day]" required class="form-control select select-primary" data-toggle="select">>
-								   			 <option value=""><?php echo __('Select Birth Day', 'cake')?></option>
+								   			 <option value=""><?php echo __('Select Birth Day', 'woocommerce')?></option>
 								   			 <?php
 								   			 foreach($yearMonthDays['days'] as $dayNumber) {
 								   					 printf( '<option value="%1$s" %2$s>%1$s</option>', $dayNumber, selected( $birth_date['day'], $dayNumber, false ) );
@@ -592,7 +592,7 @@ if ($inspired_pic)
 								</div>
 							</div>
 							<div class="mt-2 deliver-info disable">
-								<h4 class="heading-form mt-4 mb-2 text-gray"><?php _e('Where do you want your order delivered?', 'cake')?></h4>
+								<h4 class="heading-form mt-4 mb-2 text-gray"><?php echo __('Where do you want your order delivered?', 'cake')?></h4>
 								<div class="form-fields">
 									<div class="row">
 										<div class="field col-md-6">
@@ -654,7 +654,7 @@ if ($inspired_pic)
 							<div class="col-md-6 columns">
 								<label class="label mb-2">
 									<i class="icon-outline-kitt_icons_calendar01"></i>
-									<?php _e('Pick Up Date', 'cake')?>
+									<?php _e('Pick Up Date', 'woocommerce')?>
 								</label>
 								<div class="calendar"></div>
 								<input type="hidden" name="custom_order_pickup_date" id="custom_order_pickup_date" value="<?php echo date('Y-m-d')?>"/>
@@ -662,7 +662,7 @@ if ($inspired_pic)
 							<div class="col-md-6 columns">
 								<label class="label mb-2">
 									<i class="icon-outline-kitt_icons_clock"></i>
-									<?php _e('Pick Up Time', 'cake')?>
+									<?php _e('Pick Up Time', 'woocommerce')?>
 								</label>
 								<div class="timepicker">
 									<div class="timepick">
@@ -691,12 +691,12 @@ if ($inspired_pic)
 		</div>
 		
 		<div id="fourth_step" class="step_wraper" data-step="4">
-			<h3><?php echo __('Confirmation', 'cake')?></h3>
+			<h3><?php _e('Confirmation', 'cake')?></h3>
 		</div>
 		
 		<div id="button_wraper">
 			<input class="cdo-button submit_prev" type="button" name="submit_prev" id="submit_prev_3" value="<?php echo esc_html__( 'Previous', 'cake')?>" />
-			<input class="cdo-button submit_next" type="button" name="submit_next" id="submit_next_3" data-text-end="<?php echo esc_html__( 'View Confirm', 'cake')?>" data-text-next="<?php echo esc_html__( 'Next', 'cake')?>" value="<?php echo esc_html__( 'Next', 'cake')?>" />
+			<input class="cdo-button submit_next" type="button" name="submit_next" id="submit_next_3" data-text-end="<?php echo esc_html__( 'View Confirm', 'woocommerce')?>" data-text-next="<?php echo esc_html__( 'Next', 'cake')?>" value="<?php echo esc_html__( 'Next', 'cake')?>" />
 		</div>
 	</form>
 	
@@ -742,23 +742,23 @@ if ($inspired_pic)
 			</div>
 				<div class="text-center pt-1 pb-1" id="cart_empty_block">
 					<img src="<?php bloginfo('template_directory'); ?>/images/form/ordersheet.png" width="80">
-					<h5 class="mt-2 text-ppink heading-uppercase"><?php _e( 'No details yet', 'cake' ); ?></h5>
+					<h5 class="mt-2 text-ppink heading-uppercase"><?php _e( 'No details yet', 'woocommerce' ); ?></h5>
 				</div>
 				<div class="border-top pt-3 mt-3 panel__full-width-item heading-uppercase disable" id="cart_total_wraper">
 					<div class="row disable" id="sub_total">
-						<div class="col-md-8 columns text-gray"><h6><?php _e( 'Sub Total', 'cake' ); ?></h6></div>
+						<div class="col-md-8 columns text-gray"><h6><?php _e( 'Sub Total', 'woocommerce' ); ?></h6></div>
 						<div class="col-md-4 columns text-green text-right"><h6>0</h6></div>
 					</div>
 					<div class="row disable" id="shipping_fee">
-						<div class="col-md-8 columns text-gray"><h6><?php _e( 'Shipping Fee', 'cake' ); ?></h6></div>
+						<div class="col-md-8 columns text-gray"><h6><?php _e( 'Shipping Fee', 'woocommerce' ); ?></h6></div>
 						<div class="col-md-4 columns text-green text-right"><h6>0</h6></div>
 					</div>
 					<div class="row disable" id="total_tax">
-						<div class="col-md-8 columns text-gray"><h6><?php _e( 'Total Tax', 'cake' ); ?></h6></div>
+						<div class="col-md-8 columns text-gray"><h6><?php _e( 'Total Tax', 'woocommerce' ); ?></h6></div>
 						<div class="col-md-4 columns text-green text-right"><h6>0</h6></div>
 					</div>
 					<div class="row" id="cart_total">
-						<div class="col-md-8 columns text-gray"><h4><?php _e( 'Estimation', 'cake' ); ?></h4></div>
+						<div class="col-md-8 columns text-gray"><h4><?php _e( 'Estimation', 'woocommerce' ); ?></h4></div>
 						<div class="col-md-4 columns text-green text-right"><h4>¥6,500</h4></div>
 					</div>
 				</div>
