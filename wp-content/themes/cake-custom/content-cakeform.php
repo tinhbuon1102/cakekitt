@@ -567,21 +567,21 @@ if ($inspired_pic)
 									?>
 									<p class="woocommerce-FormRow woocommerce-FormRow--last form-row form-row-wide" >
 										<select id="birth-date-year" name="custom_order_customer_birth_date[year]" required class="form-control select select-primary" data-toggle="select">>
-											<option value=""><?php echo __('Select Birth Year')?></option>
+											<option value=""><?php echo __('Select Birth Year', 'cake')?></option>
 											<?php
 								   				 foreach($yearMonthDays['years'] as $yearNumber) {
 								   					 printf( '<option value="%1$s" %2$s>%1$s</option>', $yearNumber, selected( $birth_date['year'], $yearNumber, false ) );
 								   				 }
 								   			 ?></select>
 								   			 <select id="birth-date-month" name="custom_order_customer_birth_date[month]" required class="form-control select select-primary" data-toggle="select">>
-								   			 <option value=""><?php echo __('Select Birth Month')?></option>
+								   			 <option value=""><?php echo __('Select Birth Month', 'cake')?></option>
 								   			 <?php
 								   				 foreach ( $yearMonthDays['months'] as $monthNumber => $monthText ) {
 								   					 printf( '<option value="%1$s" %2$s>%3$s</option>', $monthNumber, selected( $birth_date['month'], $monthNumber, false ), $monthText );
 								   				 }
 								   			 ?></select>
 								   			 <select id="birth-date-day" name="custom_order_customer_birth_date[day]" required class="form-control select select-primary" data-toggle="select">>
-								   			 <option value=""><?php echo __('Select Birth Day')?></option>
+								   			 <option value=""><?php echo __('Select Birth Day', 'cake')?></option>
 								   			 <?php
 								   			 foreach($yearMonthDays['days'] as $dayNumber) {
 								   					 printf( '<option value="%1$s" %2$s>%1$s</option>', $dayNumber, selected( $birth_date['day'], $dayNumber, false ) );
