@@ -61,8 +61,8 @@ class FOA_Woo_Filter_Orders_by_Product{
 			wp_cache_set( $cache_key, $counts, 'counts' );
 				
 			
-			return $counts;
 		}
+		return $counts;
 	}
 	
 	public static function instance() {
