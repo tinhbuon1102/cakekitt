@@ -555,6 +555,9 @@ h2.entry-title {
 .woocommerce table.my_account_latest_orders td.order-actions a:first-child {
     margin-right: 5px;
 }
+.woocommerce table.my_account_latest_orders td.order-actions a.cancel {
+    display: none;
+}
 table.woocommerce-MyAccount-orders.shop_table.account-orders-table td.order-actions a {
     font-size: 12px;
     padding: 3px 10px;
@@ -852,8 +855,9 @@ h2.order-head-title {
 }
 .order-detail-custom-table .col-xs-3 .show-value span.shape-and-size, .order-detail-custom-table .col-xs-3 .show-value span.value-text {
     font-size: 12px;
-    line-height: 1;
+    line-height: 1.2;
     word-break: break-all;
+    display: block;
 }
 .order-detail-custom-table .customer_info_wraper .form-row .label-div, .order-detail-custom-table .delivery_info_wraper .form-row .label-div {
     width: 120px;
@@ -2395,6 +2399,7 @@ body.logged-in .Header-navItemUser a:before {
     content: '\e94f';
 }
 @media only screen and (max-width: 767px) {
+
 .list-wc-steps .wc-order-step .innner {
     margin: 0 auto 60px;
 }
@@ -3996,7 +4001,155 @@ nav.navbar.navbar-brand-cake.navbar-fixed-top:before, nav.navbar.navbar-brand-ca
     border-radius: 50%;
 }
 }
+.order-detail-custom-table .row .row-custom_order_pickup_date .label-div:before, .order-detail-custom-table .row .row-custom_order_pickup_time .label-div:before {
+    font-family: 'icomoon01' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+	font-size: 20px;
+    vertical-align: middle;
+    padding-right: 5px;
+    display: inline-block;
+}
+.order-detail-custom-table .row .row-custom_order_pickup_date .label-div:before {
+    content: "\e908";
+}
+.order-detail-custom-table .row .row-custom_order_pickup_time .label-div:before {
+    content: "\e912";
+}
+h1.big-title.big-thanks {
+    margin-top: 0;
+}
 @media (max-width: 767px) {
+/*MyAccount*/
+.woocommerce-MyAccount-content > h1 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.account-logout {
+    top: 7px;
+    right: 0px;
+}
+.account-logout a.button.simple {
+    width: 120px;
+}
+.account-welcome {
+    margin: 0 0 24px;
+    padding-right: 0;
+}
+.account-box-image {
+    width: 70px;
+}
+/*latest order*/
+.latest-order-table {
+    width: 72%;
+    width: -webkit-calc(100% - 70px);
+    width: calc(100% - 70px);
+}
+.woocommerce .latest-order-table table.my_account_latest_orders {
+    width: 100%;
+}
+.woocommerce .latest-order-table table.my_account_latest_orders tbody, .woocommerce .latest-order-table table.my_account_latest_orders tr, .woocommerce .latest-order-table table.my_account_latest_orders td {
+    display: block;
+	width: 100%;
+}
+.woocommerce .latest-order-table table.my_account_latest_orders td {
+    padding: 0 0 1em;
+	border: none;
+	line-height: 1;
+	font-size: 12px;
+}
+.woocommerce .latest-order-table table.my_account_latest_orders td:before {
+    font-weight: bold;
+    font-size: 12px;
+}
+.woocommerce .latest-order-table table.my_account_latest_orders td.order-number:before {
+    content: "注文番号:";
+}
+.woocommerce .latest-order-table table.my_account_latest_orders td.order-date:before {
+    content: "日付:";
+}
+.woocommerce .latest-order-table table.my_account_latest_orders td.order-status:before {
+    content: "ステータス:";
+}
+.woocommerce .latest-order-table table.my_account_latest_orders thead {
+    display: none;
+}
+/*order history*/
+table.woocommerce-MyAccount-orders.shop_table.shop_table_responsive.my_account_orders.account-orders-table tbody, table.woocommerce-MyAccount-orders.shop_table.shop_table_responsive.my_account_orders.account-orders-table tr, table.woocommerce-MyAccount-orders.shop_table.shop_table_responsive.my_account_orders.account-orders-table td {
+    display: block;
+}
+table.woocommerce-MyAccount-orders.shop_table.shop_table_responsive.my_account_orders.account-orders-table td {
+    border: none;
+    line-height: 1;
+    padding: 0 0 10px;
+    text-align: left !important;
+	background: none;
+}
+table.woocommerce-MyAccount-orders.shop_table.shop_table_responsive.my_account_orders.account-orders-table tr {
+    padding-top: 20px;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    background: none;
+}
+table.woocommerce-MyAccount-orders.shop_table.shop_table_responsive.my_account_orders.account-orders-table tr:first-child {
+    padding-top: 0;
+}
+
+/*thank you*/
+h1.big-title.big-thanks {
+    margin-top: 0;
+    text-align: center;
+}
+p.woocommerce-thankyou-order-received {
+    margin-bottom: 40px;
+    text-align: center;
+    line-height: 1.4;
+}
+.woocommerce .woocommerce-thankyou-order-details.order_details li {
+    width: 50%;
+    margin: 0;
+    padding: .8em 1em;
+}
+.woocommerce .woocommerce-thankyou-order-details.order_details li:first-child, .woocommerce .woocommerce-thankyou-order-details.order_details li:nth-child(2) {
+    border-bottom: 1px dashed #d3ced2;
+}
+.woocommerce .woocommerce-thankyou-order-details.order_details li:last-child, .woocommerce .woocommerce-thankyou-order-details.order_details li:nth-child(2) {
+    border-right: none;
+}
+/*order details sm*/
+.cake_info_wraper .row .col-xs-3 {
+    width: 50%;
+    padding: 10px 0;
+}
+.cake_info_wraper .row .col-xs-3:nth-child(odd) {
+    padding-right: 5px;
+}
+.cake_info_wraper .row .col-xs-3:nth-child(even) {
+    padding-left: 5px;
+	border-left: 1px dashed rgba(0,0,0,.1);
+}
+.cake_info_wraper .row .col-xs-3:nth-child(3), .cake_info_wraper .row .col-xs-3:nth-child(4) {
+    border-top: 1px dashed rgba(0,0,0,.1);
+}
+.custom_order_details .order-detail-custom-table.row .cake_info_wraper .label-div, .custom_order_details .order-detail-custom-table.row .cake_info_wraper .show-value {
+    width: 100%;
+    display: block;
+}
+.order-detail-custom-table .cake_info_wraper {
+    margin-bottom: 20px;
+}
+.order-detail-custom-table .row .row-custom_order_pickup_date .label-div, .order-detail-custom-table .row .row-custom_order_pickup_time .label-div {
+    width: 70px;
+}
+.customer_info_wraper.col-xs-6, .delivery_info_wraper.col-xs-6 {
+    width: 100%;
+}
+	
 .woocommerce-page ul.products li.product, .woocommerce ul.products li.product, .woocommerce.columns-4 ul.products li.product, .woocommerce.columns-3 ul.products li.product, .woocommerce.columns-2 ul.products li.product {
     overflow: hidden;
 }
