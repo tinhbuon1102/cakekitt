@@ -3292,6 +3292,17 @@ ul.text-radio li.m-input__radio.col-md-12:first-child {
 }
 .bootstrap-filestyle .input-group-btn label.btn {
     height: auto;
+    font-size: 12px;
+    line-height: 1;
+    padding: 9px 15px;
+}
+#omc-form .form-fields .row:nth-child(4) .field p {
+    margin: 0;
+}
+#omc-form .form-fields .row:nth-child(4) .field .select2-container {
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+	width: 33.333%
 }
 ul.list-type li {
 	display: list-item;
