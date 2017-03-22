@@ -3558,6 +3558,9 @@ ul.type-cake.c-list_3Column {
     border-radius: 50%;
 	overflow: hidden;
 }
+.cake-cart-sidebar > .panel {
+    overflow-y: scroll;
+}
 span.display-table-cell.price-value {
     font-weight: normal;
 }
@@ -4116,6 +4119,15 @@ h1.big-title.big-thanks.payment-intro {
 }
 @media (max-width: 767px) {
 /*order form*/
+div#confirmation_content .order-detail-custom-table .cake_info_wraper .label-div {
+    width: auto;
+}
+.options.option-rows span.width-full {
+    font-size: 12px;
+}
+.options.option-rows {
+    letter-spacing: 0px;
+}
 .form-row.row-custom_order_msgplate .show-value .desc {
     display: block;
     text-align: left;
@@ -4452,8 +4464,26 @@ a.btn.label-btn {
 }
 }
 @media only screen and (max-width: 479px) {
+.cake_info_wraper.col-xs-12 .row {
+    margin: 0;
+}
+.order-detail-custom-table .cake_info_wraper .row .col-xs-12 .label-div, .order-detail-custom-table .cake_info_wraper .row .col-xs-12 .show-value {
+    display: block;
+    width: 100% !important;
+}
+.order-detail-custom-table .cake_info_wraper .row .col-xs-12 .label-div {
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    margin-bottom: 5px;
+}
+.order-detail-custom-table .cake_info_wraper .row .col-xs-12 .show-value {
+    border-bottom: none;
+}
 .panel-group h4 {
     font-size: 14px;
+}
+#omc-form .form-fields .row:nth-child(4) .field .select2-container, #checkoutbox div#customer_details .woocommerce-billing-fields > .row > .field:last-child > .form-row > .select2-container {
+    width: 100%;
+    margin-bottom: 5px;
 }
 ul.cake-message.text-radio.list-type li {
     width: 100%;
