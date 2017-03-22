@@ -1303,7 +1303,7 @@ function load_items(){
 					'compare' => 'LIKE'
 				);
 			}
-			if($key == 'gal_cat'){
+			if($key == 'gal_scene'){
 				$meta_query []= array(
 					'key'     => 'scene',
 					'value'   => $value,
@@ -1312,7 +1312,7 @@ function load_items(){
 			}
 		}
 		if(sizeof($meta_query) > 1){
-			$meta_query = array('relation' => 'AND');
+			$meta_query ['relation'] = 'AND';
 		}
 		
 		$args = array(
@@ -1323,11 +1323,13 @@ function load_items(){
 		);
 		$query = new WP_Query($args);
 		// echo '<pre>';
-		// print_r($query);
+		// print_r($args);
 		// echo '</pre>';
-		global $post;
 		if ( $query->have_posts() ) : 
 			ob_start();
+			?>
+			<div id="wait"></div>
+			<?php
 			while ( $query->have_posts() ) : $query->the_post();
 			global $post;
 			$color_type = get_field('color-type',$post->ID);

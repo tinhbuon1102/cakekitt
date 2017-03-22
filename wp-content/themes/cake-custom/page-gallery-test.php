@@ -70,7 +70,17 @@ get_header(); ?>
 				?>
 			</div>
 			<script type="text/javascript">
+				
 				jQuery('document').ready(function($){
+				
+					$(document).ajaxStart(function(){
+						$("#wait").css("display", "block");
+					});
+
+					$(document).ajaxComplete(function(){
+						$("#wait").css("display", "none");
+					}); 
+				
 					$('body').on('change', '.gal_cat,.gal_color_type,.gal_scene', function() {
 						var search_terms = {};
 						$('.gal_itms li').css('display','none');
@@ -79,12 +89,6 @@ get_header(); ?>
 								var si_cls = $(this).attr('class');
 								var si_val = $("option:selected", this).val();
 								search_terms[si_cls]= si_val;
-								// $('.gal_itms li').each(function(){
-									// ic += $( this ).attr( "data-"+si_cls+"" ) +' == '+ si_val+' && ';
-									// if($( this ).attr( "data-"+si_cls+"" ) == si_val){
-										// $(this).css('display','block');
-									// }
-								// });
 							}
 						});
 						var searchtrm = JSON.stringify(search_terms);
@@ -96,11 +100,14 @@ get_header(); ?>
 							if(msg.output.length > 0){
 								var out = msg.output;
 								$('.gal_itms').html(out);
+							}else if(msg.output == null){
+								$('.gal_itms').html('<p>Nothings Found!</p>');
 							}
 						}, 'json');
 					});
 				});
 			</script>
+			
 			<div id="primary" class="<?php echo esc_attr($col['colclass']); ?> content-area" style="<?php echo esc_attr($col['position']);?>">
 				<?php
 				$args = array (
@@ -115,6 +122,7 @@ get_header(); ?>
 				?>
 				<div>
 					<ul class="gal_itms">
+					<div id="wait"></div>
 					<?php
 					while($cakegal->have_posts()) : $cakegal->the_post();
 					global $post;

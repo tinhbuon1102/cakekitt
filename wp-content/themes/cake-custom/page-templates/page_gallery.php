@@ -71,6 +71,7 @@ $field_mappings = getCustomFormFieldMapping();
 				var esgbox = $(this);
 				var selectedPost = esgbox.closest('li').attr('id').replace(/^eg-\d-post-id-/, '');
 				
+				
 				imgBtnInterval = setInterval(function(){
 					if ($('div.esgbox-title').length)
 					{
