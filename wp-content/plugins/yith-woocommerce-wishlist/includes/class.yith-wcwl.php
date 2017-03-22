@@ -399,7 +399,7 @@ if ( ! class_exists( 'YITH_WCWL' ) ) {
                 }
 
                 if( false === $count ){
-                    $sql  = "SELECT COUNT( i.`prod_id` ) AS `cnt`
+                    $sql  = "SELECT COUNT( distinct i.`prod_id` ) AS `cnt`
                         FROM `{$wpdb->yith_wcwl_items}` AS i
                         LEFT JOIN `{$wpdb->yith_wcwl_wishlists}` AS l ON l.ID = i.wishlist_id
                         INNER JOIN `{$wpdb->posts}` AS p ON i.`prod_id` = p.`ID`

@@ -17,7 +17,7 @@ jQuery(document).ready(function(t) {
             t(".product-large-image").find(o).each(function() {
                 t(this).attr("data-id") == e && t(this).addClass("activeZoom").siblings().removeClass("activeZoom")
             }), i.attr("srcset", ""), t("form.cart select").prop("selectedIndex", 0), t(".reset_variations").hide(), t(".woocommerce-variation-price").hide(), i.ezPlus(a)
-        }), t(".variations").live("change", "select", function() {
+        }), t(".variations").on("change", "select", function() {
             t(".zoomWindow").css({
                 background: "transparent"
             }), o.hide();
