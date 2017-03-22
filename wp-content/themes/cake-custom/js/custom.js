@@ -131,7 +131,9 @@ jQuery(document).ready(function(){
 	jQuery(".panel-group a#pickup").click(function(){
 		jQuery('.deliver-info').addClass('disable');
 });
-
+//auto height
+jQuery('.c-list_3Column li.m-input__radio').autoHeight();
+jQuery('.round-icon-select li.m-input__radio').autoHeight();
 
 jQuery(".ordercake-cart-sidebar-container").pinBox({
 		//default 0px
@@ -154,9 +156,12 @@ jQuery(".ordercake-cart-sidebar-container").pinBox({
 	jQuery('.cake_flavor_shortcake i').addClass('iconkitt-kitt_icons_shortcake');
 	jQuery('.cake_flavor_chocolate i').addClass('iconkitt-kitt_icons_chocolate');
 	jQuery('.cake_flavor_cheese i').addClass('iconkitt-kitt_icons_cheese');
+	
 
 $(window).on('load resize', function(){
 //width値を取得する
+var windowHeight = $(window).height();
+$('.cake-cart-sidebar > .panel').css('max-height', (windowHeight - 136) + 'px');
 var sideWidth = $('.ordercake-cart-sidebar-container').width();
 $('.cake-cart-sidebar').css('width', sideWidth + 'px');
 

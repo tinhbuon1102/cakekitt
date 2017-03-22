@@ -8,10 +8,11 @@ $(function() {
 	$('input#password').wrap('<span class="pass"></span>');
 	//$('input#reg_password').wrap('<span class="pass"></span>');
 	$('input#reg_email').wrapAll('<span class="email"></span>');
-	//$('.checkout > .columns').wrapAll('<div class="row" id="checkoutbox"></div>');
+	//$('.order-detail-custom-table .form-row.row-custom_order_cakePic .show-value img').wrap('<div class="wrap-img"></div>');
 	$(".order-detail-custom-table > .cake_info_wraper > .row:has(.col-xs-3)").addClass('first-child');
 	$("#confirmation_content > .order-detail-custom-table > .cake_info_wraper > .row:has(.col-xs-3)").addClass('first-child');
 	//$("span.pass:not(:has(.woocommerce-password-hint))").removeClass('pass');
+	$(".cake_info_wraper > .row:has(.col-xs-12)").addClass('deco-col');
 	$('#customer_login > div.u-column1 > h2, #customer_login > div.u-column1 > form').wrapAll('<div class="inner"></div>');
 	$('#customer_login > div.u-column2 > h2, #customer_login > div.u-column2 > form').wrapAll('<div class="inner"></div>');
 	$('body.woocommerce-edit-address .woocommerce .woocommerce-MyAccount-content .woocommerce-Addresses.col2-set > .col-1').hide();

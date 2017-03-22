@@ -138,7 +138,7 @@ if ($inspired_pic)
 									
 									<?php if ($value == 'custom') {?>
 									<div id="shape_custom" class="suboption_box disable">
-										<textarea name="custom_order_cake_shape_custom" class="subinfo txtLL empty" placeholder="ご希望の形についてご記入ください。"></textarea>
+										<textarea name="custom_order_cake_shape_custom" class="subinfo txtLL empty validate[required]" placeholder="ご希望の形についてご記入ください。"></textarea>
 									</div>
 									<?php }?>
 								</li>
@@ -237,7 +237,7 @@ if ($inspired_pic)
 									<div id="ColorOptionbox" class="suboption_box disable">
 										<a href="#" class="btn btn-default cp-select" id="custom_order_color_picker"><?php _e( 'Color Picker', 'cake' ); ?></a>
 										<div class="selected-color"></div>
-										<input type="hidden" name="custom_order_cakecolor_other" id="custom_order_cakecolor_other" value=""/>
+										<input type="hidden" name="custom_order_cakecolor_other" id="custom_order_cakecolor_other" class="validate[required]" value=""/>
 									</div>
 									<?php }?>
 								</li>
@@ -269,7 +269,7 @@ if ($inspired_pic)
 									<div id="optionbox01" class="suboption_box disable">
 										<div class="sub_form">
 										<div class="select-wrapper">
-												<select name="custom_order_icingcookie_qty" class="form-control select select-primary" data-toggle="select">
+												<select name="custom_order_icingcookie_qty" class="form-control select select-primary validate[required]" data-toggle="select">
 												<option value="" selected><?php _e( 'choose qty', 'woocommerce' ); ?></option>
 													<?php 
 													$index = 0;
@@ -284,7 +284,7 @@ if ($inspired_pic)
 											</div>
 										</div>
 										<div class="sub_form">
-											<textarea name="custom_order_basecolor_text" class="subinfo txtLL empty" placeholder="ご希望の形・サイズ・色をご記入ください。"></textarea>
+											<textarea name="custom_order_basecolor_text" class="subinfo txtLL empty validate[required]" placeholder="ご希望の形・サイズ・色をご記入ください。"></textarea>
 										</div>
 									</div>
 									<?php }?>
@@ -293,7 +293,7 @@ if ($inspired_pic)
 									<div id="optionbox02" class="suboption_box disable">
 										<div class="sub_form">
 											<div class="select-wrapper">
-											<select name="custom_order_cupcake_qty" class="form-control select select-primary" data-toggle="select">
+											<select name="custom_order_cupcake_qty" class="form-control select select-primary validate[required]" data-toggle="select">
 											<option value="" selected><?php _e( 'choose qty', 'woocommerce' ); ?></option>
 											<?php 
 											$index = 0;
@@ -308,7 +308,7 @@ if ($inspired_pic)
 										</div>
 										</div>
 										<div class="sub_form">
-											<textarea name="custom_order_cpck_text" class="subinfo txtLL empty" placeholder="ご希望のデザイン詳細をご記入ください。"></textarea>
+											<textarea name="custom_order_cpck_text" class="subinfo txtLL empty validate[required]" placeholder="ご希望のデザイン詳細をご記入ください。"></textarea>
 										</div>
 									</div>
 									<?php }?>
@@ -318,7 +318,7 @@ if ($inspired_pic)
 										<div class="sub_form">
 											
 											<div class="select-wrapper">
-											<select name="custom_order_macaron_qty" class="form-control select select-primary" data-toggle="select">
+											<select name="custom_order_macaron_qty" class="form-control select select-primary validate[required]" data-toggle="select">
 												<option value="" selected><?php _e( 'choose qty', 'woocommerce' ); ?></option>
 												<?php 
 												$index = 0;
@@ -340,7 +340,7 @@ if ($inspired_pic)
 													$index ++;
 												?>
 													<li class="m-input__radio col-md-12">
-														<input type="radio" name="custom_order_macaron_color" id="macaron_color_<?php echo $value?>" class="radio_input"
+														<input type="radio" name="custom_order_macaron_color" id="macaron_color_<?php echo $value?>" class="radio_input validate[required]"
 														<?php echo $field_mappings['custom_order_macaron_color']['field']['default_value'] == $value  ? 'checked' : ''?>
 														value="<?php echo $value?>">
 														<label for="macaron_color_<?php echo $value?>" class="js-fixHeightChildText radio_label cake_color_white">
@@ -367,7 +367,7 @@ if ($inspired_pic)
 													$index ++;
 												?>
 													<li class="m-input__radio col-md-12">
-														<input type="radio" name="custom_order_flowercolor" id="flower_color_<?php echo $value?>" class="radio_input" 
+														<input type="radio" name="custom_order_flowercolor" id="flower_color_<?php echo $value?>" class="radio_input validate[required]" 
 														<?php echo $field_mappings['custom_order_flowercolor']['field']['default_value'] == $value  ? 'checked' : ''?>
 														value="<?php echo $value?>">
 														<label for="flower_color_<?php echo $value?>" class="js-fixHeightChildText radio_label">
@@ -389,7 +389,7 @@ if ($inspired_pic)
 											<ul class="inspired_images"></ul>
 											<span class="option_label"><?php _e( 'Upload pictures', 'woocommerce' ); ?></span>
 											<div class="image_loading"></div>
-											<input type="file" class="filestyle upload_cakePic" name="upload_cakePic" id="custom_order_photocakepic">
+											<input type="file" class="filestyle upload_cakePic validate[required]" name="upload_cakePic" id="custom_order_photocakepic">
 										</div>
 									</div>
 									<?php }?>
@@ -397,7 +397,7 @@ if ($inspired_pic)
 									<?php if ($value == 'candy') {?>
 									<div id="optionbox08" class="suboption_box disable">
 										<div class="sub_form">
-											<textarea name="custom_order_candy_text" class="subinfo txtLL empty" placeholder="ご希望のデザイン詳細をご記入ください。"></textarea>
+											<textarea name="custom_order_candy_text" class="subinfo txtLL empty validate[required]" placeholder="ご希望のデザイン詳細をご記入ください。"></textarea>
 										</div>
 									</div>
 									<?php }?>
@@ -405,7 +405,7 @@ if ($inspired_pic)
 									<?php if ($value == 'figure') {?>
 									<div id="optionbox09" class="suboption_box disable">
 										<div class="sub_form">
-											<textarea name="custom_order_doll_text" class="subinfo txtLL empty" placeholder="ご希望のデザイン詳細をご記入ください。"></textarea>
+											<textarea name="custom_order_doll_text" class="subinfo txtLL empty validate[required]" placeholder="ご希望のデザイン詳細をご記入ください。"></textarea>
 										</div>
 									</div>
 									<?php }?>
@@ -442,7 +442,7 @@ if ($inspired_pic)
 									
 									<?php if ($value == 'msg_yes') {?>
 										<div id="MessageOptionbox" class="suboption_box disable">
-											<textarea name="custom_order_msgpt_text_yes" class="subinfo txtLL empty" placeholder="ご希望のメッセージをご記入ください。"></textarea>
+											<textarea name="custom_order_msgpt_text_yes" class="subinfo txtLL empty validate[required]" placeholder="ご希望のメッセージをご記入ください。"></textarea>
 										</div>
 									<?php }?>
 								</li>
@@ -559,7 +559,7 @@ if ($inspired_pic)
 									</ul>
 								</div>
 								<div class="field col-md-6">
-									<label class="label"><?php _e( 'Birthday', 'woocommerce' ); ?></label>
+									<label class="label"><?php _e( 'Birthday', 'cake' ); ?></label>
 									<?php 
 									$yearMonthDays = kitt_get_year_month_day();
 									$birth_date = get_user_meta( get_current_user_id(), 'birth_date', true);

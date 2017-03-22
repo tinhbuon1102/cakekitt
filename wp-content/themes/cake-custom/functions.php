@@ -123,6 +123,7 @@ function icheck_scripts ()
 	wp_enqueue_style('cake_child_css', get_stylesheet_directory_uri() . '/style.css');
 	wp_enqueue_script('overlay_js', get_stylesheet_directory_uri() . '/js/loadingoverlay.js', array());
 	wp_enqueue_script('sumoselect_js', get_stylesheet_directory_uri() . '/js/jquery.sumoselect.js', array());
+	wp_enqueue_script('autoheight_js', get_stylesheet_directory_uri() . '/js/jQueryAutoHeight.js', array());
 	wp_enqueue_style('cake_child_css', get_stylesheet_directory_uri() . '/css/sumoselect.css');
 	wp_enqueue_script('custom_js', get_stylesheet_directory_uri() . '/js/custom.js', array());
 }
@@ -362,7 +363,7 @@ function cake_price_combination_callback() {
 add_action( 'init', 'register_my_new_order_statuses' );
 function register_my_new_order_statuses() {
 	register_post_status( 'wc-accepted', array(
-		'label'                     => _x( 'Accepted', 'Order status', 'woocommerce' ),
+		'label'                     => _x( '注文受付完了', 'Order status', 'woocommerce' ),
 		'public'                    => true,
 		'exclude_from_search'       => false,
 		'show_in_admin_all_list'    => true,
@@ -374,8 +375,8 @@ function register_my_new_order_statuses() {
 add_filter( 'wc_order_statuses', 'my_new_wc_order_statuses' );
 // Register in wc_order_statuses.
 function my_new_wc_order_statuses( $order_statuses ) {
-	$order_statuses['wc-accepted'] = _x( 'Accepted', 'Order status', 'woocommerce' );
-	$order_statuses = array('wc-accepted' => _x( 'Accepted', 'Order status', 'woocommerce' )) + $order_statuses; 
+	$order_statuses['wc-accepted'] = _x( '注文受付完了', 'Order status', 'woocommerce' );
+	$order_statuses = array('wc-accepted' => _x( '注文受付完了', 'Order status', 'woocommerce' )) + $order_statuses; 
 	return $order_statuses;
 }
 
@@ -887,13 +888,33 @@ function kittwp_title_order_received( $text, $order ) {
 	{
 		$_product = wc_get_product($item['product_id']);
 		$is_custom_order_product = get_post_meta($item['product_id'], 'is_custom_order_product', true);
-		if ( $is_custom_order_product )
+		//$methods = WC()->payment_gateways->payment_gateways($order);
+		$bacs_class = get_post_meta($order->id, '_payment_method', true) == 'bacs';
+		$stripe_class = get_post_meta($order->id, '_payment_method', true) == 'stripe';
+		$waiting_class = get_post_meta($order->id, '_payment_method', true) == 'other_payment';
+		if ( $is_custom_order_product && $waiting_class )
 		{
-			return 'オーダーメイドケーキのご注文を承りました。誠にありがとうございます。';
+			return '<h1 class="big-title big-thanks">Thank you!</h1><p>オーダーメイドケーキのご注文を承りました。こちらで注文内容を確認次第、担当者から連絡させていただきます。</p>';
 		}
-		else
+		elseif ( $is_custom_order_product && $bacs_class )
 		{
-			return '以下のケーキのご注文を承りました。誠にありがとうございます。';
+			return '<h1 class="big-title big-thanks payment-intro jp">お支払いのご案内</h1><p>オーダーメイドケーキのご注文を受け付けました。<strong>ご入金確認後、ご注文受付が完了となり、ケーキの制作が開始されます。</strong></p>';
+		}
+		elseif ( $is_custom_order_product && $stripe_class )
+		{
+			return '<h1 class="big-title big-thanks payment-intro jp">カード決済完了</h1><p>お支払いありがとうございます。<br/>オーダーメイドケーキのご注文受付が完了となりました。</p>';
+		}
+		elseif ( !$is_custom_order_product && $waiting_class )
+		{
+			return '<h1 class="big-title big-thanks">Thank you!</h1><p>以下のケーキのご注文を承りました。こちらで注文内容を確認次第、<strong>請求書メール</strong>が送信されますので、そちらで<strong>お支払い後、注文が確定</strong>となります。</p>';
+		}
+		elseif ( !$is_custom_order_product && $bacs_class )
+		{
+			return '<h1 class="big-title big-thanks payment-intro jp">お支払いのご案内</h1><p>以下のケーキのご注文を受け付けました。<strong>ご入金確認後、ご注文受付が完了となります。</strong></p>';
+		}
+		elseif ( !$is_custom_order_product && $stripe_class )
+		{
+			return '<h1 class="big-title big-thanks payment-intro jp">カード決済完了</h1>お支払いありがとうございます。<br/>以下のケーキのご注文受付が完了となりました。</strong>';
 		}
 	}
 }
@@ -966,7 +987,7 @@ function tm_additional_profile_fields( $user ) {
    		 </td>
    	 </tr>
    	 <tr>
-   		 <th><label for="sex"><?php _e( 'Sex', 'woocommerce' ); ?></label></th>
+   		 <th><label for="sex"><?php _e( 'Sex', 'cake' ); ?></label></th>
    		 <td>
    		 <select id="sex" name="sex"><?php
    				 foreach ( $sexs as $sexKey => $sex ) {
@@ -1085,7 +1106,7 @@ function kitt_woocommerce_after_checkout_billing_form($checkout)
 			</ul>
 		</div>
 		<div class="field col-md-6">
-			<label class="label"><?php _e( 'Birthday', 'woocommerce' ); ?></label>
+			<label class="label"><?php _e( 'Birthday', 'cake' ); ?></label>
 			<?php 
 			$yearMonthDays = kitt_get_year_month_day();
 			$birth_date = get_user_meta( get_current_user_id(), 'birth_date', true);

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - WooCommerce - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-03-21 14:13+0900\n"
+"PO-Revision-Date: 2017-03-22 09:53+0900\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -6494,7 +6494,7 @@ msgstr "銀行振込を待っています"
 
 #: includes/gateways/bacs/class-wc-gateway-bacs.php:309
 msgid "BIC"
-msgstr "BIC"
+msgstr "支店コード"
 
 #: includes/gateways/bacs/class-wc-gateway-bacs.php:282
 msgid "Our Bank Details"
@@ -6510,12 +6510,12 @@ msgstr "+ アカウントの追加"
 
 #: includes/gateways/bacs/class-wc-gateway-bacs.php:134
 msgid "BIC / Swift"
-msgstr "BIC / Swift"
+msgstr "支店コード"
 
 #: includes/gateways/bacs/class-wc-gateway-bacs.php:133
 #: includes/gateways/bacs/class-wc-gateway-bacs.php:305
 msgid "IBAN"
-msgstr "IBAN"
+msgstr "支店名"
 
 #: includes/gateways/bacs/class-wc-gateway-bacs.php:131
 msgid "Bank Name"
@@ -6540,7 +6540,7 @@ msgstr "アカウント情報"
 #: includes/gateways/bacs/class-wc-gateway-bacs.php:119
 #: includes/gateways/bacs/class-wc-gateway-bacs.php:277
 msgid "Sort Code"
-msgstr "Sort Code"
+msgstr "口座種別"
 
 #: includes/gateways/bacs/class-wc-gateway-bacs.php:95
 #: includes/gateways/cheque/class-wc-gateway-cheque.php:76
@@ -20340,3 +20340,6 @@ msgstr "形をお選びください"
 
 msgid "About Cake Design"
 msgstr "ケーキデザインについて"
+
+msgid "Accepted"
+msgstr "注文受付完了"

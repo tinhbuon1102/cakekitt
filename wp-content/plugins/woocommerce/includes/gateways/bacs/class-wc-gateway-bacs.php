@@ -286,28 +286,36 @@ class WC_Gateway_BACS extends WC_Payment_Gateway {
 				$bacs_account = (object) $bacs_account;
 
 				if ( $bacs_account->account_name || $bacs_account->bank_name ) {
-					echo '<h3>' . wp_unslash( implode( ' - ', array_filter( array( $bacs_account->account_name, $bacs_account->bank_name ) ) ) ) . '</h3>' . PHP_EOL;
+					//echo '<h3>' . wp_unslash( implode( ' - ', array_filter( array( $bacs_account->account_name, $bacs_account->bank_name ) ) ) ) . '</h3>' . PHP_EOL;
 				}
 
 				echo '<ul class="wc-bacs-bank-details order_details bacs_details">' . PHP_EOL;
 
 				// BACS account fields shown on the thanks page and in emails
 				$account_fields = apply_filters( 'woocommerce_bacs_account_fields', array(
-					'account_number'=> array(
-						'label' => __( 'Account Number', 'woocommerce' ),
-						'value' => $bacs_account->account_number
+					'bank_name'=> array(
+						'label' => __( 'Bank Name', 'woocommerce' ),
+						'value' => $bacs_account->bank_name
 					),
-					'sort_code'     => array(
-						'label' => $sortcode,
-						'value' => $bacs_account->sort_code
+					'bic'           => array(
+						'label' => __( 'BIC', 'woocommerce' ),
+						'value' => $bacs_account->bic
 					),
 					'iban'          => array(
 						'label' => __( 'IBAN', 'woocommerce' ),
 						'value' => $bacs_account->iban
 					),
-					'bic'           => array(
-						'label' => __( 'BIC', 'woocommerce' ),
-						'value' => $bacs_account->bic
+					'sort_code'     => array(
+						'label' => $sortcode,
+						'value' => $bacs_account->sort_code
+					),
+					'account_number'=> array(
+						'label' => __( 'Account Number', 'woocommerce' ),
+						'value' => $bacs_account->account_number
+					),
+					'account_name'=> array(
+						'label' => __( 'Account Name', 'woocommerce' ),
+						'value' => $bacs_account->account_name
 					)
 				), $order_id );
 

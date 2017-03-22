@@ -1107,7 +1107,7 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER) {
 						{
 							foreach ($aPics as $pic)
 							{
-								$fieldValue .= '<img style="max-width: 300px;" src="' . $pic . '" />';
+								$fieldValue .= '<div class="wrap-img"><img class="insp-pic" src="' . $pic . '" /></div>';
 							}
 						}
 						break;

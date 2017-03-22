@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cake 1.2\n"
 "POT-Creation-Date: 2016-09-20 10:50+0700\n"
-"PO-Revision-Date: 2017-03-21 15:28+0900\n"
+"PO-Revision-Date: 2017-03-22 05:14+0900\n"
 "Last-Translator: \n"
 "Language-Team: codeopus\n"
 "Language: ja_JP\n"
@@ -2083,3 +2083,9 @@ msgstr "生年月日"
 
 msgid "Cake Info"
 msgstr "オーダーメイドケーキ詳細"
+
+msgid "Waiting Payment"
+msgstr "支払い待ち"
+
+msgid "We are checking your order and will contact you soon. Your order details are shown below for your reference:"
+msgstr "お客様のご注文を確認次第、ご注文をい受け付けさせていただきますので、今しばらくお待ちください。ご注文内容の詳細は以下です。"
