@@ -997,9 +997,6 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 		unset($aDetailBlocks['cake_info_wraper']);
 	}
 	
-	$divRow = '';
-	$divRow .= '<div class="order-detail-custom-table row">';
-	
 	$blockWraper = '';
 
 	//Group Decoration
@@ -1008,6 +1005,14 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 	
 	$indexItem = 0;
 	
+	if ($is_email)
+	{
+		// Please add style for each html element here and use it like i did in line 1015
+		$styleTableRow = ' style="display:block; " ';
+	}
+	
+	$divRow = '';
+	$divRow .= '<div class="order-detail-custom-table row" '.@$styleTableRow.'>';
 	foreach ($aDetailBlocks as $blockName => $blockContent)
 	{
 		$blockClass = $blockName . ' ' . $blockContent['class'];
@@ -1205,7 +1210,6 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 		}
 		$divRow .= '</div>'; // --End block class div
 	}
-	
 	$divRow .= '</div>';
 	return $divRow;
 }
@@ -1235,7 +1239,6 @@ function kitt_add_product_to_cart($product_id) {
 
 function woocommerce_order_details_after_order_table_order_custom_email($order){
 	$order_type = kitt_get_order_type( $order->id);
-	// Do'nt show custom detail for normal order
 	?>
 		<div class="custom_order_details">
 			<?php echo getOrderDetail($order->id, $order_type, $is_email); ?>
@@ -1246,7 +1249,6 @@ function woocommerce_order_details_after_order_table_order_custom_email($order){
 
 function woocommerce_order_details_after_order_table_order_custom ($order){
 	$order_type = kitt_get_order_type( $order->id);
-	// Do'nt show custom detail for normal order
 ?>
 	<div class="custom_order_details">
 		<?php echo getOrderDetail($order->id, $order_type); ?>
