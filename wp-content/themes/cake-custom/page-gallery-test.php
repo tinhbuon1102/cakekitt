@@ -100,8 +100,6 @@ get_header(); ?>
 							if(msg.output.length > 0){
 								var out = msg.output;
 								$('.gal_itms').html(out);
-							}else if(msg.output == null){
-								$('.gal_itms').html('<p>Nothings Found!</p>');
 							}
 						}, 'json');
 					});

@@ -1325,8 +1325,9 @@ function load_items(){
 		// echo '<pre>';
 		// print_r($args);
 		// echo '</pre>';
+		ob_start();
 		if ( $query->have_posts() ) : 
-			ob_start();
+			
 			?>
 			<div id="wait"></div>
 			<?php
@@ -1349,9 +1350,15 @@ function load_items(){
 			<?php
 			endwhile; 
 			wp_reset_postdata();
-			$buffer = ob_get_contents();
-			ob_clean();
+			
+		else :
+		?>
+		<div id="wait"></div>
+		<p>Nothings Found!</p>
+		<?php
 		endif;
+		$buffer = ob_get_contents();
+		ob_clean();
 	}
 	echo json_encode(array( 'output' => $buffer));
 	exit;	
