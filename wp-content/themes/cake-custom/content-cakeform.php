@@ -236,8 +236,8 @@ if ($inspired_pic)
 									<?php if ($value == 'other') {?>
 									<div id="ColorOptionbox" class="suboption_box disable">
 										<a href="#" class="btn btn-default cp-select" id="custom_order_color_picker"><?php _e( 'Color Picker', 'cake' ); ?></a>
+										<input style="opacity: 0; width: 1px; height: 1px;" type="text" name="custom_order_cakecolor_other" id="custom_order_cakecolor_other" class="validate[required]" value=""/>
 										<div class="selected-color"></div>
-										<input type="hidden" name="custom_order_cakecolor_other" id="custom_order_cakecolor_other" class="validate[required]" value=""/>
 									</div>
 									<?php }?>
 								</li>
