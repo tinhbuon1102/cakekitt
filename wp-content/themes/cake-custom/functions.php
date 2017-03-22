@@ -380,7 +380,7 @@ function my_new_wc_order_statuses( $order_statuses ) {
 	return $order_statuses;
 }
 
-function order_send_invoice($orderid)
+function order_send_invoice($order_id)
 {
 	$mailer = WC()->mailer();
 	$mails = $mailer->get_emails();
@@ -388,7 +388,7 @@ function order_send_invoice($orderid)
 	if ( ! empty( $mails ) ) {
 		foreach ( $mails as $mail ) {
 			if ( $mail->id == $email_to_send ) {
-				$mail->trigger( $orderid );
+				$mail->trigger( $order_id );
 			}
 		}
 	}
@@ -401,6 +401,22 @@ add_action('woocommerce_order_status_failed_to_accepted','order_send_invoice');
 add_action('woocommerce_order_status_cancelled_to_accepted','order_send_invoice');
 add_action('woocommerce_order_status_refunded_to_accepted','order_send_invoice');
 
+
+function send_email_on_hold($order_id)
+{
+	$mailer = WC()->mailer();
+	$mails = $mailer->get_emails();
+	$email_to_send = 'customer_on_hold_order';
+	if ( ! empty( $mails ) ) {
+		foreach ( $mails as $mail ) {
+			if ( $mail->id == $email_to_send ) {
+				$mail->trigger( $order_id );
+			}
+		}
+	}
+}
+
+add_action( 'woocommerce_order_status_accepted_to_on-hold', 'send_email_on_hold' );
 
 function custom_meta_order_detail_box_markup($post)
 {
