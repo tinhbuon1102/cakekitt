@@ -3197,11 +3197,11 @@ ul.round-icon-select.col_5 li.m-input__radio {
     overflow: hidden;
     position: relative;
 }
-.select-wrapper .select.select2-container > a {
+.select-wrapper .select.select2-container > a, .select.form-control.static-select {
 	border: 1px solid #e5e5e5;
     border-radius: 5px;
 }
-.select-wrapper .select.select2-container:after, .select.select2-container:after, .title-select-wrapper:after {
+.select-wrapper .select.select2-container:after, .select.select2-container:after, .title-select-wrapper:after, .select.form-control.static-select:after {
     color: #b4b4b4;
     content: "\e903";
     font-family: 'icomoon01' !important;
@@ -3378,6 +3378,14 @@ ul.text-radio li.m-input__radio.col-md-12:first-child {
     line-height: 1;
     padding: 9px 15px;
 }
+.select.form-control.static-select {
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    line-height: 1.4;
+    padding: 10px 35px 10px 15px;
+	color: #5f5f5f;
+    font-size: 14px;
+}
 #omc-form .form-fields .row:nth-child(4) .field p, #checkoutbox div#customer_details .woocommerce-billing-fields > .row > .field:last-child > .form-row {
     margin: 0;
 }
@@ -3427,6 +3435,34 @@ ul.text-radio li.m-input__radio.col-md-12:first-child {
     border-radius: 0px 5px 5px 0px;
     border-left: 0px;
 }
+/* birthday */
+.woocommerce-page form .birth-field .form-row select, form .birth-field .form-row select {
+    width: 33.333%;
+	min-width: 0px;
+    box-sizing: border-box;
+    display: block;
+    float: left;
+}
+.woocommerce-page form .birth-field .form-row select, #omc-form .birth-field .form-row select, #checkoutbox div#customer_details .birth-field .form-row select  {
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+}
+.woocommerce-page form .birth-field .form-row select:first-child, #omc-form .birth-field .form-row select:first-child, #checkoutbox div#customer_details .birth-field .form-row select:first-child {
+	-webkit-border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 0px 0px 5px;
+    border-right: 0px;
+}
+.woocommerce-page form .birth-field .form-row select:last-child, #omc-form .birth-field .form-row select:last-child, #checkoutbox div#customer_details .birth-field .form-row select:last-child {
+	-webkit-border-radius: 0px 5px 5px 0px;
+	-moz-border-radius: 0px 5px 5px 0px;
+    border-radius: 0px 5px 5px 0px;
+    border-left: 0px;
+}
+}
+.woocommerce-shipping-fields {
+    margin-top: 20px;
 }
 li.main-option .form-fields .address-field label.label {
     padding: 0;
@@ -3977,6 +4013,10 @@ div#s2id_autogen1 {
 .cdo-button.medium.mb10 {
     margin-bottom: 10px;
 }
+.field.col-md-6.birth-field {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 }
 @media only screen and (max-width: 959px) and (min-width: 768px) {
 .woocommerce.columns-4 ul.products li.product:nth-child(even) {
@@ -4114,7 +4154,31 @@ h1.big-title.big-thanks {
 h1.big-title.big-thanks.payment-intro {
     font-size: 20px;
 }
+.form-row.place-order input#place_order {
+    width: 100%;
+    height: 50px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+@media (max-width: 779px) {
+/* birthday */
+.select.form-control.static-select {
+    width: 100%;
+    max-width: 100%;
+}
+}
 @media (max-width: 767px) {
+
+.calendar {
+    margin-bottom: 40px;
+}
+.select-datetime .row {
+    margin: 0;
+}
+.select-datetime .row .col-md-6.columns {
+    padding: 0;
+}
 /*order form*/
 div#confirmation_content .order-detail-custom-table .cake_info_wraper .label-div {
     width: auto;
@@ -4461,6 +4525,10 @@ a.btn.label-btn {
 }
 }
 @media only screen and (max-width: 479px) {
+.container {
+    padding-left: 10px;
+    padding-right: 10px;
+}
 .cake_info_wraper.col-xs-12 .row {
     margin: 0;
 }

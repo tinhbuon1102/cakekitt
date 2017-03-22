@@ -269,7 +269,7 @@ if ($inspired_pic)
 									<div id="optionbox01" class="suboption_box disable">
 										<div class="sub_form">
 										<div class="select-wrapper">
-												<select name="custom_order_icingcookie_qty" class="form-control select select-primary validate[required]" data-toggle="select">
+												<select name="custom_order_icingcookie_qty" class="form-control select select-primary static-select validate[required]">
 												<option value="" selected><?php _e( 'choose qty', 'woocommerce' ); ?></option>
 													<?php 
 													$index = 0;
@@ -293,7 +293,7 @@ if ($inspired_pic)
 									<div id="optionbox02" class="suboption_box disable">
 										<div class="sub_form">
 											<div class="select-wrapper">
-											<select name="custom_order_cupcake_qty" class="form-control select select-primary validate[required]" data-toggle="select">
+											<select name="custom_order_cupcake_qty" class="form-control select select-primary static-select validate[required]">
 											<option value="" selected><?php _e( 'choose qty', 'woocommerce' ); ?></option>
 											<?php 
 											$index = 0;
@@ -318,7 +318,7 @@ if ($inspired_pic)
 										<div class="sub_form">
 											
 											<div class="select-wrapper">
-											<select name="custom_order_macaron_qty" class="form-control select select-primary validate[required]" data-toggle="select">
+											<select name="custom_order_macaron_qty" class="form-control select select-primary static-select validate[required]">
 												<option value="" selected><?php _e( 'choose qty', 'woocommerce' ); ?></option>
 												<?php 
 												$index = 0;
@@ -558,7 +558,7 @@ if ($inspired_pic)
 										</li>
 									</ul>
 								</div>
-								<div class="field col-md-6">
+								<div class="field col-md-6 birth-field">
 									<label class="label"><?php _e( 'Birthday', 'cake' ); ?></label>
 									<?php 
 									$yearMonthDays = kitt_get_year_month_day();
@@ -567,21 +567,21 @@ if ($inspired_pic)
 									$birth_date = $birth_date ? $birth_date : $default;
 									?>
 									<p class="woocommerce-FormRow woocommerce-FormRow--last form-row form-row-wide" >
-										<select id="birth-date-year" name="custom_order_customer_birth_date[year]" required class="form-control select select-primary" data-toggle="select">>
+										<select id="birth-date-year" name="custom_order_customer_birth_date[year]" required class="form-control select select-primary static-select">>
 											<option value=""><?php echo __('Select Birth Year', 'woocommerce')?></option>
 											<?php
 								   				 foreach($yearMonthDays['years'] as $yearNumber) {
 								   					 printf( '<option value="%1$s" %2$s>%1$s</option>', $yearNumber, selected( $birth_date['year'], $yearNumber, false ) );
 								   				 }
 								   			 ?></select>
-								   			 <select id="birth-date-month" name="custom_order_customer_birth_date[month]" required class="form-control select select-primary" data-toggle="select">>
+								   			 <select id="birth-date-month" name="custom_order_customer_birth_date[month]" required class="form-control select select-primary static-select">>
 								   			 <option value=""><?php echo __('Select Birth Month', 'woocommerce')?></option>
 								   			 <?php
 								   				 foreach ( $yearMonthDays['months'] as $monthNumber => $monthText ) {
 								   					 printf( '<option value="%1$s" %2$s>%3$s</option>', $monthNumber, selected( $birth_date['month'], $monthNumber, false ), $monthText );
 								   				 }
 								   			 ?></select>
-								   			 <select id="birth-date-day" name="custom_order_customer_birth_date[day]" required class="form-control select select-primary" data-toggle="select">>
+								   			 <select id="birth-date-day" name="custom_order_customer_birth_date[day]" required class="form-control select select-primary static-select">>
 								   			 <option value=""><?php echo __('Select Birth Day', 'woocommerce')?></option>
 								   			 <?php
 								   			 foreach($yearMonthDays['days'] as $dayNumber) {
@@ -623,7 +623,7 @@ if ($inspired_pic)
 											</div>
 											<div class="field col-md-6">
 												<div class="select-wrapper">
-													<select name="custom_order_deliver_pref" id="deliver_state" class="form-control select select-primary" data-toggle="select">
+													<select name="custom_order_deliver_pref" id="deliver_state" class="form-control select select-primary static-select">
 														<option value=""><?php echo __('Choose Prefecture', 'cake')?></option>
 														<?php foreach ($default_county_states as $stateKey => $stateVal) {?>
 															<option value="<?php echo $stateKey?>" <?php echo get_user_meta($userID, 'shipping_state', true) == $stateKey ? 'selected' : ''?>><?php echo $stateVal;?></option>

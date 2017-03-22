@@ -145,7 +145,7 @@ if (jQuery(".ordercake-cart-sidebar-container").length)
 		//default 20 
 		ZIndex : 20,
 		//default '767px' if you disable pinBox in mobile or tablet
-		MinWidth : '767px'
+		MinWidth : '991px'
 		//events if scrolled or window resized 
 	});
 }
@@ -160,7 +160,7 @@ if (jQuery(".ordercake-cart-sidebar-container2").length)
 		//default 20 
 		ZIndex : 20,
 		//default '767px' if you disable pinBox in mobile or tablet
-		MinWidth : '767px'
+		MinWidth : '991px'
 		//events if scrolled or window resized 
 	});
 }
