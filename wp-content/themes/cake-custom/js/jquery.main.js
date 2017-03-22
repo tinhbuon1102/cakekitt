@@ -46,7 +46,7 @@ $(function(){
     		
     		if (step_store_request)
     		{
-    			step_store_request.abort();
+    			//step_store_request.abort();
     		}
     		
     		step_store_request = $.ajax({

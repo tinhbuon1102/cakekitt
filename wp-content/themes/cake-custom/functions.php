@@ -394,6 +394,13 @@ function order_send_invoice($orderid)
 	}
 }
 add_action('woocommerce_order_status_pending_to_accepted','order_send_invoice');
+add_action('woocommerce_order_status_on-hold_to_accepted','order_send_invoice');
+add_action('woocommerce_order_status_processing_to_accepted','order_send_invoice');
+add_action('woocommerce_order_status_complete_to_accepted','order_send_invoice');
+add_action('woocommerce_order_status_failed_to_accepted','order_send_invoice');
+add_action('woocommerce_order_status_cancelled_to_accepted','order_send_invoice');
+add_action('woocommerce_order_status_refunded_to_accepted','order_send_invoice');
+
 
 function custom_meta_order_detail_box_markup($post)
 {
