@@ -18,7 +18,7 @@ try{Typekit.load({ async: true });}catch(e){}</script>
 </head>
 
 <body <?php body_class(); ?> >
-
+<?php //global $template;echo '==' .$template;?>
 <?php 
 $layout = get_theme_mod('cake_layout_type', 'fullwidth');
 
