@@ -404,8 +404,7 @@ function custom_meta_order_detail_box_markup($post)
 	$order_type = kitt_get_order_type($order->id);
 	
 	$orderFormData = get_post_meta($order->id, 'cake_custom_order', true);
-	
-	$addressFields = array(
+	$removeFields = array(
 		'custom_order_shipping',
 		'custom_order_customer_name_last',
 		'custom_order_customer_name_first',
@@ -422,6 +421,11 @@ function custom_meta_order_detail_box_markup($post)
 		'custom_order_deliver_city',
 		'custom_order_deliver_addr1',
 		'custom_order_deliver_addr2',
+		'custom_order_customer_sex',
+		'custom_order_customer_birth_date',
+		'custom_order_customer_birth_date_year',
+		'custom_order_customer_birth_date_month',
+		'custom_order_customer_birth_date_day'
 		
 	);
 	echo '<script>
@@ -445,7 +449,7 @@ function custom_meta_order_detail_box_markup($post)
 			foreach ($field_mappings as $fieldName => $fields)
 			{
 				// Remove address and user info fields
-				if (in_array($fieldName, $addressFields))
+				if (in_array($fieldName, $removeFields))
 				{
 					continue;
 				}
@@ -503,6 +507,9 @@ function custom_meta_order_detail_box_markup($post)
 			
 			unset($orderFormData['custom_order_customer_sex']);
 			unset($orderFormData['custom_order_customer_birth_date']);
+			unset($orderFormData['custom_order_customer_birth_date_year']);
+			unset($orderFormData['custom_order_customer_birth_date_month']);
+			unset($orderFormData['custom_order_customer_birth_date_day']);
 			
 			foreach ($orderFormData as $metaItemKey => $metaItemVal)
 			{
@@ -1147,8 +1154,6 @@ function kitt_custom_checkout_field_update_order_meta( $order_id )
 	$userID = get_current_user_id();
 	if ( isset($_POST['cake_custom_order']) )
 	{
-		update_post_meta($order_id, 'cake_custom_order', $_POST['cake_custom_order']);
-		
 		if ( isset($_POST['cake_custom_order']['custom_order_customer_birth_date_year']) )
 		{
 			$birth_date = array(
@@ -1163,6 +1168,12 @@ function kitt_custom_checkout_field_update_order_meta( $order_id )
 		{
 			update_user_meta($userID, 'sex', $_POST['cake_custom_order']['custom_order_customer_sex']);
 		}
+		unset($_POST['cake_custom_order']['custom_order_customer_birth_date_year']);
+		unset($_POST['cake_custom_order']['custom_order_customer_birth_date_month']);
+		unset($_POST['cake_custom_order']['custom_order_customer_birth_date_day']);
+		unset($_POST['cake_custom_order']['custom_order_customer_sex']);
+		
+		update_post_meta($order_id, 'cake_custom_order', $_POST['cake_custom_order']);
 	}
 }
 
