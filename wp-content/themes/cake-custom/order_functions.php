@@ -1241,7 +1241,7 @@ function woocommerce_order_details_after_order_table_order_custom_email($order){
 	$order_type = kitt_get_order_type( $order->id);
 	?>
 		<div class="custom_order_details">
-			<?php echo getOrderDetail($order->id, $order_type, $is_email); ?>
+			<?php echo getOrderDetail($order->id, $order_type, true); ?>
 		</div><!--/custom_order_details-->
 	
 	<?php
