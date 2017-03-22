@@ -96,7 +96,7 @@ $field_mappings = getCustomFormFieldMapping();
 							var aspectRatio = imgWidth / imgHeight;
 							$('div.esgbox-skin').addClass((aspectRatio < 1) ? 'portrait' : 'landscape');
 							$('div.galcon-inner > .row > div').addClass((aspectRatio < 1) ? 'col-md-6' : 'col-md-12');
-							$(window).on('load resize', function(){
+							$(window).on('load resize', function(){return;
 								//height値を取得する
 								var hsize = $(window).height();
 								var hinsize = hsize - 150;
@@ -120,8 +120,6 @@ $field_mappings = getCustomFormFieldMapping();
 							var hinsize = hsize - 150;
 							var galconWidth = $('.ordercake-cart-sidebar-container').width();
 							if (imgHeight <= hsize) {
-								$(".kitt-wrap .esgbox-skin .galcon-inner .image-inner").css("height", imgHeight + "px");
-								$(".kitt-wrap .esgbox-skin .galcon-inner .image-inner").css("width", imgWidth + "px");
 								$(".kitt-wrap .esgbox-skin").css("width", imgWidth + 50 + "px");
 								$('.esgbox-wrap').addClass('nofullbox');
 								//$(".kitt-wrap .esgbox-skin .galcon-inner").css("height", hsize - 100 + "px");
@@ -129,7 +127,6 @@ $field_mappings = getCustomFormFieldMapping();
 								$('.esgbox-wrap').addClass('fullbox');
 								$(".kitt-wrap .esgbox-skin .galcon-inner .image-inner").css("height", hinsize + "px");
 								$(".kitt-wrap .esgbox-skin .galcon-inner .image-inner").css("width", hinsize * aspectRatio + "px");
-								$(".kitt-wrap > .esgbox-skin > .galcon-inner").css("height", hsize - 100 + "px");
 							}
 							dfimage.resize(250,250);
 						});
