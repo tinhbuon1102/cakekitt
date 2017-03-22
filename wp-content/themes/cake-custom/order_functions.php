@@ -854,7 +854,7 @@ function getDecorationOption(){
 	return $options;
 }
 
-function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER) {
+function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_email = false) {
 	$fieldMapping = getCustomFormFieldMapping();
 	if (!$order_id)
 	{
@@ -1107,7 +1107,7 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER) {
 						{
 							foreach ($aPics as $pic)
 							{
-								$fieldValue .= '<div class="wrap-img"><img class="insp-pic" src="' . $pic . '" /></div>';
+								$fieldValue .= '<img style="max-width: 300px;" src="' . $pic . '" />';
 							}
 						}
 						break;
@@ -1233,6 +1233,17 @@ function kitt_add_product_to_cart($product_id) {
 	}
 }
 
+function woocommerce_order_details_after_order_table_order_custom_email($order){
+	$order_type = kitt_get_order_type( $order->id);
+	// Do'nt show custom detail for normal order
+	?>
+		<div class="custom_order_details">
+			<?php echo getOrderDetail($order->id, $order_type, $is_email); ?>
+		</div><!--/custom_order_details-->
+	
+	<?php
+}
+
 function woocommerce_order_details_after_order_table_order_custom ($order){
 	$order_type = kitt_get_order_type( $order->id);
 	// Do'nt show custom detail for normal order
@@ -1244,8 +1255,8 @@ function woocommerce_order_details_after_order_table_order_custom ($order){
 <?php
 }
 add_action( 'woocommerce_order_details_after_order_table', 'woocommerce_order_details_after_order_table_order_custom', 30, 4 );
-add_action( 'woocommerce_email_after_order_table', 'woocommerce_order_details_after_order_table_order_custom', 30, 4 );
 add_action( 'woocommerce_form_pay_after_order_table', 'woocommerce_order_details_after_order_table_order_custom', 30, 4 );
+add_action( 'woocommerce_email_after_order_table', 'woocommerce_order_details_after_order_table_order_custom_email', 30, 4 );
 
 function kitt_woocommerce_get_order_item_totals($total_rows, $order) {
 	if (is_custom_order($order->id) && in_array($order->post_status, array('wc-pending', 'wc-on-hold')) )
