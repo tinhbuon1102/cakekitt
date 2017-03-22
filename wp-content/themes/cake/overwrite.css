@@ -2004,6 +2004,93 @@ ul.ck-info li label:after {
 .galcon-inner .esgbox-title-inside-wrap {
     float: left;
 }*/
+div.wpcf7-validation-errors {
+    border: 2px solid rgba(233,184,203,1);
+}
+/*wedding cake form*/
+div#wcOrder .form-box {
+    max-width: 700px;
+    margin: 0 auto;
+}
+div#wcOrder .form-box .wrap-form-field {
+    margin-bottom: 40px;
+}
+div#wcOrder .form-box .wrap-form-field h4 {
+    text-align: center;
+	margin-bottom: 20px;
+}
+p.o-note {
+    text-align: center;
+}
+/*how to order*/
+.entry-content h4.head-title.head-style-dots {
+    font-size: 18px;
+	letter-spacing: 2px;
+	background:url("images/dot6.png") repeat-x;
+	background-position: center;
+	font-weight: bold;
+}
+h4.head-title.head-style-dots span {
+    background: #FFF;
+    padding: 0 10px;
+}
+.list-wc-steps h4.step-t {
+    margin-top: 0;
+    font-size: 24px;
+    font-family: 'bebas_neue_regularregular' !important;
+}
+div#orderHow .order_points p, div#orderHow .order_points ul {
+    text-align: left;
+}
+div#orderHow .order_points ul {
+    list-style-position: outside;
+    padding: 0;
+}
+div#orderHow .order_points .point_inner {
+    max-width: 100%;
+}
+div#orderHow .order_points {
+    padding: 0 5px;
+}
+div#orderHow .row.list-wc-steps {
+    margin-right: -5px;
+    margin-left: -5px;
+}
+div#orderHow .order_points .point_inner h6 {
+    margin-top: 10px;
+    font-size: 16px;
+}
+div#orderNotice .list-wc-steps .wc-order-step .innner {
+    max-width: 100%;
+    padding: 30px 20px;
+    border: 3px solid #000;
+}
+div#orderNotice .list-wc-steps .wc-order-step .innner {
+    max-width: 100%;
+    padding: 50px 20px 30px;
+    border: 3px solid #000;
+    position: relative;
+	text-align: left;
+}
+div#orderNotice .list-wc-steps .wc-order-step .innner h4 {
+    position: absolute;
+    top: -14px;
+    left: 0;
+    margin-top: 0;
+    width: 100%;
+	text-align: center;
+}
+ul.notice-list {
+    list-style-position: outside;
+}
+ul.notice-list li {
+    margin-top: 10px;
+}
+div#orderNotice .list-wc-steps .wc-order-step .innner h4 span {
+    background: #000;
+    color: #FFF;
+    padding: 15px 20px;
+}
 /*service1&2*/
 div#content-wrapper.page-order-made-cakes {
     padding-bottom: 0px;
@@ -2105,7 +2192,7 @@ ul#submenu_right li, .menu-sub-menu-left-container ul li {
     border-bottom: 1px solid #F8F8F8;
 }
 }
-.scroll a.logolink:before, .scroll .Header-supHeaderLogo a:before {
+.scroll a.logolink:before, .scroll .Header-supHeaderLogo a:before, .Header-supHeaderLogo.shrink a:before {
     content: "\e9bd";
     font-size: 90px;
     color: rgba(248,187,214,1);
@@ -2121,6 +2208,9 @@ ul#submenu_right li, .menu-sub-menu-left-container ul li {
 }
 .scroll .Header-supHeaderLogo a:before {
     font-size: 55px;
+}
+.Header-supHeaderLogo.shrink a:before {
+	font-size: 55px;
 }
 nav#toggleTarget {
     position: absolute;
@@ -2162,7 +2252,7 @@ button#toggleMenu {
     max-width: 120px;
     margin: 0 auto;
 }
-.scroll .Header-supHeaderLogo a img {
+.scroll .Header-supHeaderLogo a img, .Header-supHeaderLogo.shrink a img {
 	display: none;
 }
 .Body--noScroll .navbar-fixed-top {
@@ -2197,6 +2287,10 @@ margin-bottom: 10px;
     font-size: 13px;
     line-height: 1.6;
     font-weight: bold;
+}
+#footer .footer-comment p {
+    font-size: 14px;
+    line-height: 1.7;
 }
 h4.titlefooter {
     text-transform: inherit;
@@ -2442,6 +2536,9 @@ body.logged-in .Header-navItemUser a:before {
     content: '\e94f';
 }
 @media only screen and (max-width: 767px) {
+li#menu-item-1884 > a {
+    display: none;
+}
 .list-wc-steps .wc-order-step .innner {
     margin: 0 auto 60px;
 }
@@ -2672,16 +2769,16 @@ span.wpcf7-form-control-wrap:before {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-span.wpcf7-form-control-wrap.your-name:before {
+span.wpcf7-form-control-wrap.your-name:before, span.wpcf7-form-control-wrap.text-yourname:before, span.wpcf7-form-control-wrap.text-yournamekana:before {
     content: "\e92e";
 }
 span.wpcf7-form-control-wrap.text-company:before {
     content: "\e92e";
 }
-span.wpcf7-form-control-wrap.your-email:before {
+span.wpcf7-form-control-wrap.your-email:before, span.wpcf7-form-control-wrap.email-wc:before {
     content: "\e915";
 }
-span.wpcf7-form-control-wrap.tel-257:before {
+span.wpcf7-form-control-wrap.tel-257:before, span.wpcf7-form-control-wrap.tel-value:before {
     content: "\e90c";
 }
 .wpcf7-form input, .wpcf7-form select, .wpcf7-form textarea {
@@ -2725,6 +2822,25 @@ body.page-id-1378 .page-header.has-banner:before {
 div#contact-section .col-sm-8 {
 	border-right: 1px solid #E0E0E0;
 }
+}
+/*Payment info*/
+#payment-info .info-notice {
+    padding: 20px;
+    border: 1px dashed #bfbfbf;
+}
+#payment-info .info-notice ul {
+    list-style-position: outside;
+    margin-left: 20px;
+}
+.payment-col {
+    max-width: 700px;
+    margin: 0 auto;
+}
+.payment-col .desc {
+    text-align: center;
+}
+.footer-payment-logo .footer-payment-logo-list img:nth-child(3), .footer-payment-logo .footer-payment-logo-list img:nth-child(4) {
+    width: 70px;
 }
 /*delivery*/
 .deliver-col > div {

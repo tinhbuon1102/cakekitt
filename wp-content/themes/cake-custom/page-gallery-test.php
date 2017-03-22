@@ -24,6 +24,7 @@ get_header(); ?>
 					if(!empty($terms)){
 					?>
 					<select name="cakegal_cat" class="gal_cat" style="width:30%;float:right;margin:10px 5px">
+						<option value="">Select Category</option>
 					<?php
 						foreach($terms as $term){
 					?>
@@ -39,6 +40,7 @@ get_header(); ?>
 					if(!empty($color_type['choices'])){
 						?>
 						<select name="cakegal_color_type" class="gal_color_type" style="width:30%;float:right;margin:10px 5px">
+							<option value="">Select Color</option>
 						<?php
 							foreach($color_type['choices'] as $key => $val){
 						?>
@@ -54,6 +56,7 @@ get_header(); ?>
 					if(!empty($scene['choices'])){
 						?>
 						<select name="cakegal_scene" class="gal_scene" style="width:30%;float:right;margin:10px 5px">
+							<option value="">Select Scene</option>
 						<?php
 							foreach($scene['choices'] as $key => $val){
 						?>
@@ -66,6 +69,38 @@ get_header(); ?>
 					}
 				?>
 			</div>
+			<script type="text/javascript">
+				jQuery('document').ready(function($){
+					$('body').on('change', '.gal_cat,.gal_color_type,.gal_scene', function() {
+						var search_terms = {};
+						$('.gal_itms li').css('display','none');
+						$('.filter_opt select').each(function(i,e){
+							if($("option:selected", this).val().length > 0){
+								var si_cls = $(this).attr('class');
+								var si_val = $("option:selected", this).val();
+								search_terms[si_cls]= si_val;
+								// $('.gal_itms li').each(function(){
+									// ic += $( this ).attr( "data-"+si_cls+"" ) +' == '+ si_val+' && ';
+									// if($( this ).attr( "data-"+si_cls+"" ) == si_val){
+										// $(this).css('display','block');
+									// }
+								// });
+							}
+						});
+						var searchtrm = JSON.stringify(search_terms);
+						var data = {
+							action: 'load_items',
+							searchtrm: searchtrm
+						};
+						$.post(jscon.ajaxurl, data, function(msg) {
+							if(msg.output.length > 0){
+								var out = msg.output;
+								$('.gal_itms').html(out);
+							}
+						}, 'json');
+					});
+				});
+			</script>
 			<div id="primary" class="<?php echo esc_attr($col['colclass']); ?> content-area" style="<?php echo esc_attr($col['position']);?>">
 				<?php
 				$args = array (
@@ -73,18 +108,30 @@ get_header(); ?>
 					'posts_per_page' => -1,
 					'post_status' => 'publish',
 					'orderby' => 'ID',
-					'order' => 'ASC'
+					'order' => 'DESC'
 				);
 				$cakegal = new WP_Query($args);
 				if($cakegal->have_posts()):
 				?>
 				<div>
-					<ul>
+					<ul class="gal_itms">
 					<?php
 					while($cakegal->have_posts()) : $cakegal->the_post();
 					global $post;
+					$color_type = get_field('color-type',$post->ID);
+					$scene = get_field('scene',$post->ID);
+					$term_list = get_the_terms($post, 'cakegal_taxonomy');
+					if(!empty($term_list)){
+						$tma = array();
+						foreach($term_list as $term){
+							$tma[] = $term->slug;
+						}
+					}
+					// echo '<pre>';
+					// print_r($term_list);
+					
 					?>
-						<li style="height: 210px; width: 280px; display: block; top: 0px; left: 0px; transform-origin: center center 0px; z-index: 2;float:left">
+						<li data-gal_color_type="<?php if(!empty($color_type)){ echo trim(implode(',',$color_type),',');}?>" data-gal_scene="<?php if(!empty($scene)){ echo implode(',',$scene);}?>" data-gal_cat="<?php if( isset($tma) && is_array($tma) && !empty($tma)){ echo implode(',',$tma);}?>" style="height: 210px; width: 280px; display: block; top: 0px; left: 0px; transform-origin: center center 0px; z-index: 2;float:left">
 							<?php the_title();?>
 							<img src="<?php the_post_thumbnail_url();?>" alt="">
 						</li>

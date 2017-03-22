@@ -126,6 +126,12 @@ function icheck_scripts ()
 	wp_enqueue_script('autoheight_js', get_stylesheet_directory_uri() . '/js/jQueryAutoHeight.js', array());
 	wp_enqueue_style('cake_child_css', get_stylesheet_directory_uri() . '/css/sumoselect.css');
 	wp_enqueue_script('custom_js', get_stylesheet_directory_uri() . '/js/custom.js', array());
+	
+	// Localize the script with new data
+	$phpvalues = array(
+		'ajaxurl' =>  admin_url( 'admin-ajax.php' )
+	);
+	wp_localize_script( 'custom_js', 'jscon', $phpvalues );
 }
 add_action('wp_enqueue_scripts', 'icheck_scripts');
 
@@ -1268,5 +1274,84 @@ function insertAtSpecificIndex($array = [], $item = [], $position = 0) {
 	$previous_items = array_slice($array, 0, $position, true);
 	$next_items     = array_slice($array, $position, NULL, true);
 	return $previous_items + $item + $next_items;
+}
+
+
+add_action( 'wp_ajax_load_items', 'load_items' );
+add_action('wp_ajax_nopriv_load_items', 'load_items' );
+
+function load_items(){
+	global $wpdb, $wp_query;
+	$searchtrm = json_decode(stripslashes($_POST['searchtrm']));
+	// echo '<pre>';
+	// print_r($searchtrm);
+	// echo '</pre>';
+	if(!empty($searchtrm)){
+		
+		foreach($searchtrm as $key => $value){
+			if($key == 'gal_cat'){
+				$tax_query []= array(
+					'taxonomy'      => 'cakegal_taxonomy',
+					'field' => 'slug',
+					'terms'         => $value
+				);
+			}
+			if($key == 'gal_color_type'){
+				$meta_query []= array(
+					'key'     => 'color-type',
+					'value'   => $value,
+					'compare' => 'LIKE'
+				);
+			}
+			if($key == 'gal_cat'){
+				$meta_query []= array(
+					'key'     => 'scene',
+					'value'   => $value,
+					'compare' => 'LIKE'
+				);
+			}
+		}
+		if(sizeof($meta_query) > 1){
+			$meta_query = array('relation' => 'AND');
+		}
+		
+		$args = array(
+			'post_type' => 'cakegal',
+			'meta_query' =>$meta_query,
+			'tax_query' => $tax_query,
+			'posts_per_page'    => -1
+		);
+		$query = new WP_Query($args);
+		// echo '<pre>';
+		// print_r($query);
+		// echo '</pre>';
+		global $post;
+		if ( $query->have_posts() ) : 
+			ob_start();
+			while ( $query->have_posts() ) : $query->the_post();
+			global $post;
+			$color_type = get_field('color-type',$post->ID);
+			$scene = get_field('scene',$post->ID);
+			$term_list = get_the_terms($post, 'cakegal_taxonomy');
+			if(!empty($term_list)){
+				$tma = array();
+				foreach($term_list as $term){
+					$tma[] = $term->slug;
+				}
+			}
+			?>
+			<li data-gal_color_type="<?php if(!empty($color_type)){ echo trim(implode(',',$color_type),',');}?>" data-gal_scene="<?php if(!empty($scene)){ echo implode(',',$scene);}?>" data-gal_cat="<?php if( isset($tma) && is_array($tma) && !empty($tma)){ echo implode(',',$tma);}?>" style="height: 210px; width: 280px; display: block; top: 0px; left: 0px; transform-origin: center center 0px; z-index: 2;float:left">
+				<?php the_title();?>
+				<img src="<?php the_post_thumbnail_url();?>" alt="">
+			</li>
+			<?php
+			endwhile; 
+			wp_reset_postdata();
+			$buffer = ob_get_contents();
+			ob_clean();
+		endif;
+	}
+	echo json_encode(array( 'output' => $buffer));
+	exit;	
 }
 ?>

@@ -365,6 +365,7 @@ function cake_get_footer_section(){
 								   $output .='<div class="footer-payment-logo">';
 								   
 								   $output .= '<p class="payment_text">'.get_theme_mod('cake_footer_payment_text', esc_html__('Payment Method', 'cake')).'</p>';
+								   $output .='<div class="footer-payment-logo-list">';
 								   
 								   $img = explode(',', get_theme_mod('cake_footer_payment_logo'));
 
@@ -373,6 +374,7 @@ function cake_get_footer_section(){
 									  $output .= '<img src="'.esc_url($theurl).'" alt="" />'; 
 
 								   }
+								   $output .='</div>';
 								   $output .='</div>';
 							   }
 							}

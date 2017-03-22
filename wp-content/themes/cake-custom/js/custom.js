@@ -202,10 +202,12 @@ $('button#toggleMenu').click(function(){
 	if ($(this).hasClass('linericon-menu')){
         $(this).removeClass('linericon-menu');
 		$(this).addClass('linericon-cross');
+		$('.Header-supHeaderLogo').addClass('shrink');
 		$('.navbar-fixed-top').addClass('open');
     } else {
 		$(this).removeClass('linericon-cross');
         $(this).addClass('linericon-menu');
+		$('.Header-supHeaderLogo').removeClass('shrink');
 		$('.navbar-fixed-top').removeClass('open');
       }
 });
