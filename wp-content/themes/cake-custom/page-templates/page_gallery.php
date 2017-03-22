@@ -74,7 +74,6 @@ $field_mappings = getCustomFormFieldMapping();
 				imgBtnInterval = setInterval(function(){
 					if ($('div.esgbox-title').length)
 					{
-						$('.esgbox-wrap').css('opacity', 0);
 						var mulCats = esgbox.closest('li').attr('class').split(' ');
 						var selectedCat = '';
 						$.each(mulCats, function(index, catVal){
@@ -130,7 +129,6 @@ $field_mappings = getCustomFormFieldMapping();
 								$(".kitt-wrap .esgbox-skin .galcon-inner .image-inner").css("width", hinsize * aspectRatio + "px");
 							}
 							dfimage.resize(250,250);
-							$('.esgbox-wrap').css('opacity', 1);
 						});
 						
 						$('.esgbox-inner > img.esgbox-image').unwrap();
