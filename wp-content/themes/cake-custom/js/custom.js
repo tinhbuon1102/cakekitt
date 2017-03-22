@@ -135,7 +135,9 @@ jQuery(document).ready(function(){
 jQuery('.c-list_3Column li.m-input__radio').autoHeight();
 jQuery('.round-icon-select li.m-input__radio').autoHeight();
 
-jQuery(".ordercake-cart-sidebar-container").pinBox({
+if (jQuery(".ordercake-cart-sidebar-container").length)
+{
+	jQuery(".ordercake-cart-sidebar-container").pinBox({
 		//default 0px
 		Top : '90px',
 		//default '.container' 
@@ -146,6 +148,22 @@ jQuery(".ordercake-cart-sidebar-container").pinBox({
 		MinWidth : '767px'
 		//events if scrolled or window resized 
 	});
+}
+
+if (jQuery(".ordercake-cart-sidebar-container2").length)
+{
+	jQuery(".ordercake-cart-sidebar-container2").pinBox({
+		//default 0px
+		Top : '120px',
+		//default '.container' 
+		Container : '#main.site-main',
+		//default 20 
+		ZIndex : 20,
+		//default '767px' if you disable pinBox in mobile or tablet
+		MinWidth : '767px'
+		//events if scrolled or window resized 
+	});
+}
     // shape icons
 	jQuery('.cake_shape_round i').addClass('iconkitt-kitt_icons_cake-round');
 	jQuery('.cake_shape_square i').addClass('iconkitt-kitt_icons_shape-square');
@@ -161,7 +179,6 @@ jQuery(".ordercake-cart-sidebar-container").pinBox({
 $(window).on('load resize', function(){
 //width値を取得する
 var windowHeight = $(window).height();
-$('.cake-cart-sidebar > .panel').css('max-height', (windowHeight - 136) + 'px');
 var sideWidth = $('.ordercake-cart-sidebar-container').width();
 $('.cake-cart-sidebar').css('width', sideWidth + 'px');
 

@@ -3558,9 +3558,6 @@ ul.type-cake.c-list_3Column {
     border-radius: 50%;
 	overflow: hidden;
 }
-.cake-cart-sidebar > .panel {
-    overflow-y: scroll;
-}
 span.display-table-cell.price-value {
     font-weight: normal;
 }
