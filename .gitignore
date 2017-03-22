@@ -8,4 +8,5 @@ wp-content/uploads
 .htaccess
 .gitconfig
 dataAddress/test.log
+wp-content/uploads/wc-logs
 wp-config.php
