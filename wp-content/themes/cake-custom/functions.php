@@ -218,10 +218,11 @@ add_action( 'wp_footer', 'add_my_ajaxurl', 1 );
 function my_ajax_get_galposts(){
      
     $returnObj = array();
+	$field_mappings = getCustomFormFieldMapping();
      
     $args = array(
         'post_type' => 'cakegal',
-		'numberposts' => 5,
+		'numberposts' => 1,
     );
      
     $posts = get_posts( $args );

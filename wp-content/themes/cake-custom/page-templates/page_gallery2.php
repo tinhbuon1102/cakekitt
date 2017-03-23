@@ -60,13 +60,13 @@ $field_mappings = getCustomFormFieldMapping();
                 jsonData = JSON.parse( response );
                 $.each( jsonData, function( i, val ){
                     alert( val['post_title'] );
-                    alert( val['permalink'] );
+                    alert( val['pricevalue'] );
                 });
             }
         });
         return false;
     });
-			/*var dfimage = $('img.esgbox-image');
+			var dfimage = $('img.esgbox-image');
 			dfimage.on('load',function(){
 							var img = new Image();
 							img.src = dfimage.attr('src');
@@ -85,7 +85,7 @@ $field_mappings = getCustomFormFieldMapping();
 								//$(this).find('img').css('margin-top', '-'+i+'px');
 							}
 			
-			});*/
+			});
 			$('body').on('click', '.esgbox', function() {
 				var esgbox = $(this);
 				var selectedPost = esgbox.closest('li').attr('id').replace(/^eg-\d-post-id-/, '');
