@@ -67,10 +67,30 @@ $field_mappings = getCustomFormFieldMapping();
 							}
 			
 			});*/
+
+			function getGalPostDetail(post_id){
+				var cakeDetails = [];
+				$.ajax({
+		            type: 'POST',
+		            url: gl_ajaxUrl,
+		            async: false,
+		            dataType: 'json',
+		            data: {
+		                'action' : 'get_galposts_details',
+		                'post_id': post_id,
+		            },
+		            success: function( response ){
+		            	cakeDetails = response;
+		            }
+		        });
+				return cakeDetails;
+			}
+			
 			$('body').on('click', '.esgbox', function() {
 				var esgbox = $(this);
 				var selectedPost = esgbox.closest('li').attr('id').replace(/^eg-\d-post-id-/, '');
-				
+				var cakeDetails = getGalPostDetail(selectedPost);
+				console.log(cakeDetails);
 				
 				imgBtnInterval = setInterval(function(){
 					if ($('div.esgbox-title').length)
@@ -135,7 +155,7 @@ $field_mappings = getCustomFormFieldMapping();
 						$('.esgbox-inner > img.esgbox-image').unwrap();
 						$('img.esgbox-image').wrapAll('<div class="image-inner"></div>');
 						//$('div.esgbox-skin').addClass((aspectRatio < 1) ? 'portrait' : 'landscape');
-						$('div.esgbox-title').append('<div class="meta-info"><ul class="ck-info"><li><label>Category</label><span class="value">デコレーションケーキ</span></li><li><label>Size</label><span class="value">5号/1段</span></li><li><label>Price</label><span class="value">25,000</span></li></ul></div>');
+						$('div.esgbox-title').append('<div class="meta-info"><ul class="ck-info"><li><label>Category</label><span class="value">デコレーションケーキ</span></li><li><label>Size</label><span class="value">'+ cakeDetails['size'] +'</span></li><li><label>Price</label><span class="value">'+cakeDetails['price']+'</span></li></ul></div>');
 
 						$('div.esgbox-title').append('<a href="<?php echo site_url()?>/order-made-form?type='+selectedCat+'&post_id='+selectedPost+'" class="gallery_type_btn"><input class="cdo-button" type="button" value="<?php echo esc_html__('このケーキを参考に注文する', 'cake')?>"></a>');
 						clearInterval(imgBtnInterval);

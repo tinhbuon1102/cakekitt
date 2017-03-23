@@ -205,42 +205,31 @@ function gallery_scripts ()
 // 	wp_enqueue_script('cubeportfolioscript_js', get_stylesheet_directory_uri() . '/js/cubeportfolio/js/main.js');
 }
 add_action('wp_enqueue_scripts', 'gallery_scripts');
-//get values for gallery test
-function add_my_ajaxurl() {
-?>
-    <script>
-        var ajaxurl = '<?php echo admin_url( 'admin-ajax.php'); ?>';
-    </script>
-<?php
-}
-add_action( 'wp_footer', 'add_my_ajaxurl', 1 );
 
-function my_ajax_get_galposts(){
-     
-    $returnObj = array();
-	$field_mappings = getCustomFormFieldMapping();
-     
-    $args = array(
-        'post_type' => 'cakegal',
-		'numberposts' => 1,
-    );
-     
-    $posts = get_posts( $args );
-     
-    foreach( $posts as $key => $post ) {
-        $returnObj[$key] = array(
-            'post_title' => $post->post_title,
-            //'permalink' => get_permalink( $post->ID ),
-			'pricevalue' => get_field('est-price', $post),
-        );
-    }
-     
-    echo json_encode( $returnObj );
-     
-    die();
+function get_galposts_details(){
+	$response = array();
+	if (isset($_POST['post_id']))
+	{
+		$post_id = (int)$_POST['post_id'];
+		$field_mappings = getCustomFormFieldMapping();
+		$cake = get_post($post_id);
+		$cakeShape = get_field('custom_order_cake_shape', $post_id);
+		if (in_array($cakeShape, getArrayRoundShape())){
+			$response['size'] = get_field('custom_order_cakesize_round', $post_id);
+		}
+		else {
+			$response['size'] = get_field('custom_order_cakesize_square', $post_id);
+		}
+		$response['price'] = showCakePrice(get_field('est-price', $post_id));
+		$response['error'] = false;
+	}
+	else {
+		$response['error'] = true;
+	}
+	echo json_encode($response); die();
 }
-add_action( 'wp_ajax_my_ajax_get_galposts', 'my_ajax_get_galposts' );
-add_action( 'wp_ajax_nopriv_my_ajax_get_galposts', 'my_ajax_get_galposts' );
+add_action( 'wp_ajax_get_galposts_details', 'get_galposts_details' );
+add_action( 'wp_ajax_nopriv_get_galposts_details', 'get_galposts_details' );
 
 function hide_plugin_order_by_product ()
 {
