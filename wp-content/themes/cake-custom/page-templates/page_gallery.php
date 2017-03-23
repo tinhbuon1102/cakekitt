@@ -69,28 +69,29 @@ $field_mappings = getCustomFormFieldMapping();
 			});*/
 
 			function getGalPostDetail(post_id){
-				var cakeDetails = [];
+				$('.esgbox-title').LoadingOverlay("show");
 				$.ajax({
 		            type: 'POST',
 		            url: gl_ajaxUrl,
-		            async: false,
 		            dataType: 'json',
 		            data: {
 		                'action' : 'get_galposts_details',
 		                'post_id': post_id,
 		            },
 		            success: function( response ){
-		            	cakeDetails = response;
-		            }
+			            $('.esgbox-title .ck-info .size-value').html(response.size);
+			            $('.esgbox-title .ck-info .price-value').html(response.price);
+			            $('.esgbox-title').LoadingOverlay("hide");
+		            },
+		            error: function(){
+		            	$('.esgbox-title').LoadingOverlay("hide");
+			        }
 		        });
-				return cakeDetails;
 			}
 			
 			$('body').on('click', '.esgbox', function() {
 				var esgbox = $(this);
 				var selectedPost = esgbox.closest('li').attr('id').replace(/^eg-\d-post-id-/, '');
-				var cakeDetails = getGalPostDetail(selectedPost);
-				console.log(cakeDetails);
 				
 				imgBtnInterval = setInterval(function(){
 					if ($('div.esgbox-title').length)
@@ -155,9 +156,12 @@ $field_mappings = getCustomFormFieldMapping();
 						$('.esgbox-inner > img.esgbox-image').unwrap();
 						$('img.esgbox-image').wrapAll('<div class="image-inner"></div>');
 						//$('div.esgbox-skin').addClass((aspectRatio < 1) ? 'portrait' : 'landscape');
-						$('div.esgbox-title').append('<div class="meta-info"><ul class="ck-info"><li><label>Category</label><span class="value">デコレーションケーキ</span></li><li><label>Size</label><span class="value">'+ cakeDetails['size'] +'</span></li><li><label>Price</label><span class="value">'+cakeDetails['price']+'</span></li></ul></div>');
+						$('div.esgbox-title').append('<div class="meta-info"><ul class="ck-info"><li><label>Category</label><span class="value">デコレーションケーキ</span></li><li><label>Size</label><span class="value size-value"></span></li><li><label>Price</label><span class="value price-value"></span></li></ul></div>');
 
 						$('div.esgbox-title').append('<a href="<?php echo site_url()?>/order-made-form?type='+selectedCat+'&post_id='+selectedPost+'" class="gallery_type_btn"><input class="cdo-button" type="button" value="<?php echo esc_html__('このケーキを参考に注文する', 'cake')?>"></a>');
+
+						getGalPostDetail(selectedPost);
+						
 						clearInterval(imgBtnInterval);
 						imgBtnInterval = null;
 						esgbox.resize();
