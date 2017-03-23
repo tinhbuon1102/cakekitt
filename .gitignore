@@ -10,3 +10,6 @@ wp-content/uploads
 dataAddress/test.log
 wp-content/uploads/wc-logs
 wp-config.php
+pull.php
+commit.php
+deploy.php
