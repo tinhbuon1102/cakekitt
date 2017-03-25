@@ -1506,7 +1506,7 @@ function kitt_woocommerce_shipping_zone_shipping_methods( $methods, $raw_methods
 
 function addMinimumPriceNotice($total){
 	wc_clear_notices();
-	wc_add_notice( sprintf( __('<strong>A Minimum of %s%s  is required before checking out.</strong><br />Current cart\'s total: %s%s', 'cake'),
+	wc_add_notice( sprintf( __('<strong>With shipping Delivery, A Minimum of %s%s  is required before checking out.</strong><br />Current cart\'s total: %s%s', 'cake'),
 			get_woocommerce_currency_symbol(),
 			KITT_MINIMUM_PRICE_CITY_1,
 			get_woocommerce_currency_symbol(),
