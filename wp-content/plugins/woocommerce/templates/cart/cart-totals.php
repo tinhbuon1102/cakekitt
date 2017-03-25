@@ -19,11 +19,12 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
 ?>
 <div class="cart_totals <?php if ( WC()->customer->has_calculated_shipping() ) echo 'calculated_shipping'; ?>">
 
-	<?php do_action( 'woocommerce_before_cart_totals' ); ?>
+	<?php do_action( 'woocommerce_before_cart_totals' ); 
+	wc_print_notices();
+	?>
 
 	<h2><?php _e( 'Cart Totals', 'woocommerce' ); ?></h2>
 

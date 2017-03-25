@@ -1504,9 +1504,18 @@ function kitt_woocommerce_shipping_zone_shipping_methods( $methods, $raw_methods
 	return $methods;
 }
 
+function addMinimumPriceNotice($total){
+	wc_clear_notices();
+	wc_add_notice( sprintf( __('<strong>A Minimum of %s%s  is required before checking out.</strong><br />Current cart\'s total: %s%s', 'cake'),
+			get_woocommerce_currency_symbol(),
+			KITT_MINIMUM_PRICE_CITY_1,
+			get_woocommerce_currency_symbol(),
+			$total),
+			'error' );
+}
 // Set a minimum dollar amount per order
-add_action( 'woocommerce_check_cart_items', 'spyr_set_min_total' );
-function spyr_set_min_total() {
+add_action( 'woocommerce_before_cart_totals', 'kitt_woocommerce_before_cart_totals' );
+function kitt_woocommerce_before_cart_totals() {
 	$chosen_method = WC()->session->get( 'chosen_shipping_methods' );
 	// Only run in the Cart or Checkout pages
 	if( is_cart() && (!empty($chosen_method) && $chosen_method[0] == KITT_SHIPPING_DELIVERY)) {
@@ -1515,34 +1524,25 @@ function spyr_set_min_total() {
 		$total = WC()->cart->subtotal;
 		if( $total <= KITT_MINIMUM_PRICE_CITY_1  ) {
 			// Display our error message
-			wc_add_notice( sprintf( '<strong>A Minimum of %s %s is required before checking out.</strong>'
-					.'<br />Current cart\'s total: %s %s',
-					KITT_MINIMUM_PRICE_CITY_1,
-					get_option( 'woocommerce_currency'),
-					$total,
-					get_option( 'woocommerce_currency') ),
-					'error' );
+			addMinimumPriceNotice($total);
 		}
 	}
 }
 
-function kitt_woocommerce_before_checkout_form ()
+function kitt_check_shipping_minimum_price_before_checkout ($fragments)
 {
 	global $woocommerce;
+	$chosen_method = WC()->session->get( 'chosen_shipping_methods' );
 	// Set minimum cart total
 	$total = WC()->cart->subtotal;
-	if( $total <= KITT_MINIMUM_PRICE_CITY_1  ) {
+	if( $total <= KITT_MINIMUM_PRICE_CITY_1  && (!empty($chosen_method) && $chosen_method[0] == KITT_SHIPPING_DELIVERY)) {
 		// Display our error message
-		wc_add_notice( sprintf( '<strong>A Minimum of %s %s is required before checking out.</strong>'
-				.'<br />Current cart\'s total: %s %s',
-				KITT_MINIMUM_PRICE_CITY_1,
-				get_option( 'woocommerce_currency'),
-				$total,
-				get_option( 'woocommerce_currency') ),
-				'error' );
+		addMinimumPriceNotice($total);
 	}
+	return $fragments;
 }
-add_action( 'woocommerce_before_checkout_form', 'kitt_woocommerce_before_checkout_form' );
+add_action( 'woocommerce_review_order_before_cart_contents', 'kitt_check_shipping_minimum_price_before_checkout', 10, 3);
+add_action( 'woocommerce_before_checkout_process', 'kitt_check_shipping_minimum_price_before_checkout', 10, 3);
 
 
 ?>
