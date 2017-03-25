@@ -1,13 +1,15 @@
 // woocommerce js code
 $(function() {
-	$('#username').attr( 'placeholder', 'ユーザ名またはメールアドレス' );
+	$('#username').attr( 'placeholder', 'ユーザー名またはメールアドレス' );
 	$('#password').attr( 'placeholder', 'パスワード' );
 	$('#reg_email').attr( 'placeholder', 'メールアドレス' );
 	$('#reg_password').attr( 'placeholder', 'パスワード' );
+	$('#reg_username').attr( 'placeholder', 'ユーザー名' );
 	$('input#username').wrap('<span class="user"></span>');
 	$('input#password').wrap('<span class="pass"></span>');
 	//$('input#reg_password').wrap('<span class="pass"></span>');
 	$('input#reg_email').wrapAll('<span class="email"></span>');
+	$('input#reg_username').wrapAll('<span class="user"></span>');
 	//$('.order-detail-custom-table .form-row.row-custom_order_cakePic .show-value img').wrap('<div class="wrap-img"></div>');
 	$(".order-detail-custom-table > .cake_info_wraper > .row:has(.col-xs-3)").addClass('first-child');
 	$("#confirmation_content > .order-detail-custom-table > .cake_info_wraper > .row:has(.col-xs-3)").addClass('first-child');

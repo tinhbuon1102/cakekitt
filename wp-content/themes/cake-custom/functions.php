@@ -394,7 +394,7 @@ function cake_price_combination_callback() {
 add_action( 'init', 'register_my_new_order_statuses' );
 function register_my_new_order_statuses() {
 	register_post_status( 'wc-accepted', array(
-		'label'                     => _x( '注文受付完了', 'Order status', 'woocommerce' ),
+		'label'                     => _x( '注文受付承認', 'Order status', 'woocommerce' ),
 		'public'                    => true,
 		'exclude_from_search'       => false,
 		'show_in_admin_all_list'    => true,
@@ -406,8 +406,8 @@ function register_my_new_order_statuses() {
 add_filter( 'wc_order_statuses', 'my_new_wc_order_statuses' );
 // Register in wc_order_statuses.
 function my_new_wc_order_statuses( $order_statuses ) {
-	$order_statuses['wc-accepted'] = _x( '注文受付完了', 'Order status', 'woocommerce' );
-	$order_statuses = array('wc-accepted' => _x( '注文受付完了', 'Order status', 'woocommerce' )) + $order_statuses; 
+	$order_statuses['wc-accepted'] = _x( '注文受付承認', 'Order status', 'woocommerce' );
+	$order_statuses = array('wc-accepted' => _x( '注文受付承認', 'Order status', 'woocommerce' )) + $order_statuses; 
 	return $order_statuses;
 }
 

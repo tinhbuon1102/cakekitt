@@ -727,7 +727,7 @@ if ($inspired_pic)
 			<div class="row">
 				<div class="col-md-12">
 					<input class="cdo-button submit_prev" type="button" name="submit_prev" value="<?php echo esc_html__( 'Previous', 'cake')?>" />
-					<input type="button" class="cdo-button" name="submit" value="Submit" id="submit_form_order"/>
+					<input type="button" class="cdo-button" name="submit" value="この注文内容でオーダーする" id="submit_form_order"/>
 				</div>
 			</div>
 			
