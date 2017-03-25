@@ -1,6 +1,18 @@
 jQuery(document).ready(function(){
-	//Show Options
-	//$('.gal_cat').SumoSelect();
+	
+	var address = [
+		{postcode : '#deliver_postcode', state : '#deliver_state', city: '#deliver_city', address1: '#deliver_addr1'},
+		{postcode : '#billing_postcode', state : '#billing_state', city: '#billing_city', address1: '#billing_address_1'},
+		{postcode : '#shipping_postcode', state : '#shipping_state', city: '#shipping_city', address1: '#shipping_address_1'},
+	]
+	
+	// Make state, city, address is readonly
+	$.each(address, function(index, addressItem){
+		$(addressItem['state']).attr('readonly', 'true');
+		$(addressItem['city']).attr('readonly', 'true');
+		$(addressItem['address1']).attr('readonly', 'true');
+	});
+	
 	$(function() {
 
         var $document = $(document);
@@ -212,10 +224,13 @@ $('button#toggleMenu').click(function(){
       }
 });
 
-$('body').on('keyup change', '#deliver_postcode, #billing_postcode, #shipping_postcode', function(){
+$('body').on('change', '#deliver_postcode, #billing_postcode, #shipping_postcode', function(){
 	var zip1 = $.trim($(this).val());
     var zipcode = zip1;
     var elementChange = $(this);
+    
+    // Remove error message about postcode
+    $('.postcode_fail').remove();
 
     $.ajax({
         type: "post",
@@ -225,17 +240,29 @@ $('body').on('keyup change', '#deliver_postcode, #billing_postcode, #shipping_po
         dataType : "jsonp",
         scriptCharset: 'utf-8'
     }).done(function(data){
-        if(data[0] == ""){
-        } else {
-        	var address = [
-        		{postcode : '#deliver_postcode', state : '#deliver_state', city: '#deliver_city', address1: '#deliver_addr1'},
-        		{postcode : '#billing_postcode', state : '#billing_state', city: '#billing_city', address1: '#billing_address_1'},
-        		{postcode : '#shipping_postcode', state : '#shipping_state', city: '#shipping_city', address1: '#shipping_address_1'},
-        	]
+    	var address = [
+    		{postcode : '#deliver_postcode', state : '#deliver_state', city: '#deliver_city', address1: '#deliver_addr1'},
+    		{postcode : '#billing_postcode', state : '#billing_state', city: '#billing_city', address1: '#billing_address_1'},
+    		{postcode : '#shipping_postcode', state : '#shipping_state', city: '#shipping_city', address1: '#shipping_address_1'},
+    	]
+    	
+        if(data[0] == "" || gl_stateAllowed.indexOf(data[0]) == -1){
+        	if (data[0] != "" && gl_stateAllowed.indexOf(data[0]) == -1)
+        	{
+        		var alertElement = '<span style="display: block" class="woocommerce-error postcode_fail clear">'+ gl_alertStateNotAllowed +'</span>';
+        		elementChange.parent().append(alertElement);
+        	}
         	$.each(address, function(index, addressItem){
+        		$(addressItem['postcode']).val('');
+        		$(addressItem['state']).val('');
+        		$(addressItem['city']).val('');
+        		$(addressItem['address1']).val('');
+        	});
+        	
+        } else {
+    		$.each(address, function(index, addressItem){
         		if ($(addressItem['postcode']).length && ('#'+elementChange.attr('id') == addressItem['postcode']))
         		{
-        			console.log(addressItem['state']);
         			$(addressItem['state'] + ' option').each(function(){
                 		if($(this).text() == data[0])
                 		{
@@ -244,7 +271,8 @@ $('body').on('keyup change', '#deliver_postcode, #billing_postcode, #shipping_po
                 	});
                 	
                     $(addressItem['city']).val(data[1]);
-                    var address1 = $(addressItem['address1']).val();
+//                    var address1 = $(addressItem['address1']).val();
+                    var address1 = '';
                     address1 = address1.replace(data[2], '');
                     $(addressItem['address1']).val(data[2] + address1);
         		}

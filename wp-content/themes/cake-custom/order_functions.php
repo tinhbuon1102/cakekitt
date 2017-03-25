@@ -4,8 +4,6 @@ define('KITT_CUSTOM_ORDER', 2);
 define('KITT_TEMP_PRODUCT_NAME', __('Custom Order Product', 'cake'));
 define('KITT_SHIPPING_PICKUP', 'local_pickup:2');
 define('KITT_SHIPPING_DELIVERY', 'flat_rate:3');
-define('KITT_SHIPPING_CITY_1_FEE', 1500);
-define('KITT_SHIPPING_CITY_2_FEE', 3000);
 
 function kitt_woocommerce_hidden_order_itemmeta ($meta_array) {
 	$meta_array[] = '_order_type';
@@ -46,7 +44,7 @@ function kitt_woocommerce_cart_calculate_fees()
 		{
 			// modify shipping fee base on city
 			//@TODO add fee for city 
-			if (in_array($aFormData['custom_order_deliver_city'], array('港区', '渋谷区')))
+			if (in_array($aFormData['custom_order_deliver_city'], getDiscountShippingCity()))
 			{
 				WC()->cart->shipping_total = KITT_SHIPPING_CITY_1_FEE;
 			}

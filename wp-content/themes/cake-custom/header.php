@@ -14,6 +14,8 @@ var gl_ajaxUrl = '<?= admin_url('admin-ajax.php');  ?>';
 var gl_siteUrl = '<?= get_site_url();  ?>';
 var gl_timeAM = '<?= _e('AM', 'cake');  ?>';
 var gl_timePM = '<?= _e('PM', 'cake');  ?>';
+var gl_stateAllowed = '東京都';
+var gl_alertStateNotAllowed = '<?php echo __('Site support Tokyo prefecture only, sorry for inconvenience !')?>';
 try{Typekit.load({ async: true });}catch(e){}</script>
 </head>
 
