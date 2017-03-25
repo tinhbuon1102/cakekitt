@@ -743,7 +743,7 @@ div#customer_login {
 .woocommerce form.login p.form-row span.email:before, .woocommerce form.register p.form-row span.email:before {
     font-family: 'linericon' !important;
 }
-.woocommerce form.login p.form-row span.user:before {
+.woocommerce form.login p.form-row span.user:before, .woocommerce form.register p.form-row span.user:before {
     content: "\e92e";
 }
 .woocommerce form.register p.form-row span.email:before {
