@@ -118,32 +118,81 @@ get_header(); ?>
 				$cakegal = new WP_Query($args);
 				if($cakegal->have_posts()):
 				?>
-				<div>
+				<div class="gallery">
 					<ul class="gal_itms">
-					<div id="wait"></div>
-					<?php
-					while($cakegal->have_posts()) : $cakegal->the_post();
-					global $post;
-					$color_type = get_field('color-type',$post->ID);
-					$scene = get_field('scene',$post->ID);
-					$term_list = get_the_terms($post, 'cakegal_taxonomy');
-					if(!empty($term_list)){
-						$tma = array();
-						foreach($term_list as $term){
-							$tma[] = $term->slug;
+						<div id="wait"></div>
+						<?php
+						while($cakegal->have_posts()) : $cakegal->the_post();
+						global $post;
+						$color_type = get_field('color-type',$post->ID);
+						$scene = get_field('scene',$post->ID);
+						$term_list = get_the_terms($post, 'cakegal_taxonomy');
+						if(!empty($term_list)){
+							$tma = array();
+							foreach($term_list as $term){
+								$tma[] = $term->slug;
+							}
 						}
-					}
-					// echo '<pre>';
-					// print_r($term_list);
-					
-					?>
-						<li data-gal_color_type="<?php if(!empty($color_type)){ echo trim(implode(',',$color_type),',');}?>" data-gal_scene="<?php if(!empty($scene)){ echo implode(',',$scene);}?>" data-gal_cat="<?php if( isset($tma) && is_array($tma) && !empty($tma)){ echo implode(',',$tma);}?>" style="height: 210px; width: 280px; display: block; top: 0px; left: 0px; transform-origin: center center 0px; z-index: 2;float:left">
-							<?php the_title();?>
-							<img src="<?php the_post_thumbnail_url();?>" alt="">
-						</li>
-					<?php endwhile;wp_reset_postdata();?>
+						
+						// $thumbnail_url = get_the_post_thumbnail_url($post);
+						// echo '<pre>';
+						// print_r($thumbnail_url);
+						// $src = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full', false );
+						// echo $src[0];
+						?>
+							<li data-gal_color_type="<?php if(!empty($color_type)){ echo trim(implode(',',$color_type),',');}?>" data-gal_scene="<?php if(!empty($scene)){ echo implode(',',$scene);}?>" data-gal_cat="<?php if( isset($tma) && is_array($tma) && !empty($tma)){ echo implode(',',$tma);}?>">
+								<a href="#popUp<?php echo $post->ID;?>">
+									<img src="<?php the_post_thumbnail_url('full');?>" alt="<?php the_title();?>">
+									<span class="zoomBtn">&nbsp;</span>
+								</a>
+							</li>
+						<?php endwhile;wp_reset_postdata();?>
 					</ul>
 				</div>
+				<?php endif;?>
+				
+				<?php
+				$args = array (
+					'post_type' => 'cakegal',
+					'posts_per_page' => -1,
+					'post_status' => 'publish',
+					'orderby' => 'ID',
+					'order' => 'DESC'
+				);
+				$cakegal = new WP_Query($args);
+				if($cakegal->have_posts()):
+				while($cakegal->have_posts()) : $cakegal->the_post();
+				global $post;
+				$custom_order_cakesize_round = get_field('custom_order_cakesize_round',$post->ID);
+				$est_price = get_field('est-price',$post->ID);
+				$term_list = get_the_terms($post, 'cakegal_taxonomy');
+				if(!empty($term_list)){
+					$trm_name = array();
+					$trm_slug = array();
+					foreach($term_list as $term){
+						$trm_name[] = $term->name;
+						$trm_slug[] = $term->slug;
+					}
+				}
+				?>
+				<div id="popUp<?php echo $post->ID;?>" class="popUp">
+					<div class="galBox">
+						<div class="galBoxImg">
+							<img src="<?php the_post_thumbnail_url('full');?>" alt="<?php the_title();?>">
+						</div>
+						<div class="galBoxTxt">
+							<ul>
+								<li><label>Category</label><span class="value"><?php if( isset($trm_name) && is_array($trm_name) && !empty($trm_name)){ echo implode(',',$trm_name);}?></span></li>
+								<li><label>Size | </label><span class="value size-value"><?php echo $custom_order_cakesize_round;?></span></li>
+								<li><label>Price | </label><span class="value price-value">¥<?php echo $est_price;?></span></li>
+							</ul>
+							<a class="gallery_type_btn" href="http://kitt-sweets.jp/order-made-form?type=<?php if( isset($trm_slug) && is_array($trm_slug) && !empty($trm_slug)){ echo implode(',',$trm_slug);}?>&post_id=<?php echo $post->ID;?>">
+								<input class="cdo-button" value="このケーキを参考に注文する" type="button">
+							</a>
+						</div>
+					</div>
+				</div>
+				<?php endwhile;wp_reset_postdata();?>
 				<?php endif;?>
 			</div><!-- #primary -->
 			
