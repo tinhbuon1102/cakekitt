@@ -1,4 +1,8 @@
 <?php
+define('KITT_SHIPPING_CITY_1_FEE', 1500);
+define('KITT_SHIPPING_CITY_2_FEE', 3000);
+define('KITT_MINIMUM_PRICE_CITY_1', 50000);
+
 if (!function_exists('pr')) {
 	function pr ( $data )
 	{
@@ -6,6 +10,19 @@ if (!function_exists('pr')) {
 		print_r($data);
 		echo '</pre>';
 	}
+}
+
+function getDiscountShippingCity(){
+	return array('港区', '渋谷区');
+}
+
+add_filter( 'woocommerce_states', 'kitt_woocommerce_states' );
+function kitt_woocommerce_states( $states ) {
+	$states['JP'] = array(
+		'JP13' => '東京都',
+	);
+
+	return $states;
 }
 
 function kitt_get_year_month_day () {
@@ -240,7 +257,7 @@ function hide_plugin_order_by_product ()
 		'wpcustom-category-image/load.php',
 		'login-with-ajax/login-with-ajax.php',
 		'advanced-custom-fields/acf.php',
-// 		'wcp-contact-form/wcp-contact-form.php'
+		'wcp-contact-form/wcp-contact-form.php'
 	);
 	$myplugins = $wp_list_table->items;
 	foreach ( $myplugins as $key => $val )
@@ -1435,4 +1452,144 @@ function load_items(){
 	echo json_encode(array( 'output' => $buffer));
 	exit;	
 }
+
+// add_filter( 'woocommerce_cart_shipping_method_full_label', 'kitt_woocommerce_cart_shipping_method_full_label', 10, 3 );
+function kitt_woocommerce_cart_shipping_method_full_label($label, $method){
+	$current_user = wp_get_current_user();
+	// Get user shipping
+	$shipping_state = get_user_meta( $current_user->ID, 'shipping_state', true );
+	$countryStates = getCountryState();
+	$allowedStates = $countryStates['states'];
+	
+	$label = $method->get_label();
+	if ($method->id == KITT_SHIPPING_DELIVERY)
+	{
+		
+	}
+// 	WC()->session->get( 'chosen_shipping_methods' )
+	if ( $method->cost > 0 ) {
+		if ( WC()->cart->tax_display_cart == 'excl' ) {
+			$label .= ': ' . wc_price( $method->cost );
+			if ( $method->get_shipping_tax() > 0 && WC()->cart->prices_include_tax ) {
+				$label .= ' <small class="tax_label">' . WC()->countries->ex_tax_or_vat() . '</small>';
+			}
+		} else {
+			$label .= ': ' . wc_price( $method->cost + $method->get_shipping_tax() );
+			if ( $method->get_shipping_tax() > 0 && ! WC()->cart->prices_include_tax ) {
+				$label .= ' <small class="tax_label">' . WC()->countries->inc_tax_or_vat() . '</small>';
+			}
+		}
+	}
+	
+	// @TODO fixed cities
+	if ((defined('DOING_AJAX') && DOING_AJAX)) {
+		// if ajax
+		if (WC()->cart->shipping_total && $_POST['s_state']) {
+			return $label;
+		}
+	}
+	else {
+		if (isset($allowedStates[$shipping_state]))
+		{
+			// Show method price
+			return $method->label;
+		}
+		else {
+			return $method->label;
+		}
+	}
+	return $label;
+}
+
+add_filter( 'woocommerce_shipping_zone_shipping_methods', 'kitt_woocommerce_shipping_zone_shipping_methods', 10, 4);
+function kitt_woocommerce_shipping_zone_shipping_methods( $methods, $raw_methods, $allowed_classes, $shipping) {
+	//@TODO get shipping fee base on city here
+	$current_user = wp_get_current_user();
+	// Get user shipping
+	$shipping_state = get_user_meta( $current_user->ID, 'shipping_state', true );
+	$user_shipping_city = get_user_meta( $current_user->ID, 'shipping_city', true );
+	$countryStates = getCountryState();
+	$allowedStates = $countryStates['states'];
+	
+	$post_data = array();
+	if (isset($_POST['post_data']))
+	{
+		parse_str($_POST['post_data'], $post_data);
+	}
+	
+	if (is_cart() || is_checkout())
+	{
+		$shipping_fee = 0;
+		if ((isset($_POST['s_city']) && in_array($_POST['s_city'], getDiscountShippingCity())) || 
+			(isset($_POST['custom_order_deliver_city']) && in_array($_POST['custom_order_deliver_city'], getDiscountShippingCity())) ||
+			(isset($post_data['shipping_city']) && in_array($post_data['shipping_city'], getDiscountShippingCity())) ||
+			(empty($_POST) && $user_shipping_city && in_array($user_shipping_city, getDiscountShippingCity()))
+		)
+		{
+			$shipping_fee = KITT_SHIPPING_CITY_1_FEE;
+		}
+		else
+		{
+			$shipping_fee = false;
+		}
+		
+		$shipping_packages = WC()->session->get('shipping_for_package_0');
+		foreach ($methods as $method_id => &$method)
+		{
+			if ($method->id == 'flat_rate' && $shipping_fee !== false)
+			{
+				$method->instance_settings['cost'] = $shipping_fee;
+				$method->cost = $shipping_fee;
+				if (is_array($shipping_packages))
+				{
+					$shipping_packages['rates'][$method->id . ':' . $method_id]->cost = $shipping_fee;
+					WC()->session->set( 'shipping_for_package_0', $shipping_packages );
+				}
+			}
+		}
+	}
+	return $methods;
+}
+
+function addMinimumPriceNotice($total){
+	wc_clear_notices();
+	wc_add_notice( sprintf( __('<strong>With shipping Delivery, A Minimum of %s%s  is required before checking out.</strong><br />Current cart\'s total: %s%s', 'cake'),
+			get_woocommerce_currency_symbol(),
+			KITT_MINIMUM_PRICE_CITY_1,
+			get_woocommerce_currency_symbol(),
+			$total),
+			'error' );
+}
+// Set a minimum dollar amount per order
+add_action( 'woocommerce_before_cart_totals', 'kitt_woocommerce_before_cart_totals' );
+function kitt_woocommerce_before_cart_totals() {
+	$chosen_method = WC()->session->get( 'chosen_shipping_methods' );
+	// Only run in the Cart or Checkout pages
+	if( is_cart() && (!empty($chosen_method) && $chosen_method[0] == KITT_SHIPPING_DELIVERY)) {
+		global $woocommerce;
+		// Set minimum cart total
+		$total = WC()->cart->subtotal;
+		if( $total <= KITT_MINIMUM_PRICE_CITY_1  ) {
+			// Display our error message
+			addMinimumPriceNotice($total);
+		}
+	}
+}
+
+function kitt_check_shipping_minimum_price_before_checkout ($fragments)
+{
+	global $woocommerce;
+	$chosen_method = WC()->session->get( 'chosen_shipping_methods' );
+	// Set minimum cart total
+	$total = WC()->cart->subtotal;
+	if( $total <= KITT_MINIMUM_PRICE_CITY_1  && (!empty($chosen_method) && $chosen_method[0] == KITT_SHIPPING_DELIVERY)) {
+		// Display our error message
+		addMinimumPriceNotice($total);
+	}
+	return $fragments;
+}
+add_action( 'woocommerce_review_order_before_cart_contents', 'kitt_check_shipping_minimum_price_before_checkout', 10, 3);
+add_action( 'woocommerce_before_checkout_process', 'kitt_check_shipping_minimum_price_before_checkout', 10, 3);
+
+
 ?>
