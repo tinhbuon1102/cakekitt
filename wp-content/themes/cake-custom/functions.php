@@ -497,7 +497,8 @@ function custom_meta_order_detail_box_markup($post)
 		'custom_order_customer_birth_date',
 		'custom_order_customer_birth_date_year',
 		'custom_order_customer_birth_date_month',
-		'custom_order_customer_birth_date_day'
+		'custom_order_customer_birth_date_day',
+		'custom_order_msgpt_text_no',
 		
 	);
 	echo '<script>
