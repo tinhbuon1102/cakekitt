@@ -160,12 +160,16 @@ if ( $customer_orders && count( $customer_orders >= $number_of_orders ) ) { ?>
 	</div>
 </div>
 <div class="account-box account-details clearfix fleft">
-	<h3 class="section-header"><?php _e( 'Shipping info', 'woocommerce' ); ?><a class="section-header-note" href="<?php echo esc_url( wc_get_account_endpoint_url( 'edit-address' ) )?>"><?php _e( 'View details', 'woocommerce' ); ?></a></h3>
+	<h3 class="section-header"><?php _e( 'Shipping info', 'woocommerce' ); ?><a class="section-header-note" href="<?php echo esc_url( wc_get_account_endpoint_url( 'edit-address' ) )?>shipping"><?php _e( 'View details', 'woocommerce' ); ?></a></h3>
 	<div class="account-box-content clearfix">
 	<div class="account-box-image"><i class="linericon-truck"></i></div>
 		<p class="account-box-label"><?php echo  get_user_meta( $customer_id, 'shipping_first_name', true )?></p>
-		<p><?php echo $customer->postcode?></p>
-		<p><?php echo @$aCountrySates['states'][$customer->shipping_state] . $customer->shipping_city . $customer->shipping_address_1 . $customer->shipping_address_2?></p>
+		<p><?php echo  get_user_meta( $customer_id, 'shipping_postcode', true )?></p>
+		<p><?php echo @$aCountrySates['states'][get_user_meta( $customer_id, 'shipping_state', true )] . 
+				get_user_meta( $customer_id, 'shipping_city', true ) . 
+				get_user_meta( $customer_id, 'shipping_address_1', true ) . 
+				get_user_meta( $customer_id, 'shipping_address_2', true )?>
+		</p>
 	</div>
 </div>
 <?php
