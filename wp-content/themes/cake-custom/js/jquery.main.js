@@ -477,7 +477,7 @@ $(function(){
 	                		{
 	                			$(addressItem['state']).val($(this).attr('value'));
 	                			// Change state if not custom order page
-	                			if (typeof showItemInCart != 'function')
+	                			if ($('form#omOrder #cake_shape_square').length == 0)
 	                	    	{
 	                				$(addressItem['state']).change();
 	                	    	}
@@ -493,7 +493,7 @@ $(function(){
 	        	});
 	        }
 	    	
-	    	if (typeof showItemInCart == 'function')
+	    	if ($('form#omOrder #cake_shape_square').length)
 	    	{
 	    		showItemInCart();
 	    	}
