@@ -132,6 +132,80 @@ div.rangeslider {
 	text-align:left;
 }
 
+<<<<<<< HEAD
+=======
+.gallery{
+	width:100%;
+	padding:0;
+	margin:0;
+}
+
+.gallery ul{
+	width:100%;
+	margin:0;
+	padding:0;
+	overflow:hidden;
+	list-style:none;
+}
+.gallery li{
+	width:25%;
+	padding:3px;
+	box-sizing:border-box;
+	float:left;
+}
+.gallery li a{
+	width:100%;
+	display:block;
+	overflow:hidden;
+	padding-top:70%;
+	position:relative;
+}
+.gallery li a:hover:after{
+	width:100%;
+	height:100%;
+	background-color:rgba(232,143,187,0.65);
+	position:absolute;
+	display:block;
+	content:"";
+	left:0;
+	top:0;
+}
+.zoomBtn{
+	width:52px;
+	height:52px;
+	background:url(images/zoomBtn.png) no-repeat left top;
+	background-size:100% auto;
+	position:absolute;
+	display:none;
+	margin:auto;
+	z-index:2;
+	bottom:0;
+	right:0;
+	left:0;
+	top:0;
+}
+.gallery li a:hover .zoomBtn{display:block}
+.gallery li img{
+	width:100%;
+	display:block;
+	position:absolute;
+	margin:auto;
+	bottom:0;
+	left:0;
+	top:0;
+}
+/*==============================*/
+/*=====      lightbox      =====*/
+/*==============================*/
+.fancybox-overlay{background:url('images/fancybox/fancybox_overlay.png')}
+.popUp{
+	width:768px;
+	padding:10px;
+	display:none;
+	text-align:left;
+}
+
+>>>>>>> faa58c0020c734ac18f93ffed22188fcb8ed774f
 .galBox{
 	width:100%;
 	overflow:hidden;
@@ -194,5 +268,9 @@ div.rangeslider {
 		padding:15px 0 0;
 	}
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> faa58c0020c734ac18f93ffed22188fcb8ed774f
 @media only screen and (max-width: 768px) {
 }
