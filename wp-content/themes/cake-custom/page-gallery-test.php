@@ -15,6 +15,8 @@ get_header(); ?>
 	<div id="content-wrapper">
 	<div class="container">
 		<div class="row">
+		<div id="primary" class="<?php echo esc_attr($col['colclass']); ?> content-area" style="<?php echo esc_attr($col['position']);?>">
+		
 			<div class="filter_opt">
 				<?php
 					$terms = get_terms( array(
@@ -106,7 +108,7 @@ get_header(); ?>
 				});
 			</script>
 			
-			<div id="primary" class="<?php echo esc_attr($col['colclass']); ?> content-area" style="<?php echo esc_attr($col['position']);?>">
+			
 				<?php
 				$args = array (
 					'post_type' => 'cakegal',
@@ -166,6 +168,10 @@ get_header(); ?>
 				$custom_order_cakesize_round = get_field('custom_order_cakesize_round',$post->ID);
 				$est_price = get_field('est-price',$post->ID);
 				$term_list = get_the_terms($post, 'cakegal_taxonomy');
+<<<<<<< HEAD
+				$scene = get_field('scene',$post->ID);
+=======
+>>>>>>> faa58c0020c734ac18f93ffed22188fcb8ed774f
 				if(!empty($term_list)){
 					$trm_name = array();
 					$trm_slug = array();
@@ -175,6 +181,28 @@ get_header(); ?>
 					}
 				}
 				?>
+<<<<<<< HEAD
+				
+				
+			<div class="clear"></div>
+				<div id="popUp<?php echo $post->ID;?>" class="popUp">
+	
+					<div class="galBox">
+						<div class="galcon-inner">
+					    <div class="row">
+					    <div class="image-outer">
+						<div class="image-inner">
+							<img src="<?php the_post_thumbnail_url('full');?>" alt="<?php the_title();?>" class="esgbox-image">
+						</div>
+						</div>
+						<div class="gal-content-inside-wrap">
+						<div class="meta-info">
+							<ul class="ck-info">
+								<li><label>Category</label><span class="value"><?php if( isset($trm_name) && is_array($trm_name) && !empty($trm_name)){ echo implode(',',$trm_name);}?></span></li>
+								<li><label>Size | </label><span class="value size-value"><?php echo $custom_order_cakesize_round;?></span></li>
+								<li><label>Price | </label><span class="value price-value">¥<?php echo $est_price;?></span></li>
+								<li><label>Scene  | </label><span class="value price-value"><?php if(!empty($scene)){ echo implode(',',$scene);}?></span></li>
+=======
 				<div id="popUp<?php echo $post->ID;?>" class="popUp">
 					<div class="galBox">
 						<div class="galBoxImg">
@@ -185,11 +213,19 @@ get_header(); ?>
 								<li><label>Category</label><span class="value"><?php if( isset($trm_name) && is_array($trm_name) && !empty($trm_name)){ echo implode(',',$trm_name);}?></span></li>
 								<li><label>Size | </label><span class="value size-value"><?php echo $custom_order_cakesize_round;?></span></li>
 								<li><label>Price | </label><span class="value price-value">¥<?php echo $est_price;?></span></li>
+>>>>>>> faa58c0020c734ac18f93ffed22188fcb8ed774f
 							</ul>
 							<a class="gallery_type_btn" href="http://kitt-sweets.jp/order-made-form?type=<?php if( isset($trm_slug) && is_array($trm_slug) && !empty($trm_slug)){ echo implode(',',$trm_slug);}?>&post_id=<?php echo $post->ID;?>">
 								<input class="cdo-button" value="このケーキを参考に注文する" type="button">
 							</a>
 						</div>
+<<<<<<< HEAD
+						</div>
+						
+						</div>
+						</div>
+=======
+>>>>>>> faa58c0020c734ac18f93ffed22188fcb8ed774f
 					</div>
 				</div>
 				<?php endwhile;wp_reset_postdata();?>

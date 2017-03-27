@@ -41,6 +41,33 @@ jQuery(document).ready(function(){
 		$(addressItem['address1']).attr('readonly', 'true');
 	});
 	
+	//Show Options
+	//$('.gal_cat').SumoSelect();
+	
+	if ($(".gallery a").length > 0) {
+        $(".gallery a").fancybox({
+            width: 'auto',
+            height: 'auto',
+            padding: 0,
+            margin: 0,
+            autoSize: false,
+            mouseWheel: true,
+            fitToView: false,
+            autoSize: false,
+            closeClick: false,
+			hideOnOverlayClick: false,
+			enableEscapeButton: false,
+			keys : {
+				close : null // default value = [27]
+			},
+            helpers: {
+                overlay: {
+                    locked: false,
+					closeClick: false
+                }
+            }
+        });
+    }
 	$(function() {
 
         var $document = $(document);

@@ -1,4 +1,8 @@
 <?php
+define('KITT_SHIPPING_CITY_1_FEE', 1500);
+define('KITT_SHIPPING_CITY_2_FEE', 3000);
+define('KITT_MINIMUM_PRICE_CITY_1', 50000);
+
 if (!function_exists('pr')) {
 	function pr ( $data )
 	{
@@ -6,6 +10,19 @@ if (!function_exists('pr')) {
 		print_r($data);
 		echo '</pre>';
 	}
+}
+
+function getDiscountShippingCity(){
+	return array('港区', '渋谷区');
+}
+
+add_filter( 'woocommerce_states', 'kitt_woocommerce_states' );
+function kitt_woocommerce_states( $states ) {
+	$states['JP'] = array(
+		'JP13' => '東京都',
+	);
+
+	return $states;
 }
 
 function kitt_get_year_month_day () {
@@ -122,10 +139,9 @@ function icheck_scripts ()
 	wp_enqueue_script('kana_js', get_stylesheet_directory_uri() . '/js/jquery.autoKana.js', array());
 	wp_enqueue_style('cake_child_css', get_stylesheet_directory_uri() . '/style.css');
 	wp_enqueue_script('overlay_js', get_stylesheet_directory_uri() . '/js/loadingoverlay.js', array());
-	wp_enqueue_script('fancybox_js', get_stylesheet_directory_uri() . '/js/fancybox.js', array());
-	wp_enqueue_script('fancybox_js', get_stylesheet_directory_uri() . '/js/fancycustom.js', array());
+	wp_enqueue_script('sumoselect_js', get_stylesheet_directory_uri() . '/js/jquery.sumoselect.js', array());
 	wp_enqueue_script('autoheight_js', get_stylesheet_directory_uri() . '/js/jQueryAutoHeight.js', array());
-	wp_enqueue_style('cake_child_css', get_stylesheet_directory_uri() . '/css/fancybox.css');
+	wp_enqueue_style('cake_child_css', get_stylesheet_directory_uri() . '/css/sumoselect.css');
 	wp_enqueue_script('custom_js', get_stylesheet_directory_uri() . '/js/custom.js', array());
 	
 	// Localize the script with new data
@@ -241,7 +257,7 @@ function hide_plugin_order_by_product ()
 		'wpcustom-category-image/load.php',
 		'login-with-ajax/login-with-ajax.php',
 		'advanced-custom-fields/acf.php',
-// 		'wcp-contact-form/wcp-contact-form.php'
+		'wcp-contact-form/wcp-contact-form.php'
 	);
 	$myplugins = $wp_list_table->items;
 	foreach ( $myplugins as $key => $val )
@@ -1369,11 +1385,9 @@ function load_items(){
 				}
 			}
 			?>
-			<li data-gal_color_type="<?php if(!empty($color_type)){ echo trim(implode(',',$color_type),',');}?>" data-gal_scene="<?php if(!empty($scene)){ echo implode(',',$scene);}?>" data-gal_cat="<?php if( isset($tma) && is_array($tma) && !empty($tma)){ echo implode(',',$tma);}?>">
-				<a href="#popUp<?php echo $post->ID;?>">
-					<img src="<?php the_post_thumbnail_url('full');?>" alt="<?php the_title();?>">
-					<span class="zoomBtn">&nbsp;</span>
-				</a>
+			<li data-gal_color_type="<?php if(!empty($color_type)){ echo trim(implode(',',$color_type),',');}?>" data-gal_scene="<?php if(!empty($scene)){ echo implode(',',$scene);}?>" data-gal_cat="<?php if( isset($tma) && is_array($tma) && !empty($tma)){ echo implode(',',$tma);}?>" style="height: 210px; width: 280px; display: block; top: 0px; left: 0px; transform-origin: center center 0px; z-index: 2;float:left">
+				<?php the_title();?>
+				<img src="<?php the_post_thumbnail_url();?>" alt="">
 			</li>
 			<?php
 			endwhile; 
@@ -1385,53 +1399,6 @@ function load_items(){
 		<p>Nothings Found!</p>
 		<?php
 		endif;
-		?>
-		<?php
-		$args = array (
-			'post_type' => 'cakegal',
-			'posts_per_page' => -1,
-			'post_status' => 'publish',
-			'orderby' => 'ID',
-			'order' => 'DESC'
-		);
-		$cakegal = new WP_Query($args);
-		if($cakegal->have_posts()):
-		while($cakegal->have_posts()) : $cakegal->the_post();
-		global $post;
-		$custom_order_cakesize_round = get_field('custom_order_cakesize_round',$post->ID);
-		$est_price = get_field('est-price',$post->ID);
-		$term_list = get_the_terms($post, 'cakegal_taxonomy');
-		$scene = get_field('scene',$post->ID);
-		if(!empty($term_list)){
-			$trm_name = array();
-			$trm_slug = array();
-			foreach($term_list as $term){
-				$trm_name[] = $term->name;
-				$trm_slug[] = $term->slug;
-			}
-		}
-		?>
-		<div id="popUp<?php echo $post->ID;?>" class="popUp">
-			<div class="galBox">
-				<div class="galBoxImg">
-					<img src="<?php the_post_thumbnail_url('full');?>" alt="<?php the_title();?>">
-				</div>
-				<div class="galBoxTxt">
-					<ul>
-						<li><label>Category</label><span class="value"><?php if( isset($trm_name) && is_array($trm_name) && !empty($trm_name)){ echo implode(',',$trm_name);}?></span></li>
-						<li><label>Size | </label><span class="value size-value"><?php echo $custom_order_cakesize_round;?></span></li>
-						<li><label>Price | </label><span class="value price-value">¥<?php echo $est_price;?></span></li>
-						<li><label>Scene  | </label><span class="value price-value"><?php if(!empty($scene)){ echo implode(',',$scene);}?></span></li>
-					</ul>
-					<a class="gallery_type_btn" href="http://kitt-sweets.jp/order-made-form?type=<?php if( isset($trm_slug) && is_array($trm_slug) && !empty($trm_slug)){ echo implode(',',$trm_slug);}?>&post_id=<?php echo $post->ID;?>">
-						<input class="cdo-button" value="このケーキを参考に注文する" type="button">
-					</a>
-				</div>
-			</div>
-		</div>
-		<?php endwhile;wp_reset_postdata();?>
-		<?php endif;?>
-		<?php
 		$buffer = ob_get_contents();
 		ob_clean();
 	}
@@ -1439,55 +1406,98 @@ function load_items(){
 	exit;	
 }
 
-function isCityDiscounted(){
+// add_filter( 'woocommerce_cart_shipping_method_full_label', 'kitt_woocommerce_cart_shipping_method_full_label', 10, 3 );
+function kitt_woocommerce_cart_shipping_method_full_label($label, $method){
 	$current_user = wp_get_current_user();
 	// Get user shipping
+	$shipping_state = get_user_meta( $current_user->ID, 'shipping_state', true );
+	$countryStates = getCountryState();
+	$allowedStates = $countryStates['states'];
+	
+	$label = $method->get_label();
+	if ($method->id == KITT_SHIPPING_DELIVERY)
+	{
+		
+	}
+// 	WC()->session->get( 'chosen_shipping_methods' )
+	if ( $method->cost > 0 ) {
+		if ( WC()->cart->tax_display_cart == 'excl' ) {
+			$label .= ': ' . wc_price( $method->cost );
+			if ( $method->get_shipping_tax() > 0 && WC()->cart->prices_include_tax ) {
+				$label .= ' <small class="tax_label">' . WC()->countries->ex_tax_or_vat() . '</small>';
+			}
+		} else {
+			$label .= ': ' . wc_price( $method->cost + $method->get_shipping_tax() );
+			if ( $method->get_shipping_tax() > 0 && ! WC()->cart->prices_include_tax ) {
+				$label .= ' <small class="tax_label">' . WC()->countries->inc_tax_or_vat() . '</small>';
+			}
+		}
+	}
+	
+	// @TODO fixed cities
+	if ((defined('DOING_AJAX') && DOING_AJAX)) {
+		// if ajax
+		if (WC()->cart->shipping_total && $_POST['s_state']) {
+			return $label;
+		}
+	}
+	else {
+		if (isset($allowedStates[$shipping_state]))
+		{
+			// Show method price
+			return $method->label;
+		}
+		else {
+			return $method->label;
+		}
+	}
+	return $label;
+}
+
+add_filter( 'woocommerce_shipping_zone_shipping_methods', 'kitt_woocommerce_shipping_zone_shipping_methods', 10, 4);
+function kitt_woocommerce_shipping_zone_shipping_methods( $methods, $raw_methods, $allowed_classes, $shipping) {
+	//@TODO get shipping fee base on city here
+	$current_user = wp_get_current_user();
+	// Get user shipping
+	$shipping_state = get_user_meta( $current_user->ID, 'shipping_state', true );
 	$user_shipping_city = get_user_meta( $current_user->ID, 'shipping_city', true );
+	$countryStates = getCountryState();
+	$allowedStates = $countryStates['states'];
+	
 	$post_data = array();
 	if (isset($_POST['post_data']))
 	{
 		parse_str($_POST['post_data'], $post_data);
 	}
 	
-	if ((isset($_POST['s_city']) && in_array($_POST['s_city'], getDiscountShippingCity())) ||
-			(isset($_POST['shipping_city']) && in_array($_POST['shipping_city'], getDiscountShippingCity())) ||
+	if (is_cart() || is_checkout())
+	{
+		$shipping_fee = 0;
+		if ((isset($_POST['s_city']) && in_array($_POST['s_city'], getDiscountShippingCity())) || 
 			(isset($_POST['custom_order_deliver_city']) && in_array($_POST['custom_order_deliver_city'], getDiscountShippingCity())) ||
 			(isset($post_data['shipping_city']) && in_array($post_data['shipping_city'], getDiscountShippingCity())) ||
-			(empty($_POST) && isset(WC()->session->customer['shipping_city']) && in_array(WC()->session->customer['shipping_city'], getDiscountShippingCity())) ||
 			(empty($_POST) && $user_shipping_city && in_array($user_shipping_city, getDiscountShippingCity()))
-			)
-	{
-		return true;
-	}
-	
-	return false;
-}
-
-
-add_filter( 'woocommerce_shipping_zone_shipping_methods', 'kitt_woocommerce_shipping_zone_shipping_methods', 10, 4);
-function kitt_woocommerce_shipping_zone_shipping_methods( $methods, $raw_methods, $allowed_classes, $shipping) {
-	//@TODO get shipping fee base on city here
-	$shipping_fee = 0;
-	if(isCityDiscounted())
-	{
-		$shipping_fee = KITT_SHIPPING_CITY_1_FEE;
-	}
-	else
-	{
-		$shipping_fee = false;
-	}
-	
-	$shipping_packages = WC()->session->get('shipping_for_package_0');
-	foreach ($methods as $method_id => &$method)
-	{
-		if ($method->id == 'flat_rate' && $shipping_fee !== false)
+		)
 		{
-			$method->instance_settings['cost'] = $shipping_fee;
-			$method->cost = $shipping_fee;
-			if (is_array($shipping_packages))
+			$shipping_fee = KITT_SHIPPING_CITY_1_FEE;
+		}
+		else
+		{
+			$shipping_fee = false;
+		}
+		
+		$shipping_packages = WC()->session->get('shipping_for_package_0');
+		foreach ($methods as $method_id => &$method)
+		{
+			if ($method->id == 'flat_rate' && $shipping_fee !== false)
 			{
-				$shipping_packages['rates'][$method->id . ':' . $method_id]->cost = $shipping_fee;
-				WC()->session->set( 'shipping_for_package_0', $shipping_packages );
+				$method->instance_settings['cost'] = $shipping_fee;
+				$method->cost = $shipping_fee;
+				if (is_array($shipping_packages))
+				{
+					$shipping_packages['rates'][$method->id . ':' . $method_id]->cost = $shipping_fee;
+					WC()->session->set( 'shipping_for_package_0', $shipping_packages );
+				}
 			}
 		}
 	}
@@ -1508,7 +1518,7 @@ add_action( 'woocommerce_before_cart_totals', 'kitt_woocommerce_before_cart_tota
 function kitt_woocommerce_before_cart_totals() {
 	$chosen_method = WC()->session->get( 'chosen_shipping_methods' );
 	// Only run in the Cart or Checkout pages
-	if( (!empty($chosen_method) && $chosen_method[0] == KITT_SHIPPING_DELIVERY) && !isCityDiscounted()) {
+	if( is_cart() && (!empty($chosen_method) && $chosen_method[0] == KITT_SHIPPING_DELIVERY)) {
 		global $woocommerce;
 		// Set minimum cart total
 		$total = WC()->cart->subtotal;
@@ -1525,7 +1535,7 @@ function kitt_check_shipping_minimum_price_before_checkout ($fragments)
 	$chosen_method = WC()->session->get( 'chosen_shipping_methods' );
 	// Set minimum cart total
 	$total = WC()->cart->subtotal;
-	if( $total <= KITT_MINIMUM_PRICE_CITY_1  && (!empty($chosen_method) && $chosen_method[0] == KITT_SHIPPING_DELIVERY) && !isCityDiscounted()) {
+	if( $total <= KITT_MINIMUM_PRICE_CITY_1  && (!empty($chosen_method) && $chosen_method[0] == KITT_SHIPPING_DELIVERY)) {
 		// Display our error message
 		addMinimumPriceNotice($total);
 	}
@@ -1533,5 +1543,6 @@ function kitt_check_shipping_minimum_price_before_checkout ($fragments)
 }
 add_action( 'woocommerce_review_order_before_cart_contents', 'kitt_check_shipping_minimum_price_before_checkout', 10, 3);
 add_action( 'woocommerce_before_checkout_process', 'kitt_check_shipping_minimum_price_before_checkout', 10, 3);
+
 
 ?>
