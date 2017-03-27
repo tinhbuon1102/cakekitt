@@ -476,6 +476,11 @@ $(function(){
 	                		if($(this).text() == data[0])
 	                		{
 	                			$(addressItem['state']).val($(this).attr('value'));
+	                			// Change state if not custom order page
+	                			if (typeof showItemInCart != 'function')
+	                	    	{
+	                				$(addressItem['state']).change();
+	                	    	}
 	                		}
 	                	});
 	                	
