@@ -1,4 +1,8 @@
 <?php
+define('KITT_SHIPPING_CITY_1_FEE', 1500);
+define('KITT_SHIPPING_CITY_2_FEE', 3000);
+define('KITT_MINIMUM_PRICE_CITY_1', 50000);
+
 if (!function_exists('pr')) {
 	function pr ( $data )
 	{
@@ -254,7 +258,7 @@ function hide_plugin_order_by_product ()
 		'wpcustom-category-image/load.php',
 		'login-with-ajax/login-with-ajax.php',
 		'advanced-custom-fields/acf.php',
-// 		'wcp-contact-form/wcp-contact-form.php'
+		'wcp-contact-form/wcp-contact-form.php'
 	);
 	$myplugins = $wp_list_table->items;
 	foreach ( $myplugins as $key => $val )
