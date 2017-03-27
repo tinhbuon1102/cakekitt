@@ -8,6 +8,19 @@ if (!function_exists('pr')) {
 	}
 }
 
+function getDiscountShippingCity(){
+	return array('港区', '渋谷区');
+}
+
+add_filter( 'woocommerce_states', 'kitt_woocommerce_states' );
+function kitt_woocommerce_states( $states ) {
+	$states['JP'] = array(
+		'JP13' => '東京都',
+	);
+
+	return $states;
+}
+
 function kitt_get_year_month_day () {
 	for ( $i = 1930; $i <= (date('Y') - 1); $i++ ) {
 		$years[] = $i;
