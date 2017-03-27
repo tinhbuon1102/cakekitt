@@ -1483,6 +1483,8 @@ function isCityDiscounted(){
 
 add_filter( 'woocommerce_shipping_zone_shipping_methods', 'kitt_woocommerce_shipping_zone_shipping_methods', 10, 4);
 function kitt_woocommerce_shipping_zone_shipping_methods( $methods, $raw_methods, $allowed_classes, $shipping) {
+	if (is_admin()) return $methods;
+	
 	//@TODO get shipping fee base on city here
 	$shipping_fee = 0;
 	if(isCityDiscounted())
