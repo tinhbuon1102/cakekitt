@@ -193,6 +193,7 @@ jQuery(document).ready(function(){
 });
 	jQuery(".panel-group a#delivery").click(function(){
 		jQuery('.deliver-info').removeClass('disable');
+		$('#deliver_postcode').trigger('change');
 });
 	jQuery(".panel-group a#pickup").click(function(){
 		jQuery('.deliver-info').addClass('disable');
