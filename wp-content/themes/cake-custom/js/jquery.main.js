@@ -23,6 +23,64 @@ $(function(){
 
 
 
+    function showItemInCart(isNextStep, currentStepActive){
+		// Store value to server
+		if (!currentStepActive)
+		{
+			var currentStepActive = $('form#omOrder .step_wraper:visible').data('step');
+			var divCurrentStep = 'form#omOrder .step_wraper[data-step="'+ (currentStepActive) +'"]';
+        	order_form_data = $(divCurrentStep + ' input:visible, '+ divCurrentStep +' select:visible, '+ divCurrentStep +' textarea:visible, '+ divCurrentStep +' input[type="hidden"]').serialize();
+        	order_form_data += '&action=cake_steps_store&step=' + currentStepActive
+		}
+		
+		
+		if (step_store_request)
+		{
+			//step_store_request.abort();
+		}
+		
+		step_store_request = $.ajax({
+        	url: gl_ajaxUrl,
+        	data: order_form_data, 
+            method: 'POST',
+            dataType: 'json',
+            success: function(response){
+            	$('.cake-cart-sidebar #cart_items').html('');
+            	if (response.cart_html)
+            	{
+            		$('.cake-cart-sidebar #cart_items').append(response.cart_html);
+            		$('#cart_empty_block').addClass('disable');
+            		$('#cart_total_wraper').removeClass('disable');
+            		if (response.shipping_fee)
+            		{
+            			$('#shipping_fee').removeClass('disable');
+            			$('#sub_total').removeClass('disable');
+            			$('#shipping_fee .text-right h6').html(response.shipping_fee);
+            		}
+            		else {
+            			$('#shipping_fee').addClass('disable');
+            			$('#sub_total').addClass('disable');
+            		}
+            		$('#total_tax .text-right h6').html(response.total_tax);
+            		$('#sub_total .text-right h6').html(response.sub_total);
+            		$('#cart_total .text-right h4').html(response.cart_total);
+            		
+            	}
+            	else {
+            		$('#cart_empty_block').removeClass('disable');
+            		$('#cart_total_wraper').addClass('disable');
+            	}
+            	
+            	if (isNextStep && currentStepActive == 3)
+                {
+            		$('#confirmation_wraper').removeClass('disable');
+            		$('#confirmation_content').html(response.confirm_html);
+            		$('#confirmation_footer').removeClass('disable');
+                }
+            }
+        });
+	}
+    
     function initCustomOrderForm(){
     	//reset progress bar
         $('#progress').css('width','0');
@@ -33,65 +91,8 @@ $(function(){
     	$('form.form-style-common .help-block').addClass('disable');
         	
         
-    	function showItemInCart(isNextStep, currentStepActive){
-    		// Store value to server
-    		if (!currentStepActive)
-    		{
-    			var currentStepActive = $('form#omOrder .step_wraper:visible').data('step');
-    			var divCurrentStep = 'form#omOrder .step_wraper[data-step="'+ (currentStepActive) +'"]';
-            	order_form_data = $(divCurrentStep + ' input:visible, '+ divCurrentStep +' select:visible, '+ divCurrentStep +' textarea:visible, '+ divCurrentStep +' input[type="hidden"]').serialize();
-            	order_form_data += '&action=cake_steps_store&step=' + currentStepActive
-    		}
-    		
-    		
-    		if (step_store_request)
-    		{
-    			//step_store_request.abort();
-    		}
-    		
-    		step_store_request = $.ajax({
-            	url: gl_ajaxUrl,
-            	data: order_form_data, 
-                method: 'POST',
-                dataType: 'json',
-                success: function(response){
-                	$('.cake-cart-sidebar #cart_items').html('');
-                	if (response.cart_html)
-                	{
-                		$('.cake-cart-sidebar #cart_items').append(response.cart_html);
-                		$('#cart_empty_block').addClass('disable');
-                		$('#cart_total_wraper').removeClass('disable');
-                		if (response.shipping_fee)
-                		{
-                			$('#shipping_fee').removeClass('disable');
-                			$('#sub_total').removeClass('disable');
-                			$('#shipping_fee .text-right h6').html(response.shipping_fee);
-                		}
-                		else {
-                			$('#shipping_fee').addClass('disable');
-                			$('#sub_total').addClass('disable');
-                		}
-                		$('#total_tax .text-right h6').html(response.total_tax);
-                		$('#sub_total .text-right h6').html(response.sub_total);
-                		$('#cart_total .text-right h4').html(response.cart_total);
-                		
-                	}
-                	else {
-                		$('#cart_empty_block').removeClass('disable');
-                		$('#cart_total_wraper').addClass('disable');
-                	}
-                	
-                	if (isNextStep && currentStepActive == 3)
-                    {
-                		$('#confirmation_wraper').removeClass('disable');
-                		$('#confirmation_content').html(response.confirm_html);
-                		$('#confirmation_footer').removeClass('disable');
-                    }
-                }
-            });
-    	}
-    	
-    	$('body').on('change', 'form#omOrder input:not([type="file"]), form#omOrder select', function(){
+    	$('body').on('change', 'form#omOrder input:radio, form#omOrder input:checkbox, form#omOrder select', function(){
+    		console.log($(this).attr('id'));
     		showItemInCart();
     	});
     	
@@ -432,6 +433,68 @@ $(function(){
 	   initCustomOrderForm();
    }
    
+   $('body').on('change', '#deliver_postcode, #billing_postcode, #shipping_postcode', function(){
+		var zip1 = $.trim($(this).val());
+	    var zipcode = zip1;
+	    var elementChange = $(this);
+	    
+	    // Remove error message about postcode
+	    $('.postcode_fail').remove();
+
+	    $.ajax({
+	        type: "post",
+	        url: gl_siteUrl + "/dataAddress/api.php",
+	        data: JSON.stringify(zipcode),
+	        crossDomain: false,
+	        dataType : "jsonp",
+	        scriptCharset: 'utf-8'
+	    }).done(function(data){
+	    	var address = [
+	    		{postcode : '#deliver_postcode', state : '#deliver_state', city: '#deliver_city', address1: '#deliver_addr1'},
+	    		{postcode : '#billing_postcode', state : '#billing_state', city: '#billing_city', address1: '#billing_address_1'},
+	    		{postcode : '#shipping_postcode', state : '#shipping_state', city: '#shipping_city', address1: '#shipping_address_1'},
+	    	]
+	    	
+	        if(data[0] == "" || gl_stateAllowed.indexOf(data[0]) == -1){
+	        	if (data[0] != "" && gl_stateAllowed.indexOf(data[0]) == -1)
+	        	{
+	        		var alertElement = '<span style="display: block" class="woocommerce-error postcode_fail clear">'+ gl_alertStateNotAllowed +'</span>';
+	        		elementChange.parent().append(alertElement);
+	        	}
+	        	$.each(address, function(index, addressItem){
+	        		$(addressItem['postcode']).val('');
+	        		$(addressItem['state']).val('');
+	        		$(addressItem['city']).val('');
+	        		$(addressItem['address1']).val('');
+	        	});
+	        	
+	        } else {
+	    		$.each(address, function(index, addressItem){
+	        		if ($(addressItem['postcode']).length && ('#'+elementChange.attr('id') == addressItem['postcode']))
+	        		{
+	        			$(addressItem['state'] + ' option').each(function(){
+	                		if($(this).text() == data[0])
+	                		{
+	                			$(addressItem['state']).val($(this).attr('value'));
+	                		}
+	                	});
+	                	
+	                    $(addressItem['city']).val(data[1]);
+//	                    var address1 = $(addressItem['address1']).val();
+	                    var address1 = '';
+	                    address1 = address1.replace(data[2], '');
+	                    $(addressItem['address1']).val(data[2] + address1);
+	        		}
+	        	});
+	        }
+	    	
+	    	if (typeof showItemInCart == 'function')
+	    	{
+	    		showItemInCart();
+	    	}
+	    }).fail(function(XMLHttpRequest, textStatus, errorThrown){
+	    });
+	});
    
    //Trigger default calendar today
    	if ($('div.calendar').length)

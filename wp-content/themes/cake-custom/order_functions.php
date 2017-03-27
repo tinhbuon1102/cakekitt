@@ -39,12 +39,11 @@ function kitt_woocommerce_cart_calculate_fees()
 	if ($_REQUEST['action'] == 'cake_steps_store' || $_REQUEST['action'] == 'submit_form_order')
 	{
 		$aFormData = getFormData();
-	
 		if ($aFormData['custom_order_shipping'] == 'delivery')
 		{
 			// modify shipping fee base on city
 			//@TODO add fee for city 
-			if (in_array($aFormData['custom_order_deliver_city'], getDiscountShippingCity()))
+			if (isCityDiscounted())
 			{
 				WC()->cart->shipping_total = KITT_SHIPPING_CITY_1_FEE;
 			}

@@ -1471,7 +1471,7 @@ function isCityDiscounted(){
 			(isset($_POST['custom_order_deliver_city']) && in_array($_POST['custom_order_deliver_city'], getDiscountShippingCity())) ||
 			(isset($post_data['shipping_city']) && in_array($post_data['shipping_city'], getDiscountShippingCity())) ||
 			((!$_POST['s_city'] && !$_POST['shipping_city'] && !$_POST['custom_order_deliver_city'] && !$post_data['shipping_city']) && isset(WC()->session->customer['shipping_city']) && in_array(WC()->session->customer['shipping_city'], getDiscountShippingCity())) ||
-			(empty($_POST) && $user_shipping_city && in_array($user_shipping_city, getDiscountShippingCity()))
+			((!$_POST['s_city'] && !$_POST['shipping_city'] && !$_POST['custom_order_deliver_city'] && !$post_data['shipping_city']) && $user_shipping_city && in_array($user_shipping_city, getDiscountShippingCity()))
 			)
 	{
 		return true;
