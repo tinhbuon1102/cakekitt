@@ -471,6 +471,7 @@ if ($inspired_pic)
 		<!-- #third_step -->
 		<div id="third_step" class="step_wraper" data-step="3">
 			<h1 class="order-heading"><?php _e( 'Deliver Info', 'woocommerce' ); ?></h1>
+			<div class="woocommerce"><div class="woocommerce-info">Returning customer? <a href="#" class="showlogin">Click here to login</a></div></div>
 			<div class="m-section_content_selectOption">
 				<ul class="about-deliver">
 					<li class="main-option">
@@ -594,6 +595,7 @@ if ($inspired_pic)
 							</div>
 							<div class="mt-2 deliver-info disable">
 								<h4 class="heading-form mt-4 mb-2 text-gray"><?php echo __('Where do you want your order delivered?', 'cake')?></h4>
+								<div class="get-from-savedata">Do you wanna ship to saved adderess?<input type="checkbox" name=""></div>
 								<div class="form-fields">
 									<div class="row">
 										<div class="field col-md-6">
