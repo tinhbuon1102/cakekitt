@@ -506,11 +506,11 @@ function kitt_woocommerce_admin_order_data_after_order_details($order)
 	$field_mappings = getCustomFormFieldMapping();
 	$orderFormData = get_post_meta($order->id, 'cake_custom_order', true);
 	$fieldGenerates = array(
-		'custom_order_pickup_date',
-		'custom_order_pickup_time'
+		'custom_order_pickup_date' => __('Date to get cake', 'cake'),
+		'custom_order_pickup_time' => __('Time to get cake', 'cake')
 	);
 	
-	foreach ($fieldGenerates as $fieldName)
+	foreach ($fieldGenerates as $fieldName => $fieldLabel)
 	{
 		$itemField = $field_mappings[$fieldName]['field'];
 		
@@ -522,7 +522,7 @@ function kitt_woocommerce_admin_order_data_after_order_details($order)
 		
 		$itemField['name'] = 'custom_order_meta['.$itemField['name'].']';
 		$itemField['value'] = $defaultValue;
-		?> <div class="form-field form-field-wide"><label ><?php echo $itemField['label'] ?></label> <?php
+		?> <div class="form-field form-field-wide <?php echo $itemField['name']?>"><h3><label ><?php echo $fieldLabel ? $fieldLabel : $itemField['label'] ?></label></h3> <?php
 		kitt_acf_render_field_wrap( $itemField);
 		echo '</div>';
 	}
@@ -683,7 +683,7 @@ function save_custom_order_detail_meta_box ( $post_id, $post, $update )
 			$aCustomeOrder['custom_order_shipping'] = $shipping_method['method_id'] == 'flat_rate' ? 'delivery' : 'pickup';
 		}
 			
-		$updatedCustomOrder = $aCustomeOrder + $_POST['custom_order_meta'];
+		$updatedCustomOrder = $_POST['custom_order_meta'] + $aCustomeOrder;
 		update_post_meta($post_id, "cake_custom_order", $updatedCustomOrder);
 	}
 	return $post_id;
