@@ -187,7 +187,7 @@ get_header(); ?>
 	
 					<div class="galBox">
 						<div class="galcon-inner">
-					    <div class="row">
+					    <!--<div class="row">-->
 					    <div class="image-outer">
 					    <div class="image-middler">
 						<div class="image-inner">
@@ -209,7 +209,7 @@ get_header(); ?>
 						</div>
 						</div>
 						
-						</div>
+						<!--</div>--/row-->
 						</div>
 					</div>
 				</div>

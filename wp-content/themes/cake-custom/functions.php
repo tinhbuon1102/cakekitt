@@ -1625,11 +1625,17 @@ function load_items(){
 		?>
 		<div id="popUp<?php echo $post->ID;?>" class="popUp">
 			<div class="galBox">
-				<div class="galBoxImg">
+			<div class="galcon-inner">
+				<div class="image-outer">
+				<div class="image-middler">
+				<div class="image-inner">
 					<img src="<?php the_post_thumbnail_url('full');?>" alt="<?php the_title();?>">
 				</div>
-				<div class="galBoxTxt">
-					<ul>
+				</div>
+				</div>
+				<div class="gal-content-inside-wrap">
+				<div class="meta-info">
+					<ul class="ck-info">
 						<li><label>Category</label><span class="value"><?php if( isset($trm_name) && is_array($trm_name) && !empty($trm_name)){ echo implode(',',$trm_name);}?></span></li>
 						<li><label>Size | </label><span class="value size-value"><?php echo $custom_order_cakesize_round;?></span></li>
 						<li><label>Price | </label><span class="value price-value">¥<?php echo $est_price;?></span></li>
@@ -1639,7 +1645,9 @@ function load_items(){
 						<input class="cdo-button" value="このケーキを参考に注文する" type="button">
 					</a>
 				</div>
-			</div>
+				</div><!--/gal-content-inside-wrap-->
+				</div><!--/inner-->
+			</div><!--/galBox-->
 		</div>
 		<?php endwhile;wp_reset_postdata();?>
 		<?php endif;?>
