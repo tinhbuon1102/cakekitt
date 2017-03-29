@@ -564,8 +564,10 @@ function custom_meta_order_detail_box_markup($post)
 		'custom_order_msgpt_text_no',
 		'custom_order_pickup_date',
 		'custom_order_pickup_time'
-		
 	);
+	
+	$aDecorations = getDecorationOption();
+	
 	echo '<script>
 		var gl_ajaxUrl = "'. admin_url('admin-ajax.php') .'";	
 		var roundGroup = '. json_encode(getArrayRoundShape()) .';
@@ -603,7 +605,13 @@ function custom_meta_order_detail_box_markup($post)
 				
 				$class = ($showBlock != $fieldName && in_array($fieldName, array('custom_order_cakesize_round', 'custom_order_cakesize_square'))) ? 'disable' : '';
 				
+				if (isset($aDecorations[$fieldName]) && isset($aDecorations[$fieldName]['label']))
+				{
+					$fields['field']['label'] = $aDecorations[$fieldName]['label'];
+				}
+				
 				$itemField = $fields['field'];
+				
 				$defaultValue = isset($orderFormData[$fieldName]) ? (is_array($orderFormData[$fieldName]) ? implode(PHP_EOL, $orderFormData[$fieldName]) : $orderFormData[$fieldName]) : '';
 				if ($itemField['type'] == 'date_picker')
 				{

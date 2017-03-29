@@ -833,32 +833,32 @@ function getDecorationGroup(){
 
 	$aDecoration = array(
 		'icingcookie' => array(
-			'custom_order_icingcookie_qty',
-			'custom_order_basecolor_text'	
+			'custom_order_icingcookie_qty' => array('label' => __('Icingcookie Quantity', 'cake')),
+			'custom_order_basecolor_text' => array('label' => __('Icingcookie Text', 'cake')),
 		),
 		'cupcake' => array(
-			'custom_order_cupcake_qty',
-			'custom_order_cpck_text'
+			'custom_order_cupcake_qty' => array('label' => __('Cupcake Quantity', 'cake')),
+			'custom_order_cpck_text' => array('label' => __('Cupcake Text', 'cake')),
 		),
 		'macaron' => array(
-			'custom_order_macaron_qty',
-			'custom_order_macaron_color'
+			'custom_order_macaron_qty' => array('label' => __('Macaron Quantity', 'cake')),
+			'custom_order_macaron_color' => array('label' => __('Macaron Color', 'cake')),
 		),
 		'heartchoco' => array(
 		),
 		'fruit' => array(
 		),
 		'flower' => array(
-			'custom_order_flowercolor',
+			'custom_order_flowercolor' => array('label' => __('Flower Color', 'cake')),
 		),
 		'print' => array(
-			'custom_order_photocakepic',
+			'custom_order_photocakepic' => array('label' => __('Print Cake Photo', 'cake')),
 		),
 		'candy' => array(
-			'custom_order_candy_text',
+			'custom_order_candy_text' => array('label' => __('Candy Text', 'cake')),
 		),
 		'figure' => array(
-			'custom_order_doll_text',
+			'custom_order_doll_text' => array('label' => __('Figure Doll Text', 'cake')),
 		),
 		'sugarcoating' => array(
 		),
@@ -1022,10 +1022,6 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 	
 	$blockWraper = '';
 
-	//Group Decoration
-	$aDecoration = getDecorationGroup();
-	$aDecoOptions = getDecorationOption();
-	
 	$indexItem = 0;
 	
 	if ($is_email)
@@ -1186,7 +1182,7 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 									$divRowTmp .= '<div class="label-div '.$decoMainKey.' " >'. ($decoMainKey != 0 ? '&nbsp;' : $fieldLabel).'</div>';
 									$divRowTmp .= '<div class="show-value">' . $fieldMapping[$fieldName]['value'][$decoreateMain];
 									
-									foreach ($aDeOptions as $deOption)
+									foreach ($aDeOptions as $deOption => $deOptionInfo)
 									{
 										if ('custom_order_photocakepic' == $deOption && $aData[$deOption])
 										{
