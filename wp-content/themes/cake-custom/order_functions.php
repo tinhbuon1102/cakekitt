@@ -19,12 +19,6 @@ function reset_custom_cart(){
 	}
 }
 
-function kitt_get_image_id($image_url) {
-	global $wpdb;
-	$attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE guid LIKE '%s';", '%' . str_replace(get_site_url(), '', $image_url) . '%' ));
-	return $attachment[0];
-}
-
 function getFormData(){
 	$aFormData = array();
 	foreach ( $_SESSION['cake_custom_order'] as $step => $cakeStepData )

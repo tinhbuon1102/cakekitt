@@ -12,6 +12,12 @@ if (!function_exists('pr')) {
 	}
 }
 
+function kitt_get_image_id($image_url) {
+	global $wpdb;
+	$attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE guid LIKE '%s';", '%' . str_replace(get_site_url(), '', $image_url) . '%' ));
+	return $attachment[0];
+}
+
 function getDiscountShippingCity(){
 	return array('港区', '渋谷区');
 }
