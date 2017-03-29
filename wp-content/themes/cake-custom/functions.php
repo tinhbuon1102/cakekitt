@@ -727,6 +727,7 @@ function save_custom_order_detail_meta_box ( $post_id, $post, $update )
 		$shipping_methods = $order->get_shipping_methods();
 		$aCustomeOrder = get_post_meta($post_id, 'cake_custom_order', true);
 		$_POST['custom_order_meta']['custom_order_cakePic'] = $_POST['custom_order_cakePic'];
+		$_POST['custom_order_meta']['custom_order_photocakepic'] = $_POST['custom_order_photocakepic'];
 		
 		foreach ($shipping_methods as $order_item_id => $shipping_method)
 		{	
@@ -758,7 +759,6 @@ function save_custom_order_detail_meta_box ( $post_id, $post, $update )
 				$updatedCustomOrder[$imageName] = implode(PHP_EOL, $picTmp);
 			}
 		}
-		
 		update_post_meta($post_id, "cake_custom_order", $updatedCustomOrder);
 	}
 	return $post_id;
