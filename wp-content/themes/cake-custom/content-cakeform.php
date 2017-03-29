@@ -472,7 +472,7 @@ if ($inspired_pic)
 		<div id="third_step" class="step_wraper" data-step="3">
 			<h1 class="order-heading"><?php _e( 'Deliver Info', 'woocommerce' ); ?></h1>
 			<?php if(!is_user_logged_in()) {?>
-			<div class="woocommerce"><div class="woocommerce-info">Returning customer? <a href="#" class="showlogin">Click here to login</a></div></div>
+			<div class="woocommerce" id="returning_customer_wraper"><div class="woocommerce-info">Returning customer? <a href="#" class="showlogin">Click here to login</a></div></div>
 			<?php }?>
 			<div class="m-section_content_selectOption">
 				<ul class="about-deliver">

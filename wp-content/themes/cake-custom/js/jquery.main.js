@@ -382,6 +382,7 @@ $(function(){
             			$('[name="custom_order_deliver_pref"]').trigger('change');
             		}
             		
+            		$('#returning_customer_wraper').hide();
             	}
             	else if (currentStepActive == 4)
             	{
