@@ -304,7 +304,7 @@ a.btn.label-btn {
     color: #FFF;
     width: 100%;
 	position: relative;
-	font-family: "rift-soft",sans-serif;
+	font-family: "rift-soft", 'Open Sans Condensed', sans-serif;
 	text-transform: uppercase;
 	font-size: 18px;
 }
@@ -384,6 +384,35 @@ a.btn.label-btn {
 	font-size: 36px;
 	font-size: 2.6em;
   margin-bottom:5px;
+}
+/* slider undee 660px */
+.rabels_3columns.minheight1 .label-tip .label-icon {
+    display: table;
+}
+.rabels_3columns.minheight1 .label-tip .label-icon .table-cell {
+    display: table-cell;
+}
+.rabels_3columns.minheight1 .label-tip .label-icon .table-cell.table-cell-space {
+    background: #FFF;
+}
+.table-cell.tabel-cell-icon {
+    width: 70%;
+}
+.rabels_3columns.minheight1 .label-tip .label-icon {
+    position: relative;
+}
+.rabels_3columns.minheight1 .label-tip .btn-wrap {
+    padding-bottom: 20px;
+}
+/* slider under 600px */
+.rabels_3columns.minheight2 .label-tip .descript {
+	display: none;
+}
+.rabels_3columns.minheight2 .label-tip .inner-white {
+    min-height: 1px;
+}
+.rabels_3columns.minheight2 .label-tip .btn-wrap {
+    padding-bottom: 20px;
 }
 /*home*/
 div#latestCakes {
@@ -2905,6 +2934,12 @@ div#contact-section .col-sm-8 {
     margin-right: 20px;
 }
 @media only screen and (max-width: 479px) {
+.navbar-fixed-top + #slideshow-container.parallax-slider {
+    margin-top: 0;
+}
+body.home .entry-content {
+    overflow: hidden;
+}
 .mobile-flex-wrap.deliver-col .order3 {
 	display: none;
     -webkit-box-ordinal-group: 2;
@@ -3143,6 +3178,8 @@ background: rgba(213,234,117,1);
 /* home order sec*/
 #howOrder .cdo-button {
 color: #000;
+display: block;
+width: 100%;
 }
 .order_points .point_inner {
     padding: 40px 15px;
@@ -4158,13 +4195,65 @@ div#s2id_autogen1 {
     margin-bottom: 20px;
 }
 }
+@media only screen and (max-width: 991px) and (min-width: 768px) {
+.col-sm-3.cdocolumn.order_points {
+    margin-bottom: 10px;
+    width: 50%;
+    float: left;
+}
+.col-sm-3.cdocolumn.order_points:nth-child(odd) {
+    padding-right: 3px;
+}
+.col-sm-3.cdocolumn.order_points:nth-child(even) {
+    padding-left: 3px;
+}
+.col-sm-3.cdocolumn.order_points:nth-child(1), .col-sm-3.cdocolumn.order_points:nth-child(2) {
+    margin-bottom: 60px;
+}
+.order_points .point_inner:before {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 2em;
+    color: #FFF;
+    top: -30px;
+    left: 50%;
+    margin-left: -30px;
+    border-radius: 50%;
+	font-family: "brandon-grotesque", "Helvetica Neue", sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.col-sm-3.cdocolumn.order_points:nth-child(1) .point_inner:before {
+    content: "1";
+    background: rgba(163,210,224,1);
+}
+.col-sm-3.cdocolumn.order_points:nth-child(2) .point_inner:before {
+    content: "2";
+    background: rgba(233,184,203,1);
+}
+.col-sm-3.cdocolumn.order_points:nth-child(3) .point_inner:before {
+    content: "3";
+    background: rgba(244,229,112,1);
+}
+.col-sm-3.cdocolumn.order_points:nth-child(4) .point_inner:before {
+    content: "4";
+    background: rgba(207,225,174,1);
+}
+.rabels_3columns {
+    margin: 60px auto 0;
+}
+}
 @media only screen and (max-width: 959px) and (min-width: 768px) {
 .woocommerce.columns-4 ul.products li.product:nth-child(even) {
     margin-right: 0;
 }
 }
 
-@media screen and (min-width: 780px) {
+@media screen and (min-width: 768px) {
 .sec_txt_inner {
     margin-top: 120px;
     max-width: 480px;
@@ -4664,7 +4753,72 @@ a.btn.label-btn {
     padding-right: 3px;
 }
 }
+@media only screen and (max-width:767px) {
+div#omcSec .omc_img {
+    background: url(http://kitt-sweets.jp/wp-content/uploads/2016/06/bg_omcsec.jpg);
+    background-position: center;
+    background-size: cover;
+    min-height: 280px;
+	width: 100%;
+}
+div#wcSec .omc_img {
+    background: url(http://kitt-sweets.jp/wp-content/uploads/2016/06/bg_wcsec.jpg);
+    background-position: center bottom;
+    background-size: cover;
+    min-height: 280px;
+	width: 100%;
+}
+.promosection .col-sm-6.cdocolumn .sec_txt_inner {
+    padding: 60px 20px;
+}
+.promosection .row {
+    margin-right: -20px;
+    margin-left: -20px;
+}
+.mobile-flex-wrap {
+	display:-webkit-box;
+  	display: -webkit-flex;
+  	display:-ms-flexbox;
+  	display: flex;
+    -webkit-flex-wrap:wrap;
+    -ms-flex-wrap:wrap;
+    flex-wrap:wrap;	
+}
+.mobile-flex-wrap .col-sm-6:first-child {
+    -webkit-box-ordinal-group: 1;
+    -ms-flex-order: 1;
+    -webkit-order: 1;
+    order: 1;
+}
+.mobile-flex-wrap .col-sm-6:last-child {
+    -webkit-box-ordinal-group: 0;
+    -ms-flex-order: 0;
+    -webkit-order: 0;
+    order: 0;
+}
+}
+@media only screen and (max-width: 767px) and (min-width: 480px) {
+.entry-content .promosection .container {
+    max-width: 100%;
+}
+div#omcSec .omc_img, div#wcSec .omc_img {
+    min-height: 380px;
+}
+.promosection .col-sm-6.cdocolumn .sec_txt_inner {
+    max-width: 480px;
+    margin: 0 auto;
+}
+div#wcSec .mobile-flex-wrap .col-sm-6:first-child {
+    width: 100%;
+}
+}
 @media only screen and (max-width: 479px) {
+.has-parallax-slider #content-wrapper {
+    margin-bottom: -40px;
+}
+.order_points .point_inner {
+    max-width: 240px;
+}
 .container {
     padding-left: 10px;
     padding-right: 10px;
@@ -4815,48 +4969,6 @@ ul.cake-decorate.list-type li {
     min-height: 0;
 }
 /* home */
-div#omcSec .omc_img {
-    background: url(http://kitt-sweets.jp/wp-content/uploads/2016/06/bg_omcsec.jpg);
-    background-position: center;
-    background-size: cover;
-    min-height: 280px;
-	width: 100%;
-}
-div#wcSec .omc_img {
-    background: url(http://kitt-sweets.jp/wp-content/uploads/2016/06/bg_wcsec.jpg);
-    background-position: center bottom;
-    background-size: cover;
-    min-height: 280px;
-	width: 100%;
-}
-.promosection .col-sm-6.cdocolumn .sec_txt_inner {
-    padding: 60px 20px;
-}
-.promosection .row {
-    margin-right: -20px;
-    margin-left: -20px;
-}
-.mobile-flex-wrap {
-	display:-webkit-box;
-  	display: -webkit-flex;
-  	display:-ms-flexbox;
-  	display: flex;
-    -webkit-flex-wrap:wrap;
-    -ms-flex-wrap:wrap;
-    flex-wrap:wrap;	
-}
-.mobile-flex-wrap .col-sm-6:first-child {
-    -webkit-box-ordinal-group: 1;
-    -ms-flex-order: 1;
-    -webkit-order: 1;
-    order: 1;
-}
-.mobile-flex-wrap .col-sm-6:last-child {
-    -webkit-box-ordinal-group: 0;
-    -ms-flex-order: 0;
-    -webkit-order: 0;
-    order: 0;
-}
 .col-sm-3.cdocolumn.order_points {
     margin-bottom: 60px;
 }

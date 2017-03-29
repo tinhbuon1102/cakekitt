@@ -16,7 +16,6 @@ get_header(); ?>
 	<div class="container">
 		<div class="row">
 		<div id="primary" class="<?php echo esc_attr($col['colclass']); ?> content-area" style="<?php echo esc_attr($col['position']);?>">
-		
 			<div class="filter_opt">
 				<?php
 					$terms = get_terms( array(
@@ -120,9 +119,11 @@ get_header(); ?>
 				$cakegal = new WP_Query($args);
 				if($cakegal->have_posts()):
 				?>
-				<div class="gallery">
-					<ul class="gal_itms">
+				
+				<div id="grid-gallery" class="grid-gallery gallery">
+					<ul class="gal_itms grid">
 						<div id="wait"></div>
+						<li class="grid-sizer"></li><!-- for Masonry column width -->
 						<?php
 						while($cakegal->have_posts()) : $cakegal->the_post();
 						global $post;
@@ -143,14 +144,17 @@ get_header(); ?>
 						// echo $src[0];
 						?>
 							<li data-gal_color_type="<?php if(!empty($color_type)){ echo trim(implode(',',$color_type),',');}?>" data-gal_scene="<?php if(!empty($scene)){ echo implode(',',$scene);}?>" data-gal_cat="<?php if( isset($tma) && is_array($tma) && !empty($tma)){ echo implode(',',$tma);}?>">
-								<a href="#popUp<?php echo $post->ID;?>">
+							<figure>
+								<a href="#" data-featherlight="#popUp<?php echo $post->ID;?>">
 									<img src="<?php the_post_thumbnail_url('full');?>" alt="<?php the_title();?>">
 									<span class="zoomBtn">&nbsp;</span>
 								</a>
+								</figure>
 							</li>
 						<?php endwhile;wp_reset_postdata();?>
 					</ul>
 				</div>
+				
 				<?php endif;?>
 				
 				<?php
@@ -168,10 +172,7 @@ get_header(); ?>
 				$custom_order_cakesize_round = get_field('custom_order_cakesize_round',$post->ID);
 				$est_price = get_field('est-price',$post->ID);
 				$term_list = get_the_terms($post, 'cakegal_taxonomy');
-<<<<<<< HEAD
 				$scene = get_field('scene',$post->ID);
-=======
->>>>>>> faa58c0020c734ac18f93ffed22188fcb8ed774f
 				if(!empty($term_list)){
 					$trm_name = array();
 					$trm_slug = array();
@@ -181,16 +182,13 @@ get_header(); ?>
 					}
 				}
 				?>
-<<<<<<< HEAD
 				
-				
-			<div class="clear"></div>
 				<div id="popUp<?php echo $post->ID;?>" class="popUp">
 	
 					<div class="galBox">
 						<div class="galcon-inner">
 					    <div class="row">
-					    <div class="image-outer">
+					    <div class="image-outer col-md-12">
 						<div class="image-inner">
 							<img src="<?php the_post_thumbnail_url('full');?>" alt="<?php the_title();?>" class="esgbox-image">
 						</div>
@@ -202,30 +200,15 @@ get_header(); ?>
 								<li><label>Size | </label><span class="value size-value"><?php echo $custom_order_cakesize_round;?></span></li>
 								<li><label>Price | </label><span class="value price-value">¥<?php echo $est_price;?></span></li>
 								<li><label>Scene  | </label><span class="value price-value"><?php if(!empty($scene)){ echo implode(',',$scene);}?></span></li>
-=======
-				<div id="popUp<?php echo $post->ID;?>" class="popUp">
-					<div class="galBox">
-						<div class="galBoxImg">
-							<img src="<?php the_post_thumbnail_url('full');?>" alt="<?php the_title();?>">
-						</div>
-						<div class="galBoxTxt">
-							<ul>
-								<li><label>Category</label><span class="value"><?php if( isset($trm_name) && is_array($trm_name) && !empty($trm_name)){ echo implode(',',$trm_name);}?></span></li>
-								<li><label>Size | </label><span class="value size-value"><?php echo $custom_order_cakesize_round;?></span></li>
-								<li><label>Price | </label><span class="value price-value">¥<?php echo $est_price;?></span></li>
->>>>>>> faa58c0020c734ac18f93ffed22188fcb8ed774f
 							</ul>
 							<a class="gallery_type_btn" href="http://kitt-sweets.jp/order-made-form?type=<?php if( isset($trm_slug) && is_array($trm_slug) && !empty($trm_slug)){ echo implode(',',$trm_slug);}?>&post_id=<?php echo $post->ID;?>">
 								<input class="cdo-button" value="このケーキを参考に注文する" type="button">
 							</a>
 						</div>
-<<<<<<< HEAD
 						</div>
 						
 						</div>
 						</div>
-=======
->>>>>>> faa58c0020c734ac18f93ffed22188fcb8ed774f
 					</div>
 				</div>
 				<?php endwhile;wp_reset_postdata();?>
@@ -242,4 +225,9 @@ get_header(); ?>
 		</div><!-- .row -->
 	</div><!-- .container -->
 	</div><!-- #content-wrapper -->
+<script type="text/javascript">
+/*jQuery(function($) {
+	$('.galBox').addClass('landscape');
+});*/
+</script>
 <?php get_footer(); ?>

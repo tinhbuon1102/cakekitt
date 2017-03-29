@@ -17,6 +17,7 @@ var gl_timePM = '<?= _e('PM', 'cake');  ?>';
 var gl_stateAllowed = '東京都';
 var gl_alertStateNotAllowed = '<?php echo __('Site support Tokyo prefecture only, sorry for inconvenience !')?>';
 try{Typekit.load({ async: true });}catch(e){}</script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700" rel="stylesheet">
 </head>
 
 <body <?php body_class(); ?> >
