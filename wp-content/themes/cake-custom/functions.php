@@ -500,6 +500,36 @@ function send_email_on_hold($order_id)
 
 add_action( 'woocommerce_order_status_accepted_to_on-hold', 'send_email_on_hold' );
 
+add_action( 'woocommerce_admin_order_data_after_order_details', 'kitt_woocommerce_admin_order_data_after_order_details', 10, 1 );
+function kitt_woocommerce_admin_order_data_after_order_details($order)
+{
+	$field_mappings = getCustomFormFieldMapping();
+	$orderFormData = get_post_meta($order->id, 'cake_custom_order', true);
+	$fieldGenerates = array(
+		'custom_order_pickup_date',
+		'custom_order_pickup_time'
+	);
+	
+	foreach ($fieldGenerates as $fieldName)
+	{
+		$itemField = $field_mappings[$fieldName]['field'];
+		
+		$defaultValue = isset($orderFormData[$fieldName]) ? (is_array($orderFormData[$fieldName]) ? implode(PHP_EOL, $orderFormData[$fieldName]) : $orderFormData[$fieldName]) : '';
+		if ($itemField['type'] == 'date_picker')
+		{
+			$defaultValue = $defaultValue ? $defaultValue : $itemField['display_format'];
+		}
+		
+		$itemField['name'] = 'custom_order_meta['.$itemField['name'].']';
+		$itemField['value'] = $defaultValue;
+		?> <div class="form-field form-field-wide"><label ><?php echo $itemField['label'] ?></label> <?php
+		kitt_acf_render_field_wrap( $itemField);
+		echo '</div>';
+	}
+?>
+<?php
+}
+
 function custom_meta_order_detail_box_markup($post)
 {
 	wp_nonce_field(basename(__FILE__), "meta-box-nonce");
@@ -532,6 +562,8 @@ function custom_meta_order_detail_box_markup($post)
 		'custom_order_customer_birth_date_month',
 		'custom_order_customer_birth_date_day',
 		'custom_order_msgpt_text_no',
+		'custom_order_pickup_date',
+		'custom_order_pickup_time'
 		
 	);
 	echo '<script>
