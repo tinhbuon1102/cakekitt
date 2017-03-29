@@ -3,7 +3,14 @@ jQuery(function($) {
 		var hsize = $(window).height();
 		var hinsize = hsize - 100;
         var immdwsize = $('.image-middler:visible').width();
-        console.log(immdwsize);
+        
+        var img = new Image();
+		img.src = $('.image-middler:visible img').attr('src');
+		var imgWidth = img.width;
+		var imgHeight = img.height;
+		var aspectRatio = imgWidth / imgHeight;
+        console.log('imgWidth: ' + imgWidth);
+        console.log('imgHeight: ' + imgHeight);
 		/*if (imgHeight <= hsize) {
 			$('.featherlight').addClass('nofullbox');
 		} else {
