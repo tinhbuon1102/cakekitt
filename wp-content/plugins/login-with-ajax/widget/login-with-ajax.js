@@ -49,7 +49,7 @@ jQuery(document).ready(function(a) {
             var t = i.find(".").show()
               , l = i.parent().find(".lwa-title");
             l.replaceWith(t)
-        }) : null  == i.redirect ? window.location.reload() : window.location = i.redirect)
+        }) : null  == i.redirect ? (i.reload ? window.location.reload() : '') : window.location = i.redirect)
     }),
     a(".lwa-modal").each(function(e, i) {
         var n = a(i);

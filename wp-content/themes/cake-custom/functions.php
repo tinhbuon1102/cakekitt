@@ -681,6 +681,7 @@ function disable_page_wpautop() {
 }
 add_action( 'wp', 'disable_page_wpautop' );
 
+add_action( 'register_new_user', 'autoLoginUser', 10, 1 );
 function autoLoginUser($user_id){
 	$user = get_user_by( 'id', $user_id );
 	if( $user && isset($_POST['login-with-ajax']) ) {
@@ -691,8 +692,42 @@ function autoLoginUser($user_id){
 	}
 }
 
-add_action( 'register_new_user', 'autoLoginUser', 10, 1 );
 
+add_filter( 'lwa_ajax_login', 'kitt_lwa_ajax_login_get_data', 10, 1 );
+add_filter( 'lwa_ajax_register', 'kitt_lwa_ajax_login_get_data', 10, 1 );
+function kitt_lwa_ajax_login_get_data($response)
+{
+	if ($response['result'] == 1)
+	{
+		$userID = $response['user']->ID;
+		$user = get_user_by('id', $userID);
+		// Get user information like address + acc
+		$birthDate = get_user_meta($userID, 'birth_date', true);
+		$response['user_info']['custom_order_customer_name_first'] = get_user_meta($userID, 'first_name', true);
+		$response['user_info']['custom_order_customer_name_last'] = get_user_meta($userID, 'last_name', true);
+		$response['user_info']['custom_order_customer_name_first_kana'] = get_user_meta($userID, 'first_name_kana', true);
+		$response['user_info']['custom_order_customer_name_last_kana'] = get_user_meta($userID, 'last_name_kana', true);
+		$response['user_info']['custom_order_customer_email'] = $user->user_email;
+		$response['user_info']['custom_order_customer_tel'] = get_user_meta($userID, 'tel', true);
+		$response['user_info']['custom_order_customer_sex'] = get_user_meta($userID, 'sex', true);
+		$response['user_info']['custom_order_customer_birth_date[year]'] = $birthDate['year'];
+		$response['user_info']['custom_order_customer_birth_date[month]'] = $birthDate['month'];
+		$response['user_info']['custom_order_customer_birth_date[day]'] = $birthDate['day'];
+		
+		
+		$response['user_address']['custom_order_deliver_name'] = get_user_meta($userID, 'shipping_last_name', true);
+		$response['user_address']['custom_order_deliver_storename'] = get_user_meta($userID, 'shipping_first_name', true);
+		$response['user_address']['custom_order_deliver_cipname'] = get_user_meta($userID, 'shipping_company', true);
+		$response['user_address']['custom_order_deliver_tel'] = get_user_meta($userID, 'shipping_phone', true);
+		$response['user_address']['custom_order_deliver_addr1'] = get_user_meta($userID, 'shipping_address_1', true);
+		$response['user_address']['custom_order_deliver_addr2'] = get_user_meta($userID, 'shipping_address_2', true);
+		$response['user_address']['custom_order_deliver_city'] = get_user_meta($userID, 'shipping_city', true);
+		$response['user_address']['custom_order_deliver_pref'] = get_user_meta($userID, 'shipping_state', true);
+		$response['user_address']['custom_order_deliver_postcode'] = get_user_meta($userID, 'shipping_postcode', true);
+	}
+	
+	return $response;
+}
 
 function woocommerce_save_account_details_custom ($userID)
 {

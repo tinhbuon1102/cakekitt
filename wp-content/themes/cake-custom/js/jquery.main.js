@@ -92,7 +92,6 @@ $(function(){
         	
         
     	$('body').on('change', 'form#omOrder input:radio, form#omOrder input:checkbox, form#omOrder select', function(){
-    		console.log($(this).attr('id'));
     		showItemInCart();
     	});
     	
@@ -305,11 +304,7 @@ $(function(){
                 });
         	}
         	else {
-        		$('body').LoadingOverlay("hide");
-        		$('#custom_order_login_modal').modal({
-        			backdrop: 'static',
-        		    keyboard: false
-        		});
+        		showLoginPopup();
         	}
         });
         
@@ -329,13 +324,69 @@ $(function(){
         	$('.modal').modal('hide');
         });
         
+        $('body').on('click', '.step_wraper a.showlogin', function(e){
+        	e.preventDefault();
+        	showLoginPopup();
+        });
+        
+        function showLoginPopup(){
+        	$('body').LoadingOverlay("hide");
+    		$('#custom_order_login_modal').modal({
+    			backdrop: 'static',
+    		    keyboard: false
+    		});
+        }
+        
+        function pullFieldData(field_data){
+        	$.each(field_data, function(field_name, field_value){
+    			if ($('[name="'+field_name+'"]').is(':radio') || $('[name="'+field_name+'"]').is(':checkbox'))
+    			{
+    				if ($('[name="'+field_name+'"][value="'+field_value+'"]').next().is('ins'))
+    				{
+    					$('[name="'+field_name+'"][value="'+field_value+'"]').next().click();
+    				}
+    				else {
+    					$('[name="'+field_name+'"][value="'+field_value+'"]').prop('checked').change();
+    				}
+    			}
+    			else if ($('[name="'+field_name+'"]').is('select'))
+    			{
+    				$('[name="'+field_name+'"]').val(field_value);
+    				if ($('[name="'+field_name+'"]').is(':visible'))
+    				{
+    					$('[name="'+field_name+'"]').change();
+    				}
+    			}
+    			else {
+    				$('[name="'+field_name+'"]').val(field_value);
+    			}
+    		});
+        }
         function actionLoginRegister(e, i, n){
-        	if (i.result)
+        	if (i.result && $('form#omOrder').length)
         	{
+        		var currentStepActive = $('form#omOrder .step_wraper:visible').data('step');
+        		
         		is_loggedin = true;
             	$('.modal').modal('hide');
             	$(".lwa-status").trigger("reveal:close");
-            	$('#submit_form_order').click();
+            	
+            	if (currentStepActive == 3)
+            	{
+            		// Login/register in step 3
+            		pullFieldData(i.user_info);
+            		pullFieldData(i.user_address);
+            		
+            		if ($('[name="custom_order_deliver_pref"]').is(':visible'))
+            		{
+            			$('[name="custom_order_deliver_pref"]').trigger('change');
+            		}
+            		
+            	}
+            	else if (currentStepActive == 4)
+            	{
+            		$('#submit_form_order').click();
+            	}
         	}
         }
         

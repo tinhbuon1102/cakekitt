@@ -471,7 +471,9 @@ if ($inspired_pic)
 		<!-- #third_step -->
 		<div id="third_step" class="step_wraper" data-step="3">
 			<h1 class="order-heading"><?php _e( 'Deliver Info', 'woocommerce' ); ?></h1>
+			<?php if(!is_user_logged_in()) {?>
 			<div class="woocommerce"><div class="woocommerce-info">Returning customer? <a href="#" class="showlogin">Click here to login</a></div></div>
+			<?php }?>
 			<div class="m-section_content_selectOption">
 				<ul class="about-deliver">
 					<li class="main-option">
@@ -711,21 +713,6 @@ if ($inspired_pic)
 		<div id="confirmation_content">
 		</div>
 		<div id="confirmation_footer" class="disable">
-				<div class="modal fade" id="custom_order_login_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display:none;">
-					<div class="modal-dialog modal-lg">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">×</span>
-								</button>
-								<h4 class="modal-title" ><?php echo __('Login or Register', 'cake')?></h4>
-							</div>
-							<div class="modal-body">
-								<?php login_with_ajax();?>
-							</div>
-						</div>
-					</div>
-				</div>
 			<div class="row">
 				<div class="col-md-12">
 					<input class="cdo-button submit_prev" type="button" name="submit_prev" value="<?php echo esc_html__( 'Previous', 'cake')?>" />
@@ -765,6 +752,22 @@ if ($inspired_pic)
 						<div class="col-md-4 columns text-green text-right"><h4>¥-</h4></div>
 					</div>
 				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="custom_order_login_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display:none;">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+				<h4 class="modal-title" ><?php echo __('Login or Register', 'cake')?></h4>
+			</div>
+			<div class="modal-body">
+				<?php login_with_ajax();?>
 			</div>
 		</div>
 	</div>

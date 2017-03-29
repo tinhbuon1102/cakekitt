@@ -544,11 +544,38 @@ function submit_form_order(){
 	// Remove temporary data
 	cleanTemporaryData();
 	
+	$aRequiredFields = array(
+		'custom_order_cake_type',
+		'custom_order_cake_shape',
+		'custom_order_cakecolor',
+		'custom_order_cakeflavor',
+		'custom_order_shipping',
+		'custom_order_customer_name_last',
+		'custom_order_customer_name_first',
+		'custom_order_customer_name_last_kana',
+		'custom_order_customer_name_first_kana',
+		'custom_order_customer_tel',
+		'custom_order_customer_email',
+		'custom_order_pickup_date',
+		'custom_order_pickup_time',
+		
+	);
+	$aData = getFormData();
+	
 	//@TODO Validate required fields
 	// If not logged in -> error
 	if (!is_user_logged_in())
 	{
 		$errors->add( 'user_not_logged', __("<strong>ERROR</strong>: User not logged in"), 'cake' );
+	}
+	
+	foreach ($aRequiredFields as $requireField)
+	{
+		if (!isset($aData[$requireField]) || !$aData[$requireField])
+		{
+			$errors->add( $requireField.'_required', __("<strong>ERROR</strong>: Please enter all required fields before checkout"), 'cake' );
+			break;
+		}
 	}
 
 	if (!$errors->get_error_code())
@@ -562,7 +589,6 @@ function submit_form_order(){
 		$checkOut = new WC_Checkout();
 		$checkOut->shipping_methods = (array) WC()->session->get( 'chosen_shipping_methods' );
 		
-		$aData = getFormData();
 		$product_id = calculateProductCart($aData);
 		$userID = (int) get_current_user_id();
 		
