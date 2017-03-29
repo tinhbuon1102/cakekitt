@@ -630,8 +630,8 @@ function custom_meta_order_detail_box_markup($post)
 				
 				if ('custom_order_cakePic' == $fieldName || 'custom_order_photocakepic' == $fieldName)
 				{
-					if ('custom_order_cakePic' == $fieldName)
-					{
+// 					if ('custom_order_cakePic' == $fieldName)
+// 					{
 							echo '<div class="button_upload_pic_tmp_wraper" style="display: none;">
 							<div class="acf-image-uploader clearfix" data-preview_size="thumbnail" data-library="all">
 								<input class="acf-image-value" type="hidden" name="'.$fieldName.'[]" value="">
@@ -649,7 +649,7 @@ function custom_meta_order_detail_box_markup($post)
 								</p></div>
 							</div>
 						</div>';
-					}
+// 					}
 				}
 				$args = array(
 					'type' => $itemField['type'],
@@ -662,7 +662,7 @@ function custom_meta_order_detail_box_markup($post)
 				{
 					kitt_acf_render_field_wrap( $args);
 				}
-				elseif ('custom_order_cakePic' == $fieldName)
+				elseif ('custom_order_cakePic' == $fieldName || 'custom_order_photocakepic' == $fieldName)
 				{
 					// Change the name and value for multiple
 					$images = explode(PHP_EOL, $defaultValue);
@@ -734,24 +734,29 @@ function save_custom_order_detail_meta_box ( $post_id, $post, $update )
 		}
 			
 		$updatedCustomOrder = $_POST['custom_order_meta'] + $aCustomeOrder;
-		if (isset($updatedCustomOrder['custom_order_cakePic']))
+		
+		$aImageNames = array('custom_order_cakePic', 'custom_order_photocakepic');
+		foreach ($aImageNames as $imageName)
 		{
-			$picTmp = array();
-			foreach($updatedCustomOrder['custom_order_cakePic'] as $attach_index => $attachment_id)
+			if (isset($updatedCustomOrder[$imageName]))
 			{
-				if ($attachment_id)
+				$picTmp = array();
+				foreach($updatedCustomOrder[$imageName] as $attach_index => $attachment_id)
 				{
-					$att_src = wp_get_attachment_image_src($attachment_id, 'full', false);
-					$src = isset($att_src[0]) && $att_src[0] ? $att_src[0] : '';
-					
-					if ($src)
+					if ($attachment_id)
 					{
-						$picTmp[$attach_index] = $src;
+						$att_src = wp_get_attachment_image_src($attachment_id, 'full', false);
+						$src = isset($att_src[0]) && $att_src[0] ? $att_src[0] : '';
+						
+						if ($src)
+						{
+							$picTmp[$attach_index] = $src;
+						}
 					}
+					
 				}
-				
+				$updatedCustomOrder[$imageName] = implode(PHP_EOL, $picTmp);
 			}
-			$updatedCustomOrder['custom_order_cakePic'] = implode(PHP_EOL, $picTmp);
 		}
 		
 		update_post_meta($post_id, "cake_custom_order", $updatedCustomOrder);
