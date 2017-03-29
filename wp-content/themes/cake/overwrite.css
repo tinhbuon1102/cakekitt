@@ -1997,7 +1997,7 @@ ul.ck-info li label:after {
     margin: 50px auto;
 }
 .featherlight.fullbox .featherlight-content {
-	margin: 25px auto;
+	margin: 0 auto;
 }
 .portrait .esgbox-title-inside-wrap.col-md-6 {
     text-align: left;
@@ -2006,9 +2006,19 @@ ul.ck-info li label:after {
     overflow: hidden;
 }
 @media (min-width: 992px) {
-.kitt-wrap.fullbox .esgbox-skin.portrait, .fullbox .portrait {
+.kitt-wrap.fullbox .esgbox-skin.portrait {
     width: 900px !important;
 }
+.landscape .minimize img {
+    height: 100%;
+    width: auto;
+}
+.landscape .image-inner.minimize {
+    display: inline-block;
+}
+/*.landscape .image-outer, .landscape .gal-content-inside-wrap {
+    width: auto;
+}*/
 }
 @media (max-width: 991px) {
 .kitt-wrap.fullbox .esgbox-skin.portrait, .fullbox .portrait {
