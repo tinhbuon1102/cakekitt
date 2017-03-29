@@ -762,6 +762,25 @@ function kitt_lwa_ajax_login_get_data($response)
 	return $response;
 }
 
+add_action('wp_ajax_nopriv_get_user_address_data', 'kitt_get_user_address_data');
+add_action('wp_ajax_get_user_address_data', 'kitt_get_user_address_data');
+function kitt_get_user_address_data(){
+	$userID = get_current_user_id();
+	$user = get_user_by('id', $userID);
+	// Get user information like address + acc
+	$response = array();
+	$response['user_address']['custom_order_deliver_name'] = get_user_meta($userID, 'shipping_last_name', true);
+	$response['user_address']['custom_order_deliver_storename'] = get_user_meta($userID, 'shipping_first_name', true);
+	$response['user_address']['custom_order_deliver_cipname'] = get_user_meta($userID, 'shipping_company', true);
+	$response['user_address']['custom_order_deliver_tel'] = get_user_meta($userID, 'shipping_phone', true);
+	$response['user_address']['custom_order_deliver_addr1'] = get_user_meta($userID, 'shipping_address_1', true);
+	$response['user_address']['custom_order_deliver_addr2'] = get_user_meta($userID, 'shipping_address_2', true);
+	$response['user_address']['custom_order_deliver_city'] = get_user_meta($userID, 'shipping_city', true);
+	$response['user_address']['custom_order_deliver_pref'] = get_user_meta($userID, 'shipping_state', true);
+	$response['user_address']['custom_order_deliver_postcode'] = get_user_meta($userID, 'shipping_postcode', true);
+	echo json_encode($response);die;
+}
+
 function woocommerce_save_account_details_custom ($userID)
 {
 	update_user_meta($userID, 'first_name_kana', $_POST['account_first_name_kana']);

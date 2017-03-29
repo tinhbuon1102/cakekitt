@@ -597,7 +597,7 @@ if ($inspired_pic)
 							</div>
 							<div class="mt-2 deliver-info disable">
 								<h4 class="heading-form mt-4 mb-2 text-gray"><?php echo __('Where do you want your order delivered?', 'cake')?></h4>
-								<div class="get-from-savedata">Do you wanna ship to saved adderess?<input type="checkbox" name=""></div>
+								<div class="get-from-savedata">Do you wanna ship to saved adderess?<input type="checkbox" name="user_saved_address" id="user_saved_address" value="1"></div>
 								<div class="form-fields">
 									<div class="row">
 										<div class="field col-md-6">

@@ -375,7 +375,7 @@ $(function(){
             	{
             		// Login/register in step 3
             		pullFieldData(i.user_info);
-            		pullFieldData(i.user_address);
+            		//pullFieldData(i.user_address);
             		
             		if ($('[name="custom_order_deliver_pref"]').is(':visible'))
             		{
@@ -397,6 +397,26 @@ $(function(){
         $(document).on("lwa_login", function(e, i, n) {
         	actionLoginRegister(e, i, n);
         });
+        
+        $('#user_saved_address').on('ifChecked', function(event){
+        	$.ajax({
+            	url: gl_ajaxUrl,
+            	data: {action: 'get_user_address_data'}, 
+                method: 'POST',
+                dataType: 'json',
+                success: function(response){
+                	if (response.user_address)
+                	{
+                		pullFieldData(response.user_address);
+                	}
+                },
+                error: function(){
+                }
+            });
+        	
+    	});
+
+        
         
         var picWraper = '';
         var picHiddenName = '';
