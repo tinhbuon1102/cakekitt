@@ -375,7 +375,6 @@ $(function(){
             	{
             		// Login/register in step 3
             		pullFieldData(i.user_info);
-            		//pullFieldData(i.user_address);
             		
             		if ($('[name="custom_order_deliver_pref"]').is(':visible'))
             		{
@@ -400,6 +399,7 @@ $(function(){
         });
         
         $('#user_saved_address').on('ifChecked', function(event){
+        	$('body').LoadingOverlay("show");
         	$.ajax({
             	url: gl_ajaxUrl,
             	data: {action: 'get_user_address_data'}, 
@@ -410,8 +410,10 @@ $(function(){
                 	{
                 		pullFieldData(response.user_address);
                 	}
+                	$('body').LoadingOverlay("hide");
                 },
                 error: function(){
+                	$('body').LoadingOverlay("hide");
                 }
             });
         	
