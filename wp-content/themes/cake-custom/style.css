@@ -58,7 +58,7 @@ div.rangeslider {
 	width:100px;
 	height:100px;
 }
-.gal_itms p{
+/*.gal_itms p{
 	text-align:center;
 }
 .gallery{
@@ -79,7 +79,7 @@ div.rangeslider {
 	padding:3px;
 	box-sizing:border-box;
 	float:left;
-}
+}*/
 .gallery li a{
 	width:100%;
 	display:block;
@@ -147,12 +147,12 @@ div.rangeslider {
 	overflow:hidden;
 	list-style:none;
 }
-.gallery li{
+/*.gallery li{
 	width:25%;
 	padding:3px;
 	box-sizing:border-box;
 	float:left;
-}
+}*/
 .gallery li a{
 	width:100%;
 	display:block;
@@ -248,7 +248,7 @@ div.rangeslider {
 .cdo-button:hover{background-color:rgba(233,184,203,1)}
 
 @media screen and (max-width:1023px){
-	.gallery li{width:25%}
+	/*.gallery li{width:25%}*/
 	.popUp{width:640px}
 }
 @media screen and (max-width:767px){
@@ -261,7 +261,7 @@ div.rangeslider {
 }
 @media screen and (max-width:639px){
 	.popUp{width:260px}
-	.gallery li{width:33.3333%}
+	/*.gallery li{width:33.3333%}*/
 	.galBoxImg{width:100%}
 	.galBoxTxt{
 		width:100%;

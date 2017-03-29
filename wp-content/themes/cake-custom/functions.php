@@ -139,8 +139,8 @@ function icheck_scripts ()
 	wp_enqueue_script('kana_js', get_stylesheet_directory_uri() . '/js/jquery.autoKana.js', array());
 	wp_enqueue_style('cake_child_css', get_stylesheet_directory_uri() . '/style.css');
 	wp_enqueue_script('overlay_js', get_stylesheet_directory_uri() . '/js/loadingoverlay.js', array());
-	wp_enqueue_script('fancybox_js', get_stylesheet_directory_uri() . '/js/fancybox.js', array());
-	wp_enqueue_script('fancybox_js', get_stylesheet_directory_uri() . '/js/fancycustom.js', array());
+	//wp_enqueue_script('fancybox_js', get_stylesheet_directory_uri() . '/js/fancybox.js', array());
+	//wp_enqueue_script('fancyboxcustom_js', get_stylesheet_directory_uri() . '/js/fancycustom.js', array());
 	wp_enqueue_script('autoheight_js', get_stylesheet_directory_uri() . '/js/jQueryAutoHeight.js', array());
 	wp_enqueue_style('cake_child_css', get_stylesheet_directory_uri() . '/css/fancybox.css');
 	wp_enqueue_script('custom_js', get_stylesheet_directory_uri() . '/js/custom.js', array());
@@ -215,6 +215,39 @@ function woojs_scripts ()
 	wp_enqueue_script('woocustom_js', get_stylesheet_directory_uri() . '/js/woo-custom.js');
 }
 add_action('wp_enqueue_scripts', 'woojs_scripts');
+
+function customslider_scripts ()
+{
+	wp_enqueue_script('slider_js', get_stylesheet_directory_uri() . '/js/slider.js');
+}
+add_action('wp_enqueue_scripts', 'customslider_scripts');
+
+// load es jquery only for gallery test page
+
+add_action( 'wp_enqueue_scripts', 'call_esg_scripts' );
+
+function call_esg_scripts() {
+    wp_register_script('gridgal1_js', get_stylesheet_directory_uri() . '/js/gridgal/js/imagesloaded.pkgd.min.js', false, null, true);
+	wp_register_script('gridgal2_js', get_stylesheet_directory_uri() . '/js/gridgal/js/masonry.pkgd.min.js', false, null, true);
+	wp_register_script('gridgal3_js', get_stylesheet_directory_uri() . '/js/gridgal/js/classie.js', false, null, true);
+	wp_register_script('gridgal4_js', get_stylesheet_directory_uri() . '/js/gridgal/js/cbpGridGallery.js', false, null, true);
+	wp_register_script('gridgal6_js', get_stylesheet_directory_uri() . '/js/gridgal/js/modernizr.custom.js', false, null, true);
+	wp_register_style( 'gridgal-css', get_stylesheet_directory_uri() . '/js/gridgal/css/component.css' );
+	wp_register_script('featherlight_js', get_stylesheet_directory_uri() . '/js/featherlight/featherlight.js', false, null, true);
+	wp_register_script('featherlightscript_js', get_stylesheet_directory_uri() . '/js/featherlight/script.js', false, null, true);
+	wp_register_style('featherlight_css', get_stylesheet_directory_uri() . '/js/featherlight/featherlight.css');
+if(is_page('gallery-test')){
+	wp_enqueue_script('gridgal6_js'); 
+    wp_enqueue_script('gridgal1_js'); 
+	wp_enqueue_script('gridgal2_js');
+	wp_enqueue_script('gridgal3_js');
+	wp_enqueue_script('gridgal4_js');
+	wp_enqueue_script('featherlight_js');
+	wp_enqueue_script('featherlightscript_js');
+	wp_enqueue_style('featherlight_css');
+	wp_enqueue_style('gridgal-css');
+}}
+
 
 function gallery_scripts ()
 {
@@ -1388,7 +1421,7 @@ function load_items(){
 			}
 			?>
 			<li data-gal_color_type="<?php if(!empty($color_type)){ echo trim(implode(',',$color_type),',');}?>" data-gal_scene="<?php if(!empty($scene)){ echo implode(',',$scene);}?>" data-gal_cat="<?php if( isset($tma) && is_array($tma) && !empty($tma)){ echo implode(',',$tma);}?>">
-				<a href="#popUp<?php echo $post->ID;?>">
+				<a href="#" data-featherlight="#popUp<?php echo $post->ID;?>">
 					<img src="<?php the_post_thumbnail_url('full');?>" alt="<?php the_title();?>">
 					<span class="zoomBtn">&nbsp;</span>
 				</a>
