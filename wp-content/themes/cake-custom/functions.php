@@ -621,12 +621,28 @@ function custom_meta_order_detail_box_markup($post)
 				echo '<tr id="'.$itemField['name'].'_wraper" class="'.$class.'">
 						<td class="col-left" style="text-align: left; width: 20%">'.$itemField['label'].'</td>
 						<td class="col-right" style="text-align; width: 80%">';
+				
 				if ('custom_order_cakePic' == $fieldName || 'custom_order_photocakepic' == $fieldName)
 				{
-					$images = explode(PHP_EOL, $defaultValue);
-					foreach ($images as $image)
+					if ('custom_order_cakePic' == $fieldName)
 					{
-						echo '<img style="margin-right: 5px;max-width: 200px;" src="' . $image . '" />';
+							echo '<div class="button_upload_pic_tmp_wraper" style="display: none;">
+							<div class="acf-image-uploader clearfix" data-preview_size="thumbnail" data-library="all">
+								<input class="acf-image-value" type="hidden" name="'.$fieldName.'[]" value="">
+								<div class="has-image">
+									<div class="hover">
+										<ul class="bl">
+											<li><a class="acf-button-delete ir" href="#">'.__('Remove').'</a></li>
+											<li><a class="acf-button-edit ir" href="#">'.__('Edit').'</a></li>
+										</ul>
+									</div>
+									<img class="acf-image-image" src="" alt="">
+								</div>
+								<div class="no-image">
+									<p>'.__('No image selected').' <input type="button" class="button add-image" value="'.__('Add Image').'">
+								</p></div>
+							</div>
+						</div>';
 					}
 				}
 				$args = array(
@@ -640,10 +656,29 @@ function custom_meta_order_detail_box_markup($post)
 				{
 					kitt_acf_render_field_wrap( $args);
 				}
+				elseif ('custom_order_cakePic' == $fieldName)
+				{
+					// Change the name and value for multiple
+					$images = explode(PHP_EOL, $defaultValue);
+					foreach ($images as $image)
+					{
+						$picName = $itemField['_name'].'[]';
+						$itemField['name'] = $picName;
+						$attach_id = kitt_get_image_id($image);
+						$itemField['value'] = $attach_id;
+						kitt_acf_render_field_wrap( $itemField);
+					}
+						
+				}
 				else {
 					$itemField['name'] = 'custom_order_meta['.$itemField['name'].']';
 					$itemField['value'] = $defaultValue;
 					kitt_acf_render_field_wrap( $itemField);
+				}
+				
+				if ('custom_order_cakePic' == $fieldName)
+				{
+					echo '<a href="#" class="add_more_pic button add-image" style="margin-top: 10px; clear: both; display: block; width: 120px; text-align: center;">'.__('Add More Pic', 'cake').'</a>';
 				}
 				
 				echo '</td></tr>';
@@ -685,6 +720,7 @@ function save_custom_order_detail_meta_box ( $post_id, $post, $update )
 		$order = new WC_Order($post_id);
 		$shipping_methods = $order->get_shipping_methods();
 		$aCustomeOrder = get_post_meta($post_id, 'cake_custom_order', true);
+		$_POST['custom_order_meta']['custom_order_cakePic'] = $_POST['custom_order_cakePic'];
 		
 		foreach ($shipping_methods as $order_item_id => $shipping_method)
 		{	
@@ -692,6 +728,26 @@ function save_custom_order_detail_meta_box ( $post_id, $post, $update )
 		}
 			
 		$updatedCustomOrder = $_POST['custom_order_meta'] + $aCustomeOrder;
+		if (isset($updatedCustomOrder['custom_order_cakePic']))
+		{
+			$picTmp = array();
+			foreach($updatedCustomOrder['custom_order_cakePic'] as $attach_index => $attachment_id)
+			{
+				if ($attachment_id)
+				{
+					$att_src = wp_get_attachment_image_src($attachment_id, 'full', false);
+					$src = isset($att_src[0]) && $att_src[0] ? $att_src[0] : '';
+					
+					if ($src)
+					{
+						$picTmp[$attach_index] = $src;
+					}
+				}
+				
+			}
+			$updatedCustomOrder['custom_order_cakePic'] = implode(PHP_EOL, $picTmp);
+		}
+		
 		update_post_meta($post_id, "cake_custom_order", $updatedCustomOrder);
 	}
 	return $post_id;

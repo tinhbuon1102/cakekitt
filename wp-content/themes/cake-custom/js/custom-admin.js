@@ -51,6 +51,17 @@ jQuery(document).ready(function($){
 		});
 	}
 	
+	if ($('.add_more_pic').length)
+	{
+		$('body').on('click', '.add_more_pic', function(e){
+			e.preventDefault();
+			var tableRow = $(this).closest('tr');
+			var cloneUploader = tableRow.find('.button_upload_pic_tmp_wraper .acf-image-uploader').clone();
+			cloneUploader.insertBefore('.add_more_pic');
+			cloneUploader.find('.add-image').trigger('click');
+		})
+	}
+	
 	if ($('#order_data').length && $('.edit_address:visible').length)
 	{
 		setTimeout(function(){
