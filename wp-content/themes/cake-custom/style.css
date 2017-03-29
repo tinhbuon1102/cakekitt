@@ -126,10 +126,7 @@ div.rangeslider {
 /*==============================*/
 .fancybox-overlay{background:url('images/fancybox/fancybox_overlay.png')}
 .popUp{
-	width:768px;
-	padding:10px;
 	display:none;
-	text-align:left;
 }
 
 <<<<<<< HEAD
@@ -197,38 +194,8 @@ div.rangeslider {
 /*==============================*/
 /*=====      lightbox      =====*/
 /*==============================*/
-.fancybox-overlay{background:url('images/fancybox/fancybox_overlay.png')}
-.popUp{
-	width:768px;
-	padding:10px;
-	display:none;
-	text-align:left;
-}
 
->>>>>>> faa58c0020c734ac18f93ffed22188fcb8ed774f
-.galBox{
-	width:100%;
-	overflow:hidden;
-}
-.galBoxImg{
-	width:50%;
-	float:left;
-}
-.galBoxImg img{
-	width:100%;
-	display:block;
-}
-.galBoxTxt{
-	width:50%;
-	padding-left:20px;
-	box-sizing:border-box;
-	float:left;
-}
-.galBoxTxt ul{
-	padding:0;
-	margin:0 0 20px 15px;
-}
-.cdo-button{
+/*.cdo-button{
     width:229px;
     height:46px;
 	padding:13px 23px;
@@ -245,32 +212,4 @@ div.rangeslider {
     border-radius:5px;
 	border:none;
 }
-.cdo-button:hover{background-color:rgba(233,184,203,1)}
-
-@media screen and (max-width:1023px){
-	/*.gallery li{width:25%}*/
-	.popUp{width:640px}
-}
-@media screen and (max-width:767px){
-	.popUp{width:480px}	
-	.zoomBtn{
-		width:30px;
-		height:30px;
-	}
-	.cdo-button{width:210px}
-}
-@media screen and (max-width:639px){
-	.popUp{width:260px}
-	/*.gallery li{width:33.3333%}*/
-	.galBoxImg{width:100%}
-	.galBoxTxt{
-		width:100%;
-		padding:15px 0 0;
-	}
-}
-<<<<<<< HEAD
-=======
-
->>>>>>> faa58c0020c734ac18f93ffed22188fcb8ed774f
-@media only screen and (max-width: 768px) {
-}
+.cdo-button:hover{background-color:rgba(233,184,203,1)}*/

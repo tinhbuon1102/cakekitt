@@ -565,6 +565,11 @@ h2.entry-title {
     font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
 /*woocommerce*/
+.woocommerce #respond input#submit.alt.disabled, .woocommerce #respond input#submit.alt.disabled:hover, .woocommerce #respond input#submit.alt:disabled, .woocommerce #respond input#submit.alt:disabled:hover, .woocommerce #respond input#submit.alt:disabled[disabled], .woocommerce #respond input#submit.alt:disabled[disabled]:hover, .woocommerce a.button.alt.disabled, .woocommerce a.button.alt.disabled:hover, .woocommerce a.button.alt:disabled, .woocommerce a.button.alt:disabled:hover, .woocommerce a.button.alt:disabled[disabled], .woocommerce a.button.alt:disabled[disabled]:hover, .woocommerce button.button.alt.disabled, .woocommerce button.button.alt.disabled:hover, .woocommerce button.button.alt:disabled, .woocommerce button.button.alt:disabled:hover, .woocommerce button.button.alt:disabled[disabled], .woocommerce button.button.alt:disabled[disabled]:hover, .woocommerce input.button.alt.disabled, .woocommerce input.button.alt.disabled:hover, .woocommerce input.button.alt:disabled, .woocommerce input.button.alt:disabled:hover, .woocommerce input.button.alt:disabled[disabled], .woocommerce input.button.alt:disabled[disabled]:hover {
+    background-color: #ececec;
+    border-color: #b8b8b9;
+    color: #b8b8b9;
+}
 .woocommerce div.product .woocommerce-tabs ul.tabs li.active, .woocommerce .woocommerce-error, .woocommerce .woocommerce-info, .woocommerce .woocommerce-message, .sticky {
 	border-color: rgb(233,159,188);
     border-color: rgba(233,159,188,1);
@@ -1991,6 +1996,9 @@ ul.ck-info li label:after {
 .kitt-wrap.fullbox .esgbox-skin {
     margin: 50px auto;
 }
+.featherlight.fullbox .featherlight-content {
+	margin: 25px auto;
+}
 .portrait .esgbox-title-inside-wrap.col-md-6 {
     text-align: left;
 }
@@ -1998,12 +2006,17 @@ ul.ck-info li label:after {
     overflow: hidden;
 }
 @media (min-width: 992px) {
-.kitt-wrap.fullbox .esgbox-skin.portrait {
+.kitt-wrap.fullbox .esgbox-skin.portrait, .fullbox .portrait {
     width: 900px !important;
 }
 }
+@media (max-width: 991px) {
+.kitt-wrap.fullbox .esgbox-skin.portrait, .fullbox .portrait {
+    width: 95%;
+}
+}
 .galcon-inner {
-    padding: 25px;
+    padding: 0;
     position: relative;
 }
 .esgbox-outer.col-md-6, .esgbox-outer.col-md-12 {

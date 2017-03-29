@@ -188,9 +188,11 @@ get_header(); ?>
 					<div class="galBox">
 						<div class="galcon-inner">
 					    <div class="row">
-					    <div class="image-outer col-md-12">
+					    <div class="image-outer">
+					    <div class="image-middler">
 						<div class="image-inner">
 							<img src="<?php the_post_thumbnail_url('full');?>" alt="<?php the_title();?>" class="lightbox-image">
+						</div>
 						</div>
 						</div>
 						<div class="gal-content-inside-wrap">
