@@ -24,7 +24,8 @@ get_header(); ?>
 					) );
 					if(!empty($terms)){
 					?>
-					<select name="cakegal_cat" class="gal_cat" style="width:30%;float:right;margin:10px 5px">
+					<div class="dropdown-select">
+					<select name="cakegal_cat" class="gal_cat">
 						<option value="">Select Category</option>
 					<?php
 						foreach($terms as $term){
@@ -34,13 +35,16 @@ get_header(); ?>
 						}
 					?>
 					</select> 
+					</div>
 					<?php
 					}
 					$field_id = 'field_58c8df4c9c53d';
 					$color_type = get_field_object($field_id);
 					if(!empty($color_type['choices'])){
 						?>
-						<select name="cakegal_color_type" class="gal_color_type" style="width:30%;float:right;margin:10px 5px">
+						<div class="dropdown-select">
+						
+						<select name="cakegal_color_type" class="gal_color_type">
 							<option value="">Select Color</option>
 						<?php
 							foreach($color_type['choices'] as $key => $val){
@@ -50,13 +54,15 @@ get_header(); ?>
 							}
 						?>
 						</select> 
+						</div>
 						<?php
 					}
 					$field_id = 'field_58c94f4841353';
 					$scene = get_field_object($field_id);
 					if(!empty($scene['choices'])){
 						?>
-						<select name="cakegal_scene" class="gal_scene" style="width:30%;float:right;margin:10px 5px">
+						<div class="dropdown-select">
+						<select name="cakegal_scene" class="gal_scene"">
 							<option value="">Select Scene</option>
 						<?php
 							foreach($scene['choices'] as $key => $val){
@@ -65,7 +71,7 @@ get_header(); ?>
 						<?php
 							}
 						?>
-						</select> 
+						</select> </div>
 						<?php
 					}
 				?>
@@ -147,7 +153,7 @@ get_header(); ?>
 							<figure>
 								<a href="#popUp<?php echo $post->ID;?>">
 									<img src="<?php the_post_thumbnail_url('full');?>" alt="<?php the_title();?>">
-									<span class="zoomBtn">&nbsp;</span>
+									<span class="zoomBtn"><i class="fa fa-search"></i></span>
 								</a>
 								</figure>
 							</li>
@@ -187,7 +193,7 @@ get_header(); ?>
 	
 					<div class="galBox">
 						<div class="galcon-inner">
-					    <!--<div class="row">-->
+					    
 					    <div class="image-outer">
 					    <div class="image-middler">
 						<div class="image-inner">
@@ -199,9 +205,9 @@ get_header(); ?>
 						<div class="meta-info">
 							<ul class="ck-info">
 								<li><label>Category</label><span class="value"><?php if( isset($trm_name) && is_array($trm_name) && !empty($trm_name)){ echo implode(',',$trm_name);}?></span></li>
-								<li><label>Size | </label><span class="value size-value"><?php echo $custom_order_cakesize_round;?></span></li>
-								<li><label>Price | </label><span class="value price-value">¥<?php echo $est_price;?></span></li>
-								<li><label>Scene  | </label><span class="value price-value"><?php if(!empty($scene)){ echo implode(',',$scene);}?></span></li>
+								<li><label>Size</label><span class="value size-value"><?php echo $custom_order_cakesize_round;?></span></li>
+								<li><label>Price</label><span class="value price-value">¥<?php echo $est_price;?></span></li>
+								<li><label>Scene</label><span class="value price-value"><?php if(!empty($scene)){ echo implode(',',$scene);}?></span></li>
 							</ul>
 							<a class="gallery_type_btn" href="http://kitt-sweets.jp/order-made-form?type=<?php if( isset($trm_slug) && is_array($trm_slug) && !empty($trm_slug)){ echo implode(',',$trm_slug);}?>&post_id=<?php echo $post->ID;?>">
 								<input class="cdo-button" value="このケーキを参考に注文する" type="button">
@@ -209,7 +215,7 @@ get_header(); ?>
 						</div>
 						</div>
 						
-						<!--</div>--/row-->
+						
 						</div>
 					</div>
 				</div>
@@ -226,10 +232,5 @@ get_header(); ?>
 			
 		</div><!-- .row -->
 	</div><!-- .container -->
-	</div><!-- #content-wrapper -->
-<script type="text/javascript">
-/*jQuery(function($) {
-	$('.galBox').addClass('landscape');
-});*/
-</script>
+	</div><!-- #content-wrapper -->																  
 <?php get_footer(); ?>
