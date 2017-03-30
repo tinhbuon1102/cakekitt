@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<h1 class="form_payment_title">お支払い画面</h1>
+<h1 class="form_payment_title center-line"><span>お支払い画面</span></h1>
 <form id="order_review" method="post">
 
 	<table class="shop_table">
