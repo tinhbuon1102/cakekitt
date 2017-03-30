@@ -48,5 +48,6 @@
 .subsubsub .mine {display: none;}
 .wc-order-totals-items .wc-order-edit-line-item-actions .edit-order-item,
 #order_line_items .delete-order-item,
-#order_shipping_line_items .delete-order-item
+#order_shipping_line_items .delete-order-item,
+#woocommerce-order-items .button.bulk-delete-items
 {display: none !important;}

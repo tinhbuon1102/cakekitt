@@ -68,4 +68,13 @@ jQuery(document).ready(function($){
 			$('.edit_address:visible').trigger('click');
 		}, 500);
 	}
+	
+	if ($('input.line_subtotal_tax.wc_input_price').length)
+	{
+		$('input.line_subtotal_tax.wc_input_price').attr('readonly', true);
+		$('input.line_tax.wc_input_price').attr('readonly', true);
+		$('#order_shipping_line_items input.line_total.wc_input_price').attr('readonly', true);
+		
+		
+	}
 });

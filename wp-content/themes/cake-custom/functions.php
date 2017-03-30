@@ -724,7 +724,7 @@ function save_custom_order_detail_meta_box ( $post_id, $post, $update )
 	if (is_custom_order($post_id) && $post->post_type == 'shop_order')
 	{
 		$order = new WC_Order($post_id);
-		$shipping_methods = $order->get_shipping_methods();
+		$GLOBALS['shipping_methods'] = $shipping_methods = $order->get_shipping_methods();
 		$aCustomeOrder = get_post_meta($post_id, 'cake_custom_order', true);
 		$_POST['custom_order_meta']['custom_order_cakePic'] = $_POST['custom_order_cakePic'];
 		$_POST['custom_order_meta']['custom_order_photocakepic'] = $_POST['custom_order_photocakepic'];
@@ -739,7 +739,7 @@ function save_custom_order_detail_meta_box ( $post_id, $post, $update )
 		$aImageNames = array('custom_order_cakePic', 'custom_order_photocakepic');
 		foreach ($aImageNames as $imageName)
 		{
-			if (isset($updatedCustomOrder[$imageName]))
+			if (isset($updatedCustomOrder[$imageName]) && !empty($updatedCustomOrder[$imageName]))
 			{
 				$picTmp = array();
 				foreach($updatedCustomOrder[$imageName] as $attach_index => $attachment_id)
@@ -760,6 +760,77 @@ function save_custom_order_detail_meta_box ( $post_id, $post, $update )
 			}
 		}
 		update_post_meta($post_id, "cake_custom_order", $updatedCustomOrder);
+		
+		$order_item_ids = array_keys($shipping_methods);
+		$item_id = $order_item_ids[0];
+		$zone        = WC_Shipping_Zones::get_zone(0);
+		$methods = $zone->get_shipping_methods();
+		
+		// Get packages
+		$packages = array();
+		$cart_contents = array();
+		$cart_item_key = uniqid();
+		
+		$product_items = $order->get_items();
+		$product = current($product_items);
+		$product_id = $product['product_id'];
+		$product_data = wc_get_product( $product_id );
+		
+		$cart_contents[ $cart_item_key ] = apply_filters( 'woocommerce_add_cart_item', array_merge( array(), array(
+			'product_id'	=> $product_id,
+			'variation_id'	=> 0,
+			'variation' 	=> array(),
+			'quantity' 		=> 1,
+			'data'			=> $product_data
+		) ), $cart_item_key );
+		
+		$packages['contents']                 = $cart_contents;		// Items in the package
+		$packages['contents_cost']            = 0;						// Cost of items in the package, set below
+		$packages['applied_coupons']          = array();
+		$packages['user']['ID']               = $order->user_id;
+		$packages['destination']['country']   = $_POST['_shipping_country'];
+		$packages['destination']['state']     = $_POST['_shipping_state'];
+		$packages['destination']['postcode']  = $_POST['_shipping_postcode'];
+		$packages['destination']['city']      = $_POST['_shipping_city'];
+		$packages['destination']['address']   = $_POST['_shipping_address_1'];
+		$packages['destination']['address_2'] = $_POST['_shipping_address_2'];
+		
+		$session_class  = apply_filters( 'woocommerce_session_handler', 'WC_Session_Handler' );
+		WC()->session  = new $session_class();
+		WC()->customer = new WC_Customer();
+		
+		if (!function_exists('wc_get_chosen_shipping_method_ids'))
+		{
+			function wc_get_chosen_shipping_method_ids()
+			{
+				global $shipping_methods;
+				$method_ids     = array();
+				foreach ($shipping_methods as $shipping_method)
+				{
+					$method_ids[] = $shipping_method['method_id'];
+				}
+					
+				return $method_ids;
+			}
+		}
+		foreach ($methods as $methodId => $method)
+		{
+			// Calculate order taxes, shipping
+			if ($updatedCustomOrder['custom_order_shipping'] == 'delivery' && "$method->id:$methodId" == KITT_SHIPPING_DELIVERY)
+			{
+				wc_update_order_item_meta( $item_id, 'cost', $method->cost );
+				$method->calculate_shipping($packages);
+				wc_update_order_item_meta( $item_id, 'taxes', $method->rates[KITT_SHIPPING_DELIVERY]->taxes );
+			}
+			if ($updatedCustomOrder['custom_order_shipping'] == 'pickup' && "$method->id:$methodId" == KITT_SHIPPING_PICKUP)
+			{
+				wc_update_order_item_meta( $item_id, 'cost', $method->cost );
+				wc_update_order_item_meta( $item_id, 'taxes', array() );
+				
+				$method->calculate_shipping();
+			}
+		}
+		$order->calculate_totals();
 	}
 	return $post_id;
 }
@@ -1671,10 +1742,11 @@ function isCityDiscounted(){
 	
 	if ((isset($_POST['s_city']) && in_array($_POST['s_city'], getDiscountShippingCity())) ||
 			(isset($_POST['shipping_city']) && in_array($_POST['shipping_city'], getDiscountShippingCity())) ||
+			(isset($_POST['_shipping_city']) && in_array($_POST['_shipping_city'], getDiscountShippingCity())) ||
 			(isset($_POST['custom_order_deliver_city']) && in_array($_POST['custom_order_deliver_city'], getDiscountShippingCity())) ||
 			(isset($post_data['shipping_city']) && in_array($post_data['shipping_city'], getDiscountShippingCity())) ||
-			((!$_POST['s_city'] && !$_POST['shipping_city'] && !$_POST['custom_order_deliver_city'] && !$post_data['shipping_city']) && isset(WC()->session->customer['shipping_city']) && in_array(WC()->session->customer['shipping_city'], getDiscountShippingCity())) ||
-			((!$_POST['s_city'] && !$_POST['shipping_city'] && !$_POST['custom_order_deliver_city'] && !$post_data['shipping_city']) && $user_shipping_city && in_array($user_shipping_city, getDiscountShippingCity()))
+			((!$_POST['s_city'] && !$_POST['shipping_city'] && !$_POST['custom_order_deliver_city'] && !$_POST['_shipping_city'] && !$post_data['shipping_city']) && isset(WC()->session->customer['shipping_city']) && in_array(WC()->session->customer['shipping_city'], getDiscountShippingCity())) ||
+			((!$_POST['s_city'] && !$_POST['shipping_city'] && !$_POST['custom_order_deliver_city'] && !$_POST['_shipping_city'] && !$post_data['shipping_city']) && $user_shipping_city && in_array($user_shipping_city, getDiscountShippingCity()))
 			)
 	{
 		return true;
@@ -1686,8 +1758,6 @@ function isCityDiscounted(){
 
 add_filter( 'woocommerce_shipping_zone_shipping_methods', 'kitt_woocommerce_shipping_zone_shipping_methods', 10, 4);
 function kitt_woocommerce_shipping_zone_shipping_methods( $methods, $raw_methods, $allowed_classes, $shipping) {
-	if (is_admin()) return $methods;
-	
 	//@TODO get shipping fee base on city here
 	$shipping_fee = 0;
 	if(isCityDiscounted())
@@ -1698,18 +1768,29 @@ function kitt_woocommerce_shipping_zone_shipping_methods( $methods, $raw_methods
 	{
 		$shipping_fee = false;
 	}
-	
-	$shipping_packages = WC()->session->get('shipping_for_package_0');
-	foreach ($methods as $method_id => &$method)
+	$is_admin_post = is_admin() && $_POST['shipping_method'];
+	if ($is_admin_post || WC()->session)
 	{
-		if ($method->id == 'flat_rate' && $shipping_fee !== false)
+		$shipping_packages = array();
+		if (WC()->session)
+			$shipping_packages = WC()->session->get('shipping_for_package_0');
+		
+		foreach ($methods as $method_id => &$method)
 		{
-			$method->instance_settings['cost'] = $shipping_fee;
-			$method->cost = $shipping_fee;
-			if (is_array($shipping_packages))
+			if ($method->id == 'flat_rate' && $shipping_fee !== false)
 			{
-				$shipping_packages['rates'][$method->id . ':' . $method_id]->cost = $shipping_fee;
-				WC()->session->set( 'shipping_for_package_0', $shipping_packages );
+				$method->instance_settings['cost'] = $shipping_fee;
+				$method->cost = $shipping_fee;
+				if (is_array($shipping_packages) && !empty($shipping_packages))
+				{
+					$shipping_packages['rates'][$method->id . ':' . $method_id]->cost = $shipping_fee;
+					WC()->session->set( 'shipping_for_package_0', $shipping_packages );
+				}
+			}
+			elseif ($method->id == 'local_pickup')
+			{
+				$method->instance_settings['cost'] = 0;
+				$method->cost = 0;
 			}
 		}
 	}
