@@ -490,6 +490,7 @@ add_action('woocommerce_order_status_cancelled_to_accepted','order_send_invoice'
 add_action('woocommerce_order_status_refunded_to_accepted','order_send_invoice');
 
 
+add_action( 'woocommerce_order_status_accepted_to_on-hold', 'send_email_on_hold' );
 function send_email_on_hold($order_id)
 {
 	$mailer = WC()->mailer();
@@ -504,7 +505,20 @@ function send_email_on_hold($order_id)
 	}
 }
 
-add_action( 'woocommerce_order_status_accepted_to_on-hold', 'send_email_on_hold' );
+add_action( 'woocommerce_order_status_accepted_to_processing', 'send_email_processing' );
+function send_email_processing($order_id)
+{
+	$mailer = WC()->mailer();
+	$mails = $mailer->get_emails();
+	$email_to_send = 'customer_processing_order';
+	if ( ! empty( $mails ) ) {
+		foreach ( $mails as $mail ) {
+			if ( $mail->id == $email_to_send ) {
+				$mail->trigger( $order_id );
+			}
+		}
+	}
+}
 
 add_action( 'woocommerce_admin_order_data_after_order_details', 'kitt_woocommerce_admin_order_data_after_order_details', 10, 1 );
 function kitt_woocommerce_admin_order_data_after_order_details($order)
