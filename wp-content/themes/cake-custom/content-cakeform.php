@@ -602,28 +602,28 @@ if ($inspired_pic)
 									<div class="row">
 										<div class="field col-md-6">
 											<label class="label">宛名</label>
-											<input placeholder="" class="input validate[required]" required="required" type="text" name="custom_order_deliver_name" id="deliver_name" value="<?php echo get_user_meta($userID, 'shipping_last_name', true)?>">
+											<input placeholder="" class="input validate[required]" required="required" type="text" name="custom_order_deliver_name" id="deliver_name" value="">
 										</div>
 										<div class="field col-md-6">
 											<label class="label">店舗名</label>
-											<input placeholder="" class="input validate[required]" required="required" type="text" name="custom_order_deliver_storename" id="deliver_storename" value="<?php echo get_user_meta($userID, 'shipping_company', true)?>">
+											<input placeholder="" class="input validate[required]" required="required" type="text" name="custom_order_deliver_storename" id="deliver_storename" value="">
 										</div>
 									</div>
 									<div class="row">
 										<div class="field col-md-6">
 											<label class="label">担当者様名</label>
-											<input placeholder="" class="input validate[required]" required="required" type="text" name="custom_order_deliver_cipname" id="deliver_cipname" value="<?php echo get_user_meta($userID, 'shipping_first_name', true)?>">
+											<input placeholder="" class="input validate[required]" required="required" type="text" name="custom_order_deliver_cipname" id="deliver_cipname" value="">
 										</div>
 										<div class="field col-md-6">
 											<label class="label">電話番号</label>
-											<input placeholder="0312345678" class="input validate[required]" required="required" type="tel" name="custom_order_deliver_tel" id="deliver_tel" value="<?php echo get_user_meta($userID, 'shipping_phone', true)?>">
+											<input placeholder="0312345678" class="input validate[required]" required="required" type="tel" name="custom_order_deliver_tel" id="deliver_tel" value="">
 										</div>
 									</div>
 									<div class="row">
 										<div class="address-field">
 											<div class="field col-md-12">
 												<label class="label">住所</label>
-												<input placeholder="郵便番号" class="input validate[required]" required="required" type="text" name="custom_order_deliver_postcode" id="deliver_postcode" value="<?php echo get_user_meta($userID, 'shipping_postcode', true)?>">
+												<input placeholder="郵便番号" class="input validate[required]" required="required" type="text" name="custom_order_deliver_postcode" id="deliver_postcode" value="">
 											</div>
 											<div class="field col-md-6">
 												<div class="select-wrapper">
@@ -636,13 +636,13 @@ if ($inspired_pic)
 												</div>
 											</div>
 											<div class="field col-md-6">
-												<input placeholder="市区町村" class="input validate[required]" required="required" type="text" name="custom_order_deliver_city" id="deliver_city" value="<?php echo get_user_meta($userID, 'shipping_city', true)?>">
+												<input placeholder="市区町村" class="input validate[required]" required="required" type="text" name="custom_order_deliver_city" id="deliver_city" value="">
 											</div>
 											<div class="field col-md-6">
-												<input placeholder="番地等" class="input validate[required]" required="required" type="text" name="custom_order_deliver_addr1" id="deliver_addr1" value="<?php echo get_user_meta($userID, 'shipping_address_1', true)?>">
+												<input placeholder="番地等" class="input validate[required]" required="required" type="text" name="custom_order_deliver_addr1" id="deliver_addr1" value="">
 											</div>
 											<div class="field col-md-6">
-												<input placeholder="ビル・マンション名等" class="input validate[required]" type="text" name="custom_order_deliver_addr2" id="deliver_addr2" value="<?php echo get_user_meta($userID, 'shipping_address_2', true)?>">
+												<input placeholder="ビル・マンション名等" class="input validate[required]" type="text" name="custom_order_deliver_addr2" id="deliver_addr2" value="">
 											</div>
 										</div>
 									</div>
