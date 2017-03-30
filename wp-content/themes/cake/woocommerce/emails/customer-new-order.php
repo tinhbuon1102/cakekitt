@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
 <p><?php _e( "We are checking your order and will contact you soon. Your order details are shown below for your reference:", 'cake' ); ?></p>
-
+<p style="color:red;">この時点ではお客様のご注文はまだ確定しておりませんので、ご注意ください。</p>
 <?php
 
 /**

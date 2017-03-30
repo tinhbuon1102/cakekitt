@@ -56,15 +56,15 @@ do_action( 'woocommerce_before_edit_account_form' ); ?>
 	</p>
 	
 	<div class="woocommerce-FormRow woocommerce-FormRow--first form-row form-row-first">
-		<label ><?php _e( 'Sex', 'Cake' ); ?> <span class="required">*</span></label>
+		<label ><?php _e( 'Sex', 'cake' ); ?> <span class="required">*</span></label>
 		<ul class="form-row-wide text-radio list-type" style="list-style-type: none; margin: 0;">
 			<li class="m-input__radio">
 				<input type="radio" class="radio_input" name="account_sex" id="account_email_male" value="male" <?php checked( get_user_meta($user->ID, 'sex', true), 'male', true )?> required>
-				<label for="account_email_male" class="radio_label"><?php _e( 'Male', 'Cake' ); ?> </label>
+				<label for="account_email_male" class="radio_label"><?php _e( 'Male', 'woocommerce' ); ?></label>
 			</li>
 			<li class="m-input__radio">
 				<input type="radio" class="radio_input" name="account_sex" id="account_email_female" value="female" <?php checked( get_user_meta($user->ID, 'sex', true), 'female', true )?> required/>
-				<label for="account_email_female" class="radio_label"><?php _e( 'Female', 'Cake' ); ?> </label>
+				<label for="account_email_female" class="radio_label"><?php _e( 'Female', 'woocommerce' ); ?> </label>
 			</li>
 		</ul>
 	</div>
@@ -76,7 +76,9 @@ do_action( 'woocommerce_before_edit_account_form' ); ?>
 	$default	= array( 'day' => 1, 'month' => 1, 'year' => 1980, );
 	$birth_date = $birth_date ? $birth_date : $default;
 	?>
-	<p class="woocommerce-FormRow woocommerce-FormRow--last form-row form-row-last" >
+	<div class="woocommerce-FormRow woocommerce-FormRow--last form-row form-row-last" >
+	<label for="account_birthdate"><?php _e( 'Birth date', 'cake' ); ?> <span class="required">*</span></label>
+	<div class="select-common select-bd first">
 		<select id="birth-date-year" name="birth_date[year]" required>
 			<option value=""><?php echo __('Select Birth Year')?></option>
 			<?php
@@ -84,13 +86,16 @@ do_action( 'woocommerce_before_edit_account_form' ); ?>
    					 printf( '<option value="%1$s" %2$s>%1$s</option>', $yearNumber, selected( $birth_date['year'], $yearNumber, false ) );
    				 }
    			 ?></select>
+   			 </div>
+   			 <div class="select-common select-bd">
    			 <select id="birth-date-month" name="birth_date[month]" required>
    			 <option value=""><?php echo __('Select Birth Month')?></option>
    			 <?php
    				 foreach ( $yearMonthDays['months'] as $monthNumber => $monthText ) {
    					 printf( '<option value="%1$s" %2$s>%3$s</option>', $monthNumber, selected( $birth_date['month'], $monthNumber, false ), $monthText );
    				 }
-   			 ?></select>
+   			 ?></select></div>
+   			 <div class="select-common select-bd last">
    			 <select id="birth-date-day" name="birth_date[day]" required>
    			 <option value=""><?php echo __('Select Birth Day')?></option>
    			 <?php
@@ -98,8 +103,8 @@ do_action( 'woocommerce_before_edit_account_form' ); ?>
    					 printf( '<option value="%1$s" %2$s>%1$s</option>', $dayNumber, selected( $birth_date['day'], $dayNumber, false ) );
    				 }
    			 ?></select>
-   		 </td>
-	</p>
+   		</div>
+	</div>
 	
 	<div class="clear"></div>
 	<br />

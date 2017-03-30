@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - WooCommerce - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-03-22 09:53+0900\n"
+"PO-Revision-Date: 2017-03-30 21:44+0900\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10022,7 +10022,7 @@ msgstr "期間"
 #: includes/admin/settings/views/html-webhook-log.php:13
 #: includes/wc-account-functions.php:211
 msgid "Method"
-msgstr "Method"
+msgstr "カード番号"
 
 #: includes/admin/settings/class-wc-settings-tax.php:182
 msgid "Tax Name"

@@ -1430,7 +1430,7 @@ function kitt_woocommerce_after_checkout_billing_form($checkout)
 ?>
 <div class="row">
 		<div class="field col-md-6">
-			<label class="label">Sex</label>
+			<label class="label">性別</label>
 			<ul class="account_sex text-radio list-type">
 				<li class="m-input__radio">
 					<input type="radio" name="cake_custom_order[custom_order_customer_sex]" id="account_sex_male" class="radio_input validate[required]" <?php checked( get_user_meta(get_current_user_id(), 'sex', true), 'male', true )?> value="male">
@@ -1455,7 +1455,7 @@ function kitt_woocommerce_after_checkout_billing_form($checkout)
 			</ul>
 		</div>
 		<div class="field col-md-6 birth-field">
-			<label class="label"><?php _e( 'Birthday', 'cake' ); ?></label>
+			<label class="label"><?php _e( 'Birth date', 'cake' ); ?></label>
 			<?php 
 			$yearMonthDays = kitt_get_year_month_day();
 			$birth_date = get_user_meta( get_current_user_id(), 'birth_date', true);
