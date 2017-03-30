@@ -731,7 +731,7 @@ function save_custom_order_detail_meta_box ( $post_id, $post, $update )
 		
 		foreach ($shipping_methods as $order_item_id => $shipping_method)
 		{	
-			$aCustomeOrder['custom_order_shipping'] = $shipping_method['method_id'] == 'flat_rate' ? 'delivery' : 'pickup';
+			$aCustomeOrder['custom_order_shipping'] = strpos($shipping_method['method_id'], 'flat_rate') !== false ? 'delivery' : 'pickup';
 		}
 			
 		$updatedCustomOrder = $_POST['custom_order_meta'] + $aCustomeOrder;
@@ -759,8 +759,10 @@ function save_custom_order_detail_meta_box ( $post_id, $post, $update )
 				$updatedCustomOrder[$imageName] = implode(PHP_EOL, $picTmp);
 			}
 		}
+		// Save custom order 
 		update_post_meta($post_id, "cake_custom_order", $updatedCustomOrder);
 		
+		// Calculate automatically shipping, taxes
 		$order_item_ids = array_keys($shipping_methods);
 		$item_id = $order_item_ids[0];
 		$zone        = WC_Shipping_Zones::get_zone(0);
@@ -813,6 +815,7 @@ function save_custom_order_detail_meta_box ( $post_id, $post, $update )
 				return $method_ids;
 			}
 		}
+		
 		foreach ($methods as $methodId => $method)
 		{
 			// Calculate order taxes, shipping
@@ -822,7 +825,7 @@ function save_custom_order_detail_meta_box ( $post_id, $post, $update )
 				$method->calculate_shipping($packages);
 				wc_update_order_item_meta( $item_id, 'taxes', $method->rates[KITT_SHIPPING_DELIVERY]->taxes );
 			}
-			if ($updatedCustomOrder['custom_order_shipping'] == 'pickup' && "$method->id:$methodId" == KITT_SHIPPING_PICKUP)
+			elseif ($updatedCustomOrder['custom_order_shipping'] == 'pickup' && "$method->id:$methodId" == KITT_SHIPPING_PICKUP)
 			{
 				wc_update_order_item_meta( $item_id, 'cost', $method->cost );
 				wc_update_order_item_meta( $item_id, 'taxes', array() );

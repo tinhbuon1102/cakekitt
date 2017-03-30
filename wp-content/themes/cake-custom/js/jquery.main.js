@@ -61,7 +61,16 @@ $(function(){
             			$('#shipping_fee').addClass('disable');
             			$('#sub_total').addClass('disable');
             		}
-            		$('#total_tax .text-right h6').html(response.total_tax);
+            		
+//            		if (response.total_tax)
+//            		{
+//            			$('#total_tax').removeClass('disable');
+//            			$('#total_tax .text-right h6').html(response.total_tax);
+//            		}
+//            		else {
+//            			$('#total_tax').addClass('disable');
+//            		}
+            		
             		$('#sub_total .text-right h6').html(response.sub_total);
             		$('#cart_total .text-right h4').html(response.cart_total);
             		
@@ -251,7 +260,16 @@ $(function(){
                 			$('#shipping_fee').addClass('disable');
                 			$('#sub_total').addClass('disable');
                 		}
-                		$('#total_tax .text-right h6').html(response.total_tax);
+                		
+//                		if (response.total_tax)
+//                		{
+//                			$('#total_tax').removeClass('disable');
+//                			$('#total_tax .text-right h6').html(response.total_tax);
+//                		}
+//                		else {
+//                			$('#total_tax').addClass('disable');
+//                		}
+                		
                 		$('#sub_total .text-right h6').html(response.sub_total);
                 		$('#cart_total .text-right h4').html(response.cart_total);
                 	}
