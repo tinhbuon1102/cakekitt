@@ -48,6 +48,9 @@ div.rangeslider {
 	position:relative;
 	overflow:hidden;
 }
+form.variations_form .variations .woocommerce-variation-price {
+	display: none;
+}
 #wait{
 	background: rgba(0, 0, 0, 0) url("images/ajax-loader.gif") no-repeat scroll center center;
 	display:none;
