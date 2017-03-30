@@ -1108,6 +1108,9 @@ h1.center-line span {
 	background: #FFF;
 	padding: 0 20px;
 }
+.woocommerce-thankyou-order-received {
+    margin-bottom: 20px;
+}
 /* checkout*/
 ul.account_sex.text-radio.list-type {
     list-style: none;
@@ -3749,6 +3752,9 @@ line-height: 30px;
 	vertical-align: inherit;
 	margin: 0;
 	display: inline-block;
+}
+.round-icon-select.text-radio li.m-input__radio label.radio_label {
+	display: block;
 }
 ul.text-radio li.m-input__radio.col-md-12 {
     margin-top: 10px;
