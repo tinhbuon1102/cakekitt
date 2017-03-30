@@ -1584,7 +1584,7 @@ function load_items(){
 			<li data-gal_color_type="<?php if(!empty($color_type)){ echo trim(implode(',',$color_type),',');}?>" data-gal_scene="<?php if(!empty($scene)){ echo implode(',',$scene);}?>" data-gal_cat="<?php if( isset($tma) && is_array($tma) && !empty($tma)){ echo implode(',',$tma);}?>">
 				<a href="#" data-featherlight="#popUp<?php echo $post->ID;?>">
 					<img src="<?php the_post_thumbnail_url('full');?>" alt="<?php the_title();?>">
-					<span class="zoomBtn">&nbsp;</span>
+					<span class="zoomBtn"><i class="fa fa-search"></i></span>
 				</a>
 			</li>
 			<?php
@@ -1637,9 +1637,9 @@ function load_items(){
 				<div class="meta-info">
 					<ul class="ck-info">
 						<li><label>Category</label><span class="value"><?php if( isset($trm_name) && is_array($trm_name) && !empty($trm_name)){ echo implode(',',$trm_name);}?></span></li>
-						<li><label>Size | </label><span class="value size-value"><?php echo $custom_order_cakesize_round;?></span></li>
-						<li><label>Price | </label><span class="value price-value">¥<?php echo $est_price;?></span></li>
-						<li><label>Scene  | </label><span class="value price-value"><?php if(!empty($scene)){ echo implode(',',$scene);}?></span></li>
+						<li><label>Size</label><span class="value size-value"><?php echo $custom_order_cakesize_round;?></span></li>
+						<li><label>Price</label><span class="value price-value">¥<?php echo $est_price;?></span></li>
+						<li><label>Scene</label><span class="value price-value"><?php if(!empty($scene)){ echo implode(',',$scene);}?></span></li>
 					</ul>
 					<a class="gallery_type_btn" href="http://kitt-sweets.jp/order-made-form?type=<?php if( isset($trm_slug) && is_array($trm_slug) && !empty($trm_slug)){ echo implode(',',$trm_slug);}?>&post_id=<?php echo $post->ID;?>">
 						<input class="cdo-button" value="このケーキを参考に注文する" type="button">
