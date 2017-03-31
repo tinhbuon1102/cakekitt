@@ -124,6 +124,47 @@ function kitt_get_custom_fields()
 
 include 'order_functions.php';
 
+add_action( 'admin_menu', 'my_remove_menu_pages' );
+function my_remove_menu_pages() {
+	if (!current_user_can('level_10')) {
+		//remove_menu_page( 'edit.php' );                   //Posts
+		remove_menu_page( 'edit.php?post_type=page' );      //Page
+		//remove_menu_page( 'upload.php' );                 //Media
+		remove_menu_page( 'edit-comments.php' );          //Comments
+		remove_menu_page( 'themes.php' );                 //Appearance
+		//remove_menu_page( 'users.php' );                  //Users
+		remove_menu_page( 'tools.php' );                  //Tools
+		remove_menu_page( 'options-general.php' );        //Settings
+		remove_menu_page( 'edit.php?post_type=portfolio' );
+		remove_menu_page( 'edit.php?post_type=testimonial' );
+		remove_menu_page( 'edit.php?post_type=team' );
+		remove_menu_page( 'edit.php?post_type=essential_grid' );
+
+	}
+};
+function my_remove_jetpack() {
+	if( class_exists( 'Jetpack' ) && !current_user_can( 'manage_options' ) ) {
+		remove_menu_page( 'jetpack' );
+	}
+}
+add_action( 'admin_init', 'my_remove_jetpack' );
+
+if (!current_user_can('level_10')) {
+	// バージョン更新を非表示にする
+	add_filter('pre_site_transient_update_core', '__return_zero');
+	// APIによるバージョンチェックの通信をさせない
+	remove_action('wp_version_check', 'wp_version_check');
+	remove_action('admin_init', '_maybe_update_core');
+}
+// 管理バーのヘルプメニューを非表示にする
+function my_admin_head(){
+	if (!current_user_can('level_10')) {
+		echo '<style type="text/css">#contextual-help-link-wrap{display:none;}</style>';
+	}
+ }
+add_action('admin_head', 'my_admin_head');
+
+
 // 親テーマ引き継ぎ用関数
 add_action('wp_enqueue_scripts', 'theme_enqueue_styles');
 function theme_enqueue_styles ()
@@ -450,7 +491,7 @@ function create_post_type() {
   ];
   register_post_type( 'cakegal',  // カスタム投稿名
     array(
-      'label' => 'Cake Gallery',  // 管理画面の左メニューに表示されるテキスト
+      'label' => __('Cake Gallery', 'cake'),  // 管理画面の左メニューに表示されるテキスト
       'public' => true,  // 投稿タイプをパブリックにするか否か
       'has_archive' => true,  // アーカイブを有効にするか否か
       'menu_position' => 5,  // 管理画面上でどこに配置するか今回の場合は「投稿」の下に配置
