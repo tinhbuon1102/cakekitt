@@ -833,32 +833,32 @@ function getDecorationGroup(){
 
 	$aDecoration = array(
 		'icingcookie' => array(
-			'custom_order_icingcookie_qty' => array('label' => __('Icingcookie Quantity', 'cake')),
-			'custom_order_basecolor_text' => array('label' => __('Icingcookie Text', 'cake')),
+			'custom_order_icingcookie_qty' => array('label' => __('qty', 'cake')),
+			'custom_order_basecolor_text' => array('label' => __('detail note', 'cake')),
 		),
 		'cupcake' => array(
-			'custom_order_cupcake_qty' => array('label' => __('Cupcake Quantity', 'cake')),
-			'custom_order_cpck_text' => array('label' => __('Cupcake Text', 'cake')),
+			'custom_order_cupcake_qty' => array('label' => __('qty', 'cake')),
+			'custom_order_cpck_text' => array('label' => __('detail note', 'cake')),
 		),
 		'macaron' => array(
-			'custom_order_macaron_qty' => array('label' => __('Macaron Quantity', 'cake')),
-			'custom_order_macaron_color' => array('label' => __('Macaron Color', 'cake')),
+			'custom_order_macaron_qty' => array('label' => __('qty', 'cake')),
+			'custom_order_macaron_color' => array('label' => __('color', 'cake')),
 		),
 		'heartchoco' => array(
 		),
 		'fruit' => array(
 		),
 		'flower' => array(
-			'custom_order_flowercolor' => array('label' => __('Flower Color', 'cake')),
+			'custom_order_flowercolor' => array('label' => __('color', 'cake')),
 		),
 		'print' => array(
-			'custom_order_photocakepic' => array('label' => __('Print Cake Photo', 'cake')),
+			'custom_order_photocakepic' => array('label' => __('printing photo', 'cake')),
 		),
 		'candy' => array(
-			'custom_order_candy_text' => array('label' => __('Candy Text', 'cake')),
+			'custom_order_candy_text' => array('label' => __('detail note', 'cake')),
 		),
 		'figure' => array(
-			'custom_order_doll_text' => array('label' => __('Figure Doll Text', 'cake')),
+			'custom_order_doll_text' => array('label' => __('detail note', 'cake')),
 		),
 		'sugarcoating' => array(
 		),
