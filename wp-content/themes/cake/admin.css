@@ -133,3 +133,6 @@ table.order-detail-meta {
 #custom_order_cakePic_wraper .col-right .acf-image-uploader {
     display: inline-block;
 }
+table.order-detail-meta .disabled {
+    display: none;
+}
