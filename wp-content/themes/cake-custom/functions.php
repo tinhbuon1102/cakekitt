@@ -800,7 +800,7 @@ function save_custom_order_detail_meta_box ( $post_id, $post, $update )
 		$product = current($product_items);
 		$product_id = $product['product_id'];
 		$product_data = wc_get_product( $product_id );
-		
+		pr($product_data);die;
 		$cart_contents[ $cart_item_key ] = apply_filters( 'woocommerce_add_cart_item', array_merge( array(), array(
 			'product_id'	=> $product_id,
 			'variation_id'	=> 0,
