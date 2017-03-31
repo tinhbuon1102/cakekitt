@@ -1069,6 +1069,7 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 				switch($fieldName)
 				{
 					case 'custom_order_pickup_time':
+						$fieldValue = str_replace('.5', ':30', $fieldValue);
 						$fieldValue = $fieldValue < 12 ? ($fieldValue . __('AM', 'cake')) : ($fieldValue . __('PM', 'cake'));
 						break;
 						

@@ -677,7 +677,7 @@ if ($inspired_pic)
 												<button type="button" class="button button--ghost circle">-</button>
 											</div>
 											<div class="display-table-cell">
-												<input type="range" id="order_pickup_time" name="custom_order_pickup_time" min="1" max="24" step="1" value="9" data-rangeslider />
+												<input type="range" id="order_pickup_time" name="custom_order_pickup_time" min="1" max="24" step="0.5" value="9" data-rangeslider />
 											</div>
 											<div class="time-range__plus display-table-cell">
 												<button type="button" class="button button--ghost circle">+</button>

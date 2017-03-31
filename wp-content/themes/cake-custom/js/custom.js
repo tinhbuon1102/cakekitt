@@ -25,12 +25,13 @@ jQuery(document).ready(function(){
 
         // Example functionality to demonstrate a value feedback
         function valueOutput(element) {
-            var value = element.value;
+            var pick_time = element.value;
             var output = $('.timepicker .timepick output').get(0)
-            value = value < 12 ? (value + gl_timeAM) : (value + gl_timePM);
+            var timeText = pick_time < 12 ? (gl_timeAM) : (gl_timePM);
+            pick_time = pick_time.replace('.5', ':30');
             if (output)
             {
-            	output[textContent] = value;
+            	output[textContent] = pick_time + gl_timeAM;
             }
         }
 
