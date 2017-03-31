@@ -73,7 +73,7 @@ jQuery(document).ready(function($){
 	{
 		$('input.line_subtotal_tax.wc_input_price').attr('readonly', true);
 		$('input.line_tax.wc_input_price').attr('readonly', true);
-		$('#order_shipping_line_items input.line_total.wc_input_price').attr('readonly', true);
+		//$('#order_shipping_line_items input.line_total.wc_input_price').attr('readonly', true);
 		
 		
 	}
