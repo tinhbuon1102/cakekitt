@@ -552,6 +552,7 @@ function kitt_woocommerce_admin_order_data_after_order_details($order)
 	if ($_GET['thang'])
 	{
 		pr($shipping_method);die;
+	}
 	if ($shipping_method['method_id'] == KITT_SHIPPING_PICKUP)
 	{
 		echo '<style>
