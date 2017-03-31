@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cake 1.2\n"
 "POT-Creation-Date: 2016-09-20 10:50+0700\n"
-"PO-Revision-Date: 2017-03-31 20:22+0900\n"
+"PO-Revision-Date: 2017-03-31 22:52+0900\n"
 "Last-Translator: \n"
 "Language-Team: codeopus\n"
 "Language: ja_JP\n"
@@ -2143,3 +2143,9 @@ msgstr "東京都のみの配送となります。申し訳ございませんが
 
 msgid "Select"
 msgstr "を選択"
+
+msgid "Add More Pic"
+msgstr "写真をさらに追加"
+
+msgid "Cake Gallery"
+msgstr "ケーキギャラリー"
