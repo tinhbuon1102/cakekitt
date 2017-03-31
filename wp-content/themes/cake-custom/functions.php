@@ -549,12 +549,7 @@ function kitt_woocommerce_admin_order_data_after_order_details($order)
 	
 	// Hide shipping address if method = local pickup
 	$shipping_method = current($order->get_shipping_methods());
-	if ($_GET['thang'])
-	{
-		var_dump($shipping_method['method_id']);
-		pr($shipping_method['method_id'] == KITT_SHIPPING_PICKUP || in_array($shipping_method['method_id'], KITT_SHIPPING_PICKUP));die;
-	}
-	if ($shipping_method['method_id'] == KITT_SHIPPING_PICKUP || in_array($shipping_method['method_id'], KITT_SHIPPING_PICKUP) )
+	if ($shipping_method['method_id'] == KITT_SHIPPING_PICKUP || strpos($shipping_method['method_id'], KITT_SHIPPING_PICKUP) !== false )
 	{
 		echo '<style>
 			#order_data .order_data_column_container .order_data_column:nth-child(3) {display: none;}
