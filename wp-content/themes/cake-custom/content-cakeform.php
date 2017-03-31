@@ -210,7 +210,7 @@ if ($inspired_pic)
 							</select>
 						</div>
 						<div class="cake-layer select-wrapper">
-							<select name="custom_order_layer" class="form-control select select-primary disable" data-toggle="select">
+							<select name="custom_order_layer" class="form-control select select-primary" data-toggle="select">
 								<option value=""><?php echo __('Select Layer', 'cake')?></option>
 								<?php 
 								$index = 0;
