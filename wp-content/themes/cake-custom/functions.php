@@ -850,15 +850,18 @@ function save_custom_order_detail_meta_box ( $post_id, $post, $update )
 				return $method_ids;
 			}
 		}
-		
 		foreach ($methods as $methodId => $method)
 		{
 			// Calculate order taxes, shipping
 			if ($updatedCustomOrder['custom_order_shipping'] == 'delivery' && "$method->id:$methodId" == KITT_SHIPPING_DELIVERY)
 			{
-				wc_update_order_item_meta( $item_id, 'cost', $method->cost );
+// 				wc_update_order_item_meta( $item_id, 'cost', $method->cost );
+				wc_update_order_item_meta( $item_id, 'cost', current($_POST['shipping_cost']) );
 				$method->calculate_shipping($packages);
-				wc_update_order_item_meta( $item_id, 'taxes', $method->rates[KITT_SHIPPING_DELIVERY]->taxes );
+// 				wc_update_order_item_meta( $item_id, 'taxes', $method->rates[KITT_SHIPPING_DELIVERY]->taxes );
+				$order->calculate_taxes();
+				wc_update_order_item_meta( $item_id, 'taxes', array(1 => $order->get_shipping_tax()) );
+				
 			}
 			elseif ($updatedCustomOrder['custom_order_shipping'] == 'pickup' && "$method->id:$methodId" == KITT_SHIPPING_PICKUP)
 			{

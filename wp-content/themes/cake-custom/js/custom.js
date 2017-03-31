@@ -26,12 +26,15 @@ jQuery(document).ready(function(){
         // Example functionality to demonstrate a value feedback
         function valueOutput(element) {
             var pick_time = element.value;
+            pick_time = pick_time.replace('.5', ':30');
+            var aPickTimes = pick_time.split(':');
+            var hourTime = aPickTimes[0].length == 1 ? '0' + aPickTimes[0] : aPickTimes[0];
+            var minuteTime = aPickTimes[1] ? aPickTimes[1] : '00';
             var output = $('.timepicker .timepick output').get(0)
             var timeText = pick_time < 12 ? (gl_timeAM) : (gl_timePM);
-            pick_time = pick_time.replace('.5', ':30');
             if (output)
             {
-            	output[textContent] = pick_time + timeText;
+            	output[textContent] = hourTime + ':' + minuteTime;
             }
         }
 

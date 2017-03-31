@@ -1070,7 +1070,12 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 				{
 					case 'custom_order_pickup_time':
 						$fieldValue = str_replace('.5', ':30', $fieldValue);
-						$fieldValue = $fieldValue < 12 ? ($fieldValue . __('AM', 'cake')) : ($fieldValue . __('PM', 'cake'));
+						$aPickTimes = explode(':', $fieldValue);
+						$hourTime = strlen($aPickTimes[0]) == 1 ? '0' . $aPickTimes[0] : $aPickTimes[0];
+						$minuteTime = $aPickTimes[1] ? $aPickTimes[1] : '00';
+						
+// 						$fieldValue = $fieldValue < 12 ? ($fieldValue . __('AM', 'cake')) : ($fieldValue . __('PM', 'cake'));
+						$fieldValue = $hourTime . ':' . $minuteTime;
 						break;
 						
 					case 'custom_order_cake_type':
