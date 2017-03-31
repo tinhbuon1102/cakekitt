@@ -546,6 +546,15 @@ function kitt_woocommerce_admin_order_data_after_order_details($order)
 		kitt_acf_render_field_wrap( $itemField);
 		echo '</div>';
 	}
+	
+	// Hide shipping address if method = local pickup
+	$shipping_method = current($order->get_shipping_methods());
+	if ($shipping_method['method_id'] == KITT_SHIPPING_PICKUP)
+	{
+		echo '<style>
+			#order_data .order_data_column_container .order_data_column:nth-child(3) {display: none;}
+		</style>';
+	}
 ?>
 <?php
 }
@@ -1024,14 +1033,11 @@ function woocommerce_admin_shipping_fields_extra($fields){
 		'label' => __( 'Phone', 'woocommerce' ),
 		'show'  => false
 	);
-	return $fields;
-}
-
-add_filter( 'woocommerce_admin_shipping_fields', 'woocommerce_admin_shipping_fields_label', 10, 1 );
-function woocommerce_admin_shipping_fields_label($fields){
+	
 	$fields['last_name']['label'] = '宛名';
 	$fields['first_name']['label'] = '店舗名';
 	$fields['company']['label'] = '担当者名';
+	
 	return $fields;
 }
 
