@@ -212,6 +212,10 @@ class WC_Shipping_Flat_Rate extends WC_Shipping_Method {
 	 * @return int
 	 */
 	public function get_package_item_qty( $package ) {
+		if ($_GET['thang'])
+		{
+			pr($package['contents']);die;
+		}
 		$total_quantity = 0;
 		foreach ( $package['contents'] as $item_id => $values ) {
 			if ( $values['quantity'] > 0 && $values['data']->needs_shipping() ) {
