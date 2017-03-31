@@ -31,7 +31,7 @@ jQuery(document).ready(function(){
             pick_time = pick_time.replace('.5', ':30');
             if (output)
             {
-            	output[textContent] = pick_time + gl_timeAM;
+            	output[textContent] = pick_time + timeText;
             }
         }
 
