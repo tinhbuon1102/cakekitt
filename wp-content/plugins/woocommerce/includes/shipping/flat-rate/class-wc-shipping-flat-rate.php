@@ -212,8 +212,10 @@ class WC_Shipping_Flat_Rate extends WC_Shipping_Method {
 	 * @return int
 	 */
 	public function get_package_item_qty( $package ) {
-		if ($_GET['thang'])
+			
+		if (!empty($_POST))
 		{
+			echo 'I am testing please do not worry';
 			pr($package['contents']);die;
 		}
 		$total_quantity = 0;
