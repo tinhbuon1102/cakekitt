@@ -209,6 +209,20 @@ if ($inspired_pic)
 								<?php }?>
 							</select>
 						</div>
+						<div class="cake-layer select-wrapper">
+							<select name="custom_order_layer" class="form-control select select-primary disable" data-toggle="select">
+								<option value=""><?php echo __('Select Layer', 'cake')?></option>
+								<?php 
+								$index = 0;
+								foreach ($field_mappings['custom_order_layer']['value'] as $value => $label) {
+									$index ++
+								?>
+									<option value="<?php echo $value?>" <?php echo $field_mappings['custom_order_layer']['field']['default_value'] == $value  ? 'selected' : ''; ?>>
+										<?php echo $label?>
+									</option>
+								<?php }?>
+							</select>
+						</div>
 					</li>
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
