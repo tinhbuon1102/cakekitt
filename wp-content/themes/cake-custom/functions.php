@@ -1670,7 +1670,7 @@ function load_items(){
 			}
 			?>
 			<li data-gal_color_type="<?php if(!empty($color_type)){ echo trim(implode(',',$color_type),',');}?>" data-gal_scene="<?php if(!empty($scene)){ echo implode(',',$scene);}?>" data-gal_cat="<?php if( isset($tma) && is_array($tma) && !empty($tma)){ echo implode(',',$tma);}?>">
-				<a href="#" data-featherlight="#popUp<?php echo $post->ID;?>">
+				<a href="#popUp<?php echo $post->ID;?>">
 					<img src="<?php the_post_thumbnail_url('full');?>" alt="<?php the_title();?>">
 					<span class="zoomBtn"><i class="fa fa-search"></i></span>
 				</a>
@@ -1717,7 +1717,7 @@ function load_items(){
 				<div class="image-outer">
 				<div class="image-middler">
 				<div class="image-inner">
-					<img src="<?php the_post_thumbnail_url('full');?>" alt="<?php the_title();?>">
+					<img src="<?php the_post_thumbnail_url('full');?>" alt="<?php the_title();?>" class="lightbox-image">
 				</div>
 				</div>
 				</div>

@@ -76,43 +76,6 @@ get_header(); ?>
 					}
 				?>
 			</div>
-			<script type="text/javascript">
-				
-				jQuery('document').ready(function($){
-				
-					$(document).ajaxStart(function(){
-						$("#wait").css("display", "block");
-					});
-
-					$(document).ajaxComplete(function(){
-						$("#wait").css("display", "none");
-					}); 
-				
-					$('body').on('change', '.gal_cat,.gal_color_type,.gal_scene', function() {
-						var search_terms = {};
-						$('.gal_itms li').css('display','none');
-						$('.filter_opt select').each(function(i,e){
-							if($("option:selected", this).val().length > 0){
-								var si_cls = $(this).attr('class');
-								var si_val = $("option:selected", this).val();
-								search_terms[si_cls]= si_val;
-							}
-						});
-						var searchtrm = JSON.stringify(search_terms);
-						var data = {
-							action: 'load_items',
-							searchtrm: searchtrm
-						};
-						$.post(jscon.ajaxurl, data, function(msg) {
-							if(msg.output.length > 0){
-								var out = msg.output;
-								$('.gal_itms').html(out);
-							}
-						}, 'json');
-					});
-				});
-			</script>
-			
 			
 				<?php
 				$args = array (
