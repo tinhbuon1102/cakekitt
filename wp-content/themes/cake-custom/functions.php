@@ -1918,16 +1918,23 @@ function kitt_woocommerce_shipping_zone_shipping_methods( $methods, $raw_methods
 }
 
 function addMinimumPriceNotice($total){
-// 	wc_clear_notices();
-// 	wc_add_notice( sprintf( __('<strong>With shipping Delivery, A Minimum of %s%s  is required before checking out.</strong><br />Current cart\'s total: %s%s', 'cake'),
-// 			get_woocommerce_currency_symbol(),
-// 			KITT_MINIMUM_PRICE_CITY_1,
-// 			get_woocommerce_currency_symbol(),
-// 			$total),
-// 			'error' );
+	wc_clear_notices();
+	wc_add_notice( sprintf( __('<strong>With shipping Delivery, A Minimum of %s%s  is required before checking out.</strong><br />Current cart\'s total: %s%s', 'cake'),
+			get_woocommerce_currency_symbol(),
+			KITT_MINIMUM_PRICE_CITY_1,
+			get_woocommerce_currency_symbol(),
+			$total),
+			'error' );
 }
+
+function addPostcodeNotAllowedNotice(){
+	wc_clear_notices();
+	wc_add_notice( __('Basic flat fee won’t be applied to your shipping address. We will apply extra shipping fee.
+			<br />*Depend on location, please note that there is a possibility that we can’t deliver to your location', 'cake'));
+}
+
 // Set a minimum dollar amount per order
-add_action( 'woocommerce_before_cart_totals', 'kitt_woocommerce_before_cart_totals' );
+// add_action( 'woocommerce_before_cart_totals', 'kitt_woocommerce_before_cart_totals' );
 function kitt_woocommerce_before_cart_totals() {
 	$chosen_method = WC()->session->get( 'chosen_shipping_methods' );
 	// Only run in the Cart or Checkout pages
@@ -1942,6 +1949,8 @@ function kitt_woocommerce_before_cart_totals() {
 	}
 }
 
+// add_action( 'woocommerce_review_order_before_cart_contents', 'kitt_check_shipping_minimum_price_before_checkout', 10, 3);
+// add_action( 'woocommerce_before_checkout_process', 'kitt_check_shipping_minimum_price_before_checkout', 10, 3);
 function kitt_check_shipping_minimum_price_before_checkout ($fragments)
 {
 	global $woocommerce;
@@ -1954,7 +1963,19 @@ function kitt_check_shipping_minimum_price_before_checkout ($fragments)
 	}
 	return $fragments;
 }
-add_action( 'woocommerce_review_order_before_cart_contents', 'kitt_check_shipping_minimum_price_before_checkout', 10, 3);
-add_action( 'woocommerce_before_checkout_process', 'kitt_check_shipping_minimum_price_before_checkout', 10, 3);
+
+
+add_action( 'woocommerce_review_order_before_cart_contents', 'kitt_check_shipping_withpostcode_before_checkout', 10, 3);
+function kitt_check_shipping_withpostcode_before_checkout ($fragments)
+{
+	global $woocommerce;
+	$chosen_method = WC()->session->get( 'chosen_shipping_methods' );
+	// Set minimum cart total
+	if( (!empty($chosen_method) && $chosen_method[0] == KITT_SHIPPING_DELIVERY) && !isCityDiscounted()) {
+		// Display our error message
+		addPostcodeNotAllowedNotice();
+	}
+	return $fragments;
+}
 
 ?>
