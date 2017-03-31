@@ -800,67 +800,72 @@ function save_custom_order_detail_meta_box ( $post_id, $post, $update )
 		$product = current($product_items);
 		$product_id = $product['product_id'];
 		$product_data = wc_get_product( $product_id );
+		$aCustomeOrder = get_post_meta($post_id, 'cake_custom_order', true);
 		
-		if ( $product_data )
+		if (!$product_data || empty($product_data))
 		{
-// 			pr($product_data);
-// 			$product_data = null;
-			$cart_contents[$cart_item_key] = apply_filters('woocommerce_add_cart_item', array_merge(array(), array(
-				'product_id' => $product_id,
-				'variation_id' => 0,
-				'variation' => array(),
-				'quantity' => 1,
-				'data' => $product_data
-			)), $cart_item_key);
-			
-			$packages['contents'] = $cart_contents; // Items in the
-			                                                        // package
-			$packages['contents_cost'] = 0; // Cost of items in the
-			                                           // package, set below
-			$packages['applied_coupons'] = array();
-			$packages['user']['ID'] = $order->user_id;
-			$packages['destination']['country'] = $_POST['_shipping_country'];
-			$packages['destination']['state'] = $_POST['_shipping_state'];
-			$packages['destination']['postcode'] = $_POST['_shipping_postcode'];
-			$packages['destination']['city'] = $_POST['_shipping_city'];
-			$packages['destination']['address'] = $_POST['_shipping_address_1'];
-			$packages['destination']['address_2'] = $_POST['_shipping_address_2'];
-			
-			$session_class = apply_filters('woocommerce_session_handler', 'WC_Session_Handler');
-			WC()->session = new $session_class();
-			WC()->customer = new WC_Customer();
-			
-			if ( ! function_exists('wc_get_chosen_shipping_method_ids') )
+			// Create temp product then add to order
+			$product_id = kitt_create_temporary_product($aCustomeOrder);
+			$product_data = wc_get_product( $product_id );
+			// Remove old product in order
+			wc_delete_order_item(key($product_items));
+			$item_id = $order->add_product( get_product( $product_id ), 1 );
+			wc_add_order_item_meta($item_id, '_order_type', KITT_CUSTOM_ORDER);
+		}
+		$cart_contents[ $cart_item_key ] = apply_filters( 'woocommerce_add_cart_item', array_merge( array(), array(
+			'product_id'	=> $product_id,
+			'variation_id'	=> 0,
+			'variation' 	=> array(),
+			'quantity' 		=> 1,
+			'data'			=> $product_data
+		) ), $cart_item_key );
+		
+		
+		$packages['contents']                 = $cart_contents;		// Items in the package
+		$packages['contents_cost']            = 0;						// Cost of items in the package, set below
+		$packages['applied_coupons']          = array();
+		$packages['user']['ID']               = $order->user_id;
+		$packages['destination']['country']   = $_POST['_shipping_country'];
+		$packages['destination']['state']     = $_POST['_shipping_state'];
+		$packages['destination']['postcode']  = $_POST['_shipping_postcode'];
+		$packages['destination']['city']      = $_POST['_shipping_city'];
+		$packages['destination']['address']   = $_POST['_shipping_address_1'];
+		$packages['destination']['address_2'] = $_POST['_shipping_address_2'];
+		
+		$session_class  = apply_filters( 'woocommerce_session_handler', 'WC_Session_Handler' );
+		WC()->session  = new $session_class();
+		WC()->customer = new WC_Customer();
+		
+		if (!function_exists('wc_get_chosen_shipping_method_ids'))
+		{
+			function wc_get_chosen_shipping_method_ids()
 			{
-				function wc_get_chosen_shipping_method_ids ()
+				global $shipping_methods;
+				$method_ids     = array();
+				foreach ($shipping_methods as $shipping_method)
 				{
-					global $shipping_methods;
-					$method_ids = array();
-					foreach ( $shipping_methods as $shipping_method )
-					{
-						$method_ids[] = $shipping_method['method_id'];
-					}
-					
-					return $method_ids;
+					$method_ids[] = $shipping_method['method_id'];
 				}
+					
+				return $method_ids;
 			}
-			
-			foreach ( $methods as $methodId => $method )
+		}
+		
+		foreach ($methods as $methodId => $method)
+		{
+			// Calculate order taxes, shipping
+			if ($updatedCustomOrder['custom_order_shipping'] == 'delivery' && "$method->id:$methodId" == KITT_SHIPPING_DELIVERY)
 			{
-				// Calculate order taxes, shipping
-				if ( $updatedCustomOrder['custom_order_shipping'] == 'delivery' && "$method->id:$methodId" == KITT_SHIPPING_DELIVERY )
-				{
-					wc_update_order_item_meta($item_id, 'cost', $method->cost);
-					$method->calculate_shipping($packages);
-					wc_update_order_item_meta($item_id, 'taxes', $method->rates[KITT_SHIPPING_DELIVERY]->taxes);
-				}
-				elseif ( $updatedCustomOrder['custom_order_shipping'] == 'pickup' && "$method->id:$methodId" == KITT_SHIPPING_PICKUP )
-				{
-					wc_update_order_item_meta($item_id, 'cost', $method->cost);
-					wc_update_order_item_meta($item_id, 'taxes', array());
-					
-					$method->calculate_shipping();
-				}
+				wc_update_order_item_meta( $item_id, 'cost', $method->cost );
+				$method->calculate_shipping($packages);
+				wc_update_order_item_meta( $item_id, 'taxes', $method->rates[KITT_SHIPPING_DELIVERY]->taxes );
+			}
+			elseif ($updatedCustomOrder['custom_order_shipping'] == 'pickup' && "$method->id:$methodId" == KITT_SHIPPING_PICKUP)
+			{
+				wc_update_order_item_meta( $item_id, 'cost', $method->cost );
+				wc_update_order_item_meta( $item_id, 'taxes', array() );
+				
+				$method->calculate_shipping();
 			}
 		}
 		$order->calculate_totals();
