@@ -136,3 +136,8 @@ table.order-detail-meta {
 table.order-detail-meta .disabled {
     display: none;
 }
+.wp-list-table.widefat tfoot td, .wp-list-table.widefat th, .widefat thead td {
+    text-align: left;
+    line-height: 1.3em;
+    font-size: 12px;
+}
