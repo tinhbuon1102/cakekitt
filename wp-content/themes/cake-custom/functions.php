@@ -35,6 +35,21 @@ function getDiscountShippingCity(){
 	return array('港区', '渋谷区');
 }
 
+function getDiscountShippingPostcode(){
+	return array(
+		'1060031',
+		'1050011',
+		'1058511',
+		'1050000',
+		'1058558'
+	);
+}
+
+function convertPostcode($postcode){
+	$postcode = str_replace('-', '', $postcode);
+	return $postcode;
+}
+
 add_filter( 'woocommerce_states', 'kitt_woocommerce_states' );
 function kitt_woocommerce_states( $states ) {
 	$states['JP'] = array(
@@ -1837,20 +1852,20 @@ function load_items(){
 function isCityDiscounted(){
 	$current_user = wp_get_current_user();
 	// Get user shipping
-	$user_shipping_city = get_user_meta( $current_user->ID, 'shipping_city', true );
+	$user_shipping_postcode = get_user_meta( $current_user->ID, 'shipping_postcode', true );
 	$post_data = array();
 	if (isset($_POST['post_data']))
 	{
 		parse_str($_POST['post_data'], $post_data);
 	}
 	
-	if ((isset($_POST['s_city']) && in_array($_POST['s_city'], getDiscountShippingCity())) ||
-			(isset($_POST['shipping_city']) && in_array($_POST['shipping_city'], getDiscountShippingCity())) ||
-			(isset($_POST['_shipping_city']) && in_array($_POST['_shipping_city'], getDiscountShippingCity())) ||
-			(isset($_POST['custom_order_deliver_city']) && in_array($_POST['custom_order_deliver_city'], getDiscountShippingCity())) ||
-			(isset($post_data['shipping_city']) && in_array($post_data['shipping_city'], getDiscountShippingCity())) ||
-			((!$_POST['s_city'] && !$_POST['shipping_city'] && !$_POST['custom_order_deliver_city'] && !$_POST['_shipping_city'] && !$post_data['shipping_city']) && isset(WC()->session->customer['shipping_city']) && in_array(WC()->session->customer['shipping_city'], getDiscountShippingCity())) ||
-			((!$_POST['s_city'] && !$_POST['shipping_city'] && !$_POST['custom_order_deliver_city'] && !$_POST['_shipping_city'] && !$post_data['shipping_city']) && $user_shipping_city && in_array($user_shipping_city, getDiscountShippingCity()))
+	if ((isset($_POST['s_postcode']) && in_array(convertPostcode($_POST['s_postcode']), getDiscountShippingPostcode())) ||
+			(isset($_POST['shipping_postcode']) && in_array(convertPostcode($_POST['shipping_postcode']), getDiscountShippingPostcode())) ||
+			(isset($_POST['_shipping_postcode']) && in_array(convertPostcode($_POST['_shipping_postcode'], getDiscountShippingPostcode()))) ||
+			(isset($_POST['custom_order_deliver_postcode']) && in_array(convertPostcode($_POST['custom_order_deliver_postcode'], getDiscountShippingPostcode()))) ||
+			(isset($post_data['shipping_postcode']) && in_array(convertPostcode($post_data['shipping_postcode'], getDiscountShippingPostcode()))) ||
+			((!$_POST['s_postcode'] && !$_POST['shipping_postcode'] && !$_POST['custom_order_deliver_postcode'] && !$_POST['_shipping_postcode'] && !$post_data['shipping_postcode']) && isset(WC()->session->customer['shipping_postcode']) && in_array(convertPostcode(WC()->session->customer['shipping_postcode'], getDiscountShippingPostcode()))) ||
+			((!$_POST['s_postcode'] && !$_POST['shipping_postcode'] && !$_POST['custom_order_deliver_postcode'] && !$_POST['_shipping_postcode'] && !$post_data['shipping_postcode']) && $user_shipping_postcode && in_array(convertPostcode($user_shipping_postcode, getDiscountShippingPostcode())))
 			)
 	{
 		return true;
@@ -1872,6 +1887,7 @@ function kitt_woocommerce_shipping_zone_shipping_methods( $methods, $raw_methods
 	{
 		$shipping_fee = false;
 	}
+	
 	$is_admin_post = is_admin() && $_POST['shipping_method'];
 	if ($is_admin_post || WC()->session)
 	{
@@ -1902,13 +1918,13 @@ function kitt_woocommerce_shipping_zone_shipping_methods( $methods, $raw_methods
 }
 
 function addMinimumPriceNotice($total){
-	wc_clear_notices();
-	wc_add_notice( sprintf( __('<strong>With shipping Delivery, A Minimum of %s%s  is required before checking out.</strong><br />Current cart\'s total: %s%s', 'cake'),
-			get_woocommerce_currency_symbol(),
-			KITT_MINIMUM_PRICE_CITY_1,
-			get_woocommerce_currency_symbol(),
-			$total),
-			'error' );
+// 	wc_clear_notices();
+// 	wc_add_notice( sprintf( __('<strong>With shipping Delivery, A Minimum of %s%s  is required before checking out.</strong><br />Current cart\'s total: %s%s', 'cake'),
+// 			get_woocommerce_currency_symbol(),
+// 			KITT_MINIMUM_PRICE_CITY_1,
+// 			get_woocommerce_currency_symbol(),
+// 			$total),
+// 			'error' );
 }
 // Set a minimum dollar amount per order
 add_action( 'woocommerce_before_cart_totals', 'kitt_woocommerce_before_cart_totals' );
