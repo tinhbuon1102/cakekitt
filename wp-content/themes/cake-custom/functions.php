@@ -1861,11 +1861,11 @@ function isCityDiscounted(){
 	
 	if ((isset($_POST['s_postcode']) && in_array(convertPostcode($_POST['s_postcode']), getDiscountShippingPostcode())) ||
 			(isset($_POST['shipping_postcode']) && in_array(convertPostcode($_POST['shipping_postcode']), getDiscountShippingPostcode())) ||
-			(isset($_POST['_shipping_postcode']) && in_array(convertPostcode($_POST['_shipping_postcode'], getDiscountShippingPostcode()))) ||
-			(isset($_POST['custom_order_deliver_postcode']) && in_array(convertPostcode($_POST['custom_order_deliver_postcode'], getDiscountShippingPostcode()))) ||
-			(isset($post_data['shipping_postcode']) && in_array(convertPostcode($post_data['shipping_postcode'], getDiscountShippingPostcode()))) ||
-			((!$_POST['s_postcode'] && !$_POST['shipping_postcode'] && !$_POST['custom_order_deliver_postcode'] && !$_POST['_shipping_postcode'] && !$post_data['shipping_postcode']) && isset(WC()->session->customer['shipping_postcode']) && in_array(convertPostcode(WC()->session->customer['shipping_postcode'], getDiscountShippingPostcode()))) ||
-			((!$_POST['s_postcode'] && !$_POST['shipping_postcode'] && !$_POST['custom_order_deliver_postcode'] && !$_POST['_shipping_postcode'] && !$post_data['shipping_postcode']) && $user_shipping_postcode && in_array(convertPostcode($user_shipping_postcode, getDiscountShippingPostcode())))
+			(isset($_POST['_shipping_postcode']) && in_array(convertPostcode($_POST['_shipping_postcode']), getDiscountShippingPostcode())) ||
+			(isset($_POST['custom_order_deliver_postcode']) && in_array(convertPostcode($_POST['custom_order_deliver_postcode']), getDiscountShippingPostcode())) ||
+			(isset($post_data['shipping_postcode']) && in_array(convertPostcode($post_data['shipping_postcode']), getDiscountShippingPostcode())) ||
+			((!$_POST['s_postcode'] && !$_POST['shipping_postcode'] && !$_POST['custom_order_deliver_postcode'] && !$_POST['_shipping_postcode'] && !$post_data['shipping_postcode']) && isset(WC()->session->customer['shipping_postcode']) && in_array(convertPostcode(WC()->session->customer['shipping_postcode']), getDiscountShippingPostcode())) ||
+			((!$_POST['s_postcode'] && !$_POST['shipping_postcode'] && !$_POST['custom_order_deliver_postcode'] && !$_POST['_shipping_postcode'] && !$post_data['shipping_postcode']) && $user_shipping_postcode && in_array(convertPostcode($user_shipping_postcode), getDiscountShippingPostcode()))
 			)
 	{
 		return true;
