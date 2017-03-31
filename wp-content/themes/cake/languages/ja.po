@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cake 1.2\n"
 "POT-Creation-Date: 2016-09-20 10:50+0700\n"
-"PO-Revision-Date: 2017-03-31 00:56+0900\n"
+"PO-Revision-Date: 2017-03-31 15:10+0900\n"
 "Last-Translator: \n"
 "Language-Team: codeopus\n"
 "Language: ja_JP\n"
@@ -2095,3 +2095,12 @@ msgstr "受け取り希望日"
 
 msgid "Time to get cake"
 msgstr "受け取り希望時間"
+
+msgid "Do you wanna ship to saved adderess?"
+msgstr "登録されている住所にお届けしますか？"
+
+msgid "<strong>With shipping Delivery, A Minimum of %s%s  is required before checking out.</strong><br />Current cart's total: %s%s"
+msgstr "<strong>お届け先地域により、最低ご注文金額%s%sにて配送が可能な場合があります。</strong><br />現在の注文金額: %s%s"
+
+msgid "Site support Tokyo prefecture only, sorry for inconvenience !"
+msgstr "東京都のみの配送となります。申し訳ございませんが、ご指定の配送地域のお届けできません。"

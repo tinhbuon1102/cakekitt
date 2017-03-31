@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - WooCommerce - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-03-30 21:44+0900\n"
+"PO-Revision-Date: 2017-03-31 14:09+0900\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20343,3 +20343,9 @@ msgstr "ケーキデザインについて"
 
 msgid "Accepted"
 msgstr "注文受付完了"
+
+msgid "Thank you for your order on %s.Your order has been delivered."
+msgstr "この度は%sにてご注文いただき、ありがとうございます。ご注文の配送またはお渡しが完了しました。"
+
+msgid "Your order details are shown below for your reference:"
+msgstr "ご注文の詳細は以下の通りです。"
