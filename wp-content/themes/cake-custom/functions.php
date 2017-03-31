@@ -122,6 +122,19 @@ function theme_enqueue_styles ()
 		
 	}
 }
+
+// Update CSS within in Admin
+function admin_style() {
+  wp_enqueue_style('admin-styles', get_template_directory_uri().'/admin.css');
+}
+add_action('admin_enqueue_scripts', 'admin_style');
+
+// Load jQuery within in Admin
+function admin_script() {
+  wp_enqueue_script('admin-script', get_template_directory_uri().'/admin.js', array('jquery'));
+}
+add_action('admin_enqueue_scripts', 'admin_script');
+
 if ( ! is_admin() )
 {
 	wp_deregister_script('jquery');
@@ -663,10 +676,41 @@ function custom_meta_order_detail_box_markup($post)
 				{
 					$defaultValue = $defaultValue ? $defaultValue : $itemField['display_format']; 
 				}
+				//start of added by kyoko
+				if (isset($aDecorations[$fieldName]) && isset($aDecorations[$fieldName]['label'])) {
+					if ('custom_order_icingcookie_qty' == $fieldName) {
+						echo '<tr id="icingcookie_wraper" class="'.$class.' group-label"><th colspan="2" class="deco-group-label"><i class="iconkitt-kitt_icons_icingcookie"></i>'.__('Icing cookie', 'cake').'</th></tr>';
+					}
+					if ('custom_order_cupcake_qty' == $fieldName) {
+						echo '<tr id="'.$itemField['name'].'_wraper" class="'.$class.' group-label"><th colspan="2" class="deco-group-label"><i class="iconkitt-kitt_icons_cupcake"></i>'.__('Cup cake', 'cake').'</th></tr>';
+					}
+					if ('custom_order_macaron_qty' == $fieldName) {
+						echo '<tr id="'.$itemField['name'].'_wraper" class="'.$class.' group-label"><th colspan="2" class="deco-group-label"><i class="iconkitt-kitt_icons_macaron"></i>'.__('Macaron', 'cake').'</th></tr>';
+					}
+					if ('custom_order_flowercolor' == $fieldName) {
+						echo '<tr id="'.$itemField['name'].'_wraper" class="'.$class.' group-label"><th colspan="2" class="deco-group-label"><i class="iconkitt-kitt_icons_flower"></i>'.__('Flower', 'cake').'</th></tr>';
+					}
+					if ('custom_order_photocakepic' == $fieldName) {
+						echo '<tr id="'.$itemField['name'].'_wraper" class="'.$class.' group-label"><th colspan="2" class="deco-group-label"><i class="iconkitt-kitt_icons_print"></i>'.__('Photo Cake Pic', 'cake').'</th></tr>';
+					}
+					if ('custom_order_candy_text' == $fieldName) {
+						echo '<tr id="'.$itemField['name'].'_wraper" class="'.$class.' group-label"><th colspan="2" class="deco-group-label"><i class="iconkitt-kitt_icons_candy"></i>'.__('Candy', 'cake').'</th></tr>';
+					}
+					if ('custom_order_doll_text' == $fieldName) {
+						echo '<tr id="'.$itemField['name'].'_wraper" class="'.$class.' group-label"><th colspan="2" class="deco-group-label"><i class="iconkitt-kitt_icons_figure"></i>'.__('Figure doll', 'cake').'</th></tr>';
+					}
+					
+					echo '<tr id="'.$itemField['name'].'_wraper" class="'.$class.' deco-tr">
+						<td class="col-left">'.$itemField['label'].'</td>
+						<td class="col-right">';
+				}
+				//end of added by kyoko
+				else {
+					echo '<tr id="'.$itemField['name'].'_wraper" class="'.$class.'">
+						<td class="col-left">'.$itemField['label'].'</td>
+						<td class="col-right">';
+				}
 				
-				echo '<tr id="'.$itemField['name'].'_wraper" class="'.$class.'">
-						<td class="col-left" style="text-align: left; width: 20%">'.$itemField['label'].'</td>
-						<td class="col-right" style="text-align; width: 80%">';
 				
 				if ('custom_order_cakePic' == $fieldName || 'custom_order_photocakepic' == $fieldName)
 				{
@@ -716,6 +760,7 @@ function custom_meta_order_detail_box_markup($post)
 					}
 						
 				}
+				
 				else {
 					$itemField['name'] = 'custom_order_meta['.$itemField['name'].']';
 					$itemField['value'] = $defaultValue;

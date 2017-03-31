@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cake 1.2\n"
 "POT-Creation-Date: 2016-09-20 10:50+0700\n"
-"PO-Revision-Date: 2017-03-31 15:10+0900\n"
+"PO-Revision-Date: 2017-03-31 18:37+0900\n"
 "Last-Translator: \n"
 "Language-Team: codeopus\n"
 "Language: ja_JP\n"
@@ -2083,6 +2083,42 @@ msgstr "生年月日"
 
 msgid "Cake Info"
 msgstr "オーダーメイドケーキ詳細"
+
+msgid "Order details"
+msgstr "オーダーメイドケーキ詳細"
+
+msgid "qty"
+msgstr "数量"
+
+msgid "color"
+msgstr "色"
+
+msgid "detail note"
+msgstr "詳細"
+
+msgid "printing photo"
+msgstr "印刷用写真"
+
+msgid "Icing cookie"
+msgstr "アイシングクッキー"
+
+msgid "Cup cake"
+msgstr "カップケーキ"
+
+msgid "Macaron"
+msgstr "マカロン"
+
+msgid "Flower"
+msgstr "花"
+
+msgid "Photo Cake Pic"
+msgstr "フォトケーキ写真"
+
+msgid "Candy"
+msgstr "飴細工"
+
+msgid "Figure doll"
+msgstr "人形(チョコ/マジパン)"
 
 msgid "Waiting Payment"
 msgstr "支払い待ち"
