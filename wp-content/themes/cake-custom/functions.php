@@ -164,6 +164,12 @@ function my_admin_head(){
  }
 add_action('admin_head', 'my_admin_head');
 
+function wc_my_remove_password_strength() {
+	if ( wp_script_is( 'wc-password-strength-meter', 'enqueued' ) ) {
+		wp_dequeue_script( 'wc-password-strength-meter' );
+	}
+}
+add_action( 'wp_print_scripts', 'wc_my_remove_password_strength', 100 );
 
 // 親テーマ引き継ぎ用関数
 add_action('wp_enqueue_scripts', 'theme_enqueue_styles');
