@@ -12,6 +12,19 @@ if (!function_exists('pr')) {
 	}
 }
 
+function getPicupTimeArray(){
+	$aTimes = array();
+	for($i = 1; $i <= 24; $i += 0.5)
+	{
+		$szTime = str_replace('.5', ':30', (string)$i);
+		$aTimeLabel = explode(':', $szTime);
+		$hour = $aTimeLabel[0];
+		$minute = $aTimeLabel[1] ? $aTimeLabel[1] : '00';
+		$aTimes["$i"] = $hour . ':' . $minute;
+	}
+	return $aTimes;
+}
+
 function kitt_get_image_id($image_url) {
 	global $wpdb;
 	$attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE guid LIKE '%s';", '%' . str_replace(get_site_url(), '', $image_url) . '%' ));
@@ -542,6 +555,10 @@ function kitt_woocommerce_admin_order_data_after_order_details($order)
 		
 		$itemField['name'] = 'custom_order_meta['.$itemField['name'].']';
 		$itemField['value'] = $defaultValue;
+		if ($fieldName == 'custom_order_pickup_time')
+		{
+			$itemField['choices'] = getPicupTimeArray();
+		}
 		?> <div class="form-field form-field-wide <?php echo $itemField['name']?>"><h3><label ><?php echo $fieldLabel ? $fieldLabel : $itemField['label'] ?></label></h3> <?php
 		kitt_acf_render_field_wrap( $itemField);
 		echo '</div>';
@@ -702,6 +719,10 @@ function custom_meta_order_detail_box_markup($post)
 				else {
 					$itemField['name'] = 'custom_order_meta['.$itemField['name'].']';
 					$itemField['value'] = $defaultValue;
+					if ($itemField['type'] == 'select')
+					{
+						$itemField['choices'] = array('' => __('Select', 'cake') . ' ' . $itemField['label']) + $itemField['choices']; 
+					}
 					kitt_acf_render_field_wrap( $itemField);
 				}
 				
