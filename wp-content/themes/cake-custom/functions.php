@@ -1918,7 +1918,6 @@ function isCityDiscounted(){
 
 add_filter( 'woocommerce_shipping_zone_shipping_methods', 'kitt_woocommerce_shipping_zone_shipping_methods', 10, 4);
 function kitt_woocommerce_shipping_zone_shipping_methods( $methods, $raw_methods, $allowed_classes, $shipping) {
-	//@TODO get shipping fee base on city here
 	$shipping_fee = 0;
 	if(isCityDiscounted())
 	{
@@ -1970,8 +1969,7 @@ function addMinimumPriceNotice($total){
 
 function addPostcodeNotAllowedNotice(){
 	wc_clear_notices();
-	wc_add_notice( __('Basic flat fee won’t be applied to your shipping address. We will apply extra shipping fee.
-			<br />*Depend on location, please note that there is a possibility that we can’t deliver to your location', 'cake'));
+	wc_add_notice( __('Basic flat fee won’t be applied to your shipping address. We will apply extra shipping fee.<br />*Depend on location, please note that there is a possibility that we can’t deliver to your location', 'cake'));
 }
 
 // Set a minimum dollar amount per order
