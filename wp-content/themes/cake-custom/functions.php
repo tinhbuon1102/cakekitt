@@ -766,7 +766,7 @@ function custom_meta_order_detail_box_markup($post)
 					$itemField['value'] = $defaultValue;
 					if ($itemField['type'] == 'select')
 					{
-						$itemField['choices'] = array('' => __('Select', 'cake') . ' ' . $itemField['label']) + $itemField['choices']; 
+						$itemField['choices'] = array('' => $itemField['label'] . __('Select', 'cake')) + $itemField['choices']; 
 					}
 					kitt_acf_render_field_wrap( $itemField);
 				}
