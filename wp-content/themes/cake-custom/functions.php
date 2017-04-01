@@ -2012,7 +2012,9 @@ function kitt_check_shipping_withpostcode_before_checkout ($fragments)
 	// Set minimum cart total
 	if( (!empty($chosen_method) && $chosen_method[0] == KITT_SHIPPING_DELIVERY) && !isPostcodeDiscounted()) {
 		// Display our error message
-		addPostcodeNotAllowedNotice();
+		if ((defined('DOING_AJAX') && DOING_AJAX)) {
+			addPostcodeNotAllowedNotice();
+		}
 	}
 	return $fragments;
 }
