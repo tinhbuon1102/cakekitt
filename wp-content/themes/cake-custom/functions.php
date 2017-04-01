@@ -1,7 +1,9 @@
 <?php
-define('KITT_SHIPPING_CITY_1_FEE', 1500);
-define('KITT_SHIPPING_CITY_2_FEE', 3000);
-define('KITT_MINIMUM_PRICE_CITY_1', 50000);
+define('KITT_SHIPPING_POSTCODE_DISCOUNT_FEE', 1500);
+define('KITT_MINIMUM_PRICE_FOR_OTHER_POSTCODE', 50000);
+
+// Include order function file
+include 'order_functions.php';
 
 if (!function_exists('pr')) {
 	function pr ( $data )
@@ -122,8 +124,6 @@ function kitt_get_custom_fields()
 	return $cake_custom_fields;
 }
 
-include 'order_functions.php';
-
 add_action( 'admin_menu', 'my_remove_menu_pages' );
 function my_remove_menu_pages() {
 	if (!current_user_can('level_10')) {
@@ -164,12 +164,6 @@ function my_admin_head(){
  }
 add_action('admin_head', 'my_admin_head');
 
-function wc_my_remove_password_strength() {
-	if ( wp_script_is( 'wc-password-strength-meter', 'enqueued' ) ) {
-		wp_dequeue_script( 'wc-password-strength-meter' );
-	}
-}
-add_action( 'wp_print_scripts', 'wc_my_remove_password_strength', 100 );
 
 // 親テーマ引き継ぎ用関数
 add_action('wp_enqueue_scripts', 'theme_enqueue_styles');
@@ -534,7 +528,6 @@ function cake_register_my_custom_submenu_page() {
 function cake_price_combination_callback() {
 	get_template_part('admin-price-combine');
 }
-
 
 // Register Accept status for order
 add_action( 'init', 'register_my_new_order_statuses' );
@@ -1897,7 +1890,7 @@ function load_items(){
 	exit;	
 }
 
-function isCityDiscounted(){
+function isPostcodeDiscounted(){
 	$current_user = wp_get_current_user();
 	// Get user shipping
 	$user_shipping_postcode = get_user_meta( $current_user->ID, 'shipping_postcode', true );
@@ -1926,9 +1919,9 @@ function isCityDiscounted(){
 add_filter( 'woocommerce_shipping_zone_shipping_methods', 'kitt_woocommerce_shipping_zone_shipping_methods', 10, 4);
 function kitt_woocommerce_shipping_zone_shipping_methods( $methods, $raw_methods, $allowed_classes, $shipping) {
 	$shipping_fee = 0;
-	if(isCityDiscounted())
+	if(isPostcodeDiscounted())
 	{
-		$shipping_fee = KITT_SHIPPING_CITY_1_FEE;
+		$shipping_fee = KITT_SHIPPING_POSTCODE_DISCOUNT_FEE;
 	}
 	else
 	{
@@ -1968,7 +1961,7 @@ function addMinimumPriceNotice($total){
 	wc_clear_notices();
 	wc_add_notice( sprintf( __('<strong>With shipping Delivery, A Minimum of %s%s  is required before checking out.</strong><br />Current cart\'s total: %s%s', 'cake'),
 			get_woocommerce_currency_symbol(),
-			KITT_MINIMUM_PRICE_CITY_1,
+			KITT_MINIMUM_PRICE_FOR_OTHER_POSTCODE,
 			get_woocommerce_currency_symbol(),
 			$total),
 			'error' );
@@ -1984,11 +1977,11 @@ function addPostcodeNotAllowedNotice(){
 function kitt_woocommerce_before_cart_totals() {
 	$chosen_method = WC()->session->get( 'chosen_shipping_methods' );
 	// Only run in the Cart or Checkout pages
-	if( (!empty($chosen_method) && $chosen_method[0] == KITT_SHIPPING_DELIVERY) && !isCityDiscounted()) {
+	if( (!empty($chosen_method) && $chosen_method[0] == KITT_SHIPPING_DELIVERY) && !isPostcodeDiscounted()) {
 		global $woocommerce;
 		// Set minimum cart total
 		$total = WC()->cart->subtotal;
-		if( $total <= KITT_MINIMUM_PRICE_CITY_1  ) {
+		if( $total <= KITT_MINIMUM_PRICE_FOR_OTHER_POSTCODE  ) {
 			// Display our error message
 			addMinimumPriceNotice($total);
 		}
@@ -2003,7 +1996,7 @@ function kitt_check_shipping_minimum_price_before_checkout ($fragments)
 	$chosen_method = WC()->session->get( 'chosen_shipping_methods' );
 	// Set minimum cart total
 	$total = WC()->cart->subtotal;
-	if( $total <= KITT_MINIMUM_PRICE_CITY_1  && (!empty($chosen_method) && $chosen_method[0] == KITT_SHIPPING_DELIVERY) && !isCityDiscounted()) {
+	if( $total <= KITT_MINIMUM_PRICE_FOR_OTHER_POSTCODE  && (!empty($chosen_method) && $chosen_method[0] == KITT_SHIPPING_DELIVERY) && !isPostcodeDiscounted()) {
 		// Display our error message
 		addMinimumPriceNotice($total);
 	}
@@ -2017,7 +2010,7 @@ function kitt_check_shipping_withpostcode_before_checkout ($fragments)
 	global $woocommerce;
 	$chosen_method = WC()->session->get( 'chosen_shipping_methods' );
 	// Set minimum cart total
-	if( (!empty($chosen_method) && $chosen_method[0] == KITT_SHIPPING_DELIVERY) && !isCityDiscounted()) {
+	if( (!empty($chosen_method) && $chosen_method[0] == KITT_SHIPPING_DELIVERY) && !isPostcodeDiscounted()) {
 		// Display our error message
 		addPostcodeNotAllowedNotice();
 	}

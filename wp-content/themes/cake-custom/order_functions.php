@@ -43,12 +43,9 @@ function kitt_woocommerce_cart_calculate_fees()
 		{
 			// modify shipping fee base on city
 			//@TODO add fee for city 
-			if (isCityDiscounted())
+			if (isPostcodeDiscounted())
 			{
-				WC()->cart->shipping_total = KITT_SHIPPING_CITY_1_FEE;
-			}
-			else {
-				WC()->cart->shipping_total = KITT_SHIPPING_CITY_2_FEE;
+				WC()->cart->shipping_total = KITT_SHIPPING_POSTCODE_DISCOUNT_FEE;
 			}
 		}
 	}
