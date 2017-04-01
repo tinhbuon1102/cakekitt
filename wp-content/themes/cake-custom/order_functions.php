@@ -222,6 +222,7 @@ function cake_steps_store(){
 	$fieldMapping = getCustomFormFieldMapping();
 	$cakePrices = get_option('cake_custom_price');
 	$cartTotal = 0;
+	$defaultPrice = 0;
 
 	foreach ( $_SESSION['cake_custom_order'] as $step => $cakeStepData )
 	{
@@ -262,6 +263,7 @@ function cake_steps_store(){
 						}
 						$cakePrice = $cakePrices[$keyPrice];
 						$cakePrice = !empty($cakePrice) ? $cakePrice['amount'] : 0;
+						$defaultPrice = $cakePrice;
 						$cartTotal += $cakePrice;
 						$cartHtml .= '
 							<h5 class="detail-row pt-1 pb-1" id="cart_' . $fieldName . '">
@@ -272,17 +274,27 @@ function cake_steps_store(){
 						break;
 					
 					case 'custom_order_layer':
+						$keyPrice = ('custom_order_layer__' . $fieldValue);
+						$cakePrice = $cakePrices[$keyPrice];
+						$cakePrice = !empty($cakePrice) ? $cakePrice['amount'] : 0;
+						$cartTotal += $cakePrice;
+						
 						$cartHtml .= '
 							<h5 class="detail-row pt-1 pb-1" id="cart_' . $fieldName . '">
-								<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_layer size30 blk"></i>'.__('Layer', 'cake').'</span>
-								<span class="display-table-cell width-full cake-layer-name">' . $fieldLabel . '</span>
+								<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_layer size30 blk"></i></span>
+								<span class="display-table-cell width-full cake-layer-name">' . $fieldLabel . __('Layer', 'cake') . '</span>
+								<span class="display-table-cell price-value pr-5 cake-layer-price">'.showCakePrice($cakePrice).'</span>
 							</h5>';
 						break;
 					case 'custom_order_cakeflavor':
+						$cakePrice = getFlavorPrice($defaultPrice, $fieldValue);
+						$cartTotal += $cakePrice;
+						
 						$cartHtml .= '
 							<h5 class="detail-row pt-1 pb-1" id="cart_' . $fieldName . '">
 								<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_'.$fieldValue.' size30 blk"></i></span>
 								<span class="display-table-cell width-full cake-flavor-name">' . $fieldLabel . '</span>
+								<span class="display-table-cell price-value pr-5 cake-flavor-price">'. ($cakePrice ? showCakePrice($cakePrice) : '') .'</span>
 							</h5>';
 						break;
 					case 'custom_order_cakecolor':

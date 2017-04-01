@@ -1,5 +1,6 @@
 <?php
 define('KITT_SHIPPING_POSTCODE_DISCOUNT_FEE', 1500);
+define('KITT_FLAVOR_RATE', 1.1);
 define('KITT_MINIMUM_PRICE_FOR_OTHER_POSTCODE', 50000);
 
 // Include order function file
@@ -45,6 +46,15 @@ function getDiscountShippingPostcode(){
 		'1050000',
 		'1058558'
 	);
+}
+
+function getFlavorPrice($defaultPrice, $flavorType){
+	$flavor_fee = 0;
+	if (!in_array($flavorType, array('shortcake')))
+	{
+		$flavor_fee = $defaultPrice * KITT_FLAVOR_RATE - $defaultPrice; 
+	}
+	return $flavor_fee;
 }
 
 function convertPostcode($postcode){
