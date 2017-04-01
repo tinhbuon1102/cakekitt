@@ -2,7 +2,7 @@
 $wccm_active_plugins = get_option('active_plugins');
 $wccm_acf_pro = 'advanced-custom-fields-pro/acf.php';
 $wccm_acf_pro_is_aleady_active = in_array($wccm_acf_pro, $wccm_active_plugins) || class_exists('acf') ? true : false;
-$wccm_acf_pro_is_aleady_active = true;
+// $wccm_acf_pro_is_aleady_active = true;
 if(!$wccm_acf_pro_is_aleady_active)
 	include_once( WCCM_PLUGIN_ABS_PATH . '/classes/acf/acf.php' );
 
