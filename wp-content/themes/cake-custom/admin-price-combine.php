@@ -15,6 +15,8 @@ function storePriceSubmit ()
 	$myKey = '';
 	if (isset($_POST['price']))
 	{
+		$_POST['price']['amount'] = str_replace(',', '', $_POST['price']['amount']);
+		
 		if (in_array($_POST['price']['type']['custom_order_cake_shape'], getArrayRoundShape()))
 		{
 			unset($_POST['price']['type']['custom_order_cakesize_square']);
@@ -158,6 +160,53 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 		</tbody>
 	</table>
 </form>
+<form method="post" action="edit.php?post_type=cakegal&page=cake-price-combination" id="price_combine_form_layer" class="form_price">
+	<table class="acf_input widefat" style="width: 80%">
+		<tbody>
+			<tr id="layer_price_row">
+				<td class="col0"><?php _e('Layer', 'cake')?></td>
+				<td class="cake-shape col1"><?php
+				
+				// create field
+				$layerChoices = $field_mappings['custom_order_layer']['value'];
+				foreach ($field_mappings['custom_order_layer']['value'] as $layerKey => $layerVal)
+				{
+					if (in_array(('custom_order_layer' . '__' . $layerKey), array_keys($cakePrices)))
+					{
+						unset($layerChoices[$layerKey]);
+					}
+				}
+				$args = array(
+					'type' => 'select',
+					'name' => 'price[type][custom_order_layer]',
+					'class' => 'validate[required]',
+					'choices' => $layerChoices
+				);
+				
+				kitt_acf_render_field_wrap( $args);
+				
+				?></td>
+				<td class="col2"></td>
+				<td class="col3">
+				<?php
+				
+				$args = array(
+					'type' => 'text',
+					'name' => 'price[amount]',
+					'class' => 'validate[required,custom[number]]',
+					'placeholder' => __('Enter Price', 'cake')
+				);
+				
+				kitt_acf_render_field_wrap( $args);
+				?>
+				</td>
+				<td class="add col4">
+					<input type="submit" class="location-add-rule button" value="<?php _e("Add Price",'acf'); ?>" />
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</form>
 <form method="post" action="edit.php?post_type=cakegal&page=cake-price-combination" id="price_combine_form_decorate" class="form_price">
 	<table class="acf_input widefat" style="width: 80%">
 		<tbody>
@@ -212,6 +261,20 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 
 <h1><?php _e('Price added')?></h1>
 <div class="table_price_wraper">
+
+<form class="filter_wraper" method="get" action="edit.php">
+	<label>Filter</label>
+	<select name="field_name">
+		<option value=""><?php echo __('All', 'cake')?></option>
+		<option value="custom_order_cake_shape" <?php selected($_GET['field_name'], 'custom_order_cake_shape')?>><?php echo __('Shape/Size', 'cake')?></option>
+		<option value="custom_order_layer" <?php selected($_GET['field_name'], 'custom_order_layer')?>><?php echo __('Layer', 'cake')?></option>
+		<option value="custom_order_cake_decorate" <?php selected($_GET['field_name'], 'custom_order_cake_decorate')?>><?php echo __('Decoration', 'cake')?></option>
+	</select>
+	<input type="hidden" name="page" value="cake-price-combination"/>
+	<input type="hidden" name="post_type" value="cakegal"/>
+	<input type="submit" name="submit" value="<?php echo __('Submit', 'cake')?>"/>
+</form>
+
 <table class="widefat attributes-table wp-list-table ui-sortable" style="width: 100%">
 	<thead>
 		<tr>
@@ -221,12 +284,22 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 		</tr>
 	</thead>
 	<tbody>
-		<?php foreach ($cakePrices as $cakePrice) {?>
+		<?php foreach ($cakePrices as $cakeTypeIndex => $cakePrice) {
+			if (isset($_GET['field_name']) && $_GET['field_name'] && strpos($cakeTypeIndex, $_GET['field_name']) === false)
+			{
+				continue;
+			}
+		?>
 		<tr class="alternate">
 			<td><?php 
 			if($cakePrice['type']['custom_order_cake_shape']) 
 			{
 				echo __('Shape/Size', 'cake') . ': '; 
+			}
+			
+			if($cakePrice['type']['custom_order_layer'])
+			{
+				echo __('Layer', 'cake') . ': ';
 			}
 					
 			if($cakePrice['type']['custom_order_cake_decorate']) 
