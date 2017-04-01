@@ -535,6 +535,7 @@ function cake_price_combination_callback() {
 	get_template_part('admin-price-combine');
 }
 
+
 // Register Accept status for order
 add_action( 'init', 'register_my_new_order_statuses' );
 function register_my_new_order_statuses() {

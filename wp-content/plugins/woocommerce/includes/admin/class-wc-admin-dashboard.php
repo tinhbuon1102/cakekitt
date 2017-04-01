@@ -130,13 +130,27 @@ class WC_Admin_Dashboard {
 		}
 		$on_hold_count    = 0;
 		$processing_count = 0;
+		$accepted_count = 0;
+		$pending_count = 0;
 
 		foreach ( wc_get_order_types( 'order-count' ) as $type ) {
 			$counts           = (array) wp_count_posts( $type );
 			$on_hold_count    += isset( $counts['wc-on-hold'] ) ? $counts['wc-on-hold'] : 0;
 			$processing_count += isset( $counts['wc-processing'] ) ? $counts['wc-processing'] : 0;
+			$accepted_count += isset( $counts['wc-accepted'] ) ? $counts['wc-accepted'] : 0;
+			$pending_count += isset( $counts['wc-pending'] ) ? $counts['wc-pending'] : 0;
 		}
 		?>
+		<li class="pending-orders">
+			<a href="<?php echo admin_url( 'edit.php?post_status=wc-pending&post_type=shop_order' ); ?>">
+				<?php printf( _n( "<strong>%s order</strong> pending", "<strong>%s orders</strong> pending", $pending_count, 'woocommerce' ), $pending_count ); ?>
+			</a>
+		</li>
+		<li class="accepted-orders">
+			<a href="<?php echo admin_url( 'edit.php?post_status=wc-accepted&post_type=shop_order' ); ?>">
+				<?php printf( _n( "<strong>%s order</strong> accepted", "<strong>%s orders</strong> accepted", $accepted_count, 'woocommerce' ), $accepted_count ); ?>
+			</a>
+		</li>
 		<li class="processing-orders">
 			<a href="<?php echo admin_url( 'edit.php?post_status=wc-processing&post_type=shop_order' ); ?>">
 				<?php printf( _n( "<strong>%s order</strong> awaiting processing", "<strong>%s orders</strong> awaiting processing", $processing_count, 'woocommerce' ), $processing_count ); ?>
