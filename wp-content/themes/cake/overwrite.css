@@ -1681,6 +1681,9 @@ margin-bottom: 60px;
 .bg-lightgray {
 	background: #f8f8f8;
 }
+.cdo-section.nopadding.pd_top_40 {
+    padding-top: 40px;
+}
 .cdo-section.bmpad {
 	padding-bottom: 80px;
 }
