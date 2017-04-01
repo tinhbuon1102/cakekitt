@@ -2010,11 +2010,9 @@ function kitt_check_shipping_withpostcode_before_checkout ($fragments)
 	global $woocommerce;
 	$chosen_method = WC()->session->get( 'chosen_shipping_methods' );
 	// Set minimum cart total
-	if( (!empty($chosen_method) && $chosen_method[0] == KITT_SHIPPING_DELIVERY) && !isPostcodeDiscounted()) {
+	if( (!empty($chosen_method) && $chosen_method[0] == KITT_SHIPPING_DELIVERY) && !isPostcodeDiscounted() && $_POST['s_postcode']) {
 		// Display our error message
-		if ((defined('DOING_AJAX') && DOING_AJAX)) {
-			addPostcodeNotAllowedNotice();
-		}
+		addPostcodeNotAllowedNotice();
 	}
 	return $fragments;
 }
