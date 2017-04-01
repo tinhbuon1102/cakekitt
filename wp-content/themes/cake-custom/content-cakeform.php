@@ -611,7 +611,9 @@ if ($inspired_pic)
 							</div>
 							<div class="mt-2 deliver-info disable">
 								<h4 class="heading-form mt-4 mb-2 text-gray"><?php echo __('Where do you want your order delivered?', 'cake')?></h4>
+								<?php if(!is_user_logged_in()) {?>
 								<div class="get-from-savedata"><?php echo __('Do you wanna ship to saved adderess?', 'cake')?><input type="checkbox" name="user_saved_address" id="user_saved_address" value="1"></div>
+								<?php }?>
 								<div class="form-fields">
 									<div class="row">
 										<div class="field col-md-6">
