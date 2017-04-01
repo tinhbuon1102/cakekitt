@@ -324,7 +324,7 @@ function call_esg_scripts() {
 	wp_register_script('featherlight_js', get_stylesheet_directory_uri() . '/js/featherlight/featherlight.js', false, null, true);
 	wp_register_script('featherlightscript_js', get_stylesheet_directory_uri() . '/js/featherlight/script.js', false, null, true);
 	wp_register_style('featherlight_css', get_stylesheet_directory_uri() . '/js/featherlight/featherlight.css');
-if(is_page('gallery-test')){
+if(is_page('gallery-test','gallery')){
 	wp_enqueue_script('gridgal6_js'); 
     wp_enqueue_script('gridgal1_js'); 
 	wp_enqueue_script('gridgal2_js');
