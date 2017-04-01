@@ -334,7 +334,18 @@ function call_esg_scripts() {
 	wp_register_script('featherlight_js', get_stylesheet_directory_uri() . '/js/featherlight/featherlight.js', false, null, true);
 	wp_register_script('featherlightscript_js', get_stylesheet_directory_uri() . '/js/featherlight/script.js', false, null, true);
 	wp_register_style('featherlight_css', get_stylesheet_directory_uri() . '/js/featherlight/featherlight.css');
-if(is_page('gallery-test','gallery')){
+if(is_page('gallery-test')){
+	wp_enqueue_script('gridgal6_js'); 
+    wp_enqueue_script('gridgal1_js'); 
+	wp_enqueue_script('gridgal2_js');
+	wp_enqueue_script('gridgal3_js');
+	wp_enqueue_script('gridgal4_js');
+	wp_enqueue_script('featherlight_js');
+	wp_enqueue_script('featherlightscript_js');
+	wp_enqueue_style('featherlight_css');
+	wp_enqueue_style('gridgal-css');
+}
+if(is_page('gallery')){
 	wp_enqueue_script('gridgal6_js'); 
     wp_enqueue_script('gridgal1_js'); 
 	wp_enqueue_script('gridgal2_js');
