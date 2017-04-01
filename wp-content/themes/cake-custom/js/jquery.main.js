@@ -400,6 +400,7 @@ $(function(){
             		}
             		
             		$('#returning_customer_wraper').hide();
+            		$('.get-from-savedata').removeClass('disable');
             	}
             	else if (currentStepActive == 4)
             	{
