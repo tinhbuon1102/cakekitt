@@ -215,6 +215,7 @@ function cake_steps_store(){
 	$aCartShowingItems = array(
 		'custom_order_cake_type',
 		'custom_order_cake_shape',
+		'custom_order_layer',
 		'custom_order_cakeflavor',
 		'custom_order_cakecolor',
 		'custom_order_cake_decorate',
@@ -270,6 +271,14 @@ function cake_steps_store(){
 								<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_shape-'.$fieldValue.' size30 blk"></i></span>
 								<span class="display-table-cell width-full cake-shape-name">' . $fieldLabel . ' / ' . $cakeSize . '</span>
 								<span class="display-table-cell price-value pr-5 cake-shape-price">'.showCakePrice($cakePrice).'</span>
+							</h5>';
+						break;
+					
+					case 'custom_order_layer':
+						$cartHtml .= '
+							<h5 class="detail-row pt-1 pb-1" id="cart_' . $fieldName . '">
+								<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_layer size30 blk"></i>'.__('Layer', 'cake').'</span>
+								<span class="display-table-cell width-full cake-layer-name">' . $fieldLabel . '</span>
 							</h5>';
 						break;
 					case 'custom_order_cakeflavor':
@@ -1089,8 +1098,10 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 							
 					case 'custom_order_cake_shape':
 						$fieldCakeSize = getCakeSizeOption($fieldValue, $aData);	
+						$cakeLayer = $fieldMapping['custom_order_layer']['value'][$aData['custom_order_layer']];
+						$cakeLayer = $cakeLayer ? '/'.$cakeLayer : '';
 						$fieldValue = '<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_shape-'.$fieldValue.' size30 blk"></i></span>' . 
-										'<span class="shape-and-size">'.$fieldValueName.'/'.$fieldCakeSize.'</span>' . 
+										'<span class="shape-and-size">' . $fieldValueName . '/'. $fieldCakeSize . $cakeLayer .'</span>' . 
 										($fieldValue == 'custom' && $aData['custom_order_cake_shape_custom'] ? '<span class="shape-desc desc">'.$aData['custom_order_cake_shape_custom'] . '</span>' : '');
 						break;
 							
