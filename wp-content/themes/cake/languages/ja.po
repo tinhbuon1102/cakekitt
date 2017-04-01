@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cake 1.2\n"
 "POT-Creation-Date: 2016-09-20 10:50+0700\n"
-"PO-Revision-Date: 2017-04-01 00:02+0900\n"
+"PO-Revision-Date: 2017-04-01 15:58+0900\n"
 "Last-Translator: \n"
 "Language-Team: codeopus\n"
 "Language: ja_JP\n"
@@ -2155,3 +2155,13 @@ msgstr "都道府県を選択"
 
 msgid "Basic flat fee won’t be applied to your shipping address. We will apply extra shipping fee.<br />*Depend on location, please note that there is a possibility that we can’t deliver to your location"
 msgstr "基本お届け地域外のため、表示されている送料は適用されません。送料は別途お見積もりを出させていただきます。<br/>地域によってはお届けができない場合もありますのでご了承ください。"
+
+#: includes/admin/class-wc-admin-dashboard.php:143
+msgid "<strong>%s orders</strong> accepted"
+msgid_plural "<strong>%s orders</strong> accepted"
+msgstr[0] "<strong>%s 注文</strong>は注文受付承認済み"
+
+#: includes/admin/class-wc-admin-dashboard.php:144
+msgid "<strong>%s orders</strong> pending"
+msgid_plural "<strong>%s orders</strong> pending"
+msgstr[0] "<strong>%s 注文</strong>は注文確認中"

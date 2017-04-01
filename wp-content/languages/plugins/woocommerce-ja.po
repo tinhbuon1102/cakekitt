@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - WooCommerce - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-03-31 14:09+0900\n"
+"PO-Revision-Date: 2017-04-01 16:00+0900\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14718,6 +14718,16 @@ msgstr[0] "<strong>%s商品</strong>在庫切れ"
 msgid "<strong>%s product</strong> low in stock"
 msgid_plural "<strong>%s products</strong> low in stock"
 msgstr[0] "<strong>%s 商品</strong>在庫が少ない"
+
+#: includes/admin/class-wc-admin-dashboard.php:143
+msgid "<strong>%s orders</strong> accepted"
+msgid_plural "<strong>%s orders</strong> accepted"
+msgstr[0] "<strong>%s 注文</strong>は注文受付承認済み"
+
+#: includes/admin/class-wc-admin-dashboard.php:144
+msgid "<strong>%s orders</strong> pending"
+msgid_plural "<strong>%s orders</strong> pending"
+msgstr[0] "<strong>%s 注文</strong>は注文確認中"
 
 #: includes/admin/class-wc-admin-dashboard.php:147
 msgid "<strong>%s order</strong> on-hold"

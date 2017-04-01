@@ -141,3 +141,11 @@ table.order-detail-meta .disabled {
     line-height: 1.3em;
     font-size: 12px;
 }
+#woocommerce_dashboard_status .wc_status_list li.accepted-orders a:before {
+    content: "\e012";
+    color: #ffba00;
+}
+#woocommerce_dashboard_status .wc_status_list li.pending-orders a:before {
+    content: "\e012";
+    color: #ffba00;
+}

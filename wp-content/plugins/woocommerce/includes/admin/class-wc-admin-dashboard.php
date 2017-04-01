@@ -143,12 +143,12 @@ class WC_Admin_Dashboard {
 		?>
 		<li class="pending-orders">
 			<a href="<?php echo admin_url( 'edit.php?post_status=wc-pending&post_type=shop_order' ); ?>">
-				<?php printf( _n( "<strong>%s order</strong> pending", "<strong>%s orders</strong> pending", $pending_count, 'woocommerce' ), $pending_count ); ?>
+				<?php printf( _n( "<strong>%s 注文</strong> は注文確認中", "<strong>%s 注文</strong> は注文確認中", $pending_count, 'woocommerce' ), $pending_count ); ?>
 			</a>
 		</li>
 		<li class="accepted-orders">
 			<a href="<?php echo admin_url( 'edit.php?post_status=wc-accepted&post_type=shop_order' ); ?>">
-				<?php printf( _n( "<strong>%s order</strong> accepted", "<strong>%s orders</strong> accepted", $accepted_count, 'woocommerce' ), $accepted_count ); ?>
+				<?php printf( _n( "<strong>%s 注文</strong> accepted", "<strong>%s 注文</strong> は注文受付承認済み", $accepted_count, 'woocommerce' ), $accepted_count ); ?>
 			</a>
 		</li>
 		<li class="processing-orders">
