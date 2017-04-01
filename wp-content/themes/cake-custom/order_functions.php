@@ -283,7 +283,7 @@ function cake_steps_store(){
 							<h5 class="detail-row pt-1 pb-1" id="cart_' . $fieldName . '">
 								<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_layer size30 blk"></i></span>
 								<span class="display-table-cell width-full cake-layer-name">' . $fieldLabel . __('Layer', 'cake') . '</span>
-								<span class="display-table-cell price-value pr-5 cake-layer-price">'.showCakePrice($cakePrice).'</span>
+								<span class="display-table-cell price-value pr-5 cake-layer-price">'.($cakePrice ? showCakePrice($cakePrice) : '').'</span>
 							</h5>';
 						break;
 					case 'custom_order_cakeflavor':
