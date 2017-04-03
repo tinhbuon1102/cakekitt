@@ -2105,14 +2105,38 @@ a.gallery_type_btn input.cdo-button {
 }
 .filter_opt .dropdown-select {
     width: auto;
-    min-width: 160px;
+    min-width: 175px;
     display: inline-block;
     position: relative;
     border: 1px solid #e5e5e5;
     padding-left: 5px;
 }
-.filter_opt {
+.gal-action-rows {
     margin-bottom: 15px;
+}
+.order-link a.btn.order-link-btn {
+	padding: 8px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 0px;
+    color: #FFF;
+    background: rgba(227,118,160,1);
+	border: 1px solid rgba(227,118,160,1);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.order-link a.btn.order-link-btn i {
+    font-size: 18px;
+    padding-right: 5px;
+}
+.gal-action-rows .fl_col, .gal-action-rows .fr_col {
+    padding: 0 15px;
+}
+.gal-action-rows .fl_col {
+    float: left;
+}
+.gal-action-rows .fr_col {
+    float: right;
 }
 .dropdown-select:after {
     color: #a7abad;

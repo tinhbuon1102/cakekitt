@@ -16,7 +16,9 @@ get_header(); ?>
 	<div class="container">
 		<div class="row">
 		<div id="primary" class="<?php echo esc_attr($col['colclass']); ?> content-area" style="<?php echo esc_attr($col['position']);?>">
-			<div class="filter_opt">
+		<div class="gal-action-rows">
+		<div class="row">
+			<div class="filter_opt fl_col">
 				<?php
 					$terms = get_terms( array(
 						'taxonomy' => 'cakegal_taxonomy',
@@ -26,7 +28,7 @@ get_header(); ?>
 					?>
 					<div class="dropdown-select">
 					<select name="cakegal_cat" class="gal_cat">
-						<option value="">Select Category</option>
+						<option value=""><?php echo __('Select cake type', 'cake')?></option>
 					<?php
 						foreach($terms as $term){
 					?>
@@ -45,7 +47,7 @@ get_header(); ?>
 						<div class="dropdown-select">
 						
 						<select name="cakegal_color_type" class="gal_color_type">
-							<option value="">Select Color</option>
+							<option value=""><?php echo __('Select Color', 'cake')?></option>
 						<?php
 							foreach($color_type['choices'] as $key => $val){
 						?>
@@ -63,7 +65,7 @@ get_header(); ?>
 						?>
 						<div class="dropdown-select">
 						<select name="cakegal_scene" class="gal_scene"">
-							<option value="">Select Scene</option>
+							<option value=""><?php echo __('Select Scene', 'cake')?></option>
 						<?php
 							foreach($scene['choices'] as $key => $val){
 						?>
@@ -75,7 +77,12 @@ get_header(); ?>
 						<?php
 					}
 				?>
+			</div><!--/filter_opt-->
+			<div class="order-link  fr_col">
+				<a href="<?php bloginfo('url') ?>/order-made-form" class="btn order-link-btn"><i class="linericon-chevron-right-circle"></i>オーダーメイドケーキのご注文はコチラ</a>
 			</div>
+			</div>
+			</div><!--/gal-action-rows-->
 			
 				<?php
 				$args = array (
