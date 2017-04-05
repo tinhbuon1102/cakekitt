@@ -184,8 +184,7 @@ function theme_enqueue_styles ()
 	if (is_checkout()) 
 	{
 		wp_deregister_script( 'wc-checkout');
-		wp_enqueue_script('wc-checkout', get_template_directory_uri() . '/woocommerce/assets/js/frontend/checkout.js', array( 'jquery', 'woocommerce', 'wc-country-select', 'wc-address-i18n' ) );
-		
+		wp_enqueue_script('wc-checkout', get_template_directory_uri() . '/woocommerce/assets/js/frontend/checkout.js', array( 'jquery', 'woocommerce', 'wc-country-select' ) );
 	}
 }
 
@@ -1276,11 +1275,11 @@ function custom_woocommerce_shipping_fields( $fields ) {
         "shipping_company", 
         "shipping_phone", 
         "shipping_postcode", 
-        "shipping_country",
         "shipping_state", 
         "shipping_city", 
         "shipping_address_1", 
-        "shipping_address_2"
+        "shipping_address_2",
+		"shipping_country",
 
     );
     foreach($order as $field)
