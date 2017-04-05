@@ -608,7 +608,8 @@ class WCCM_CustomerTable extends WP_List_Table {
 					
 					//if($can_print_user)
 						array_push($data, array( 'ID' => $customer->ID,
-												'name' => isset($customer_info->first_name) ? $customer_info->first_name:'',//$customer_info->first_name,
+												'name' => isset($customer_info->first_name) ? $customer_info->last_name . $customer_info->first_name:'',
+												//'name' => isset($customer_info->first_name) ? $customer_info->first_name:'',//$customer_info->first_name,
 												'surname' =>isset($customer_info->last_name) ? $customer_info->last_name:'',//$customer_info->last_name,
 												'roles' =>  $roles,
 												'notes' =>  isset($customer_extra_info['wccm_customer_notes']) ? $customer_extra_info['wccm_customer_notes'][0]:'',

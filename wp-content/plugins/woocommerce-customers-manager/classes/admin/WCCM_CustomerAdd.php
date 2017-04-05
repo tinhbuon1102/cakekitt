@@ -37,6 +37,10 @@ class WCCM_CustomerAdd
 			$result['billing_first_name'] = str_replace('"', "'", $customer_extra_info['billing_first_name'][0]);
 		 if(isset($customer_extra_info['billing_last_name']))
 			$result['billing_last_name'] = str_replace('"', "'", $customer_extra_info['billing_last_name'][0]);
+		 if(isset($customer_extra_info['billing_first_name_kana']))
+			$result['billing_first_name_kana'] = str_replace('"', "'", $customer_extra_info['billing_first_name_kana'][0]);//added kyoko
+		 if(isset($customer_extra_info['billing_last_name_kana']))
+			$result['billing_last_name_kana'] = str_replace('"', "'", $customer_extra_info['billing_last_name_kana'][0]);//added kyoko
 		 if(isset($customer_extra_info['billing_phone']))
 			$result['billing_phone'] = $customer_extra_info['billing_phone'][0]; 
 		if(isset($customer_extra_info['billing_email']))
@@ -191,6 +195,8 @@ class WCCM_CustomerAdd
 		$wccm_customer_model->update_user_meta( $user_id, $wpdb->prefix.'capabilities', $roles_temp );
 		$wccm_customer_model->update_user_meta( $user_id, 'billing_first_name', $data_source['billing_first_name'] );
 		$wccm_customer_model->update_user_meta( $user_id, 'billing_last_name', $data_source['billing_last_name'] );
+		 $wccm_customer_model->update_user_meta( $user_id, 'billing_first_name_kana', $data_source['billing_first_name_kana'] );//added kyoko
+		$wccm_customer_model->update_user_meta( $user_id, 'billing_last_name_kana', $data_source['billing_last_name_kana'] );//added kyoko
 		$wccm_customer_model->update_user_meta( $user_id, 'billing_email', $data_source['billing_email'] );
 		$wccm_customer_model->update_user_meta( $user_id, 'billing_phone', $data_source['billing_phone'] );
 		$wccm_customer_model->update_user_meta( $user_id, 'billing_company', $data_source['billing_company'] );
@@ -373,7 +379,7 @@ class WCCM_CustomerAdd
 					/* billing_country, billing_first_name, billing_last_name, billing_company, billing_address_1, billing_address_2, billing_city
 					   billing_state, billing_postcode, billing_email, billing_phone */ ?>					
 				<tr class="form-field">
-					<th scope="row"><label for="roles"><?php _e('Roles', 'woocommerce-customers-manager'); ?> <span class="description ">(<span class="field_required"><?php _e('required', 'woocommerce'); ?></span>)</span></label></th>
+					<th scope="row"><label for="roles"><?php  _e('User type', 'woocommerce-customers-manager');?> <span class="description ">(<span class="field_required"><?php _e('required', 'woocommerce'); ?></span>)</span></label></th>
 					<td>
 					<select name="roles[]" class="js-role-select"  multiple="multiple" required>
 					<?php 
@@ -406,6 +412,14 @@ class WCCM_CustomerAdd
 				<tr class="form-field">
 					<th scope="row"><label for="billing_first_name"><?php _e('First name', 'woocommerce'); ?> </label></th>
 					<td><input type="text" value="<?php if(isset($data_source[ 'billing_first_name' ])) echo $data_source[ 'billing_first_name' ];?>" id="billing_first_name" name="billing_first_name"></td>
+				</tr>
+				<tr class="form-field">
+					<th scope="row"><label for="billing_last_name"><?php _e('Last name Kana', 'woocommerce'); ?> </label></th>
+					<td><input type="text" value="<?php if(isset($data_source[ 'billing_last_name_kana' ])) echo $data_source[ 'billing_last_name_kana' ];?>" id="billing_last_name_kana" name="billing_last_name_kana"></td>
+				</tr>
+				<tr class="form-field">
+					<th scope="row"><label for="billing_first_name"><?php _e('First name Kana', 'woocommerce'); ?> </label></th>
+					<td><input type="text" value="<?php if(isset($data_source[ 'billing_first_name_kana' ])) echo $data_source[ 'billing_first_name_kana' ];?>" id="billing_first_name_kana" name="billing_first_name_kana"></td>
 				</tr>
 				
 				
@@ -617,7 +631,7 @@ class WCCM_CustomerAdd
 					<td><input type="text" value="<?php if(isset($data_source[ 'shipping_postcode' ])) echo $data_source[ 'shipping_postcode' ];?>" id="shipping_postcode" name="shipping_postcode"></td>
 				</tr>
 				<tr class="form-field wccm-shipping-info">
-					<th scope="row"><label for="shipping_state"><?php _e('Shipping state', 'woocommerce-customers-manager'); ?></label></th>
+					<th scope="row"><label for="shipping_state"><?php _e('Prefecture', 'woocommerce'); ?></label></th>
 					<td id="shipping_state_wrapper">
 						<!-- <input type="text" id="shipping_state" name="shipping_state"> -->
 					</td>
@@ -714,7 +728,7 @@ class WCCM_CustomerAdd
 							});
 				</script>
 				<tr style="display:none;" class="form-field">
-					<th scope="row"><label for="role">Role</label></th>
+					<th scope="row"><label for="role"><?php  _e('User type', 'woocommerce-customers-manager');?></label></th>
 					<td ><select id="role" name="role">
 							<option value="customer" selected="selected">Customer</option>
 							<option value="shop_manager">Shop Manager</option>		
