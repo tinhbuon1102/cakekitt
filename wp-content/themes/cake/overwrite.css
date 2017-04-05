@@ -683,6 +683,22 @@ table.woocommerce-MyAccount-orders.shop_table.account-orders-table td.order-acti
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+/* cancel notify */
+.notify {
+    padding: 20px;
+    border: 1px solid #E0E0E0;
+    margin-bottom: 20px;
+}
+table.cancel-list th, table.cancel-list td {
+    border-bottom: 1px solid #e6e6e6;
+}
+table.cancel-list th {
+    width: 80px;
+}
+label.normal-checklabel {
+    padding-left: 10px;
+    font-size: 14px;
+}
 .latest-order-table {
     float: left;
     width: 86%;
@@ -4650,7 +4666,9 @@ h1.big-title.big-thanks.payment-intro {
 }
 }
 @media (max-width: 767px) {
-
+#omc-form {
+    overflow: hidden;
+}
 .calendar {
     margin-bottom: 40px;
 }
@@ -4715,7 +4733,7 @@ ul.macaron-color.text-radio.list-type.row {
 ul.round-icon-select.col_5 li.m-input__radio {
     width: 50%;
 	overflow: visible;
-	min-height: 180px;
+	min-height: 190px;
 }
 .m-input__radio div#shape_custom {
     min-width: 280px;
@@ -5072,8 +5090,12 @@ div#wcSec .mobile-flex-wrap .col-sm-6:first-child {
     max-width: 240px;
 }
 .container {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+div#omc-form > .container {
+    padding-left: 15px;
+    padding-right: 15px;
 }
 .cake_info_wraper.col-xs-12 .row {
     margin: 0;

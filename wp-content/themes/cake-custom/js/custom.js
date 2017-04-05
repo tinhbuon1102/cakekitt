@@ -11,6 +11,15 @@ jQuery(document).ready(function(){
 		$(addressItem['city']).attr('readonly', 'true');
 	});
 	
+	//cancel policy check
+	$('#submit_form_order').attr('disabled', 'disabled');
+	
+		$('#cpcheck').on('ifUnchecked', function(event) {
+			$('#submit_form_order').attr('disabled', 'disabled');
+		});
+		$('#cpcheck').on('ifChecked', function(event){
+			$('#submit_form_order').removeAttr('disabled');
+		});
 	//Show Options
 	//$('.gal_cat').SumoSelect();
 	

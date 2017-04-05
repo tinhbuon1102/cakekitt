@@ -180,6 +180,20 @@ if ($inspired_pic)
 							<span class="title-number display-table-cell">4</span>
 							<span class="display-table-cell pl-2"><?php echo __('Choose Size', 'cake')?></span>
 						</h4>
+						<div class="cake-layer select-wrapper">
+							<select name="custom_order_layer" class="form-control select select-primary" data-toggle="select">
+								<!--<option value=""><?php //echo __('Select Layer', 'cake')?></option>-->
+								<?php 
+								$index = 0;
+								foreach ($field_mappings['custom_order_layer']['value'] as $value => $label) {
+									$index ++
+								?>
+									<option value="<?php echo $value?>" <?php echo $field_mappings['custom_order_layer']['field']['default_value'] == $value  ? 'selected' : ''; ?>>
+										<?php echo $label?>
+									</option>
+								<?php }?>
+							</select>
+						</div>
 						<div class="cake-size select-wrapper">
 							<select name="custom_order_cakesize_square" class="form-control select select-primary disable" data-toggle="select">
 								<option value=""><?php echo __('Select Size', 'cake')?></option>
@@ -209,20 +223,7 @@ if ($inspired_pic)
 								<?php }?>
 							</select>
 						</div>
-						<div class="cake-layer select-wrapper">
-							<select name="custom_order_layer" class="form-control select select-primary" data-toggle="select">
-								<option value=""><?php echo __('Select Layer', 'cake')?></option>
-								<?php 
-								$index = 0;
-								foreach ($field_mappings['custom_order_layer']['value'] as $value => $label) {
-									$index ++
-								?>
-									<option value="<?php echo $value?>" <?php echo $field_mappings['custom_order_layer']['field']['default_value'] == $value  ? 'selected' : ''; ?>>
-										<?php echo $label?>
-									</option>
-								<?php }?>
-							</select>
-						</div>
+						
 					</li>
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
@@ -727,6 +728,23 @@ if ($inspired_pic)
 		<div id="confirmation_content">
 		</div>
 		<div id="confirmation_footer" class="disable">
+		<div class="row cancel-policy-check">
+				<div class="col-md-12">
+					<div class="notify">
+						<h4><i class="fa fa-exclamation-circle" aria-hidden="true"></i>キャンセルポリシー</h4>
+						<p>注文受付承認後キャンセルされる場合は以下のキャンセル料がかかります。</p>
+						<table class="cancel-list">
+							<tbody>
+								<tr><th>当日</th><td>商品代金の100%</td></tr>
+								<tr><th>前日</th><td>商品代金の80%</td></tr>
+								<tr><th>2日前</th><td>商品代金の50%</td></tr>
+								<tr><th>3日前</th><td>商品代金の30%</td></tr>
+							</tbody>
+						</table>
+						<input type="checkbox" id="cpcheck" /><label class="normal-checklabel" for="check">上記のキャンセルポリシーに同意します</label>
+					</div>
+				</div>
+			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<input class="cdo-button submit_prev" type="button" name="submit_prev" value="<?php echo esc_html__( 'Previous', 'cake')?>" />
