@@ -241,6 +241,8 @@ class LoginWithAjax {
 				//Success
 				$return['result'] = true;
 				$return['user'] = get_user_by( 'id', $errors );
+				$return['user']->set_role('customer');
+				
 				$return['message'] = __('Registration complete. Please check your e-mail.','login-with-ajax');
 				//add user to blog if multisite
 				if( is_multisite() ){

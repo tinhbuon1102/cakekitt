@@ -1276,6 +1276,7 @@ function custom_woocommerce_shipping_fields( $fields ) {
         "shipping_company", 
         "shipping_phone", 
         "shipping_postcode", 
+        "shipping_country",
         "shipping_state", 
         "shipping_city", 
         "shipping_address_1", 
@@ -1288,7 +1289,6 @@ function custom_woocommerce_shipping_fields( $fields ) {
     }
 
     $fields = $ordered_fields;
-	
 	return $fields;
 }
 // Billing address
