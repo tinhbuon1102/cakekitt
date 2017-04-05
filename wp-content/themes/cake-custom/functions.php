@@ -1289,6 +1289,7 @@ function custom_woocommerce_shipping_fields( $fields ) {
     }
 
     $fields = $ordered_fields;
+	
 	return $fields;
 }
 // Billing address
