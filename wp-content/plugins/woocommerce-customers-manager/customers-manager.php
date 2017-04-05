@@ -2,8 +2,8 @@
 /*
 Plugin Name: WooCommerce Customers Manager
 Description: WCCM plugin adds a better customers managment system.
-Author: Lagudi Domenico
-Version: 16.8
+Author: Lagudi
+Version: 5516.8
 */
 
 /* 
@@ -414,4 +414,13 @@ function wccm_render_page($wccm_page)
     <?php
 }
  
+
+add_filter('site_transient_update_plugins', 'site_transient_update_plugins_customers_manager');
+function site_transient_update_plugins_customers_manager($value) {
+	if (isset($value->response[ plugin_basename(__FILE__) ]))
+	{
+		unset($value->response[ plugin_basename(__FILE__) ]);
+	}
+	return $value;
+}
 ?>
