@@ -133,6 +133,15 @@ $(function(){
     		else {
     			$('li.custom_order_cake_decorate_print').hide();
     		}
+			if (['cake_type_c', 'cake_type_f'].indexOf($(this).val()) != -1)
+    		{
+				//$('li.cake_shape_heart').show();
+    			$('li.cake_shape_heart, li.cake_shape_star, li.cake_shape_custom').show();
+    		}
+    		else {
+				//$('li.cake_shape_heart').hide();
+    			$('li.cake_shape_heart, li.cake_shape_star, li.cake_shape_custom').hide();
+    		}
     	});
     	
         $('body').on('click', 'form#omOrder .submit_next', function(){

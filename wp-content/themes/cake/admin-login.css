@@ -1,0 +1,266 @@
+@font-face {
+  font-family: 'icomoon3';
+  src:  url('fonts/icomoon3.eot?35a2j5');
+  src:  url('fonts/icomoon3.eot?35a2j5#iefix') format('embedded-opentype'),
+    url('fonts/icomoon3.ttf?35a2j5') format('truetype'),
+    url('fonts/icomoon3.woff?35a2j5') format('woff'),
+    url('fonts/icomoon3.svg?35a2j5#icomoon3') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="iconkitt-"], [class*=" iconkitt-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon3' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.iconkitt-kitt_icons_cake-size, .iconkitt-kitt_icons_cake-round:before, .iconkitt-kitt_icons_shape-round:before {
+  content: "\e900";
+}
+.iconkitt-kitt_icons_cakesize:before {
+  content: "\e901";
+}
+.iconkitt-kitt_icons_caketopper:before {
+  content: "\e902";
+}
+.iconkitt-kitt_icons_candy:before {
+  content: "\e903";
+}
+.iconkitt-kitt_icons_cheese:before {
+  content: "\e904";
+}
+.iconkitt-kitt_icons_chocolate:before {
+  content: "\e905";
+}
+.iconkitt-kitt_icons_cupcake:before {
+  content: "\e906";
+}
+.iconkitt-kitt_icons_figure:before {
+  content: "\e907";
+}
+.iconkitt-kitt_icons_flower:before {
+  content: "\e908";
+}
+.iconkitt-kitt_icons_fruit:before {
+  content: "\e909";
+}
+.iconkitt-kitt_icons_heartchoco:before {
+  content: "\e90a";
+}
+.iconkitt-kitt_icons_icingcookie:before {
+  content: "\e90b";
+}
+.iconkitt-kitt_icons_macaron:before {
+  content: "\e90c";
+}
+.iconkitt-kitt_icons_msg-plate:before {
+  content: "\e90d";
+}
+.iconkitt-kitt_icons_print:before {
+  content: "\e90e";
+}
+.iconkitt-kitt_icons_shape-custom:before {
+  content: "\e90f";
+}
+.iconkitt-kitt_icons_shape-heart:before {
+  content: "\e910";
+}
+.iconkitt-kitt_icons_shape-square:before {
+  content: "\e911";
+}
+.iconkitt-kitt_icons_shape-star:before {
+  content: "\e912";
+}
+.iconkitt-kitt_icons_shortcake:before {
+  content: "\e913";
+}
+.iconkitt-kitt_icons_sugarcoating:before {
+  content: "\e914";
+}
+
+/* login page */
+body.login.login-action-login {
+    background: rgba(228,84,140,1) url(https://i1.wp.com/kitt-sweets.jp/wp-content/uploads/2016/06/banner1-1.jpg);
+    background-size: cover;
+    background-blend-mode: luminosity;
+}
+body.login.login-action-login:before {
+    z-index: -1;
+    content: "";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(228,84,140,.5);
+}
+.login #login h1 a {
+    background-image: none,url(http://kitt-sweets.jp/wp-content/uploads/2017/02/logo-footer.png);
+    -webkit-background-size: 120px;
+    background-size: 120px;
+    background-position: center top;
+    background-repeat: no-repeat;
+    color: #444;
+    height: 57px;
+    font-size: 20px;
+    line-height: 1.3em;
+    margin: 0 auto 25px;
+    padding: 0;
+    width: 120px;
+    text-indent: -9999px;
+    outline: 0;
+    display: block;
+}
+.login #login form {
+    margin-top: 20px;
+    margin-left: 0;
+    padding: 26px 24px 46px;
+    background: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.login #login form .input, .login #login form input[type=checkbox], .login #login input[type=text] {
+    background-color: rgba(255,255,255,0.5) /*#ffffff*/;
+	border: 1px solid transparent !important;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    outline: 0;
+}
+.login #login label {
+    font-size: 14px;
+    line-height: 23px;
+    width: 100%;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+.login #login, .login #login form label, .login #login form, .login #login .message {
+    color: rgba(255,255,255,1) /*#ffffff*/;
+}
+.login #login form .input, .login #login form input[type=checkbox], .login #login input[type=text] {
+    color: rgba(153,0,255,1) /*#fa8564*/;
+}
+.login #login form .input, .login #login input[type=text] {
+    font-size: 19px;
+    width: 100%;
+    padding: 9px;
+    line-height: 23px;
+    margin: 5px 0 18px 0;
+}
+.login #login form .input, .login #login form input[type=checkbox], .login #login input[type=text] {
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    -moz-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    -ms-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    -o-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    /* text-shadow: 1px 1px 1px rgba(200,200,200,.1); */
+    font-weight: 500;
+}
+body.login #login form .forgetmenot {
+    width: 100%;
+    display: block;
+    margin: 12px 0 11px 0!important;
+}
+body.login #login form p.submit {
+    margin: 23px 0 0 0;
+    padding: 0;
+    display: inline-block;
+    width: 100%;
+}
+body.login #login {
+    top: 50%;
+    position: relative;
+    max-width: 391px;
+    width: 100%;
+    padding: 0px 0 0;
+    margin: auto;
+    margin-top: -265px;
+}
+.login.wp-core-ui #login .button-primary {
+    height: 34px;
+    line-height: 28px;
+    border-radius: 0px;
+    padding: 0 12px 2px;
+    border-color: transparent;
+}
+.login.wp-core-ui #login .button-primary {
+    width: 100%;
+    height: 46px;
+    line-height: 28px;
+    padding: 2px 12px 2px 12px;
+    font-size: 19px;
+    text-transform: uppercase;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    -moz-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    -ms-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    -o-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+}
+.login.wp-core-ui #login .button-primary {
+    background-color: rgba(153,0,255,1) /*#fa8564*/;
+	text-shadow: none;
+}
+.login #login #backtoblog a, .login #login #nav a, .login #login a {
+    color: rgba(255,255,255,1) /*#ffffff*/;
+}
+.login #login #nav {
+    font-size: 14px;
+    padding: 0 23px;
+    text-align: center;
+    margin: 23px 0 0 0;
+    font-weight: 500;
+}
+.login #login #backtoblog {
+    font-size: 14px;
+    padding: 0 23px;
+    text-align: center;
+    margin: 12px 0 11px 0;
+    font-weight: 500;
+}
+.login #login #login_error, .login #login .message {
+    background-color: rgba(255,255,255,0.5) /*#ffffff*/;
+}
+.login #login .message, .login #login .message a, .login #login #login_error, .login #login #login_error a {
+    color: rgba(153,0,255,1) /*#fa8564*/;
+}
+.login #login #login_error, .login #login .message {
+    width: 345px;
+    border-left: 0px solid transparent;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    -moz-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    -ms-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    -o-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+}
+#login #login_error, .login #login .message {
+    margin: 23px 23px 0px 23px;
+    padding: 12px 23px 11px 23px;
+}
+@media screen and ( max-height: 600px ){
+body.login{
+    height:130%;
+}
+    body.login #login {
+        top:50%;
+    }
+}
+
+
+@media screen and ( max-height: 480px ){
+body.login{
+    height:150%;
+}
+    body.login #login {
+        top:50%;
+    }
+}
