@@ -134,6 +134,12 @@ function kitt_get_custom_fields()
 	return $cake_custom_fields;
 }
 
+function getLayerSizeMapper() {
+	$field_mappings = getCustomFormFieldMapping();
+	
+	pr($field_mappings);die;
+}
+
 add_action( 'admin_menu', 'my_remove_menu_pages' );
 function my_remove_menu_pages() {
 	if (!current_user_can('level_10')) {
