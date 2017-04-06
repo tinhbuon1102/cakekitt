@@ -380,7 +380,9 @@ $(function(){
         $('body').on('click', '.lwa-links-login', function(e){
         	e.preventDefault();
         	$(".lwa-status").trigger("reveal:close");
-        	showLoginPopup();
+        	setTimeout(function(){
+        		showLoginPopup();
+        	}, 300);
         });
         
         
