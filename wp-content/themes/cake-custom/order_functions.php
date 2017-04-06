@@ -319,8 +319,8 @@ function cake_steps_store(){
 									$keyPriceSize = ('custom_order_cake_shape_custom_order_cakesize_square' . '__' . $szCakeShape . '_' . $szLayerSize);
 								}
 								
-								$fLayerPrice = $cakePrices[$keyPriceSize];
-								$fLayerPrice = !empty($fLayerPrice) ? $fLayerPrice['amount'] : 0;
+								$aFLayerPrice = $cakePrices[$keyPriceSize];
+								$fLayerPrice += !empty($aFLayerPrice) ? $aFLayerPrice['amount'] : 0;
 							}
 						}
 						$cakePrice += $fLayerPrice;
