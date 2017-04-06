@@ -323,6 +323,8 @@ function cake_steps_store(){
 								$fLayerPrice += !empty($aFLayerPrice) ? $aFLayerPrice['amount'] : 0;
 							}
 						}
+// 						pr($cakePrice);
+// 						pr($fLayerPrice);die;
 						$cakePrice += $fLayerPrice;
 						
 						// If size does not contain number => make it = 0
