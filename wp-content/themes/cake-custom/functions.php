@@ -2,6 +2,7 @@
 define('KITT_SHIPPING_POSTCODE_DISCOUNT_FEE', 1500);
 define('KITT_FLAVOR_RATE', 1.1);
 define('KITT_MINIMUM_PRICE_FOR_OTHER_POSTCODE', 50000);
+define('KITT_MAX_LAYER_ESTIMATION', 3);
 
 // Include order function file
 include 'order_functions.php';
@@ -132,12 +133,6 @@ function kitt_get_custom_fields()
 		$cake_custom_fields = apply_filters('acf/field_group/get_fields', array(), $postID);
 	}
 	return $cake_custom_fields;
-}
-
-function getLayerSizeMapper() {
-	$field_mappings = getCustomFormFieldMapping();
-	
-	pr($field_mappings);die;
 }
 
 add_action( 'admin_menu', 'my_remove_menu_pages' );

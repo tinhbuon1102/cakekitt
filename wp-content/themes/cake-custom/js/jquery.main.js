@@ -62,14 +62,24 @@ $(function(){
             			$('#sub_total').addClass('disable');
             		}
             		
-//            		if (response.total_tax)
-//            		{
-//            			$('#total_tax').removeClass('disable');
-//            			$('#total_tax .text-right h6').html(response.total_tax);
-//            		}
-//            		else {
-//            			$('#total_tax').addClass('disable');
-//            		}
+            		if (response.total_tax)
+            		{
+            			$('#sub_total').removeClass('disable');
+            			//$('#total_tax').removeClass('disable');
+            			//$('#total_tax .text-right h6').html(response.total_tax);
+            		}
+            		else {
+            			//$('#total_tax').addClass('disable');
+            		}
+            		
+            		if (response.cart_notice)
+            		{
+            			$('#cart_notice').removeClass('disable');
+            			$('#cart_notice').html(response.cart_notice);
+            		}
+            		else {
+            			$('#cart_notice').addClass('disable');
+            		}
             		
             		$('#sub_total .text-right h6').html(response.sub_total);
             		$('#cart_total .text-right h4').html(response.cart_total);
@@ -100,7 +110,7 @@ $(function(){
     	$('form.form-style-common .help-block').addClass('disable');
         	
         
-    	$('body').on('change', 'form#omOrder input:radio, form#omOrder input:checkbox, form#omOrder select', function(){
+    	$('body').on('change', 'form#omOrder input:radio, form#omOrder input:checkbox, form#omOrder select:not([name="custom_order_layer"])', function(){
     		showItemInCart();
     	});
     	
@@ -270,14 +280,25 @@ $(function(){
                 			$('#sub_total').addClass('disable');
                 		}
                 		
-//                		if (response.total_tax)
-//                		{
-//                			$('#total_tax').removeClass('disable');
-//                			$('#total_tax .text-right h6').html(response.total_tax);
-//                		}
-//                		else {
-//                			$('#total_tax').addClass('disable');
-//                		}
+                		if (response.total_tax)
+                		{
+                			$('#sub_total').removeClass('disable');
+                			//$('#total_tax').removeClass('disable');
+                			//$('#total_tax .text-right h6').html(response.total_tax);
+                		}
+                		else {
+                			//$('#total_tax').addClass('disable');
+                		}
+                		
+                		if (response.cart_notice)
+                		{
+                			$('#cart_notice').removeClass('disable');
+                			$('#cart_notice').html(response.cart_notice);
+                		}
+                		else {
+                			$('#cart_notice').addClass('disable');
+                		}
+                		
                 		
                 		$('#sub_total .text-right h6').html(response.sub_total);
                 		$('#cart_total .text-right h4').html(response.cart_total);
@@ -527,6 +548,36 @@ $(function(){
     	
     	$('input[type="checkbox"]:checked, input[type="radio"]:checked').each(function(){
     		$(this).trigger('change');
+    	});
+    	
+    	$('body').on('change', 'select[name="custom_order_layer"]', function(){
+    		var layer = $(this).val();
+    		$.ajax({
+ 	           url: gl_ajaxUrl,
+ 	           data: {action: 'get_layer_cake_size', layer: layer, szSizeRound : $('select[name="custom_order_cakesize_round"]').val(), szSizeSquare : $('select[name="custom_order_cakesize_square"]').val()}, 
+ 	           method: 'POST',
+ 	           dataType: 'json',
+ 	           success: function(response){
+ 	        	   if (response.custom_order_cakesize_round)
+ 	        		{
+ 	        		   $('select[name="custom_order_cakesize_round"]').html(response.custom_order_cakesize_round);
+ 	        		}
+ 	        	   if (response.custom_order_cakesize_square)
+	        		{
+	        		   $('select[name="custom_order_cakesize_square"]').html(response.custom_order_cakesize_square);
+	        		}
+ 	        	   
+ 	        	   // trigger size change to get cart
+ 	        	   if ($('select[name="custom_order_cakesize_round"]').is(':visible'))
+ 	        		  $('select[name="custom_order_cakesize_round"]').trigger('change');
+ 	        	   else
+ 	        		  $('select[name="custom_order_cakesize_square"]').trigger('change');
+ 	        	   
+ 	           },
+ 	           error: function(response){
+ 	        	   $('body').LoadingOverlay("hide");
+ 	           }
+            });
     	});
     	
     }

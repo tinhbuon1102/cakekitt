@@ -274,9 +274,61 @@ function cake_steps_store(){
 						break;
 					
 					case 'custom_order_layer':
+						$fLayerPrice = 0 ;
 						$keyPrice = ('custom_order_layer__' . $fieldValue);
 						$cakePrice = $cakePrices[$keyPrice];
 						$cakePrice = !empty($cakePrice) ? $cakePrice['amount'] : 0;
+						
+						$cakeSize = $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_round'] ? $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_round'] : $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_square'];
+						
+						// Get layer cake size
+						if ($fieldValue <= KITT_MAX_LAYER_ESTIMATION)
+						{
+							$szCakeShape = $cakeStepData['custom_order_cake_shape'];
+							if (in_array($szCakeShape, getArrayRoundShape()))
+							{
+								// Round
+								$aCakeSize = array_keys($fieldMapping['custom_order_cakesize_round']['value']);
+							}
+							else {
+								// Square
+								$aCakeSize = array_keys($fieldMapping['custom_order_cakesize_square']['value']);
+							}
+							
+							$cakeLayerOffsetEnd = array_search($cakeSize, $aCakeSize);
+							// Get Layer size array
+							$aCakeLayerSize = array();
+							for($i = $cakeLayerOffsetEnd - 1; $i > ($cakeLayerOffsetEnd - $fieldValue); $i --)
+							{
+								$aCakeLayerSize[] = $aCakeSize[$i];
+							}
+							
+							// Get Layer price
+							foreach ($aCakeLayerSize as $szLayerSize)
+							{
+								if (in_array($szCakeShape, getArrayRoundShape()))
+								{
+									// Round
+									$keyPriceSize = ('custom_order_cake_shape_custom_order_cakesize_round' . '__' . $szCakeShape . '_' . $szLayerSize);
+								}
+								else {
+									// Square
+									$keyPriceSize = ('custom_order_cake_shape_custom_order_cakesize_square' . '__' . $szCakeShape . '_' . $szLayerSize);
+								}
+								
+								$fLayerPrice = $cakePrices[$keyPriceSize];
+								$fLayerPrice = !empty($fLayerPrice) ? $fLayerPrice['amount'] : 0;
+							}
+						}
+						$cakePrice += $fLayerPrice;
+						
+						// If size does not contain number => make it = 0
+						if (!preg_match('/[0-9]+/', $cakeSize))
+						{
+							$cakePrice = 0;
+						}
+						
+						// Add price to total
 						$cartTotal += $cakePrice;
 						
 						$cartHtml .= '
@@ -357,14 +409,24 @@ function cake_steps_store(){
 	$aData = array();
 	$product_id = calculateProductCart($aData, $cartTotal);
 	$cart = WC()->instance()->cart;
-	
 	$chosen_shipping_methods = WC()->session->get( 'chosen_shipping_methods' );
 	$aResponse['cart_html'] = $cartHtml;
+	
+	$aData = getFormData();
+	$szCakeShape = $aData['custom_order_cake_shape'];
+	$cakeSize = isset($aData['custom_order_cakesize_round']) ? $aData['custom_order_cakesize_round'] : $aData['custom_order_cakesize_square'];
+	$lastCakeSize = isset($aData['custom_order_cakesize_round']) ? end($fieldMapping['custom_order_cakesize_round']['value']) : end($fieldMapping['custom_order_cakesize_square']['value']);
+	
+	if ($cakeSize == $lastCakeSize)
+	{
+		$aResponse['cart_notice'] .= '<br />' . __('Cake price is not inluding the esitmation  because of special size', 'cake');
+	}
+	
 	$aResponse['shipping_fee'] = $cart->shipping_total ? $cart->get_cart_shipping_total() : 0;
 	$aResponse['sub_total'] = $cart->get_cart_subtotal();
 	$aResponse['total_tax'] = $cart->get_cart_tax();
-	$aResponse['cart_total'] = $cart->total ? $cart->get_total() : showCakePrice($cakePrice);
-
+	$aResponse['cart_total'] = isset($aResponse['cart_notice']) ? showCakePrice(0) : ($cart->total ? $cart->get_total() : showCakePrice($cakePrice));
+	
 	// Show COnfirmation page
 	if ($_POST['step'] >= 3)
 	{
@@ -401,15 +463,15 @@ function calculateProductCart(&$aData = array(), $cartTotal = 0){
 		}
 	}
 	
-	$cartTotal = $cartTotal ? $cartTotal : calculateCustomOrderPrice($aData);
+// 	$cartTotal = $cartTotal ? $cartTotal : calculateCustomOrderPrice($aData);
 	
 	// If custom product not exist and has price -> Create product and add to cart
-	if (!$product_id && $cartTotal)
+	if (!$product_id)
 	{
-		$product_id = kitt_create_temporary_product($aData);
+		$product_id = kitt_create_temporary_product($aData, $cartTotal);
 	}
 	
-	if ($product_id && $cartTotal)
+	if ($product_id)
 	{
 		// Modify product price and reset to cart
 		update_post_meta( $product_id, '_regular_price', $cartTotal );
@@ -511,7 +573,7 @@ function calculateCustomOrderPrice($aData){
 	return $totalPrice;
 }
 
-function kitt_create_temporary_product(&$aData) {
+function kitt_create_temporary_product(&$aData, $totalPrice) {
 	// Create Custom Product
 	$post = array(
 		'post_author' => 1,
@@ -540,15 +602,60 @@ function kitt_create_temporary_product(&$aData) {
 	update_post_meta( $post_id, '_backorders', "no" );
 	
 	
-	$aData = getFormData();
-	// Get price
-	$totalPrice = calculateCustomOrderPrice($aData);
-	
 	update_post_meta( $post_id, '_regular_price', $totalPrice );
 	update_post_meta( $post_id, '_sale_price', $totalPrice );
 	update_post_meta( $post_id, '_price', $totalPrice );
 	
 	return $post_id;
+}
+
+add_action('wp_ajax_nopriv_get_layer_cake_size', 'get_layer_cake_size');
+add_action('wp_ajax_get_layer_cake_size', 'get_layer_cake_size');
+function get_layer_cake_size() {
+	$field_mappings = getCustomFormFieldMapping();
+	$aSizeRound = $field_mappings['custom_order_cakesize_round']['value'];
+	$aSizeSquare = $field_mappings['custom_order_cakesize_square']['value'];
+	$iLayer = (int)$_POST['layer'];
+	$szSizeRound = $_POST['szSizeRound'];
+	$szSizeSquare = $_POST['szSizeSquare'];
+	
+	switch($iLayer)
+	{
+		case 1:
+		case 2:
+			// Don't change anything
+			break;
+		case KITT_MAX_LAYER_ESTIMATION:
+			// Hide first option of round/square size
+			$aSizeRound = array_slice( $aSizeRound, 1, count($aSizeRound), TRUE );
+			$aSizeSquare = array_slice( $aSizeSquare, 1, count($aSizeRound), TRUE );
+			break;
+		default:
+			// Hide all options except last option round/square
+			$aSizeRound = array_slice( $aSizeRound, -1, 1, TRUE );
+			$aSizeSquare = array_slice( $aSizeSquare, -1, 1, TRUE );
+			break;
+	}
+	
+	$aSizeRound = array('' => __('Select Size', 'cake')) + $aSizeRound;
+	$aSizeSquare = array('' => __('Select Size', 'cake')) + $aSizeSquare;
+	
+	$square_option = $round_option = '';
+	foreach ($aSizeRound as $szSizeVal => $szSizeLabel)
+	{
+		$round_option .= '<option value="'.$szSizeVal.'"' .($szSizeRound == $szSizeVal  ? 'selected' : ''). '>' . 
+							$szSizeLabel . 
+						'</option>';
+	}
+	
+	foreach ($aSizeSquare as $szSizeVal => $szSizeLabel)
+	{
+		$square_option .= '<option value="'.$szSizeVal.'"' .($szSizeSquare == $szSizeVal  ? 'selected' : ''). '>' .
+							$szSizeLabel .
+						'</option>';
+	}
+	$response = array('custom_order_cakesize_round' => $round_option, 'custom_order_cakesize_square' => $square_option);
+	echo json_encode($response);die;
 }
 
 add_action('wp_ajax_nopriv_submit_form_order', 'submit_form_order');

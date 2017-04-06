@@ -783,6 +783,9 @@ if ($inspired_pic)
 						<div class="col-md-8 columns text-gray"><h4><?php _e( 'Estimation', 'woocommerce' ); ?></h4></div>
 						<div class="col-md-4 columns text-green text-right"><h4>¥-</h4></div>
 					</div>
+					
+					<div class="row disable" id="cart_notice">
+					</div>
 				</div>
 			</div>
 		</div>
