@@ -320,12 +320,9 @@ function cake_steps_store(){
 								}
 								
 								$aFLayerPrice = $cakePrices[$keyPriceSize];
-// 								pr($aFLayerPrice);
 								$fLayerPrice += !empty($aFLayerPrice) ? $aFLayerPrice['amount'] : 0;
 							}
 						}
-// 						pr($cakePrice);
-// 						pr($fLayerPrice);die;
 						$cakePrice += $fLayerPrice;
 						
 						// If size does not contain number => make it = 0
@@ -636,8 +633,8 @@ function get_layer_cake_size() {
 			break;
 		case KITT_MAX_LAYER_ESTIMATION:
 			// Hide first option of round/square size
-			$aSizeRound = array_slice( $aSizeRound, 1, count($aSizeRound), TRUE );
-			$aSizeSquare = array_slice( $aSizeSquare, 1, count($aSizeRound), TRUE );
+			$aSizeRound = array_slice( $aSizeRound, 2, count($aSizeRound), TRUE );
+			$aSizeSquare = array_slice( $aSizeSquare, 2, count($aSizeRound), TRUE );
 			break;
 		default:
 			// Hide all options except last option round/square

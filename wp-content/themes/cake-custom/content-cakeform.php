@@ -201,7 +201,8 @@ if ($inspired_pic)
 								<?php 
 								$index = 0;
 								foreach ($field_mappings['custom_order_cakesize_square']['value'] as $value => $label) {
-									$index ++
+									$index ++;
+									if ($index == 1) continue;
 								?>
 									<option value="<?php echo $value?>" <?php echo $field_mappings['custom_order_cakesize_square']['field']['default_value'] == $value  ? 'selected' : ''; ?>>
 										<?php echo $label?>
@@ -216,6 +217,7 @@ if ($inspired_pic)
 								$index = 0;
 								foreach ($field_mappings['custom_order_cakesize_round']['value'] as $value => $label) {
 									$index ++;
+									if ($index == 1) continue;
 								?>
 									<option value="<?php echo $value?>" <?php echo $field_mappings['custom_order_cakesize_round']['field']['default_value'] == $value  ? 'selected' : ''; ?>>
 										<?php echo $label?>
