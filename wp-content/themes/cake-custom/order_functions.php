@@ -320,12 +320,12 @@ function cake_steps_store(){
 								}
 								
 								$aFLayerPrice = $cakePrices[$keyPriceSize];
-								pr($aFLayerPrice);
+// 								pr($aFLayerPrice);
 								$fLayerPrice += !empty($aFLayerPrice) ? $aFLayerPrice['amount'] : 0;
 							}
 						}
-						pr($cakePrice);
-						pr($fLayerPrice);die;
+// 						pr($cakePrice);
+// 						pr($fLayerPrice);die;
 						$cakePrice += $fLayerPrice;
 						
 						// If size does not contain number => make it = 0
