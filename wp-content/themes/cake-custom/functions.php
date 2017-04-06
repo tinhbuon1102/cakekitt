@@ -2075,4 +2075,25 @@ function kitt_check_shipping_withpostcode_before_checkout ($fragments)
 	return $fragments;
 }
 
+add_filter( 'woocommerce_get_formatted_order_total', 'kitt_woocommerce_get_formatted_order_total', 10, 3 );
+function kitt_woocommerce_get_formatted_order_total($formatted_total, $order)
+{
+	$f_zeroTotal = wc_price( 0, array( 'currency' => $order->get_order_currency() ) );
+	if (!is_admin() && $f_zeroTotal == $formatted_total)
+	{
+		$formatted_total = '<span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">'.get_woocommerce_currency_symbol().'</span>-</span>';
+	}
+	return $formatted_total;
+}
+
+add_filter( 'woocommerce_order_formatted_line_subtotal', 'kitt_woocommerce_order_formatted_line_subtotal', 10, 3 );
+function kitt_woocommerce_order_formatted_line_subtotal($formatted_total, $item, $order)
+{
+	$f_zeroTotal = wc_price( 0, array( 'currency' => $order->get_order_currency() ) );
+	if (!is_admin() && $f_zeroTotal == $formatted_total)
+	{
+		$formatted_total = '<span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">'.get_woocommerce_currency_symbol().'</span>-</span>';
+	}
+	return $formatted_total;
+}
 ?>

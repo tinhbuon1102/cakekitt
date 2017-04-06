@@ -53,13 +53,18 @@ $show_customer_details = is_user_logged_in() && $order->get_user_id() === get_cu
 	<tfoot>
 		<?php
 			foreach ( $order->get_order_item_totals() as $key => $total ) {
+				if ($total['value'] == wc_price( 0, array( 'currency' => $order->get_order_currency() ) ))
+				{
+					$total['value'] = '<span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">'.get_woocommerce_currency_symbol().'</span>-</span>';
+				}
+				
 				?>
 				<tr>
 					<th scope="row"><?php echo $total['label']; ?></th>
 					<td><?php echo $total['value']; ?></td>
 				</tr>
 				<?php
-			}
+			}die;
 		?>
 	</tfoot>
 </table>
