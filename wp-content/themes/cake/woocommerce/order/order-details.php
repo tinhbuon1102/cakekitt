@@ -64,7 +64,7 @@ $show_customer_details = is_user_logged_in() && $order->get_user_id() === get_cu
 					<td><?php echo $total['value']; ?></td>
 				</tr>
 				<?php
-			}die;
+			}
 		?>
 	</tfoot>
 </table>
