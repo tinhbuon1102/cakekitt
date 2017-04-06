@@ -1725,6 +1725,11 @@ function kitt_custom_checkout_field_update_order_meta( $order_id )
 		{
 			update_user_meta($userID, 'sex', $_POST['cake_custom_order']['custom_order_customer_sex']);
 		}
+		
+		update_user_meta($userID, 'first_name_kana', $_POST['billing_first_name_kana']);
+		update_user_meta($userID, 'last_name_kana', $_POST['billing_last_name_kana']);
+		update_user_meta($userID, 'tel', $_POST['billing_phone']);
+		
 		unset($_POST['cake_custom_order']['custom_order_customer_birth_date_year']);
 		unset($_POST['cake_custom_order']['custom_order_customer_birth_date_month']);
 		unset($_POST['cake_custom_order']['custom_order_customer_birth_date_day']);
