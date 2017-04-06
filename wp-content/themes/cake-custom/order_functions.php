@@ -438,7 +438,7 @@ function cake_steps_store(){
 }
 
 
-function calculateProductCart(&$aData = array(), $cartTotal = 0){
+function calculateProductCart(&$aData = array(), $cartTotal = 0, $b_isCreateOrder = false){
 	$aFormData = getFormData();
 	$cart = WC()->instance()->cart;
 	$product_id = 0;
@@ -462,6 +462,9 @@ function calculateProductCart(&$aData = array(), $cartTotal = 0){
 			}
 		}
 	}
+	
+	if ($b_isCreateOrder)
+		return $product_id;
 	
 // 	$cartTotal = $cartTotal ? $cartTotal : calculateCustomOrderPrice($aData);
 	
@@ -717,7 +720,7 @@ function submit_form_order(){
 		$checkOut = new WC_Checkout();
 		$checkOut->shipping_methods = (array) WC()->session->get( 'chosen_shipping_methods' );
 		
-		$product_id = calculateProductCart($aData);
+		$product_id = calculateProductCart($aData, 0, true);
 		$userID = (int) get_current_user_id();
 		
 		$totalPrice = WC()->instance()->cart->total;
