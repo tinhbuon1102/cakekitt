@@ -105,6 +105,9 @@
 				</p>
 				<?php do_action('register_form'); ?>
 				<?php do_action('lwa_register_form'); ?>
+				<p class="lwa-login">
+					<a href="<?php echo esc_attr(LoginWithAjax::$url_login); ?>" class="lwa-links-login lwa-links-modal"><?php esc_html_e('Or Login if already registered','login-with-ajax') ?></a>
+				</p>
 				<p class="submit">
 					<input type="submit" name="wp-submit" id="wp-submit" class="button-primary" value="<?php esc_attr_e('Register', 'login-with-ajax'); ?>" tabindex="100" />
 				</p>

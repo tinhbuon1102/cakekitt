@@ -352,7 +352,7 @@ $(function(){
                 });
         	}
         	else {
-        		showLoginPopup();
+        		showLoginPopup('register');
         	}
         });
         
@@ -377,12 +377,25 @@ $(function(){
         	showLoginPopup();
         });
         
-        function showLoginPopup(){
+        $('body').on('click', '.lwa-links-login', function(e){
+        	e.preventDefault();
+        	$(".lwa-status").trigger("reveal:close");
+        	showLoginPopup();
+        });
+        
+        
+        function showLoginPopup(popup){
         	$('body').LoadingOverlay("hide");
-    		$('#custom_order_login_modal').modal({
-    			backdrop: 'static',
-    		    keyboard: false
-    		});
+        	if (popup == 'register')
+        	{
+        		$('.lwa-links-modal').click();
+        	}
+        	else {
+        		$('#custom_order_login_modal').modal({
+        			backdrop: 'static',
+        		    keyboard: false
+        		});
+        	}
         }
         
         function pullFieldData(field_data){

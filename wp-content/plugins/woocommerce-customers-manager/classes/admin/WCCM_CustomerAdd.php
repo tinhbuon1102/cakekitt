@@ -201,17 +201,15 @@ class WCCM_CustomerAdd
 		//wccm_var_dump($data_source['last_name']);
 		//wp_update_user(array( 'ID' => $user_id, 'role' => $data_source['roles'] ) );
 		$wccm_customer_model->update_user_meta( $user_id, $wpdb->prefix.'capabilities', $roles_temp );
+		
 		$wccm_customer_model->update_user_meta( $user_id, 'billing_first_name', $data_source['billing_first_name'] );
 		$wccm_customer_model->update_user_meta( $user_id, 'billing_last_name', $data_source['billing_last_name'] );
-		 $wccm_customer_model->update_user_meta( $user_id, 'billing_first_name_kana', $data_source['billing_first_name_kana'] );//added kyoko
+		$wccm_customer_model->update_user_meta( $user_id, 'billing_first_name_kana', $data_source['billing_first_name_kana'] );//added kyoko
 		$wccm_customer_model->update_user_meta( $user_id, 'billing_last_name_kana', $data_source['billing_last_name_kana'] );//added kyoko
 		$wccm_customer_model->update_user_meta( $user_id, 'billing_email', $data_source['billing_email'] );
 		$wccm_customer_model->update_user_meta( $user_id, 'billing_phone', $data_source['billing_phone'] );
 		$wccm_customer_model->update_user_meta( $user_id, 'billing_company', $data_source['billing_company'] );
-		 $wccm_customer_model->update_user_meta( $user_id, 'birth_date[year]', $data_source['birth_date[year]'] );//added kyoko
-		 $wccm_customer_model->update_user_meta( $user_id, 'birth_date[month]', $data_source['birth_date[month]'] );//added kyoko
-		$wccm_customer_model->update_user_meta( $user_id, 'birth_date[day]', $data_source['birth_date[day]'] );//added kyoko
-		 $wccm_customer_model->update_user_meta( $user_id, 'sex', $data_source['sex'] );//added kyoko
+		
 		$wccm_customer_model->update_user_meta( $user_id, 'billing_eu_vat', $data_source['billing_eu_vat'] );
 		$wccm_customer_model->update_user_meta( $user_id, 'billing_address_1', $data_source['billing_address_1'] );
 		$wccm_customer_model->update_user_meta( $user_id, 'billing_address_2', $data_source['billing_address_2'] );
@@ -219,6 +217,17 @@ class WCCM_CustomerAdd
 		$wccm_customer_model->update_user_meta( $user_id, 'billing_city', $data_source['billing_city'] );
 		$wccm_customer_model->update_user_meta( $user_id, 'billing_state', $data_source['billing_state'] );
 		$wccm_customer_model->update_user_meta( $user_id, 'billing_country', $data_source['billing_country'] );
+		
+		$user = new WP_User($user_id);
+		$user->first_name = $data_source['billing_first_name'] ? $data_source['billing_first_name'] : $user->first_name;
+		$user->last_name = $data_source['billing_last_name'] ? $data_source['billing_last_name'] : $user->last_name;
+		wp_update_user($user);
+		
+		$wccm_customer_model->update_user_meta( $user_id, 'first_name_kana', $data_source['billing_first_name_kana'] );//added kyoko
+		$wccm_customer_model->update_user_meta( $user_id, 'last_name_kana', $data_source['billing_last_name_kana'] );//added kyoko
+		$wccm_customer_model->update_user_meta( $user_id, 'tel', $data_source['billing_phone'] );
+		$wccm_customer_model->update_user_meta( $user_id, 'sex', $data_source['sex'] );
+		$wccm_customer_model->update_user_meta( $user_id, 'birth_date', $data_source['birth_date'] );
 		
 		if(isset($data_source['shipping_as_billing']) && $data_source['shipping_as_billing'] == 'yes')	
 		{
@@ -444,15 +453,41 @@ class WCCM_CustomerAdd
 					<td><input type="text" value="<?php if(isset($data_source[ 'billing_phone' ])) echo $data_source[ 'billing_phone' ];?>" id="billing_phone" name="billing_phone"></td>
 				</tr>
 				<tr>
-					<th  scope="row"><label for="birthdate"><?php _e('Birth date', 'cake'); ?></label></th>
+					<th  scope="row"><label for="birthdate"><?php _e( 'Birth date', 'woocommerce' ); ?></label></th>
 					<td>
-						
+					<?php 
+					$user_id = $user_id ? $user_id : $_REQUEST['customer'];
+					$yearMonthDays = kitt_get_year_month_day();
+					$birth_date = get_user_meta( $user_id, 'birth_date', true);
+					$default	= array( 'day' => 1, 'month' => 1, 'year' => 1980, );
+					$birth_date = $birth_date ? $birth_date : $default;
+					$sexs = array('male' => __('Male', 'cake'), 'female' => __('Female', 'cake'));
+					?>	
+						<select id="birth-date-year" name="birth_date[year]"><?php
+				   		 foreach($yearMonthDays['years'] as $yearNumber) {
+				   		 	printf( '<option value="%1$s" %2$s>%1$s</option>', $yearNumber, selected( $birth_date['year'], $yearNumber, false ) );
+				   		 }
+			   			 ?></select>
+			   			 <select id="birth-date-month" name="birth_date[month]"><?php
+				   			 foreach ( $yearMonthDays['months'] as $monthNumber => $monthText ) {
+				   			 	printf( '<option value="%1$s" %2$s>%3$s</option>', $monthNumber, selected( $birth_date['month'], $monthNumber, false ), $monthText );
+				   			 }
+			   			 ?></select>
+			   			 <select id="birth-date-day" name="birth_date[day]"><?php
+			   			 foreach($yearMonthDays['days'] as $dayNumber) {
+			   			 	printf( '<option value="%1$s" %2$s>%1$s</option>', $dayNumber, selected( $birth_date['day'], $dayNumber, false ) );
+			   			 }
+			   			 ?></select>
 					</td>
 				</tr>
 				<tr>
 					<th  scope="row"><label for="sex"><?php _e('Sex', 'cake'); ?></label></th>
 					<td>
-						
+					<select id="sex" name="sex"><?php
+		   				 foreach ( $sexs as $sexKey => $sex ) {
+		   					 printf( '<option value="%1$s" %2$s>%3$s</option>', $sexKey, selected( get_user_meta($user_id, 'sex', true), $sexKey, false ), $sex );
+		   				 }
+		   			 ?></select>
 					</td>
 				</tr>
 				<tr style="display:none;">

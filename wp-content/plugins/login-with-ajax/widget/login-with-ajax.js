@@ -183,6 +183,7 @@ function(a) {
                     display: "none"
                 }))),
                 t.unbind("reveal:close")
+                a('#submit_form_order').show();
             }),
             t.trigger("reveal:open");
             a("." + e.dismissmodalclass).bind("click.modalEvent", function() {
