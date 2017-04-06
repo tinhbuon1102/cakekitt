@@ -628,7 +628,7 @@ function send_email_processing($order_id)
 		}
 	}
 }
-function rename_menu_to_original( $translated, $original, $domain ) {
+/*function rename_menu_to_original( $translated, $original, $domain ) {
 
 $strings = array(
 	'WooCommerce' => 'Orders',
@@ -657,7 +657,7 @@ switch ( $translated_text ) {
 }
 return $translated_text;
 }
-add_filter( 'gettext', 'my_text_strings', 20, 3 );
+add_filter( 'gettext', 'my_text_strings', 20, 3 );*/
 
 add_action( 'woocommerce_admin_order_data_after_order_details', 'kitt_woocommerce_admin_order_data_after_order_details', 10, 1 );
 function kitt_woocommerce_admin_order_data_after_order_details($order)
