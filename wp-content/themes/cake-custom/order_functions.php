@@ -1162,6 +1162,22 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 	}
 	
 	$divRow = '';
+	
+	// Show estimation notice - BEGIN
+	$aData = getFormData();
+	$szCakeShape = $aData['custom_order_cake_shape'];
+	$cakeSize = isset($aData['custom_order_cakesize_round']) ? $aData['custom_order_cakesize_round'] : $aData['custom_order_cakesize_square'];
+	$lastCakeSize = isset($aData['custom_order_cakesize_round']) ? end($fieldMapping['custom_order_cakesize_round']['value']) : end($fieldMapping['custom_order_cakesize_square']['value']);
+	
+	if ($cakeSize == $lastCakeSize)
+	{
+		if (!$order_id || in_array($order->post_status, array('wc-pending')))
+		{
+			$divRow .= '<div class="estimation_notice">' . __('Cake price is not inluding the esitmation  because of special size', 'cake') . '</div>';
+		}
+	}
+	// Show estimation notice -  END
+	
 	$divRow .= '<div class="order-detail-custom-table row" '.@$styleTableRow.'>';
 	foreach ($aDetailBlocks as $blockName => $blockContent)
 	{
@@ -1395,6 +1411,7 @@ function kitt_add_product_to_cart($product_id) {
 	}
 }
 
+add_action( 'woocommerce_email_after_order_table', 'woocommerce_order_details_after_order_table_order_custom_email', 30, 4 );
 function woocommerce_order_details_after_order_table_order_custom_email($order){
 	$order_type = kitt_get_order_type( $order->id);
 	?>
@@ -1405,6 +1422,8 @@ function woocommerce_order_details_after_order_table_order_custom_email($order){
 	<?php
 }
 
+add_action( 'woocommerce_form_pay_after_order_table', 		'woocommerce_order_details_after_order_table_order_custom', 30, 4 );
+add_action( 'woocommerce_order_details_after_order_table', 	'woocommerce_order_details_after_order_table_order_custom', 30, 4 );
 function woocommerce_order_details_after_order_table_order_custom ($order){
 	$order_type = kitt_get_order_type( $order->id);
 ?>
@@ -1414,9 +1433,6 @@ function woocommerce_order_details_after_order_table_order_custom ($order){
 
 <?php
 }
-add_action( 'woocommerce_order_details_after_order_table', 'woocommerce_order_details_after_order_table_order_custom', 30, 4 );
-add_action( 'woocommerce_form_pay_after_order_table', 'woocommerce_order_details_after_order_table_order_custom', 30, 4 );
-add_action( 'woocommerce_email_after_order_table', 'woocommerce_order_details_after_order_table_order_custom_email', 30, 4 );
 
 function kitt_woocommerce_get_order_item_totals($total_rows, $order) {
 	if (is_custom_order($order->id) && in_array($order->post_status, array('wc-pending', 'wc-on-hold')) )
