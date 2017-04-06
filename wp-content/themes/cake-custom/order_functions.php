@@ -637,8 +637,11 @@ function get_layer_cake_size() {
 			break;
 	}
 	
-	$aSizeRound = array('' => __('Select Size', 'cake')) + $aSizeRound;
-	$aSizeSquare = array('' => __('Select Size', 'cake')) + $aSizeSquare;
+	if ($iLayer <= KITT_MAX_LAYER_ESTIMATION)
+	{
+		$aSizeRound = array('' => __('Select Size', 'cake')) + $aSizeRound;
+		$aSizeSquare = array('' => __('Select Size', 'cake')) + $aSizeSquare;
+	}
 	
 	$square_option = $round_option = '';
 	foreach ($aSizeRound as $szSizeVal => $szSizeLabel)
