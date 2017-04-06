@@ -21,13 +21,16 @@ function reset_custom_cart(){
 
 function getFormData(){
 	$aFormData = array();
-	foreach ( $_SESSION['cake_custom_order'] as $step => $cakeStepData )
+	if (isset($_SESSION['cake_custom_order']) && !empty($_SESSION['cake_custom_order']))
 	{
-		foreach ( $cakeStepData as $fieldName => $fieldValue )
+		foreach ( $_SESSION['cake_custom_order'] as $step => $cakeStepData )
 		{
-			if ( strpos($fieldName, 'custom_order_') !== false )
+			foreach ( $cakeStepData as $fieldName => $fieldValue )
 			{
-				$aFormData[$fieldName] = $fieldValue;
+				if ( strpos($fieldName, 'custom_order_') !== false )
+				{
+					$aFormData[$fieldName] = $fieldValue;
+				}
 			}
 		}
 	}
