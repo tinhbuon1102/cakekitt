@@ -1,4 +1,5 @@
 jQuery(function($) {
+	'use strict';
 	if (!$('#custom_order_cake_decorate').is(':checked')) {
 		$('#icingcookie_wraper').addClass('disabled');
 		$('#custom_order_basecolor_text_wraper').addClass('disabled');
@@ -99,4 +100,25 @@ jQuery(function($) {
 		$('#custom_order_doll_text_wraper').addClass('disabled');
 	}
 	});
+	$('#adminmenuwrap').prepend('<div class="logo-overlay"></div>');
+	/******************************
+     Menu resizer
+     *****************************/
+    $(window).on('load resize', function(){
+        var menuWidth = $("#adminmenuwrap").width();
+        if($("#adminmenuwrap").is(":hidden")){
+          $("body").addClass("menu-hidden");
+          $("body").removeClass("menu-expanded");
+          $("body").removeClass("menu-collapsed");
+        }
+        else if(menuWidth > 46){
+          $("body").addClass("menu-expanded");
+          $("body").removeClass("menu-hidden");
+          $("body").removeClass("menu-collapsed");
+        } else {
+          $("body").addClass("menu-collapsed");
+          $("body").removeClass("menu-expanded");
+          $("body").removeClass("menu-hidden");
+        }
+    });
 });
