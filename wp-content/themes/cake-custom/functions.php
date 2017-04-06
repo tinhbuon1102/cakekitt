@@ -193,12 +193,18 @@ function theme_enqueue_styles ()
 		wp_enqueue_script('wc-checkout', get_template_directory_uri() . '/woocommerce/assets/js/frontend/checkout.js', array( 'jquery', 'woocommerce', 'wc-country-select' ) );
 	}
 }
-
+// admin login custom
+function custom_login() {
+	$files = '<link rel="stylesheet" href="'.get_template_directory_uri().'/admin-login.css" />';
+	echo $files;
+}
+add_action( 'login_enqueue_scripts', 'custom_login' );
 // Update CSS within in Admin
 function admin_style() {
   wp_enqueue_style('admin-styles', get_template_directory_uri().'/admin.css');
 }
 add_action('admin_enqueue_scripts', 'admin_style');
+
 
 // Load jQuery within in Admin
 function admin_script() {

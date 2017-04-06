@@ -121,7 +121,7 @@ if ($inspired_pic)
 							foreach ($field_mappings['custom_order_cake_shape']['value'] as $value => $label) {
 								$cake_shape_index ++;
 							?>
-								<li class="m-input__radio">
+								<li class="m-input__radio cake_shape_<?php echo $value?>">
 									<input type="radio" name="custom_order_cake_shape" id="cake_shape_<?php echo $value?>" class="radio_input validate[required]" <?php echo $field_mappings['custom_order_cake_shape']['field']['default_value'] == $value   ? '' : ''?> value="<?php echo $value?>">
 									<label for="cake_shape_<?php echo $value?>" class="js-fixHeightChildText radio_label cake_shape_<?php echo $value?>">
                                     <div id="fixwh-inner">

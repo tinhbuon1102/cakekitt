@@ -149,3 +149,33 @@ table.order-detail-meta .disabled {
     content: "\e012";
     color: #ffba00;
 }
+#wpadminbar {
+    color: #FFF;
+    background: rgba(234,175,198,1);
+}
+#wpadminbar .ab-empty-item, #wpadminbar a.ab-item, #wpadminbar>#wp-toolbar span.ab-label, #wpadminbar>#wp-toolbar span.noticon {
+    color: #FFF;
+}
+#wpadminbar #adminbarsearch:before, #wpadminbar .ab-icon:before, #wpadminbar .ab-item:before {
+    color: #FFF;
+    color: rgba(255,255,255,1);
+    position: relative;
+    -webkit-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
+}
+#adminmenu a {
+    color: #ffffff;
+}
+#adminmenu a, #adminmenu li.menu-top:hover, #adminmenu li.opensub>a.menu-top, #adminmenu li>a.menu-top:focus, #adminmenu div.wp-menu-image:before, #ws_menu_editor .ws_item_title, #adminmenu li a:focus div.wp-menu-image:before, #adminmenu li.opensub div.wp-menu-image:before {
+    color: rgba(255,255,255,1.0) /*#ffffff*/;
+}
+#adminmenu, #adminmenu .wp-submenu, #adminmenuback, #adminmenuwrap, #adminmenu .wp-has-current-submenu .wp-submenu, #adminmenu .wp-has-current-submenu .wp-submenu.sub-open, #adminmenu .wp-has-current-submenu.opensub .wp-submenu, #adminmenu a.wp-has-current-submenu:focus+.wp-submenu, .no-js li.wp-has-current-submenu:hover .wp-submenu {
+    background-color: rgba(50,50,58,1.0);
+}
+body {
+    background: rgba(241,242,247,1.0);
+    color: #444;
+    font-size: 13px;
+    line-height: 1.4em;
+    min-width: 600px;
+}

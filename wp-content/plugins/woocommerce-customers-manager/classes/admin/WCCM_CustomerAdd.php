@@ -42,7 +42,15 @@ class WCCM_CustomerAdd
 		 if(isset($customer_extra_info['billing_last_name_kana']))
 			$result['billing_last_name_kana'] = str_replace('"', "'", $customer_extra_info['billing_last_name_kana'][0]);//added kyoko
 		 if(isset($customer_extra_info['billing_phone']))
-			$result['billing_phone'] = $customer_extra_info['billing_phone'][0]; 
+			$result['billing_phone'] = $customer_extra_info['billing_phone'][0];
+		 if(isset($customer_extra_info['birth_date[year]']))
+			$result['birth_date[year]'] = $customer_extra_info['birth_date[year]'][0];//added kyoko
+		 if(isset($customer_extra_info['birth_date[month]']))
+			$result['birth_date[month]'] = $customer_extra_info['birth_date[month]'][0];//added kyoko
+		 if(isset($customer_extra_info['birth_date[day]']))
+			$result['birth_date[day]'] = $customer_extra_info['birth_date[day]'][0];//added kyoko
+		 if(isset($customer_extra_info['sex']))
+			$result['sex'] = $customer_extra_info['sex'][0];//added kyoko
 		if(isset($customer_extra_info['billing_email']))
 			$result['billing_email'] = $customer_extra_info['billing_email'][0];
 		 if(isset($customer_extra_info['billing_company']))
@@ -200,6 +208,10 @@ class WCCM_CustomerAdd
 		$wccm_customer_model->update_user_meta( $user_id, 'billing_email', $data_source['billing_email'] );
 		$wccm_customer_model->update_user_meta( $user_id, 'billing_phone', $data_source['billing_phone'] );
 		$wccm_customer_model->update_user_meta( $user_id, 'billing_company', $data_source['billing_company'] );
+		 $wccm_customer_model->update_user_meta( $user_id, 'birth_date[year]', $data_source['birth_date[year]'] );//added kyoko
+		 $wccm_customer_model->update_user_meta( $user_id, 'birth_date[month]', $data_source['birth_date[month]'] );//added kyoko
+		$wccm_customer_model->update_user_meta( $user_id, 'birth_date[day]', $data_source['birth_date[day]'] );//added kyoko
+		 $wccm_customer_model->update_user_meta( $user_id, 'sex', $data_source['sex'] );//added kyoko
 		$wccm_customer_model->update_user_meta( $user_id, 'billing_eu_vat', $data_source['billing_eu_vat'] );
 		$wccm_customer_model->update_user_meta( $user_id, 'billing_address_1', $data_source['billing_address_1'] );
 		$wccm_customer_model->update_user_meta( $user_id, 'billing_address_2', $data_source['billing_address_2'] );
@@ -346,11 +358,11 @@ class WCCM_CustomerAdd
 					<th scope="row"><label for="email"><?php _e('Email address', 'woocommerce'); ?> <span class="description ">(<span class="field_required"><?php _e('required', 'woocommerce'); ?></span>)</span></label></th>
 					<td><input required="required" type="text" value="<?php if(isset($data_source[ 'email' ])) echo $data_source[ 'email' ];?>" id="email" name="email"></td>
 				</tr>
-				<tr class="form-field">
+				<tr class="form-field" style="display:none;">
 					<th scope="row"><label for="first_name"><?php _e('First name', 'woocommerce'); ?> </label></th>
 					<td><input type="text" value="<?php if(isset($data_source[ 'first_name' ])) echo $data_source[ 'first_name' ];?>" id="first_name" name="first_name"></td>
 				</tr>
-				<tr class="form-field">
+				<tr class="form-field" style="display:none;">
 					<th scope="row"><label for="last_name"><?php _e('Last name', 'woocommerce'); ?> </label></th>
 					<td><input type="text" value="<?php if(isset($data_source[ 'last_name' ])) echo $data_source[ 'last_name' ];?>" id="last_name" name="last_name"></td>
 				</tr>
@@ -430,6 +442,18 @@ class WCCM_CustomerAdd
 				<tr>
 					<th  scope="row"><label for="billing_phone"><?php _e('Tel', 'woocommerce'); ?></label></th>
 					<td><input type="text" value="<?php if(isset($data_source[ 'billing_phone' ])) echo $data_source[ 'billing_phone' ];?>" id="billing_phone" name="billing_phone"></td>
+				</tr>
+				<tr>
+					<th  scope="row"><label for="birthdate"><?php _e('Birth date', 'cake'); ?></label></th>
+					<td>
+						
+					</td>
+				</tr>
+				<tr>
+					<th  scope="row"><label for="sex"><?php _e('Sex', 'cake'); ?></label></th>
+					<td>
+						
+					</td>
 				</tr>
 				<tr style="display:none;">
 					<th scope="row"><label for="billing_company"><?php _e('Billing company', 'woocommerce-customers-manager'); ?></label></th>
