@@ -388,7 +388,7 @@ $(function(){
         	$('body').LoadingOverlay("hide");
         	if (popup == 'register')
         	{
-        		$('.lwa-links-modal').click();
+        		$('.lwa-links-login').click();
         	}
         	else {
         		$('#custom_order_login_modal').modal({
