@@ -425,7 +425,7 @@ function cake_steps_store(){
 	$aResponse['shipping_fee'] = $cart->shipping_total ? $cart->get_cart_shipping_total() : 0;
 	$aResponse['sub_total'] = $cart->get_cart_subtotal();
 	$aResponse['total_tax'] = $cart->get_cart_tax();
-	$aResponse['cart_total'] = isset($aResponse['cart_notice']) ? showCakePrice(0) : ($cart->total ? $cart->get_total() : showCakePrice($cakePrice));
+	$aResponse['cart_total'] = $cart->total ? $cart->get_total() : showCakePrice($cakePrice);
 	
 	// Show COnfirmation page
 	if ($_POST['step'] >= 3)
