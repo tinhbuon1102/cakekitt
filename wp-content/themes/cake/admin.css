@@ -249,3 +249,56 @@ div.wp-menu-image:before{
 #adminmenu li.menu-top:hover, #adminmenu li.opensub>a.menu-top, #adminmenu li>a.menu-top:focus, #adminmenu .wp-has-current-submenu .wp-submenu .wp-submenu-head, #adminmenu .wp-menu-arrow, #adminmenu .wp-menu-arrow div, #adminmenu li.current a.menu-top, #adminmenu li.wp-has-current-submenu a.wp-has-current-submenu, .folded #adminmenu li.current.menu-top, .folded #adminmenu li.wp-has-current-submenu {
     background-color: rgba(227,118,160,1);
 }
+#adminmenu li.wp-menu-separator {
+    height: 0;
+    margin: 0;
+}
+#adminmenu a.menu-top:focus+.wp-submenu, .js #adminmenu .opensub .wp-submenu, .js #adminmenu .sub-open, .no-js li.wp-has-submenu:hover .wp-submenu {
+    top: 0px;
+}
+#adminmenu .wp-submenu, .folded #adminmenu .wp-has-current-submenu .wp-submenu, .folded #adminmenu a.wp-has-current-submenu:focus+.wp-submenu {
+    padding: 3px 0 0px 0;
+}
+#adminmenu .wp-submenu li {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+#adminmenu .wp-has-current-submenu ul>li>a, .folded #adminmenu li.menu-top .wp-submenu>li>a {
+    padding: 0 0px 0 23px;
+    margin-left: 10px;
+    line-height: 40px;
+    margin-bottom: 3px;
+    border-left: 3px solid transparent;
+}
+#adminmenu .wp-not-current-submenu li>a, .folded #adminmenu .wp-has-current-submenu li>a {
+    padding: 0 0px 0 0px;
+    margin-left: 23px;
+    line-height: 40px;
+    margin-bottom: 3px;
+    border-left: 3px solid transparent;
+}
+#adminmenu .wp-not-current-submenu li>a:hover, .folded #adminmenu .wp-has-current-submenu li>a:hover {
+    padding-left: 14px;
+    border-left: 3px solid #f95e44;
+    background: #313131;
+    color: #a9a9a9;
+}
+#adminmenu .wp-not-current-submenu li>a:hover, .folded #adminmenu .wp-has-current-submenu li>a:hover {
+    color: rgba(174,178,183,1.0);
+}
+#adminmenu .wp-not-current-submenu li>a:hover, .folded #adminmenu .wp-has-current-submenu li>a:hover {
+    background-color: rgba(33,32,38,1.0);
+}
+#adminmenu .wp-not-current-submenu li>a:hover, .folded #adminmenu .wp-has-current-submenu li>a:hover {
+    border-left-color: rgba(227,118,160,1);
+}
+.folded #adminmenu li.menu-top .wp-submenu>li>a:hover, #adminmenu .wp-submenu a:focus, #adminmenu .wp-submenu a:hover, #adminmenu .wp-submenu li.current a, #adminmenu .wp-submenu li.current a:hover {
+    background-color: rgba(33,32,38,1.0);
+}
+#adminmenu .opensub .wp-submenu li.current a, #adminmenu .wp-submenu li.current, #adminmenu .wp-submenu li.current a, #adminmenu .wp-submenu li.current a:focus, #adminmenu .wp-submenu li.current a:hover, #adminmenu a.wp-has-current-submenu:focus+.wp-submenu li.current a, #adminmenu .wp-submenu a {
+    color: rgba(174,178,183,1.0);
+}
+.folded #adminmenu li.menu-top .wp-submenu>li>a:hover, #adminmenu .wp-submenu a:focus, #adminmenu .wp-submenu a:hover, #adminmenu .wp-submenu li.current a, #adminmenu .wp-submenu li.current a:hover {
+    border-left-color: rgba(227,118,160,1);
+}

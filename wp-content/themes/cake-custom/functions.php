@@ -628,6 +628,36 @@ function send_email_processing($order_id)
 		}
 	}
 }
+function rename_menu_to_original( $translated, $original, $domain ) {
+
+$strings = array(
+	'WooCommerce' => 'Orders',
+    'WooCommerce Product Subtitle' => 'Product Subtitle',
+    'Custom Header' => 'Custom Kitt'
+);
+
+if ( isset( $strings[$original] ) && is_admin() ) {
+    $translations = &get_translations_for_domain( $domain );
+    $translated = $translations->translate( $strings[$original] );
+}
+
+  return $translated;
+}
+
+add_filter( 'gettext', 'rename_menu_to_original', 10, 3 );
+
+function my_text_strings( $translated_text, $text, $domain ) {
+switch ( $translated_text ) {
+    case 'WooCommerce Product Subtitle' :
+        $translated_text = __( 'Product Subtitle', 'cake' );
+        break;
+	case 'Orders' :
+        $translated_text = __( 'Orders', 'cake' );
+        break;
+}
+return $translated_text;
+}
+add_filter( 'gettext', 'my_text_strings', 20, 3 );
 
 add_action( 'woocommerce_admin_order_data_after_order_details', 'kitt_woocommerce_admin_order_data_after_order_details', 10, 1 );
 function kitt_woocommerce_admin_order_data_after_order_details($order)
