@@ -1128,6 +1128,12 @@ h1.center-line span {
     margin-bottom: 20px;
 }
 /* checkout*/
+.woocommerce .cake-cart-sidebar #payment #place_order, .woocommerce-page .cake-cart-sidebar #payment #place_order {
+    float: none;
+}
+body.woocommerce-checkout a#scrollUp {
+    display: none !important;
+}
 ul.account_sex.text-radio.list-type {
     list-style: none;
     margin: 0;

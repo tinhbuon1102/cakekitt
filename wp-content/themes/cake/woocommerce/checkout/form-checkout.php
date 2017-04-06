@@ -1,3 +1,5 @@
+<div class="row" id="checkoutbox">
+<div class="col-md-8 columns">
 <?php
 /**
  * Checkout Form
@@ -20,6 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+//echo('<div class="row" id="checkoutbox"><div class="col-md-8 columns">');
+
 wc_print_notices();
 
 do_action( 'woocommerce_before_checkout_form', $checkout );
@@ -29,13 +33,14 @@ if ( ! $checkout->enable_signup && ! $checkout->enable_guest_checkout && ! is_us
 	echo apply_filters( 'woocommerce_checkout_must_be_logged_in_message', __( 'You must be logged in to checkout.', 'woocommerce' ) );
 	return;
 }
+//echo('</div></div>');
 
 ?>
 
 <form name="checkout" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
-<div class="row" id="checkoutbox">
+<!--<div class="row" id="checkoutbox">-->
 	<?php if ( sizeof( $checkout->checkout_fields ) > 0 ) : ?>
-<div class="col-md-8 columns">
+<!--<div class="col-md-8 columns">-->
 		<?php do_action( 'woocommerce_checkout_before_customer_details' ); ?>
 		<div class="col2-set" id="customer_details">
 			<div class="col-1">
@@ -70,7 +75,8 @@ if ( ! $checkout->enable_signup && ! $checkout->enable_guest_checkout && ! is_us
 	</div><!--/cake-cart-sidebar-container-->
 	</div><!--/col-md-4-->
 	
-	</div><!--/checkoutbox-->
+	
 </form>
+</div><!--/checkoutbox-->
 
 <?php do_action( 'woocommerce_after_checkout_form', $checkout ); ?>
