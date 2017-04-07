@@ -556,7 +556,7 @@ class SCFP_FormEntries extends Agp_Module {
         endforeach;
 
         $results['date'] = $columns['date']; 
-        $results['reply'] = 'Reply'; 
+        $results['reply'] = __('Reply', 'cake'); 
         
 
         return $results;

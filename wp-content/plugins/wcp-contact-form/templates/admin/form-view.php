@@ -35,7 +35,7 @@
             </div>
             <div id="postbox-container-1" class="postbox-container">
                 <div id="submitdiv" class="postbox ">
-                    <h3 class="hndle">Entry</h3>
+                    <h3 class="hndle"><?php echo __('Entry', 'cake')?></h3>
                     <div class="inside">
                         <div id="submitpost" class="submitbox">
                             <div id="minor-publishing">
