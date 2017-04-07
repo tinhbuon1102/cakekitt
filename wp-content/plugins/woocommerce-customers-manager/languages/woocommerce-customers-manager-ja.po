@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce Customers Manager\n"
 "POT-Creation-Date: 2017-02-20 12:09+0100\n"
-"PO-Revision-Date: 2017-04-05 18:07+0900\n"
+"PO-Revision-Date: 2017-04-07 18:32+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja_JP\n"
@@ -3057,7 +3057,7 @@ msgstr "顧客情報を編集"
 #: classes/admin/WCCM_CustomerAdd.php:284
 #: classes/admin/WCCM_CustomerAdd.php:748
 msgid "Add new customer"
-msgstr ""
+msgstr "顧客を新規追加"
 
 #: classes/admin/WCCM_CustomerAdd.php:293
 msgid "Go back"
@@ -3206,7 +3206,7 @@ msgstr ""
 
 #: classes/admin/WCCM_CustomerAdd.php:737
 msgid "Send an email to customer with login info?"
-msgstr ""
+msgstr "ログイン情報を顧客のメールアドレスに送信しますか？"
 
 #: classes/admin/WCCM_CustomerAdd.php:750
 msgid "Update customer"
