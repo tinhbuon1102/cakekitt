@@ -5353,6 +5353,11 @@ ul.cake-decorate.list-type li {
 		margin-bottom: 0;
 	}
 }
+#footer ul#menu-custom-menu li a span.ja {
+    display: block;
+    font-size: 13px;
+    line-height: 1;
+}
 /* coming soon */
 .coming-container.container h1 {
     font-size: 4em;
