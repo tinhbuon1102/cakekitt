@@ -5358,6 +5358,11 @@ ul.cake-decorate.list-type li {
     font-size: 13px;
     line-height: 1;
 }
+
+/* hide dessert catering on service page */
+#post-61 div#service4 {
+    display: none;
+}
 /* coming soon */
 .coming-container.container h1 {
     font-size: 4em;
