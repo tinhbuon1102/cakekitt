@@ -184,7 +184,7 @@ class SCFP_FormEntries extends Agp_Module {
                 'exclude_from_search'       => false,
                 'show_in_admin_all_list'    => true,
                 'show_in_admin_status_list' => true,
-                'label_count'               => _n_noop( 'Read <span class="count">(%s)</span>', 'Read <span class="count">(%s)</span>' ),
+                'label_count'               => _n_noop( 'Read <span class="count">(%s)</span>', 'Read <span class="count">(%s)</span>', 'cake' ),
             ) 
         );
         
@@ -194,7 +194,7 @@ class SCFP_FormEntries extends Agp_Module {
                 'exclude_from_search'       => false,
                 'show_in_admin_all_list'    => true,
                 'show_in_admin_status_list' => true,
-                'label_count'               => _n_noop( 'Unread <span class="count">(%s)</span>', 'Unread <span class="count">(%s)</span>' ),
+                'label_count'               => _n_noop( 'Unread <span class="count">(%s)</span>', 'Unread <span class="count">(%s)</span>', 'cake' ),
             ) 
         );
     }
@@ -207,18 +207,18 @@ class SCFP_FormEntries extends Agp_Module {
         if($post->post_type == 'form-entries' && empty($_GET['download_csv'])) :
             if($post->post_status == 'unread') {
                  $unread_complete = ' selected="selected"';
-                 $unread_label = '<span id="post-status-display"> Unread</span>';
+                 $unread_label = '<span id="post-status-display">'.__('Unread', 'cake').'</span>';
             }
             if($post->post_status == 'read') {
                  $read_complete = ' selected="selected"';
-                 $read_label = '<span id="post-status-display"> Read</span>';
+                 $read_label = '<span id="post-status-display">'.__('Read', 'cake').'</span>';
             }            
         ?>    
             <script type="text/javascript">
             jQuery(document).ready(function($){
-                 $("select#post_status").append('<option value="unread"<?php echo $unread_complete; ?>>Unread</option>');
+                 $("select#post_status").append('<option value="unread"<?php echo $unread_complete; ?>><?php echo __('Unread', 'cake')?></option>');
                  $(".misc-pub-section label").append('<?php echo $unread_label; ?>');
-                 $("select#post_status").append('<option value="read"<?php echo $read_complete; ?>>Read</option>');
+                 $("select#post_status").append('<option value="read"<?php echo $read_complete; ?>><?php echo __('Read', 'cake')?></option>');
                  $(".misc-pub-section label").append('<?php echo $read_label; ?>');                 
             });
             </script>
@@ -236,12 +236,12 @@ class SCFP_FormEntries extends Agp_Module {
             <script type="text/javascript">
             jQuery(document).ready(function($){
                 <?php if (empty($post_status) || $post_status == 'unread' || $post_status == 'all') :?>
-                    $('<option>').val('read').text('<?php _e('Mark as Read')?>').insertBefore("select[name='action'] option[value=trash]");
-                    $('<option>').val('read').text('<?php _e('Mark as Read')?>').insertBefore("select[name='action2'] option[value=trash]");
+                    $('<option>').val('read').text('<?php _e('Mark as Read', 'cake')?>').insertBefore("select[name='action'] option[value=trash]");
+                    $('<option>').val('read').text('<?php _e('Mark as Read', 'cake')?>').insertBefore("select[name='action2'] option[value=trash]");
                 <?php endif;?>                        
                 <?php if (empty($post_status) || $post_status == 'read' || $post_status == 'all') :?>
-                    $('<option>').val('unread').text('<?php _e('Mark as Unread')?>').insertBefore("select[name='action'] option[value=trash]");
-                    $('<option>').val('unread').text('<?php _e('Mark as Unread')?>').insertBefore("select[name='action2'] option[value=trash]");
+                    $('<option>').val('unread').text('<?php _e('Mark as Unread', 'cake')?>').insertBefore("select[name='action'] option[value=trash]");
+                    $('<option>').val('unread').text('<?php _e('Mark as Unread', 'cake')?>').insertBefore("select[name='action2'] option[value=trash]");
                 <?php endif;?>                        
             });
             </script>
@@ -254,7 +254,7 @@ class SCFP_FormEntries extends Agp_Module {
         $arg = get_query_var( 'post_status' );
         if( $arg != 'unread' ){
              if($post->post_status == 'unread'){
-                  return array('Unread');
+                  return array(__('Unread', 'cake'));
              }
         }
         return $states;
@@ -272,9 +272,9 @@ class SCFP_FormEntries extends Agp_Module {
                 case 'unread':             
                     $res['view'] = '<a title="View" href="'.admin_url( 'admin.php?post='. $post->ID .'&page=view-entry' ).'">View</a>';
                     if ($post->post_status == 'unread') {
-                        $res['read'] = '<a title="Mark as Read" href="'.admin_url( 'post.php?post='. $post->ID .'&action=read'.(!empty($post_status) ? '&post_status='.$post_status : '') ).'">Mark as Read</a>';    
+                        $res['read'] = '<a title="'.__('Mark as Read', 'cake').'" href="'.admin_url( 'post.php?post='. $post->ID .'&action=read'.(!empty($post_status) ? '&post_status='.$post_status : '') ).'">'.__('Mark as Read', 'cake').'</a>';    
                     } else {
-                        $res['unread'] = '<a title="Mark as Unread" href="'.admin_url( 'post.php?post='. $post->ID .'&action=unread'.(!empty($post_status) ? '&post_status='.$post_status : '') ).'">Mark as Unread</a>';    
+                        $res['unread'] = '<a title="'.__('Mark as Unread', 'cake').'" href="'.admin_url( 'post.php?post='. $post->ID .'&action=unread'.(!empty($post_status) ? '&post_status='.$post_status : '') ).'">'.__('Mark as Unread', 'cake').'</a>';    
                     }
                     if (!empty($actions['trash'])) {
                         $res['trash'] = $actions['trash'];                    
@@ -489,16 +489,16 @@ class SCFP_FormEntries extends Agp_Module {
 
         if ( $pagenow == 'edit.php' && $post_type == 'form-entries' && empty($_GET['download_csv']) ) {
             if (isset($_REQUEST['readed']) && (int) $_REQUEST['readed'] > 1) {
-                $message = $_REQUEST['readed'] . ' entries was marked as Read';
+                $message = $_REQUEST['readed'] . ' ' . __('entries was marked as Read', 'cake');
                 echo '<div class="updated"><p>'.$message.'</p></div>';
             } elseif (isset($_REQUEST['readed']) && (int) $_REQUEST['readed'] = 1) {
-                $message = $_REQUEST['readed'] . ' entry was marked as Read';
+                $message = $_REQUEST['readed'] . ' ' . __('entry was marked as Read', 'cake');
                 echo '<div class="updated"><p>'.$message.'</p></div>';
             } elseif (isset($_REQUEST['unreaded']) && (int) $_REQUEST['unreaded'] > 1) {
-                $message = $_REQUEST['unreaded'] . ' entries was marked as Unread';
+                $message = $_REQUEST['unreaded'] . ' ' . __('entries was marked as Unread', 'cake');
                 echo '<div class="updated"><p>'.$message.'</p></div>';
             } elseif (isset($_REQUEST['unreaded']) && (int) $_REQUEST['unreaded'] = 1) {
-                $message = $_REQUEST['unreaded'] . ' entry was marked as Unread';
+                $message = $_REQUEST['unreaded'] . ' ' . __('entry was marked as Unread', 'cake');
                 echo '<div class="updated"><p>'.$message.'</p></div>';
             }
         }
