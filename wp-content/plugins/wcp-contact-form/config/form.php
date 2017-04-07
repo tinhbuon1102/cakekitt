@@ -102,7 +102,7 @@ return array(
             'type' => 'checkbox',
         ),                    
         'exportCSV' => array(
-            'label' => 'Export to CSV',
+            'label' => __('Export to CSV', 'cake'),
             'type' => 'checkbox',
         ),                            
     ),
