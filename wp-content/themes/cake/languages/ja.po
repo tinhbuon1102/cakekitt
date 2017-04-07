@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cake 1.2\n"
 "POT-Creation-Date: 2016-09-20 10:50+0700\n"
-"PO-Revision-Date: 2017-04-07 15:18+0900\n"
+"PO-Revision-Date: 2017-04-07 15:35+0900\n"
 "Last-Translator: \n"
 "Language-Team: codeopus\n"
 "Language: ja_JP\n"
@@ -2205,8 +2205,20 @@ msgstr "メールを編集"
 msgid "New Entry"
 msgstr "新規メール"
 
+msgid "Contact Form"
+msgstr "問い合わせ"
+
 msgid "Inbox"
 msgstr "受信箱"
+
+msgid "Settings"
+msgstr "設定"
+
+msgid "Entry ID"
+msgstr "問い合わせID"
+
+msgid "Submitted on"
+msgstr "受信日時"
 
 msgid "View Entry"
 msgstr "メールを見る"
@@ -2234,3 +2246,9 @@ msgstr "未読"
 
 msgid "Read"
 msgstr "既読"
+
+msgid "Unread <span class=\"count\">(%s)</span>"
+msgstr "未読 <span class=\"count\">(%s)</span>"
+
+msgid "Read <span class=\"count\">(%s)</span>"
+msgstr "既読 <span class=\"count\">(%s)</span>"

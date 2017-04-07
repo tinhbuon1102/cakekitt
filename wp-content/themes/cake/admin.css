@@ -352,3 +352,20 @@ div.wp-menu-image:before{
 #wpadminbar #wp-admin-bar-wcp-contactform-menu .ab-items {
     background-color: rgba(227,118,160,1);
 }
+div#submitpost .dashicons, div#submitpost .dashicons-before:before {
+    line-height: inherit;
+    height: auto;
+    padding: 0 5px 0 0;
+}
+#adminmenu .wcp-items {
+    background-color: rgba(153,0,255,1);
+    border-radius: 10px;
+    color: #fff;
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 600;
+    line-height: 17px;
+    margin: 1px 0 0 5px;
+    vertical-align: middle;
+    z-index: 26;
+}
