@@ -567,7 +567,7 @@ class SCFP_FormEntries extends Agp_Module {
                 echo get_post_meta( $post->ID, 'entry_id', true );
                 break;
             case 'reply' :
-                echo $this->getReplyButton($post->ID,'',array('class'=>'scfp-reply-icon thickbox')); 
+                echo $this->getReplyButton($post->ID,'',array('class'=>'scfp-reply-icon')); 
                 break;            
             default :
                 $fields = SCFP()->getSettings()->getFieldsSettings();        
