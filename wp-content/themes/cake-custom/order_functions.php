@@ -1174,7 +1174,7 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 	
 	// Show estimation notice - BEGIN
 	$aData = getFormData();
-	if (empty($aData) && $order_id)
+	if ($order_id)
 	{
 		$aData = get_post_meta($order_id, 'cake_custom_order', true);
 	}
