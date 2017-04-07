@@ -106,7 +106,7 @@ class SCFP_FormEntries extends Agp_Module {
         
         $wp_admin_bar->add_menu(array(
             'id' => 'wcp-contactform-menu',
-            'title' => '<span class="ab-icon"></span><span class="ab-label">Contact Form</span>' . $count,
+            'title' => '<span class="ab-icon"></span><span class="ab-label">'.__('Contact Form', 'cake').'</span>' . $count,
             'parent' => '',
             'href' => admin_url( 'edit.php?post_status=unread&post_type=form-entries'),
             'group' => NULL,
@@ -116,7 +116,7 @@ class SCFP_FormEntries extends Agp_Module {
         
         $wp_admin_bar->add_menu(array(
             'id' => 'wcp-contactform-menu-inbox',
-            'title' => 'Inbox',
+            'title' => __('Inbox', 'cake'),
             'parent' => 'wcp-contactform-menu',
             'href' => admin_url( 'edit.php?post_type=form-entries'),
             'group' => NULL,
@@ -126,7 +126,7 @@ class SCFP_FormEntries extends Agp_Module {
         
         $wp_admin_bar->add_menu(array(
             'id' => 'wcp-contactform-menu-settings',
-            'title' => 'Settings',
+            'title' => __('Settings', 'cake'),
             'parent' => 'wcp-contactform-menu',
             'href' => admin_url( 'admin.php?page=scfp_plugin_options'),
             'group' => NULL,
