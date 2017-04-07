@@ -40,14 +40,14 @@
                         <div id="submitpost" class="submitbox">
                             <div id="minor-publishing">
                                 <div id="misc-publishing-actions">
-                                    <div class="misc-pub-section">Entry ID: <?php echo $entry->getEntryId($post->ID); ?></div>
+                                    <div class="misc-pub-section"><?php echo __('Entry ID', 'cake')?>: <?php echo $entry->getEntryId($post->ID); ?></div>
                                     <div class="misc-pub-section">
                                         <?php
                                             $d = get_option( 'date_format' ); 
                                             $t = get_option( 'time_format' );
                                             $post_date = get_gmt_from_date($post->post_date, $d );
                                             $post_time = get_gmt_from_date($post->post_date, $t);
-                                            echo "Submitted on: " . $post_date . " at " . $post_time;
+                                            echo __('Submitted on', cake) . ": " . $post_date . " at " . $post_time;
                                         ?>
                                     </div>
                                 </div>
@@ -56,7 +56,7 @@
                             <div id="major-publishing-actions">
                                 <?php if ( current_user_can( 'delete_post', $post->ID ) ) :  ?>
                                 <div id="delete-action">
-                                    <a class="submitdelete deletion" href="<?php print get_delete_post_link($post->ID);?>">Move to Trash</a>
+                                    <a class="submitdelete deletion" href="<?php print get_delete_post_link($post->ID);?>"><?php echo __('Move to Trash', 'cake')?></a>
                                     <?php 
                                         if( !$post->ID ){
                                             redirect( admin_url( "edit.php?post_type=form-entries" ) );
@@ -65,7 +65,7 @@
                                 </div>
                                 <?php endif; ?>
                                 <div id="publishing-action">
-                                    <?php echo $entry->getReplyButton($post->ID, 'Quick Reply', array('class' => 'scfp-quick-reply-btn wcp-quick-reply-button button button-primary button-large')); ?>     
+                                    <?php echo $entry->getReplyButton($post->ID, __('Quick Reply','cake'), array('class' => 'scfp-quick-reply-btn wcp-quick-reply-button button button-primary button-large')); ?>     
                                 </div>    
                                 <div class="clear"></div>
                             </div>
