@@ -270,7 +270,7 @@ class SCFP_FormEntries extends Agp_Module {
                 case 'all':                    
                 case 'read':
                 case 'unread':             
-                    $res['view'] = '<a title="View" href="'.admin_url( 'admin.php?post='. $post->ID .'&page=view-entry' ).'">View</a>';
+                    $res['view'] = '<a title="View" href="'.admin_url( 'admin.php?post='. $post->ID .'&page=view-entry' ).'">'.__('View', 'cake').'</a>';
                     if ($post->post_status == 'unread') {
                         $res['read'] = '<a title="'.__('Mark as Read', 'cake').'" href="'.admin_url( 'post.php?post='. $post->ID .'&action=read'.(!empty($post_status) ? '&post_status='.$post_status : '') ).'">'.__('Mark as Read', 'cake').'</a>';    
                     } else {
