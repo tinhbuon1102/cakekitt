@@ -422,7 +422,7 @@ function cake_steps_store(){
 	
 	if ($cakeSize == $lastCakeSize)
 	{
-		$aResponse['cart_notice'] .= '<br />' . __('Cake price is not inluding the esitmation  because of special size', 'cake');
+		$aResponse['cart_notice'] .= '<div class="col-md-12 columns">' . __('Cake price is not inluding the esitmation  because of special size', 'cake') .'</div>';
 	}
 	
 	$aResponse['shipping_fee'] = $cart->shipping_total ? $cart->get_cart_shipping_total() : 0;

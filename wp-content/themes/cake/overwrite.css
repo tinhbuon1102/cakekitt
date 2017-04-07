@@ -1139,6 +1139,10 @@ ul.account_sex.text-radio.list-type {
     margin: 0;
 }
 /* checkgout side cart*/
+.cake-cart-sidebar div#cart_notice {
+    padding-top: 10px;
+    line-height: 1.4;
+}
 h3#order_review_heading {
     margin-bottom: 10px;
 }
