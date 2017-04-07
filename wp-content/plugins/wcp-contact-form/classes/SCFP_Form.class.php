@@ -210,7 +210,7 @@ class SCFP_Form extends Agp_Module {
             update_post_meta( $this->postId , 'entry_id', $i, true );            
             wp_update_post( array(
                     'ID'           => $this->postId ,
-                    'post_title'   => __('Entry', cake) . ' #' . $i,
+                    'post_title'   => __('Entry', 'cake') . ' #' . $i,
                 )
             );            
             update_option('entry_counter', ++$i);
