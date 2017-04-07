@@ -1020,11 +1020,14 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 	{
 		// Get from session during order form
 		$aData = getFormData();
+		$cart = WC()->instance()->cart;
+		$cartTotal = $cart->total;
 	}
 	else {
 		// Get from meta when order already completed
 		$aData = get_post_meta($order_id, 'cake_custom_order', true);
 		$order = new WC_Order($order_id);
+		$cartTotal = $order->get_total();
 		
 		// Fake custom order detail from billing + shipping detail
 		$aData['custom_order_customer_name_last'] = $order->billing_last_name . $order->billing_first_name;
@@ -1184,7 +1187,8 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 	{
 		if (!$order_id || in_array($order->post_status, array('wc-pending')))
 		{
-			$divRow .= '<div class="estimation_notice">' . __('Cake price is not inluding the esitmation  because of special size', 'cake') . '</div>';
+			$noticeMessage = $cartTotal > 0 ? __('Cake price is not inluding the esitmation because of special size', 'cake') : __('We can’t calculate the esitmation  because of special size', 'cake');
+			$divRow .= '<div class="estimation_notice">' . $noticeMessage . '</div>';
 		}
 	}
 	// Show estimation notice -  END
