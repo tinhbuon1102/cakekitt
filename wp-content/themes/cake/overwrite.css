@@ -3568,7 +3568,7 @@ td.lwa-remember-buttons {
 .modal-custom p.lost_password {
     text-align: left;
 }
-.modal-custom a.lwa-links-modal, .modal-custom a.lwa-links-modal:hover {
+.modal-custom a.lwa-links-modal, .modal-custom a.lwa-links-modal:hover, .modal-custom a.lwa-links-login, .modal-custom a.lwa-links-login:hover {
 	color: rgba(227,118,160,1);
 	text-decoration: underline;
 }
