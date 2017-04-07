@@ -151,6 +151,8 @@ function my_remove_menu_pages() {
 		remove_menu_page( 'edit.php?post_type=team' );
 		remove_menu_page( 'edit.php?post_type=essential_grid' );
 		remove_menu_page( 'wpcf7' );
+		remove_menu_page( 'duplicator' );
+		remove_menu_page( 'edit.php?post_type=yith-wcbm-badge' );
 
 	}
 };
