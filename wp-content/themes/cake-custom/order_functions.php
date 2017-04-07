@@ -1294,8 +1294,7 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 							}
 						}
 						else {
-							if (is_array($fieldValue)) $fieldValue = '';
-							$aPics = explode(PHP_EOL, $fieldValue);
+							$aPics = is_array($fieldValue) ? $fieldValue : explode(PHP_EOL, $fieldValue);
 						}
 						$fieldValue = '';
 						if (!empty($aPics) && $aPics[0])
