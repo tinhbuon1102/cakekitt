@@ -62,7 +62,7 @@ abstract class Agp_SettingsAbstract extends Agp_ConfigAbstract {
         if (!empty($this->getConfig()->admin->menu)) {
             foreach ($this->getConfig()->admin->menu as $menu_slug => $page) {
                 
-                add_menu_page( $page->page_title, $page->menu_title, $page->capability, $menu_slug, $page->function, $page->icon_url, $page->position);
+                add_menu_page( $page->page_title, $page->menu_title, $page->capability, $menu_slug, $page->function, $page->icon_url, 6);
                 
                 if (!empty($page->submenu)) {
                     foreach ($page->submenu as $submenu_slug => $subpage) {                    
