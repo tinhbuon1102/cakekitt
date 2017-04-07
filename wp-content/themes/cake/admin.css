@@ -349,3 +349,6 @@ div.wp-menu-image:before{
 .postbox .hndle, .stuffbox .hndle, .welcome-panel h3, .settings_page_menu_editor .ui-dialog-titlebar {
     color: rgba(255,255,255,1.0);
 }
+#wpadminbar #wp-admin-bar-wcp-contactform-menu .ab-items {
+    background-color: rgba(227,118,160,1);
+}

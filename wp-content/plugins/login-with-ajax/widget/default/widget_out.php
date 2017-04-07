@@ -97,7 +97,7 @@
 				<?php do_action('register_form'); ?>
 				<?php do_action('lwa_register_form'); ?>
 				<p class="form-row">
-					<?php _e( 'if already registered,', 'cake' ); ?><a href="<?php echo esc_attr(LoginWithAjax::$url_login); ?>" class="lwa-links-login lwa-links-modal"><?php esc_html_e('Login','woocommerce') ?></a>
+					<?php _e( 'if already registered,', 'cake' ); ?><a href="<?php echo esc_attr(LoginWithAjax::$url_login); ?>" class="lwa-links-login"><?php esc_html_e('Login','woocommerce') ?></a>
 				</p>
 				<p class="form-row">
 					<input type="submit" name="wp-submit" id="wp-submit" class="woocommerce-Button button" value="<?php esc_attr_e('Register', 'login-with-ajax'); ?>" tabindex="100" />
