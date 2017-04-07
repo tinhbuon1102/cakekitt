@@ -5353,6 +5353,15 @@ ul.cake-decorate.list-type li {
 		margin-bottom: 0;
 	}
 }
+/* coming soon */
+.coming-container.container h1 {
+    font-size: 4em;
+    text-align: center;
+    font-weight: normal;
+    font-family: 'christmas_time_personal_useRg';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 @media only screen and (max-width: 400px) {
 a.btn.label-btn {
     font-size: 14px;

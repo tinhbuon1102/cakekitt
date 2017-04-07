@@ -13,6 +13,7 @@ get_header(); ?>
 	<?php get_template_part('inc/page-header');?>
 
 	<div id="content-wrapper">
+<?php if( current_user_can('editor') || current_user_can('administrator') ) {  ?> 
 	<div class="container">
 		<div class="row">
 		<div id="primary" class="<?php echo esc_attr($col['colclass']); ?> content-area" style="<?php echo esc_attr($col['position']);?>">
@@ -202,5 +203,11 @@ get_header(); ?>
 			
 		</div><!-- .row -->
 	</div><!-- .container -->
-	</div><!-- #content-wrapper -->																  
+<?php
+} else{ ?>
+<div class="coming-container container">
+<h1>Coming Soon...</h1>
+</div>
+<?php } ?>
+</div><!-- #content-wrapper -->																  
 <?php get_footer(); ?>
