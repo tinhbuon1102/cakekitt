@@ -155,7 +155,7 @@ class SCFP_FormEntries extends Agp_Module {
     }         
     
     public function appendViewPage () {
-        add_submenu_page( 'admin.php', 'Entry', 'Entry', 'scfp_view_inbox', 'view-entry', array( $this, 'displayViewPage' ) );        
+        add_submenu_page( 'admin.php', __('Entry', 'cake'), __('Entry', 'cake'), 'scfp_view_inbox', 'view-entry', array( $this, 'displayViewPage' ) );        
     }
     
     public function displayViewPage () {

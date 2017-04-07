@@ -2,8 +2,8 @@
 
 return array(
     'scfp' => array(
-        'page_title' => __('Contact Form', 'cake'), 
-        'menu_title' => __('Contact Form', 'cake'), 
+        'page_title' => __('問い合わせ', 'cake'), 
+        'menu_title' => __('問い合わせ', 'cake'), 
         'capability' => 'scfp_menu',
         'function' => '',
         'icon_url' => '',  
@@ -12,14 +12,14 @@ return array(
         'icon_url'   => 'dashicons-email-alt',    
         'submenu' => array(
             'edit.php?post_type=form-entries' => array(
-                'page_title' => __('Inbox', 'cake'), 
-                'menu_title' => __('Inbox', 'cake'), 
+                'page_title' => __('受信箱', 'cake'), 
+                'menu_title' => __('受信箱', 'cake'), 
                 'capability' => 'scfp_view_inbox',
                 'function' => '',   
             ),               
             'scfp_plugin_options' => array(
-                'page_title' => __('Settings', 'cake'), 
-                'menu_title' => __('Settings', 'cake'), 
+                'page_title' => __('設定', 'cake'), 
+                'menu_title' => __('設定', 'cake'), 
                 'capability' => 'scfp_edit_settings',
                 'function' => array('SCFP_Settings', 'renderSettingsPage'),                         
             ),   

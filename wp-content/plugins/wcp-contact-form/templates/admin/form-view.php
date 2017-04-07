@@ -5,7 +5,7 @@
 
 ?>
 <div class="wrap">
-    <h2>Entry #<?php echo $entry->getEntryId($post->ID); ?></h2>
+    <h2><?php echo __('Entry', 'cake')?> #<?php echo $entry->getEntryId($post->ID); ?></h2>
     <div id="poststuff">
         <div id="post-body" class="metabox-holder columns-2">
             <div id="post-body-content" style="position: relative;">
