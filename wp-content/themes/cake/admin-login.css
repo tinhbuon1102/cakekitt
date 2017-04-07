@@ -246,6 +246,9 @@ body.login #login {
     margin: 23px 23px 0px 23px;
     padding: 12px 23px 11px 23px;
 }
+input[type="input"] {
+    color: rgba(153,0,255,1);
+}
 @media screen and ( max-height: 600px ){
 body.login{
     height:130%;
