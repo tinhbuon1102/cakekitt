@@ -2,19 +2,19 @@
 
 function scfp_form_entries_init() {
   $labels = array(
-    'name'               => __('Entries', 'scfp'), 
-    'singular_name'      => __('Entry', 'scfp'),
-    'add_new'            => __('Add New', 'scfp'),
-    'add_new_item'       => __('Add New Entry', 'scfp'),
-    'edit_item'          => __('Edit Entry', 'scfp'),
-    'new_item'           => __('New Entry', 'scfp'),
-    'all_items'          => __('Inbox', 'scfp'),
-    'view_item'          => __('View Entry', 'scfp'),
-    'search_items'       => __('Search Entry', 'scfp'),
-    'not_found'          => __('No Entries Found', 'scfp'),
-    'not_found_in_trash' => __('No Entries Found in Trash', 'scfp'),
+    'name'               => __('Entries', 'cake'), 
+    'singular_name'      => __('Entry', 'cake'),
+    'add_new'            => __('Add New', 'cake'),
+    'add_new_item'       => __('Add New Entry', 'cake'),
+    'edit_item'          => __('Edit Entry', 'cake'),
+    'new_item'           => __('New Entry', 'cake'),
+    'all_items'          => __('Inbox', 'cake'),
+    'view_item'          => __('View Entry', 'cake'),
+    'search_items'       => __('Search Entry', 'cake'),
+    'not_found'          => __('No Entries Found', 'cake'),
+    'not_found_in_trash' => __('No Entries Found in Trash', 'cake'),
     'parent_item_colon'  => '',   
-    'menu_name'          => __('Entry', 'scfp')
+    'menu_name'          => __('Entry', 'cake')
   );
 
   $args = array(

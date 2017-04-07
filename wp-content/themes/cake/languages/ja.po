@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cake 1.2\n"
 "POT-Creation-Date: 2016-09-20 10:50+0700\n"
-"PO-Revision-Date: 2017-04-07 14:33+0900\n"
+"PO-Revision-Date: 2017-04-07 15:18+0900\n"
 "Last-Translator: \n"
 "Language-Team: codeopus\n"
 "Language: ja_JP\n"
@@ -2186,3 +2186,51 @@ msgstr "既に会員の方は"
 
 msgid "Confirm Password"
 msgstr "パスワード(確認)"
+
+msgid "Entries"
+msgstr "問い合わせメール"
+
+msgid "Entry"
+msgstr "問い合わせメール"
+
+msgid "Add New"
+msgstr "新規追加"
+
+msgid "Add New Entry"
+msgstr "メールを新規追加"
+
+msgid "Edit Entry"
+msgstr "メールを編集"
+
+msgid "New Entry"
+msgstr "新規メール"
+
+msgid "Inbox"
+msgstr "受信箱"
+
+msgid "View Entry"
+msgstr "メールを見る"
+
+msgid "Search Entry"
+msgstr "メールを検索"
+
+msgid "No Entries Found"
+msgstr "メールが見つかりませんでした"
+
+msgid "No Entries Found in Trash"
+msgstr "ゴミ箱にメールが見つかりませんでした"
+
+msgid "View"
+msgstr "見る"
+
+msgid "Mark as Unread"
+msgstr "未読にする"
+
+msgid "All Types"
+msgstr "全てのタイプ"
+
+msgid "Unread"
+msgstr "未読"
+
+msgid "Read"
+msgstr "既読"
