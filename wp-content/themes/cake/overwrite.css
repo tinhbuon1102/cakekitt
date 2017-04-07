@@ -784,6 +784,9 @@ div#customer_login {
 .woocommerce form.login .form-row label, .woocommerce form.register .form-row label {
     display: none;
 }
+.woocommerce form.login .form-row label.visible, .woocommerce form.register .form-row label.visible {
+    display: inline-block;
+}
 .woocommerce form.login p.form-row span, .woocommerce form.register p.form-row span {
     display: block;
     position: relative;
@@ -1142,6 +1145,12 @@ ul.account_sex.text-radio.list-type {
 .cake-cart-sidebar div#cart_notice {
     padding-top: 10px;
     line-height: 1.4;
+}
+.cake-cart-sidebar small.tax_label {
+    display: inline-block;
+}
+h6 small.tax_label {
+    color: gray;
 }
 h3#order_review_heading {
     margin-bottom: 10px;
@@ -3502,6 +3511,90 @@ div#latestNews {
     list-style: none;
 }
 /*order form*/
+/*modal login*/
+.modal-custom .modal-body {
+    padding: 0 20px;
+}
+@media (min-width: 992px) {
+.modal-custom .modal-lg, .lwa-modal.modal-custom {
+    width: 460px;
+}
+.modal-custom .modal-body {
+    padding: 0 60px;
+}
+}
+@media (min-width: 768px) {
+.modal-dialog {
+    width: 460px;
+    margin: 30px auto;
+}
+.lwa-modal.modal-custom {
+    width: 460px;
+}
+}
+@media (max-width: 767px) {
+.lwa-modal.modal-custom {
+    left: 0;
+    margin-left: 0;
+    width: 100%;
+}
+}
+.lwa-password input, .lwa-username input, .lwa-email input, .lwa-remember-email input {
+    margin: 0px;
+    width: 100%;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+.lwa td {
+    padding-top: 0;
+}
+td.lwa-remember-buttons {
+    padding-top: 10px;
+}
+.lwa-register.lwa-register-default.lwa-modal.modal-custom {
+    margin-top: 0;
+    padding: 0;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+	border-radius: 0px;
+    border: none;
+}
+.modal-custom input#lwa_wp-submit, .modal-custom input#wp-submit {
+    text-align: center;
+    width: 100%;
+    padding: 15px 0;
+    font-weight: bold;
+}
+.modal-custom p.lost_password {
+    text-align: left;
+}
+.modal-custom a.lwa-links-modal, .modal-custom a.lwa-links-modal:hover {
+	color: rgba(227,118,160,1);
+	text-decoration: underline;
+}
+.modal-custom button.close.abs-right {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+	font-size: 30px;
+	font-weight: normal;
+}
+.modal-custom .modal-header {
+    padding: 0px;
+}
+.modal-custom .modal-header h4 {
+	position: relative;
+    z-index: 1;
+    border-left: 5px solid rgba(227,118,160,1);
+    margin: 0 0 35px;
+    padding: 10px 0 10px 50px;
+    color: rgba(227,118,160,1);
+    font-size: 32px;
+    font-weight: 600;
+}
+.modal-custom .modal-content {
+    padding: 60px 0 40px;
+}
 /*confirmation*/
 .order-detail-custom-table .form-row.row-custom_order_cakePic .label-div {
     vertical-align: middle;

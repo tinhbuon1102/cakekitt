@@ -770,20 +770,20 @@ if ($inspired_pic)
 				</div>
 				<div class="border-top pt-3 mt-3 panel__full-width-item heading-uppercase disable" id="cart_total_wraper">
 					<div class="row disable" id="sub_total">
-						<div class="col-md-8 columns text-gray"><h6><?php _e( 'Subtotal', 'woocommerce' ); ?></h6></div>
-						<div class="col-md-4 columns text-green text-right"><h6>0</h6></div>
+						<div class="col-md-6 columns text-gray"><h6><?php _e( 'Subtotal', 'woocommerce' ); ?></h6></div>
+						<div class="col-md-6 columns text-green text-right"><h6>0</h6></div>
 					</div>
 					<div class="row disable" id="shipping_fee">
-						<div class="col-md-8 columns text-gray"><h6><?php _e( 'Shipping Fee', 'woocommerce' ); ?></h6></div>
-						<div class="col-md-4 columns text-green text-right"><h6>0</h6></div>
+						<div class="col-md-6 columns text-gray"><h6><?php _e( 'Delivery Fee', 'woocommerce' ); ?></h6></div>
+						<div class="col-md-6 columns text-green text-right"><h6>0</h6></div>
 					</div>
 					<div class="row disable" id="total_tax">
-						<div class="col-md-8 columns text-gray"><h6><?php _e( 'Total Tax', 'woocommerce' ); ?></h6></div>
-						<div class="col-md-4 columns text-green text-right"><h6>0</h6></div>
+						<div class="col-md-6 columns text-gray"><h6><?php _e( 'Total Tax', 'woocommerce' ); ?></h6></div>
+						<div class="col-md-6 columns text-green text-right"><h6>0</h6></div>
 					</div>
 					<div class="row" id="cart_total">
-						<div class="col-md-8 columns text-gray"><h4><?php _e( 'Estimation', 'woocommerce' ); ?></h4></div>
-						<div class="col-md-4 columns text-green text-right"><h4>¥-</h4></div>
+						<div class="col-md-6 columns text-gray"><h4><?php _e( 'Estimation', 'woocommerce' ); ?></h4></div>
+						<div class="col-md-6 columns text-green text-right"><h4>¥-</h4></div>
 					</div>
 					
 					<div class="row disable" id="cart_notice">
@@ -794,14 +794,14 @@ if ($inspired_pic)
 	</div>
 </div>
 
-<div class="modal fade" id="custom_order_login_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display:none;">
+<div class="modal fade modal-custom" id="custom_order_login_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display:none;">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">×</span>
+		<button type="button" class="close abs-right" data-dismiss="modal" aria-label="Close">
+					<span class="linericon-cross" aria-hidden="true"></span>
 				</button>
-				<h4 class="modal-title" ><?php echo __('Login or Register', 'cake')?></h4>
+			<div class="modal-header">
+				<h4 class="modal-title" ><?php echo __('Login', 'woocommerce')?></h4>
 			</div>
 			<div class="modal-body">
 				<?php login_with_ajax();?>
