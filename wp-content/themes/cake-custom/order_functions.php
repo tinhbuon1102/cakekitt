@@ -1167,7 +1167,7 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 	if ($is_email)
 	{
 		// Please add style for each html element here and use it like i did in line 1015
-		$styleTableRow = ' style="display:block; " ';
+		$styleTableRow = ' style="color: #737373; font-family: \'Helvetica Neue\', Helvetica, Roboto, Arial, sans-serif; font-size: 14px; line-height: 150%; text-align: left; " ';
 	}
 	
 	$divRow = '';
@@ -1194,16 +1194,38 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 	// Show estimation notice -  END
 	
 	$divRow .= '<div class="order-detail-custom-table row" '.@$styleTableRow.'>';
+	$is_original_email = $is_email;
 	foreach ($aDetailBlocks as $blockName => $blockContent)
 	{
+		$is_email = $is_original_email;
+		$is_email = $is_email && !in_array($blockName, array('customer_info_wraper', 'delivery_info_wraper'));
+		
 		$blockClass = $blockName . ' ' . $blockContent['class'];
 		$blockLabel = $blockContent['label'];
 		$blockGroups = $blockContent['groups'];
 		
-		$divRow .= '<div class="'.$blockClass.'"> <h3>'.$blockLabel.'</h3>';
+		if ($is_email)
+		{
+			$divRow .= '<h3 style=\'color: #e2a6c0; display: block; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 130%; margin: 16px 0 8px; text-align: left;\'>'.$blockLabel.'</h3>';
+			$divRow .= '<table class="td" cellspacing="0" cellpadding="6" style="width: 100%; font-family: \'Helvetica Neue\', Helvetica, Roboto, Arial, sans-serif; color: #737373; border: 1px solid #e4e4e4;" border="1" class="'.$blockClass.'"><tbody>';
+		}
+		else {
+			if (in_array($blockName, array('customer_info_wraper', 'delivery_info_wraper')) && $is_original_email)
+			{
+				$divRow .= '<div class="'.$blockClass.'"><h3 style=\'color: #e2a6c0; display: block; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 130%; margin: 16px 0 8px; text-align: left;\'>'.$blockLabel.'</h3>';
+			}
+			else {
+				$divRow .= '<div class="'.$blockClass.'"> <h3>'.$blockLabel.'</h3>';
+			}
+		}
+		
 		foreach ($blockGroups as $blockGroup)
 		{
-			$divRow .= '<div class="row">'; // -- Start group row
+			if (!$is_email)
+			{
+				$divRow .= '<div class="row">'; // -- Start group row
+			}
+			
 			foreach ($blockGroup as $fieldName => $blockVal)
 			{
 				// Get field Label
@@ -1246,7 +1268,13 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 						$attachment_id = get_option('categoryimage_' . $term_id);
 						$src = wp_get_attachment_image_src($attachment_id, 'thumbnail', false);
 				
-						$fieldValue = '<span class="round-img"><img src="' . $src[0] . '" class="cake-row__img sb-1" /></span><span class="value-text">'.$fieldValueName.'</span>';
+						if ($is_email)
+						{
+							$fieldValue = '<span class="round-img"><img style="width: 60px" src="' . $src[0] . '" class="cake-row__img sb-1" /></span></td><td style="text-align: left; vertical-align: middle; border: 1px solid #eee; font-family: \'Helvetica Neue\', Helvetica, Roboto, Arial, sans-serif; color: #737373; padding: 12px;"><span class="value-text">'.$fieldValueName.'</span></td>';
+						}
+						else {
+							$fieldValue = '<span class="round-img"><img src="' . $src[0] . '" class="cake-row__img sb-1" /></span><span class="value-text">'.$fieldValueName.'</span>';
+						}
 						break;
 							
 					case 'custom_order_cake_shape':
@@ -1301,7 +1329,7 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 						{
 							foreach ($aPics as $pic)
 							{
-								$fieldValue .= '<img style="max-width: 300px;" src="' . $pic . '" />';
+								$fieldValue .= '<img style="max-width: 100px; margin-right: 10px;" src="' . $pic . '" />';
 							}
 						}
 						break;
@@ -1334,57 +1362,108 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 						break;
 				}
 				
-				$divRow .= '<div class="'.$blockVal['class'].'">'; // -- Start group cols
-					if ($fieldName == 'custom_order_cake_decorate')
+				if (!$is_email)
+				{
+					$divRow .= '<div class="'.$blockVal['class'].'">'; // -- Start group cols
+				}
+				
+				if ($fieldName == 'custom_order_cake_decorate')
+				{
+					$aDecoration = getDecorationGroup();
+					
+					$fieldValues = $fieldValue;
+					$fieldValue = '';
+					
+					if ($is_email && !empty($fieldValues))
 					{
-						$aDecoration = getDecorationGroup();
-						
-						$fieldValues = $fieldValue;
-						$fieldValue = '';
-						foreach ($fieldValues as $decoMainKey => $decoreateMain)
+						$divRow .= '<tr>';
+						$divRow .= '<td colspan="3" style="text-align: left; vertical-align: middle; border: 1px solid #eee; font-family: \'Helvetica Neue\', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word; color: #737373; padding: 12px;">'.$fieldLabel.'</td>';
+						$divRow .= '</tr>';
+					}
+					
+					foreach ($fieldValues as $decoMainKey => $decoreateMain)
+					{
+						foreach ($aDecoration as $decoVal => $aDeOptions)
 						{
-							foreach ($aDecoration as $decoVal => $aDeOptions)
+							if ($decoVal == $decoreateMain)
 							{
-								if ($decoVal == $decoreateMain)
+								$divRowTmp = '';
+								
+								if (!$is_email)
 								{
-									$divRowTmp = '';
 									$divRowTmp .= '<div class="form-row row-'.$fieldName.'">';
 									$divRowTmp .= '<div class="label-div '.$decoMainKey.' " >'. ($decoMainKey != 0 ? '&nbsp;' : $fieldLabel).'</div>';
 									$divRowTmp .= '<div class="show-value">' . $fieldMapping[$fieldName]['value'][$decoreateMain];
-									
-									foreach ($aDeOptions as $deOption => $deOptionInfo)
+								}
+								
+								$optionCount = 0;
+								foreach ($aDeOptions as $deOption => $deOptionInfo)
+								{
+									$optionCount++;
+									if ('custom_order_photocakepic' == $deOption && $aData[$deOption])
 									{
-										if ('custom_order_photocakepic' == $deOption && $aData[$deOption])
+										if (!$order_id)
 										{
-											if (!$order_id)
+											$upload_dir = wp_upload_dir();
+											$temp_folder = $upload_dir['baseurl'] . '/temp/';
+												
+											if ( $aData[$deOption] )
 											{
-												$upload_dir = wp_upload_dir();
-												$temp_folder = $upload_dir['baseurl'] . '/temp/';
-													
-												if ( $aData[$deOption] )
-												{
-													$aData[$deOption] = $temp_folder . $aData[$deOption];
-												}
+												$aData[$deOption] = $temp_folder . $aData[$deOption];
 											}
-											$aData[$deOption] = '<img style="max-width: 100px;" src="' . $aData[$deOption] . '" />';
 										}
+										$aData[$deOption] = '<img style="max-width: 100px;" src="' . $aData[$deOption] . '" />';
+									}
+										
+									if ($aData[$deOption]) {
+										if ($is_email)
+										{
+											$divRowTmp .= '<tr>';
+											if ($optionCount == 1)
+											{
+												$divRowTmp .= '<td rowspan="'.count($aDeOptions).'" style="text-align: left; vertical-align: middle; border: 1px solid #eee; font-family: \'Helvetica Neue\', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word; color: #737373; padding: 12px;">'.
+														$fieldMapping[$fieldName]['value'][$decoreateMain].
+												'</td>';
+											}
 											
-										if ($aData[$deOption]) {
-											$divRowTmp .= '<span class="decorate_option '.$deOption.'">
-																		<span class="decorate_option">'.@$fieldMapping[$deOption]['field']['label'].'</span>
-																		<span class="decorate_option_value">'. (is_array($fieldMapping[$deOption]['value']) ? $fieldMapping[$deOption]['value'][$aData[$deOption]] : $aData[$deOption]) . '</span>
-																	</span>';
+											$divRowTmp .= '<td style="text-align: left; vertical-align: middle; border: 1px solid #eee; font-family: \'Helvetica Neue\', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word; color: #737373; padding: 12px;">'.
+													@$fieldMapping[$deOption]['field']['label'] .
+											'</td>';
+											$divRowTmp .= '<td style="text-align: left; vertical-align: middle; border: 1px solid #eee; font-family: \'Helvetica Neue\', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word; color: #737373; padding: 12px;">'.
+													(is_array($fieldMapping[$deOption]['value']) ? $fieldMapping[$deOption]['value'][$aData[$deOption]] : $aData[$deOption]) .
+											'</td>';
+											
+											$divRowTmp .= '</tr>';
 										}
 										else {
-											continue;
+											$divRowTmp .= '<span class="decorate_option '.$deOption.'">
+																	<span class="decorate_option">'.@$fieldMapping[$deOption]['field']['label'].'</span>
+																	<span class="decorate_option_value">'. (is_array($fieldMapping[$deOption]['value']) ? $fieldMapping[$deOption]['value'][$aData[$deOption]] : $aData[$deOption]) . '</span>
+																</span>';
 										}
+										
 									}
+									else {
+										continue;
+									}
+								}
+								if (!$is_email)
+								{
 									$divRowTmp .= '</div>'; // -- end show-value
 									$divRowTmp .= '</div>'; // -- end form-row
 								}
 							}
-							$divRow .= $divRowTmp;
 						}
+						$divRow .= $divRowTmp;
+					}
+				}
+				else {
+					if ($is_email)
+					{
+						$divRow .= '<tr>';
+							$divRow .= '<td style="text-align: left; vertical-align: middle; border: 1px solid #eee; font-family: \'Helvetica Neue\', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word; color: #737373; padding: 12px;">'.$fieldLabel.'</td>';
+							$divRow .= '<td colspan="'.(in_array($fieldName, array('custom_order_cake_type')) ? 1 : 2).'" style="text-align: left; vertical-align: middle; border: 1px solid #eee; font-family: \'Helvetica Neue\', Helvetica, Roboto, Arial, sans-serif; color: #737373; padding: 12px;">'.$fieldValue.'</td>';
+						$divRow .= '</tr>';
 					}
 					else {
 						$divRow .= '<div class="form-row row-'.$fieldName.'">';
@@ -1393,11 +1472,26 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 						$divRow .= '</div>';
 					}
 					
-				$divRow .= '</div>'; // -- End group cols
+				}
+					
+				if (!$is_email)
+				{
+					$divRow .= '</div>'; // -- End group cols
+				}
 			}
-			$divRow .= '</div>'; // -- End group row
+			if (!$is_email)
+			{
+				$divRow .= '</div>'; // -- End group row
+			}
+			
 		}
-		$divRow .= '</div>'; // --End block class div
+		if ($is_email)
+		{
+			$divRow .= '</tbody></table>'; // --End block class div
+		}
+		else {
+			$divRow .= '</div>'; // --End block class div
+		}
 	}
 	$divRow .= '</div>';
 	return $divRow;
