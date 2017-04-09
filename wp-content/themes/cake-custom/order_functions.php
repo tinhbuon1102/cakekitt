@@ -1299,7 +1299,12 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 						}
 						else {
 							// This is other color
-							$fieldValue = '<span class="display-table-cell pr-2"><span class="color-show color-choice head-custom color" style="background:'.$aData['custom_order_cakecolor_other'].'";></span></span>
+							$colorStyle = '';
+							if ($is_email)
+							{
+								$colorStyle = ';display: inline-block;width: 30px;height: 30px;border-radius: 50%;';
+							}
+							$fieldValue = '<span class="display-table-cell pr-2"><span class="color-show color-choice head-custom color" style="background:'.$aData['custom_order_cakecolor_other'].$colorStyle .'";></span></span>
 											<span class="value-text">'.$fieldMapping['custom_order_cakecolor']['value']['other'].'</span>';
 						}
 						break;
