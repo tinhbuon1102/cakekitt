@@ -36,7 +36,7 @@ if ( ! $checkout->enable_signup && ! $checkout->enable_guest_checkout && ! is_us
 
 ?>
 
-<form name="checkout" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
+<form name="checkout" style="overflow: hidden;" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
 <!--<div class="row" id="checkoutbox">-->
 	<?php if ( sizeof( $checkout->checkout_fields ) > 0 ) : ?>
 <div class="col-md-8 columns">
