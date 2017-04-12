@@ -1016,6 +1016,7 @@ function getDecorationOption(){
 
 function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_email = false) {
 	$fieldMapping = getCustomFormFieldMapping();
+	
 	if (!$order_id)
 	{
 		// Get from session during order form
@@ -1173,12 +1174,6 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 	$divRow = '';
 	
 	// Show estimation notice - BEGIN
-	$aData = getFormData();
-	if ($order_id)
-	{
-		$aData = get_post_meta($order_id, 'cake_custom_order', true);
-	}
-		
 	$szCakeShape = $aData['custom_order_cake_shape'];
 	$cakeSize = isset($aData['custom_order_cakesize_round']) ? $aData['custom_order_cakesize_round'] : $aData['custom_order_cakesize_square'];
 	$lastCakeSize = isset($aData['custom_order_cakesize_round']) ? end($fieldMapping['custom_order_cakesize_round']['value']) : end($fieldMapping['custom_order_cakesize_square']['value']);
