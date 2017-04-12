@@ -62,8 +62,6 @@ class WC_Email_Customer_On_Hold_Order extends WC_Email {
 			return;
 		}
 
-		var_dump($this->is_enabled());
-		var_dump($this->get_recipient());die;
 		$this->send( $this->get_recipient(), $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
 	}
 
