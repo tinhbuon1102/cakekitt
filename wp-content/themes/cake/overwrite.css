@@ -5346,6 +5346,15 @@ ul.cake-decorate.list-type li {
     min-height: 0;
 }
 /* home */
+.home .coming-container.container h1 {
+    font-family: "brandon-grotesque", "Helvetica Neue", sans-serif;
+    text-transform: uppercase;
+    font-size: 3em;
+    margin-bottom: 30px;
+}
+.home .coming-container.container h1.gray {
+    color: #aeaeae;
+}
 .col-sm-3.cdocolumn.order_points {
     margin-bottom: 60px;
 }
