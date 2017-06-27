@@ -5346,6 +5346,15 @@ ul.cake-decorate.list-type li {
     min-height: 0;
 }
 /* home */
+
+.col-sm-3.cdocolumn.order_points {
+    margin-bottom: 60px;
+}
+	.col-sm-3.cdocolumn.order_points:last-child {
+		margin-bottom: 0;
+	}
+}
+
 .home .coming-container.container h1 {
     font-family: "brandon-grotesque", "Helvetica Neue", sans-serif;
     text-transform: uppercase;
@@ -5355,13 +5364,7 @@ ul.cake-decorate.list-type li {
 .home .coming-container.container h1.gray {
     color: #aeaeae;
 }
-.col-sm-3.cdocolumn.order_points {
-    margin-bottom: 60px;
-}
-	.col-sm-3.cdocolumn.order_points:last-child {
-		margin-bottom: 0;
-	}
-}
+
 #footer ul#menu-custom-menu li a span.ja {
     display: block;
     font-size: 13px;
