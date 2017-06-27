@@ -980,6 +980,7 @@ function getDecorationGroup(){
 		'macaron' => array(
 			'custom_order_macaron_qty' => array('label' => __('qty', 'cake')),
 			'custom_order_macaron_color' => array('label' => __('color', 'cake')),
+			'custom_order_macaron_color_text' => array('label' => __('color text', 'cake')),
 		),
 		'heartchoco' => array(
 		),
