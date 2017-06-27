@@ -373,7 +373,7 @@ if ($inspired_pic)
 										</div>
 										
 										<div class="sub_form" id="custom_order_macaron_color_text_wraper" style="display:none;">
-											<textarea name="custom_order_macaron_color_text" class="subinfo txtLL empty validate[required]" placeholder="custom_order_macaron_color_text"></textarea>
+											<textarea name="custom_order_macaron_color_text" class="subinfo txtLL empty validate[required]" placeholder="詳細"></textarea>
 										</div>
 										
 									</div>
