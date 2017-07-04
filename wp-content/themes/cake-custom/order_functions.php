@@ -4,7 +4,7 @@ define('KITT_CUSTOM_ORDER', 2);
 define('KITT_TEMP_PRODUCT_NAME', __('Custom Order Product', 'cake'));
 define('KITT_SHIPPING_PICKUP', 'local_pickup:2');
 define('KITT_SHIPPING_DELIVERY', 'flat_rate:3');
-define('KITT_APPROXIMATELY_SYMBOL', ' ~ ');
+define('KITT_APPROXIMATELY_SYMBOL', '~');
 
 function kitt_woocommerce_hidden_order_itemmeta ($meta_array) {
 	$meta_array[] = '_order_type';
