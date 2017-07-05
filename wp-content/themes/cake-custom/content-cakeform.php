@@ -371,6 +371,11 @@ if ($inspired_pic)
 												<?php }?>
 											</ul>
 										</div>
+										
+										<div class="sub_form" id="custom_order_macaron_color_text_wraper" style="display:none;">
+											<textarea name="custom_order_macaron_color_text" class="subinfo txtLL empty validate[required]" placeholder="色の詳細"></textarea>
+										</div>
+										
 									</div>
 									<?php }?>
 									

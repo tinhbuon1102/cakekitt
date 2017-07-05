@@ -4,6 +4,7 @@ define('KITT_CUSTOM_ORDER', 2);
 define('KITT_TEMP_PRODUCT_NAME', __('Custom Order Product', 'cake'));
 define('KITT_SHIPPING_PICKUP', 'local_pickup:2');
 define('KITT_SHIPPING_DELIVERY', 'flat_rate:3');
+define('KITT_APPROXIMATELY_SYMBOL', '~');
 
 function kitt_woocommerce_hidden_order_itemmeta ($meta_array) {
 	$meta_array[] = '_order_type';
@@ -386,7 +387,7 @@ function cake_steps_store(){
 								<div class="options option-rows">
 				                    <span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_'.$decorate.' size30 blk"></i></span>
 									<span class="display-table-cell width-full">' . @$fieldMapping[$fieldName]['value'][$decorate] . $decorateQtyText . '</span>
-									<span class="display-table-cell pr-2 price-value">'. showCakePrice($cakePrice) .'</span>
+									<span class="display-table-cell pr-2 price-value">'. showCakePrice($cakePrice) . KITT_APPROXIMATELY_SYMBOL .'</span>
 									<span class="display-table-cell"><button class="cake-row__remove sb-2" data-step="'.$step.'" data-item-remove="custom_order_cake_decorate" data-item-child-remove="'.$decorate.'">×</button></span>
 								</div>';
 						}
@@ -427,9 +428,9 @@ function cake_steps_store(){
 	}
 	
 	$aResponse['shipping_fee'] = $cart->shipping_total ? $cart->get_cart_shipping_total() : 0;
-	$aResponse['sub_total'] = $cart->get_cart_subtotal();
-	$aResponse['total_tax'] = $cart->get_cart_tax();
-	$aResponse['cart_total'] = $cart->total ? $cart->get_total() : showCakePrice($cakePrice);
+	$aResponse['sub_total'] = $cart->get_cart_subtotal() . KITT_APPROXIMATELY_SYMBOL;
+	$aResponse['total_tax'] = $cart->get_cart_tax() . KITT_APPROXIMATELY_SYMBOL;
+	$aResponse['cart_total'] = ($cart->total ? $cart->get_total() : showCakePrice($cakePrice)) . KITT_APPROXIMATELY_SYMBOL;
 	
 	// Show COnfirmation page
 	if ($_POST['step'] >= 3)
@@ -980,6 +981,7 @@ function getDecorationGroup(){
 		'macaron' => array(
 			'custom_order_macaron_qty' => array('label' => __('qty', 'cake')),
 			'custom_order_macaron_color' => array('label' => __('color', 'cake')),
+			'custom_order_macaron_color_text' => array('label' => __('color text', 'cake')),
 		),
 		'heartchoco' => array(
 		),

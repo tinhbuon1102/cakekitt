@@ -87,6 +87,14 @@ jQuery(document).ready(function(){
 		$(this).closest('li').find('.suboption_box').toggleClass('disable');
 	});
 	
+	$('#macaron_color_custom').on('ifChecked', function(event) {
+		$('#custom_order_macaron_color_text_wraper').show();
+	});
+	
+	$('#macaron_color_custom').on('ifUnchecked', function(event) {
+		$('#custom_order_macaron_color_text_wraper').hide();
+	});
+	
 	$('#username').attr( 'placeholder', 'ユーザネームまたはメールアドレス' );
 	$('#password').attr( 'placeholder', 'パスワード' );
 	
