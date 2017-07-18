@@ -1,13 +1,15 @@
 (function($) {  
     $(document).ready(function() { 
 
-        $.each( $.browser, function( i, val ) {
-            if (i !== 'version' && !!val) {
-                $('.scfp-form-content').addClass('scfp-' + i);
-            } else {
-                //$('.scfp-form-content').attr('scfp-version', val);
-            }
-        });
+    	if ($.browser) {
+    		$.each( $.browser, function( i, val ) {
+                if (i !== 'version' && !!val) {
+                    $('.scfp-form-content').addClass('scfp-' + i);
+                } else {
+                    //$('.scfp-form-content').attr('scfp-version', val);
+                }
+            });
+    	}
         
         function refreshCaptcha (element) {
             
