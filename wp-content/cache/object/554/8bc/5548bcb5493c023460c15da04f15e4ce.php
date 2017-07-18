@@ -1,1 +1,0 @@
-;\Y<?php exit; ?>a:1:{s:7:"content";s:154:"a:4:{s:6:"plugin";s:8:"BackWPup";s:10:"identifier";s:32:"f037fa00056b34fbe706aee17cf1309a";s:11:"php_version";s:6:"5.6.24";s:10:"wp_version";s:5:"4.7.2";}";}
