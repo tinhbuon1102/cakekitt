@@ -710,9 +710,11 @@ $(function(){
                    }, 500);
 	        	   
 	        	   $('body').LoadingOverlay("hide");
+	        	   grecaptcha.reset();
 	           },
 	           error: function(response){
 	        	   $('body').LoadingOverlay("hide");
+	        	   grecaptcha.reset();
 	           }
            });
 	   })
