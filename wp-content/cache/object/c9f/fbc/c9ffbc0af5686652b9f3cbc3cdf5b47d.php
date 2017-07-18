@@ -1,1 +1,0 @@
-?\Y<?php exit; ?>a:1:{s:7:"content";s:29:"uploads/backwpup-a03dd8-logs/";}
