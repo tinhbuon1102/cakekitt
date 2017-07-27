@@ -36,8 +36,15 @@ if ( $order ) : ?>
 	<?php else : ?>
 		<div class="woocommerce-thankyou-order-received"><?php echo apply_filters( 'woocommerce_thankyou_order_received_text', __( 'Thank you. Your order has been received.', 'woocommerce' ), $order ); ?></div>
 
-		<p style="color:red;">この時点ではお客様のご注文はまだ確定しておりませんので、ご注意ください。</p>
-		<p style="color:red;">※この金額は見積もりの目安となっており、最終金額ではありません。</p>
+		<?php 
+		if (isset($_REQUEST['order_placed']) && $_REQUEST['order_placed'] == 1)
+		{
+		?>
+			<p style="color:red;">この時点ではお客様のご注文はまだ確定しておりませんので、ご注意ください。</p>
+			<p style="color:red;">※この金額は見積もりの目安となっており、最終金額ではありません。</p>
+		<?php
+		}
+		?>
 	
 		<ul class="woocommerce-thankyou-order-details order_details">
 			<li class="order">

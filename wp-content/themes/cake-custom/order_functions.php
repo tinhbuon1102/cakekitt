@@ -875,7 +875,7 @@ function submit_form_order(){
 			
 			// Redirect to thank you page
 			$payment = new WC_Other_Payment_Gateway();
-			$redirect = $payment->get_return_url($order);
+			$redirect = $payment->get_return_url($order) . '&order_placed=1';
 		}
 	}
 	
