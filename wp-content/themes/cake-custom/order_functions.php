@@ -433,7 +433,15 @@ function cake_steps_store(){
 	$aResponse['cart_total'] = ($cart->total ? $cart->get_total() : showCakePrice($cakePrice)) . KITT_APPROXIMATELY_SYMBOL;
 	
 	// Show COnfirmation page
-	if ($_POST['step'] >= 3)
+	if ($_POST['step'] >= 2)
+	{
+		// Check if price < 8000 -> not allow next step
+		if ($cart->subtotal < KITT_MINIMUM_PRICE_CHECKOUT)
+		{
+			$aResponse['error'] = __('Sorry but we only accept order more than ¥8000', 'cake');
+		}
+	}
+	elseif ($_POST['step'] >= 3)
 	{
 		$fieldMapping = getCustomFormFieldMapping();
 		$aResponse['confirm_html'] = getOrderDetail();

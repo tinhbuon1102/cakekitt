@@ -84,6 +84,41 @@ $(function(){
             		$('#sub_total .text-right h6').html(response.sub_total);
             		$('#cart_total .text-right h4').html(response.cart_total);
             		
+            		if (isNextStep)
+            		{
+            			if (currentStepActive == 2 && response.error)
+            			{
+            				$('body').LoadingOverlay("hide");
+            				alert(response.error);
+            				return '';
+            			}
+            			
+            			$('form#omOrder .step_wraper').slideUp();
+                		$('form#omOrder .step_wraper[data-step="'+ (currentStepActive + 1) +'"]').slideDown(function(){
+                			var percentComplete = currentStepActive == 3 ? 100 : (currentStepActive * 33);
+                        	var widthComplete = currentStepActive * 113;
+                        	
+                        	$('#progress_text').html(percentComplete + '% Complete');
+                            $('#progress').css('width',widthComplete + 'px');
+                            
+                            $('html, body').animate({
+                                scrollTop: $('#four_steps').offset().top - $('.navbar-brand-cake').outerHeight() - 50
+                            }, 500);
+            				$('form.form-style-common .help-block').addClass('disable');
+            				$('body').trigger('resize');
+                            
+                            
+                            if (currentStepActive == 3)
+                            {
+                            	// Hide Next button
+                            	$('#button_wraper').hide();
+                            	$('#confirmation_wraper').removeClass('disable');
+                            	$('#confirmation_content').html('<div><img src="'+ gl_templateUrl +'/images/loading-1.gif"/></div>');
+                            }	
+                		});
+            		}
+            		
+            		
             	}
             	else {
             		$('#cart_empty_block').removeClass('disable');
@@ -96,6 +131,11 @@ $(function(){
             		$('#confirmation_content').html(response.confirm_html);
             		$('#confirmation_footer').removeClass('disable');
                 }
+            	$('body').LoadingOverlay("hide");
+            },
+            error: function(){
+            	console.log ('showItemInCart error');
+            	$('body').LoadingOverlay("hide");
             }
         });
 	}
@@ -155,6 +195,8 @@ $(function(){
     	});
     	
         $('body').on('click', 'form#omOrder .submit_next', function(){
+        	$('body').LoadingOverlay("show");
+        	
         	$('.formError.inline').remove()
         	$("form#omOrder").validationEngine({promptPosition: 'inline', addFailureCssClassToField: "inputError", bindMethod:"live"});
         	
@@ -176,34 +218,9 @@ $(function(){
         		// Add current class for slide step
         		$('#four_steps .step').removeClass('current');
         		$('#four_steps .step[data-step="'+ (currentStepActive + 1) +'"]').addClass('current');
-        		
-        		$('form#omOrder .step_wraper').slideUp();
-        		$('form#omOrder .step_wraper[data-step="'+ (currentStepActive + 1) +'"]').slideDown(function(){
-        			var percentComplete = currentStepActive == 3 ? 100 : (currentStepActive * 33);
-                	var widthComplete = currentStepActive * 113;
-                	
-                	$('#progress_text').html(percentComplete + '% Complete');
-                    $('#progress').css('width',widthComplete + 'px');
-                    
-                    $('html, body').animate({
-                        scrollTop: $('#four_steps').offset().top - $('.navbar-brand-cake').outerHeight() - 50
-                    }, 500);
-    				$('form.form-style-common .help-block').addClass('disable');
-    				$('body').trigger('resize');
-                    
-                    
-                    if (currentStepActive == 3)
-                    {
-                    	// Hide Next button
-                    	$('#button_wraper').hide();
-                    	$('#confirmation_wraper').removeClass('disable');
-                    	$('#confirmation_content').html('<div><img src="'+ gl_templateUrl +'/images/loading-1.gif"/></div>');
-                    }	
-                    
-                    // Store value to server
-                    showItemInCart(true, currentStepActive);
-        		});
-        		
+
+        		// Store value to server
+                showItemInCart(true, currentStepActive);
         	}
         	
         });
