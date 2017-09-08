@@ -409,7 +409,7 @@ function cake_steps_store(){
 	{
 		define('WOOCOMMERCE_CHECKOUT', 1);
 	}
-	die('x');
+	
 	$aData = array();
 	$product_id = calculateProductCart($aData, $cartTotal);
 	$cart = WC()->instance()->cart;
