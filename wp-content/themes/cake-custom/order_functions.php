@@ -404,7 +404,7 @@ function cake_steps_store(){
 			}
 		}
 	}
-	die('x');
+	
 	if (!defined('WOOCOMMERCE_CHECKOUT'))
 	{
 		define('WOOCOMMERCE_CHECKOUT', 1);
@@ -415,7 +415,7 @@ function cake_steps_store(){
 	$cart = WC()->instance()->cart;
 	$chosen_shipping_methods = WC()->session->get( 'chosen_shipping_methods' );
 	$aResponse['cart_html'] = $cartHtml;
-	
+	die('x');
 	$aData = getFormData();
 	$szCakeShape = $aData['custom_order_cake_shape'];
 	$cakeSize = isset($aData['custom_order_cakesize_round']) ? $aData['custom_order_cakesize_round'] : $aData['custom_order_cakesize_square'];
