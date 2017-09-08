@@ -475,7 +475,7 @@ function calculateProductCart(&$aData = array(), $cartTotal = 0, $b_isCreateOrde
 			}
 		}
 	}
-	
+	var_dump($product_id);die;
 	if ($b_isCreateOrder)
 		return $product_id;
 	
