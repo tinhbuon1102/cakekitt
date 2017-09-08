@@ -475,7 +475,7 @@ function calculateProductCart(&$aData = array(), $cartTotal = 0, $b_isCreateOrde
 			}
 		}
 	}
-	var_dump($product_id);die;
+	
 	if ($b_isCreateOrder)
 		return $product_id;
 	
@@ -487,7 +487,6 @@ function calculateProductCart(&$aData = array(), $cartTotal = 0, $b_isCreateOrde
 		$product_id = kitt_create_temporary_product($aData, $cartTotal);
 	}
 	
-	var_dump($product_id);die;
 	if ($product_id)
 	{
 		// Modify product price and reset to cart
