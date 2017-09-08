@@ -216,6 +216,9 @@ form.variations_form .variations .woocommerce-variation-price {
 	left:0;
 	top:0;
 }
+.notice-message {
+    font-size: .9em;
+}
 /*==============================*/
 /*=====      lightbox      =====*/
 /*==============================*/
