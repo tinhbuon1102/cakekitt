@@ -409,13 +409,13 @@ function cake_steps_store(){
 	{
 		define('WOOCOMMERCE_CHECKOUT', 1);
 	}
-	
+	die('x');
 	$aData = array();
 	$product_id = calculateProductCart($aData, $cartTotal);
 	$cart = WC()->instance()->cart;
 	$chosen_shipping_methods = WC()->session->get( 'chosen_shipping_methods' );
 	$aResponse['cart_html'] = $cartHtml;
-	die('x');
+	
 	$aData = getFormData();
 	$szCakeShape = $aData['custom_order_cake_shape'];
 	$cakeSize = isset($aData['custom_order_cakesize_round']) ? $aData['custom_order_cakesize_round'] : $aData['custom_order_cakesize_square'];
