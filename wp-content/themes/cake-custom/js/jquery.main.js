@@ -39,6 +39,12 @@ $(function(){
 			//step_store_request.abort();
 		}
 		
+		
+		if (isNextStep)
+		{
+			$('body').LoadingOverlay("show");
+		}
+		
 		step_store_request = $.ajax({
         	url: gl_ajaxUrl,
         	data: order_form_data, 
@@ -195,8 +201,6 @@ $(function(){
     	});
     	
         $('body').on('click', 'form#omOrder .submit_next', function(){
-        	$('body').LoadingOverlay("show");
-        	
         	$('.formError.inline').remove()
         	$("form#omOrder").validationEngine({promptPosition: 'inline', addFailureCssClassToField: "inputError", bindMethod:"live"});
         	
