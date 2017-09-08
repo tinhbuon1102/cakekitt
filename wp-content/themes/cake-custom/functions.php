@@ -3,6 +3,7 @@ define('KITT_SHIPPING_POSTCODE_DISCOUNT_FEE', 1500);
 define('KITT_FLAVOR_RATE', 1.1);
 define('KITT_MINIMUM_PRICE_FOR_OTHER_POSTCODE', 50000);
 define('KITT_MAX_LAYER_ESTIMATION', 3);
+define('KITT_MINIMUM_PRICE_CHECKOUT', 8000);
 
 // Include order function file
 include 'order_functions.php';
@@ -27,18 +28,6 @@ function getPicupTimeArray(){
 		$aTimes["$i"] = $hour . ':' . $minute;
 	}
 	return $aTimes;
-}
-
-add_filter( 'woocommerce_product_tabs', 'woo_remove_product_tabs', 98 );
-
-function woo_remove_product_tabs( $tabs ) {
-
-    unset( $tabs['description'] );      	// Remove the description tab
-    unset( $tabs['reviews'] ); 			// Remove the reviews tab
-    unset( $tabs['additional_information'] );  	// Remove the additional information tab
-
-    return $tabs;
-
 }
 
 function kitt_get_image_id($image_url) {
@@ -276,7 +265,7 @@ if ( ! is_admin() )
 }
 function jqueryui_scripts ()
 {
-	wp_enqueue_script('jqueryui_js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js', array(), '1.8.6');
+	wp_enqueue_script('jqueryui_js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js', array('jquery'), '1.8.6');
 	wp_enqueue_script('fontawesome_js', 'https://use.fontawesome.com/d543855e1a.js', array(), '');
 }
 add_action('wp_enqueue_scripts', 'jqueryui_scripts');
