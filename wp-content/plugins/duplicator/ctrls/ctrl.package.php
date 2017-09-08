@@ -1,29 +1,34 @@
 <?php
 
+require_once(DUPLICATOR_PLUGIN_PATH . '/ctrls/ctrl.base.php');
+require_once(DUPLICATOR_PLUGIN_PATH . '/classes/utilities/class.u.scancheck.php');
+require_once(DUPLICATOR_PLUGIN_PATH . '/classes/utilities/class.u.json.php');
+require_once(DUPLICATOR_PLUGIN_PATH . '/classes/package/class.pack.php');
+
 /**
  *  DUPLICATOR_PACKAGE_SCAN
- *  Returns a json scan report object which contains data about the system
+ *  Returns a JSON scan report object which contains data about the system
  *  
- *  @return json   json report object
+ *  @return json   JSON report object
  *  @example	   to test: /wp-admin/admin-ajax.php?action=duplicator_package_scan
  */
 function duplicator_package_scan() {
 	
 	header('Content-Type: application/json;');
-	DUP_Util::CheckPermissions('export');
+	DUP_Util::hasCapability('export');
 	
 	@set_time_limit(0);
 	$errLevel = error_reporting();
 	error_reporting(E_ERROR);
-	DUP_Util::InitSnapshotDirectory();
+	DUP_Util::initSnapshotDirectory();
 	
-	$Package = DUP_Package::GetActive();
-	$report = $Package->Scan();
+	$package = DUP_Package::getActive();
+	$report = $package->runScanner();
 	
-	$Package->SaveActiveItem('ScanFile', $Package->ScanFile);
-	$json_response = json_encode($report);
+	$package->saveActiveItem('ScanFile', $package->ScanFile);
+	$json_response = DUP_JSON::safeEncode($report);
 	
-	DUP_Package::TmpCleanup();
+	DUP_Package::tempFileCleanup();
 	error_reporting($errLevel);
     die($json_response);
 }
@@ -32,11 +37,11 @@ function duplicator_package_scan() {
  *  duplicator_package_build
  *  Returns the package result status
  *  
- *  @return json   json object of package results
+ *  @return json   JSON object of package results
  */
 function duplicator_package_build() {
 	
-	DUP_Util::CheckPermissions('export');
+	DUP_Util::hasCapability('export');
 	
 	check_ajax_referer( 'dup_package_build', 'nonce');
 	
@@ -45,15 +50,15 @@ function duplicator_package_build() {
 	@set_time_limit(0);
 	$errLevel = error_reporting();
 	error_reporting(E_ERROR);
-	DUP_Util::InitSnapshotDirectory();
+	DUP_Util::initSnapshotDirectory();
 
-	$Package = DUP_Package::GetActive();
+	$Package = DUP_Package::getActive();
 	
 	if (!is_readable(DUPLICATOR_SSDIR_PATH_TMP . "/{$Package->ScanFile}")) {
 		die("The scan result file was not found.  Please run the scan step before building the package.");
 	}
 	
-	$Package->Build();
+	$Package->runBuild();
 	
 	//JSON:Debug Response
 	//Pass = 1, Warn = 2, Fail = 3
@@ -64,7 +69,10 @@ function duplicator_package_build() {
 	$json['ExeSize']  = $Package->ExeSize;
 	$json['ZipSize']  = $Package->ZipSize;
 	$json_response = json_encode($json);
-	
+
+	//Simulate a Host Build Interrupt
+	//die(0);
+
 	error_reporting($errLevel);
     die($json_response);
 }
@@ -73,12 +81,12 @@ function duplicator_package_build() {
  *  DUPLICATOR_PACKAGE_DELETE
  *  Deletes the files and database record entries
  *
- *  @return json   A json message about the action.  
+ *  @return json   A JSON message about the action.
  *				   Use console.log to debug from client
  */
 function duplicator_package_delete() {
 	
-    DUP_Util::CheckPermissions('export');    
+    DUP_Util::hasCapability('export');    
     check_ajax_referer( 'package_list', 'nonce' );
     
     try {
@@ -102,29 +110,28 @@ function duplicator_package_delete() {
 					$delResult	= $wpdb->query($wpdb->prepare( "DELETE FROM `{$tblName}` WHERE id = %d", $id ));
 					if ($delResult != 0) {
 						//Perms
-						@chmod(DUP_Util::SafePath(DUPLICATOR_SSDIR_PATH_TMP . "/{$nameHash}_archive.zip"), 0644);
-						@chmod(DUP_Util::SafePath(DUPLICATOR_SSDIR_PATH_TMP . "/{$nameHash}_database.sql"), 0644);
-						@chmod(DUP_Util::SafePath(DUPLICATOR_SSDIR_PATH_TMP . "/{$nameHash}_installer.php"), 0644);						
-						@chmod(DUP_Util::SafePath(DUPLICATOR_SSDIR_PATH . "/{$nameHash}_archive.zip"), 0644);
-						@chmod(DUP_Util::SafePath(DUPLICATOR_SSDIR_PATH . "/{$nameHash}_database.sql"), 0644);
-						@chmod(DUP_Util::SafePath(DUPLICATOR_SSDIR_PATH . "/{$nameHash}_installer.php"), 0644);
-						@chmod(DUP_Util::SafePath(DUPLICATOR_SSDIR_PATH . "/{$nameHash}_scan.json"), 0644);
-						@chmod(DUP_Util::SafePath(DUPLICATOR_SSDIR_PATH . "/{$nameHash}.log"), 0644);
+						@chmod(DUP_Util::safePath(DUPLICATOR_SSDIR_PATH_TMP . "/{$nameHash}_archive.zip"), 0644);
+						@chmod(DUP_Util::safePath(DUPLICATOR_SSDIR_PATH_TMP . "/{$nameHash}_database.sql"), 0644);
+						@chmod(DUP_Util::safePath(DUPLICATOR_SSDIR_PATH_TMP . "/{$nameHash}_installer.php"), 0644);						
+						@chmod(DUP_Util::safePath(DUPLICATOR_SSDIR_PATH . "/{$nameHash}_archive.zip"), 0644);
+						@chmod(DUP_Util::safePath(DUPLICATOR_SSDIR_PATH . "/{$nameHash}_database.sql"), 0644);
+						@chmod(DUP_Util::safePath(DUPLICATOR_SSDIR_PATH . "/{$nameHash}_installer.php"), 0644);
+						@chmod(DUP_Util::safePath(DUPLICATOR_SSDIR_PATH . "/{$nameHash}_scan.json"), 0644);
+						@chmod(DUP_Util::safePath(DUPLICATOR_SSDIR_PATH . "/{$nameHash}.log"), 0644);
 						//Remove
-						@unlink(DUP_Util::SafePath(DUPLICATOR_SSDIR_PATH_TMP . "/{$nameHash}_archive.zip"));
-						@unlink(DUP_Util::SafePath(DUPLICATOR_SSDIR_PATH_TMP . "/{$nameHash}_database.sql"));
-						@unlink(DUP_Util::SafePath(DUPLICATOR_SSDIR_PATH_TMP . "/{$nameHash}_installer.php"));
-						@unlink(DUP_Util::SafePath(DUPLICATOR_SSDIR_PATH . "/{$nameHash}_archive.zip"));
-						@unlink(DUP_Util::SafePath(DUPLICATOR_SSDIR_PATH . "/{$nameHash}_database.sql"));
-						@unlink(DUP_Util::SafePath(DUPLICATOR_SSDIR_PATH . "/{$nameHash}_installer.php"));
-						@unlink(DUP_Util::SafePath(DUPLICATOR_SSDIR_PATH . "/{$nameHash}_scan.json"));
-						@unlink(DUP_Util::SafePath(DUPLICATOR_SSDIR_PATH . "/{$nameHash}.log"));
+						@unlink(DUP_Util::safePath(DUPLICATOR_SSDIR_PATH_TMP . "/{$nameHash}_archive.zip"));
+						@unlink(DUP_Util::safePath(DUPLICATOR_SSDIR_PATH_TMP . "/{$nameHash}_database.sql"));
+						@unlink(DUP_Util::safePath(DUPLICATOR_SSDIR_PATH_TMP . "/{$nameHash}_installer.php"));
+						@unlink(DUP_Util::safePath(DUPLICATOR_SSDIR_PATH . "/{$nameHash}_archive.zip"));
+						@unlink(DUP_Util::safePath(DUPLICATOR_SSDIR_PATH . "/{$nameHash}_database.sql"));
+						@unlink(DUP_Util::safePath(DUPLICATOR_SSDIR_PATH . "/{$nameHash}_installer.php"));
+						@unlink(DUP_Util::safePath(DUPLICATOR_SSDIR_PATH . "/{$nameHash}_scan.json"));
+						@unlink(DUP_Util::safePath(DUPLICATOR_SSDIR_PATH . "/{$nameHash}.log"));
 						//Unfinished Zip files
 						$tmpZip = DUPLICATOR_SSDIR_PATH_TMP . "/{$nameHash}_archive.zip.*";
 						if ($tmpZip !== false) {
 							array_map('unlink', glob($tmpZip));
 						}
-						@unlink(DUP_Util::SafePath());
 						$delCount++;
 					} 
 				}
@@ -141,5 +148,67 @@ function duplicator_package_delete() {
     die(json_encode($json));
 }
 
-//DO NOT ADD A CARRIAGE RETURN BEYOND THIS POINT (headers issue)!!
-?>
+
+
+/**
+ * Controller for Tools
+ * @package Duplicator\ctrls
+ */
+class DUP_CTRL_Package extends DUP_CTRL_Base
+{
+	/**
+     *  Init this instance of the object
+     */
+	function __construct()
+	{
+		add_action('wp_ajax_DUP_CTRL_Package_addQuickFilters', array($this, 'addQuickFilters'));
+	}
+
+
+	/**
+     * Removed all reserved installer files names
+	 *
+	 * @param string $_POST['dir_paths']		A semi-colon separated list of directory paths
+	 *
+	 * @return string	Returns all of the active directory filters as a ";" separated string
+     */
+	public function addQuickFilters($post)
+	{
+		$post = $this->postParamMerge($post);
+		check_ajax_referer($post['action'], 'nonce');
+		$result = new DUP_CTRL_Result($this);
+
+		try {
+			//CONTROLLER LOGIC
+			$package = DUP_Package::getActive();
+
+			//DIRS
+			$dir_filters = $package->Archive->FilterDirs.';' . $post['dir_paths'];
+			$dir_filters = $package->Archive->parseDirectoryFilter($dir_filters);
+			$changed = $package->Archive->saveActiveItem($package, 'FilterDirs', $dir_filters);
+
+			//FILES
+			$file_filters = $package->Archive->FilterFiles.';' . $post['file_paths'];
+			$file_filters = $package->Archive->parseFileFilter($file_filters);
+			$changed = $package->Archive->saveActiveItem($package, 'FilterFiles', $file_filters);
+
+			
+			$changed = $package->Archive->saveActiveItem($package, 'FilterOn', 1);
+
+			//Result
+			$package = DUP_Package::getActive();
+			$payload['dirs-in'] = $post['dir_paths'];
+			$payload['dir-out'] = $package->Archive->FilterDirs;
+			$payload['files-in'] = $post['file_paths'];
+			$payload['files-out'] = $package->Archive->FilterFiles;
+
+			//RETURN RESULT
+			$test = ($changed) ? DUP_CTRL_Status::SUCCESS : DUP_CTRL_Status::FAILED;
+			$result->process($payload, $test);
+
+		} catch (Exception $exc) {
+			$result->processError($exc);
+		}
+	}
+
+}

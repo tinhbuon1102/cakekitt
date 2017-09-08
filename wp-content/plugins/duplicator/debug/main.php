@@ -1,5 +1,5 @@
 <?php
-DUP_Util::CheckPermissions('read');
+DUP_Util::hasCapability('read');
 
 require_once(DUPLICATOR_PLUGIN_PATH . '/assets/js/javascript.php');
 require_once(DUPLICATOR_PLUGIN_PATH . '/views/inc.header.php');
@@ -136,7 +136,7 @@ jQuery(document).ready(function($)
 	Duplicator.Debug.ProcessResult = function(data, result) 
 	{	
 		UNIT_TEST_COUNTER++;
-		var status = data.Report.Status || 0;
+		var status = data.report.status || 0;
 		//console.log(data);
 		
 		if (status > 0) {

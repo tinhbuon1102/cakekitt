@@ -1,16 +1,16 @@
 <?php
-	$dbvar_maxtime  = DUP_Util::MysqlVariableValue('wait_timeout');
-	$dbvar_maxpacks = DUP_Util::MysqlVariableValue('max_allowed_packet');
+	$dbvar_maxtime  = DUP_DB::getVariable('wait_timeout');
+	$dbvar_maxpacks = DUP_DB::getVariable('max_allowed_packet');
 	$dbvar_maxtime  = is_null($dbvar_maxtime)  ? __("unknow", 'duplicator') : $dbvar_maxtime;
 	$dbvar_maxpacks = is_null($dbvar_maxpacks) ? __("unknow", 'duplicator') : $dbvar_maxpacks;	
 	
 	$space = @disk_total_space(DUPLICATOR_WPROOTPATH);
 	$space_free = @disk_free_space(DUPLICATOR_WPROOTPATH);
 	$perc = @round((100/$space)*$space_free,2);
-	$mysqldumpPath = DUP_Database::GetMySqlDumpPath();
+	$mysqldumpPath = DUP_DB::getMySqlDumpPath();
 	$mysqlDumpSupport = ($mysqldumpPath) ? $mysqldumpPath : 'Path Not Found';
 	
-	$client_ip_address = DUP_Server::GetClientIP();
+	$client_ip_address = DUP_Server::getClientIP();
 ?>
 
 <!-- ==============================
@@ -48,7 +48,7 @@ SERVER SETTINGS -->
 		</tr>
 		<tr>
 			<td><?php _e("APC Enabled", 'duplicator'); ?></td>
-			<td><?php echo DUP_Util::RunAPC() ? 'Yes' : 'No'  ?></td>
+			<td><?php echo DUP_Util::runAPC() ? 'Yes' : 'No'  ?></td>
 		</tr>					   
 		<tr>
 			<td><?php _e("Root Path", 'duplicator'); ?></td>
@@ -60,7 +60,7 @@ SERVER SETTINGS -->
 		</tr>			
 		<tr>
 			<td><?php _e("Plugins Path", 'duplicator'); ?></td>
-			<td><?php echo DUP_Util::SafePath(WP_PLUGIN_DIR) ?></td>
+			<td><?php echo DUP_Util::safePath(WP_PLUGIN_DIR) ?></td>
 		</tr>
 		<tr>
 			<td><?php _e("Loaded PHP INI", 'duplicator'); ?></td>
@@ -106,11 +106,11 @@ SERVER SETTINGS -->
 		</tr>
 		<tr>
 			<td><?php _e("User", 'duplicator'); ?></td>
-			<td><?php echo DUP_Util::GetCurrentUser(); ?></td>
+			<td><?php echo DUP_Util::getCurrentUser(); ?></td>
 		</tr>
 		<tr>
 			<td><?php _e("Process", 'duplicator'); ?></td>
-			<td><?php echo DUP_Util::GetProcessOwner(); ?></td>
+			<td><?php echo DUP_Util::getProcessOwner(); ?></td>
 		</tr>
 		<tr>
 			<td><a href="http://php.net/manual/en/features.safe-mode.php" target="_blank"><?php _e("Safe Mode", 'duplicator'); ?></a></td>
@@ -131,22 +131,41 @@ SERVER SETTINGS -->
 		</tr>
 		<tr>
 			<td><a href="http://www.php.net/manual/en/info.configuration.php#ini.max-execution-time" target="_blank"><?php _e("Max Execution Time", 'duplicator'); ?></a></td>
-			<td><?php echo @ini_get( 'max_execution_time' ); ?></td>
+			<td>
+				<?php
+					echo @ini_get('max_execution_time');
+					$try_update = set_time_limit(0);
+					$try_update = $try_update ? 'is dynamic' : 'value is fixed';
+					echo " (default) - {$try_update}";
+				?>
+				<i class="fa fa-question-circle data-size-help"
+					data-tooltip-title="<?php _e("Max Execution Time", 'duplicator'); ?>"
+					data-tooltip="<?php _e('If the value shows dynamic then this means its possible for PHP to run longer than the default.  '
+						. 'If the value is fixed then PHP will not be allowed to run longer than the default.', 'duplicator'); ?>"></i>
+			</td>
 		</tr>
 		<tr>
 			<td><a href="http://us3.php.net/shell_exec" target="_blank"><?php _e("Shell Exec", 'duplicator'); ?></a></td>
-			<td><?php echo (DUP_Util::IsShellExecAvailable()) ? _e("Is Supported", 'duplicator') : _e("Not Supported", 'duplicator'); ?></td>
+			<td><?php echo (DUP_Util::hasShellExec()) ? _e("Is Supported", 'duplicator') : _e("Not Supported", 'duplicator'); ?></td>
 		</tr>            
 		<tr>
 			<td><?php _e("Shell Exec Zip", 'duplicator'); ?></td>
-			<td><?php echo (DUP_Util::GetZipPath() != null) ? _e("Is Supported", 'duplicator') : _e("Not Supported", 'duplicator'); ?></td>
+			<td><?php echo (DUP_Util::getZipPath() != null) ? _e("Is Supported", 'duplicator') : _e("Not Supported", 'duplicator'); ?></td>
 		</tr>
+        <tr>
+            <td><a href="https://suhosin.org/stories/index.html" target="_blank"><?php _e("Suhosin Extension", 'duplicator'); ?></a></td>
+            <td><?php echo extension_loaded('suhosin') ? _e("Enabled", 'duplicator') : _e("Disabled", 'duplicator'); ?></td>
+        </tr>
 		<tr>
 			<td class='dup-settings-diag-header' colspan="2">MySQL</td>
 		</tr>					   
 		<tr>
 			<td><?php _e("Version", 'duplicator'); ?></td>
-			<td><?php echo $wpdb->db_version() ?></td>
+			<td><?php echo DUP_DB::getVersion() ?></td>
+		</tr>
+        <tr>
+			<td><?php _e("Comments", 'duplicator'); ?></td>
+            <td><?php echo DUP_DB::getVariable('version_comment') ?></td>
 		</tr>
 		<tr>
 			<td><?php _e("Charset", 'duplicator'); ?></td>
@@ -169,7 +188,7 @@ SERVER SETTINGS -->
 		 </tr>
 		 <tr valign="top">
 			 <td><?php _e('Free space', 'hyper-cache'); ?></td>
-			 <td><?php echo $perc;?>% -- <?php echo DUP_Util::ByteSize($space_free);?> from <?php echo DUP_Util::ByteSize($space);?><br/>
+			 <td><?php echo $perc;?>% -- <?php echo DUP_Util::byteSize($space_free);?> from <?php echo DUP_Util::byteSize($space);?><br/>
 				  <small>
 					  <?php _e("Note: This value is the physical servers hard-drive allocation.", 'duplicator'); ?> <br/>
 					  <?php _e("On shared hosts check your control panel for the 'TRUE' disk space quota value.", 'duplicator'); ?>

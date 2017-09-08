@@ -5,8 +5,8 @@ Author: Jules Colle
 Website: http://bdwm.be
 Tags: wordpress, contact form 7, forms, conditional fields
 Requires at least: 4.1
-Tested up to: 4.7.2
-Stable tag: 1.1
+Tested up to: 4.7.5
+Stable tag: 1.3.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,21 +24,122 @@ Then you should go to the "Conditional fields" tab to create one or more conditi
 
 A detailed example of how to use the plugin can be found here: [http://bdwm.be/wpcf7cf/how-to-set-up-conditional-fields-for-contact-form-7/](http://bdwm.be/wpcf7cf/how-to-set-up-conditional-fields-for-contact-form-7/)
 
-= What's new? =
+== Main/ New features ==
 
-* Required fields can be used inside hidden groups without causing validation problems.
-* Conditional groups can now be added to the emails as well. Just wrap the content with `[group-name] ... [/group-name]` tags.
+= Compatible with Contact Form 7 Multi-Step Forms =
 
+Conditional Fields for Contact Form 7 is now fully compatible with <a target="_blank" href="https://wordpress.org/plugins/contact-form-7-multi-step-module/">Contact Form 7 Multi-Step Forms</a>
+
+= Support for required fields =
+
+Required fields can be used inside hidden groups without causing validation problems.
+
+= Hide/show info in emails based on what groups are visible =
+
+Conditional groups can now be added to the emails as well.
+Just wrap the content with `[group-name] ... [/group-name]` tags.
+
+= Groups can be nested =
+Groups can be nested, both in the form and in the email
+
+Example form:
+`
+[group group-1]
+  [group group-inside-1]
+    ...
+  [/group]
+[/group]`
+
+Example email:
+`
+[group-1]
+  [group-inside-1]
+    ...
+  [/group-inside-1]
+[/group-1]`
+
+= Advanced =
+
+Advanced users can now code up the conditions as plain text instead of using the select boxes, using the import/export feature.
 
 == Installation ==
 
 Please follow the [standard installation procedure for WordPress plugins](http://codex.wordpress.org/Managing_Plugins#Installing_Plugins).
 
+Follow [this tutorial](http://bdwm.be/wpcf7cf/how-to-set-up-conditional-fields-for-contact-form-7/) if you are not sure how to use the plugin.
+
 == Frequently Asked Questions ==
 
-= Why are there not more Frequently asked questions? =
+= Email message is not showing the correct values =
 
-Because no questions have been asked frequently about this plugin.
+<strong>All field names should be unique</strong>
+
+Even though your fields might never show up at the same time, it is still important to realize that WPCF7CF will not remove the fields, it merely hides them. So all fields will be submitted when the form is sent. Because of this no two fields can have the same name.
+
+Incorrect form (2 input elements having the same name "a"):
+`
+[group group-1][select a "1" "2" "3"][/group]
+[group group-2][select a "1" "2" "3"][/group]
+`
+
+Correct form (all groups and fields have unique names):
+`
+[group group-1][select a "1" "2" "3"][/group]
+[group group-2][select b "1" "2" "3"][/group]
+`
+
+= All my groups show up all the time and never get hidden. =
+
+<strong>Reason #1: Javascript error</strong>
+Check your browser console (F12) for any javascript errors. WPCF7CF loads it's scripts at the bottom of the HTML page, so if some javascript error gets triggered before that, the code will not be executed in most browsers.
+Before reaching out to the support forum try to determine which plugin or theme is causing the problem, by gradually disabling plugins and changing theme.
+
+<strong>Reason #2: wp_footer() isn't loaded</strong>
+Check if your theme is calling the `wp_footer()` function. Typically this function will be called in your theme's footer.php file.
+The conditional fields javascript code is loaded during wp_footer, so a call to this function is crucial. If there is no such call in your theme, go to your theme's footer.php file and add this code right before the closing `</body>` tag:
+`&lt;?php wp_footer(); ?&gt;`
+
+= How do i show fields based on multiple conditions? (AND, OR, NAND, NOR) =
+
+<strong>if a=1 AND b=2 then, show [group x]</strong>
+
+You will need to create nested groups for the number of conditions, so your form might look like this:
+
+`[select a "1" "2" "3"]
+[select b "1" "2" "3"]
+[group x-1][group x-2]TADA![/group][/group]`
+
+and use these conditions
+
+`if [a] equals "1" then show [x-1]
+if [b] equals "2" then show [x-2]`
+
+<strong>if a=1 OR b=2 then, show [group x]</strong>
+
+This is more straightforward, as OR conditions are assumed. Giving this form:
+
+`[select a "1" "2" "3"]
+[select b "1" "2" "3"]
+[group x]TADA![/group]`
+
+You can simply use these conditions:
+
+`if [a] equals "1" then show [x]
+if [b] equals "2" then show [x]`
+
+<strong>if a=1 NAND b=2 then, show [group x]</strong>
+
+Same form as OR, but just use "not equals" instead of "equals":
+
+`if [a] not equals "1" then show [x]
+if [b] not equals "2" then show [x]`
+
+<strong>if a=1 NOR b=2 then, show [group x]</strong>
+
+Same form as AND, but just use "not equals" instead of "equals":
+
+`if [a] not equals "1" then show [x-1]
+if [b] not equals "2" then show [x-2]`
 
 == Screenshots ==
 
@@ -46,6 +147,48 @@ Because no questions have been asked frequently about this plugin.
 2. Front End
 
 == Changelog ==
+
+= 1.3.4 =
+* small fix (https://wordpress.org/support/topic/wpcf7_contactform-object-is-no-longer-accessible/)
+
+= 1.3.3 =
+* Changes tested with WP 4.7.5 and CF7 4.8
+* Changed the inner mechanics a bit to make the plugin more edge-case proof and prepare for future ajax support
+* Fix problems introduced by CF7 4.8 update
+* Because the CF7 author, Takayuki Miyoshi, decided to get rid of the 'form-pre-serialize' javascript event, the hidden fields containing data about which groups are shown/hidden will now be updated when the form is loaded and each time a form value changes. This might make the plugin slightly slower, but it is the only solution I found so far.
+* Small bug fix (https://wordpress.org/support/topic/php-depreciated-warning/#post-9151404)
+
+= 1.3.2 =
+* Removed a piece of code that was trying to load a non existing stylesheet
+* Updated FAQ
+* Code rearangement and additions for the upcomming Conditional Fields Pro plugin
+
+= 1.3.1 =
+* Fixed bug in 1.3 that broke everything
+
+= 1.3 =
+* Fixed small bug with integration with Contact Form 7 Multi-Step Forms
+* Also trigger hiding/showing of groups while typing or pasting text in input fields
+* Added support for input type="reset"
+* Added animations
+* Added settings page to wp-admin: Contact > Conditional Fields
+
+= 1.2.3 =
+* Make plugin compatible with CF7 Multi Step by NinjaTeam https://wordpress.org/plugins/cf7-multi-step/
+* Improve compatibility with Signature Addon some more.
+
+= 1.2.2 =
+* Fix critical bug that was present in version 1.2 and 1.2.1
+
+= 1.2.1 =
+* Improve compatibility with <a href="https://wordpress.org/plugins/contact-form-7-signature-addon/">Contact Form 7 Signature Addon</a>: now allowing multiple hidden signature fields.
+
+= 1.2 =
+* Made compatible with <a href="https://wordpress.org/plugins/contact-form-7-multi-step-module/">Contact Form 7 Multi-Step Forms</a>
+* Small bug fix by Manual from advantia.net: now only considering fields which are strictly inside hidden group tags with form submit. Important in some edge cases where form elements get hidden by other mechanisms, i.e. tabbed forms.
+* Started work on WPCF7CF Pro, made some structural code modifications so the free plugin can function as the base for both plugins.
+* Removed some debug code
+* Updated readme file
 
 = 1.1 =
 * Added import feature
