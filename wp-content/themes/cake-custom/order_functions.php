@@ -639,7 +639,7 @@ function get_layer_cake_size() {
 	{
 		case 1:
 			// Hide first option of round/square size
-			$aSizeRound = array_slice( $aSizeRound, 1, count($aSizeRound), TRUE );
+			$aSizeRound = array_slice( $aSizeRound, KITT_CAKESIZE_ROUND_FOR_LAYER_1, count($aSizeRound), TRUE );
 			$aSizeSquare = array_slice( $aSizeSquare, 1, count($aSizeRound), TRUE );
 			break;
 		case 2:

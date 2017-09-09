@@ -4,6 +4,7 @@ define('KITT_FLAVOR_RATE', 1.1);
 define('KITT_MINIMUM_PRICE_FOR_OTHER_POSTCODE', 50000);
 define('KITT_MAX_LAYER_ESTIMATION', 3);
 define('KITT_MINIMUM_PRICE_CHECKOUT', 8000);
+define('KITT_CAKESIZE_ROUND_FOR_LAYER_1', 2);
 
 // Include order function file
 include 'order_functions.php';
