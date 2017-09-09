@@ -189,6 +189,7 @@ $(function(){
     		else {
     			$('li.custom_order_cake_decorate_print').hide();
     		}
+    		
 			if (['cake_type_c', 'cake_type_f'].indexOf($(this).val()) != -1)
     		{
 				//$('li.cake_shape_heart').show();
@@ -198,6 +199,20 @@ $(function(){
 				//$('li.cake_shape_heart').hide();
     			$('li.cake_shape_heart, li.cake_shape_star, li.cake_shape_custom').hide();
     		}
+			
+			if (['cake_type_e'].indexOf($(this).val()) != -1)
+			{
+				if (!$('.custom_order_cake_decorate_print input[type="checkbox"]').is(':checked'))
+				{
+					$('.custom_order_cake_decorate_print input[type="checkbox"]').click();
+				}
+			}
+			else{
+				if ($('.custom_order_cake_decorate_print input[type="checkbox"]').is(':checked'))
+				{
+					$('.custom_order_cake_decorate_print input[type="checkbox"]').click();
+				}
+			}
     	});
     	
         $('body').on('click', 'form#omOrder .submit_next', function(){
