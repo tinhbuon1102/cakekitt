@@ -137,7 +137,10 @@ $(function(){
             		$('#confirmation_content').html(response.confirm_html);
             		$('#confirmation_footer').removeClass('disable');
                 }
-            	$('body').LoadingOverlay("hide");
+            	if (isNextStep)
+        		{
+            		$('body').LoadingOverlay("hide");
+        		}
             },
             error: function(){
             	console.log ('showItemInCart error');
