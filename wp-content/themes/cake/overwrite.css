@@ -1,4 +1,29 @@
 /* Quickly add some CSS to your theme by adding it to this block */
+#wcuf_summary_uploaded_files h2 {
+	font-size: 16px;
+    margin-bottom: 20px;
+}
+#wcuf_summary_uploaded_files .wcuf_summary_file_list_block {
+    padding: 0;
+    margin: 0;
+}
+#wcuf_summary_uploaded_files .wcuf_summary_file_list_block h4.wcuf_upload_field_title {
+    font-size: 14px;
+    margin: 0;
+}
+ol.wcuf_file_preview_list:before, ol.wcuf_file_preview_list:after {
+    content: '';
+    display: table-cell;
+}
+ol.wcuf_file_preview_list:after {
+    clear: both;
+}
+ol.wcuf_file_preview_list {
+    text-align: left;
+    display: block;
+    padding: 0;
+    margin: 0;
+}
 html {
     -webkit-tap-highlight-color: transparent;
 }
@@ -5480,28 +5505,3 @@ a.btn.label-btn {
   100% {left:-240px;}
   
 }*/
-#wcuf_summary_uploaded_files h2 {
-	font-size: 16px;
-    margin-bottom: 20px;
-}
-#wcuf_summary_uploaded_files .wcuf_summary_file_list_block {
-    padding: 0;
-    margin: 0;
-}
-#wcuf_summary_uploaded_files .wcuf_summary_file_list_block h4.wcuf_upload_field_title {
-    font-size: 14px;
-    margin: 0;
-}
-ol.wcuf_file_preview_list:before, ol.wcuf_file_preview_list:after {
-    content: '';
-    display: table-cell;
-}
-ol.wcuf_file_preview_list:after {
-    clear: both;
-}
-ol.wcuf_file_preview_list {
-    text-align: left;
-    display: block;
-    padding: 0;
-    margin: 0;
-}
