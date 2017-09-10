@@ -2,6 +2,10 @@
  Theme Name: cake Custom
  Template:     cake
  */
+div#wcuf_summary_uploaded_files h2 {
+	font-size: 16px;
+    margin-bottom: 20px;
+}
 #omOrder input.labelauty {
 	display: block !important;
 	opacity: 0;
