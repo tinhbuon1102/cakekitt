@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce Upload Files\n"
 "POT-Creation-Date: 2017-08-26 16:49+0200\n"
-"PO-Revision-Date: 2017-09-11 01:06+0900\n"
+"PO-Revision-Date: 2017-09-11 14:08+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja_JP\n"
@@ -4098,7 +4098,7 @@ msgstr ""
 
 #: classes/com/WCUF_Text.php:23
 msgid "Browse..."
-msgstr ""
+msgstr "ファイルを選択"
 
 #: classes/com/WCUF_Text.php:26
 msgid "Add files"
@@ -4110,7 +4110,7 @@ msgstr ""
 
 #: classes/com/WCUF_Text.php:32
 msgid "Delete uploaded file(s)"
-msgstr ""
+msgstr "ファイルを削除"
 
 #: classes/com/WCUF_Text.php:35
 msgid "Crop & Upload"
@@ -4281,7 +4281,7 @@ msgstr ""
 #: template/checkout_cart_product_page_template.php:732
 #: template/view_order_template.php:5
 msgid "Deleting file, please wait..."
-msgstr ""
+msgstr "ファイルを削除中"
 
 #: template/checkout_cart_product_page_template.php:760
 #: template/view_order_template.php:722
@@ -4290,7 +4290,7 @@ msgstr "プリント写真"
 
 #: template/checkout_cart_product_page_template.php:782
 msgid "Processing data..."
-msgstr ""
+msgstr "データ処理中"
 
 #: template/checkout_cart_product_page_template.php:791
 #: template/view_order_template.php:749
@@ -4395,7 +4395,7 @@ msgstr ""
 #: template/checkout_cart_product_page_template.php:816
 #: template/view_order_template.php:771
 msgid "Loading, please wait until uploading is complete... "
-msgstr ""
+msgstr "ファイルアップロード中"
 
 #: template/checkout_cart_product_page_template.php:817
 #: template/view_order_template.php:772
