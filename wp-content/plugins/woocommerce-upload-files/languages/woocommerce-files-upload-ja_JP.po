@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce Upload Files\n"
 "POT-Creation-Date: 2017-08-26 16:49+0200\n"
-"PO-Revision-Date: 2017-08-26 16:49+0200\n"
+"PO-Revision-Date: 2017-09-11 01:06+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja_JP\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.3\n"
+"X-Generator: Poedit 1.8.12\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
@@ -4286,7 +4286,7 @@ msgstr ""
 #: template/checkout_cart_product_page_template.php:760
 #: template/view_order_template.php:722
 msgid "Uploads Summary"
-msgstr ""
+msgstr "プリント写真"
 
 #: template/checkout_cart_product_page_template.php:782
 msgid "Processing data..."
@@ -4442,7 +4442,7 @@ msgstr ""
 
 #: template/view_order_template.php:402 template/view_order_template.php:666
 msgid "Download / View file(s)"
-msgstr ""
+msgstr "ダウンロード / ファイルを見る"
 
 #: template/view_order_template.php:689
 msgid "Save in progress, please wait..."

@@ -719,7 +719,7 @@ if($display_summary_box != 'no' && isset($all_uploaded_data) && !empty($all_uplo
 
 if(!empty($summary_box_data) && in_array($current_page, $display_summary_box)): ?>
 	<div id="wcuf_summary_uploaded_files">
-		<h2><?php _e('Uploads Summary', 'woocommerce-files-upload');?></h2>
+		<h2><?php _e('プリント写真', 'woocommerce-files-upload');?></h2>
 		<?php foreach($summary_box_data as $title => $file_list): ?>
 			<div class="wcuf_summary_file_list_block">
 				<h4 class="wcuf_upload_field_title wcuf_summary_uploaded_files_title"><?php echo $title; ?></h4>
