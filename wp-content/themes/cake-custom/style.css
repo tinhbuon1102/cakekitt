@@ -2,6 +2,9 @@
  Theme Name: cake Custom
  Template:     cake
  */
+.breadcrumb>li+li:before, .page-header .breadcrumb, .page-header .breadcrumb a {
+    color: #fff;
+}
 div#wcuf_summary_uploaded_files h2 {
 	font-size: 16px;
     margin-bottom: 20px;
