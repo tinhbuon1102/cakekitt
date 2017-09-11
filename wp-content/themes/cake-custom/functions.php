@@ -2153,4 +2153,21 @@ function kitt_woocommerce_order_formatted_line_subtotal($formatted_total, $item,
 	}
 	return $formatted_total;
 }
+/*
+
+** Remove tabs from product details page
+
+*/
+
+add_filter( 'woocommerce_product_tabs', 'woo_remove_product_tabs', 98 );
+
+function woo_remove_product_tabs( $tabs ) {
+
+unset( $tabs['description'] ); // Remove the description tab
+unset( $tabs['reviews'] ); // Remove the reviews tab
+unset( $tabs['additional_information'] ); // Remove the additional information tab
+
+return $tabs;
+
+}
 ?>
