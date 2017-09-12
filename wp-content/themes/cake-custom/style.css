@@ -9,9 +9,6 @@
 	cursor: not-allowed;
 	pointer-events: none;
 }
-div#wcuf_save_uploaded_files_button_area {
-    display: none;
-}
 #wcuf_cart_ajax_container .wcuf_summary_file_list_block {
     padding: 0;
 }
