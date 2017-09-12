@@ -7,6 +7,7 @@
     border-color: #b8b8b9;
     color: #b8b8b9;
 	cursor: not-allowed;
+	pointer-events: none;
 }
 div#wcuf_save_uploaded_files_button_area {
     display: none;
