@@ -2,6 +2,17 @@
  Theme Name: cake Custom
  Template:     cake
  */
+#wcuf_cart_ajax_container .wcuf_summary_file_list_block {
+    padding: 0;
+}
+#wcuf_cart_ajax_container h4.wcuf_upload_field_title.wcuf_summary_uploaded_files_title {
+    margin: 0;
+}
+.wcuf_summary_file_list_block .wcuf_preview_file_title {
+    display: block;
+    font-weight: normal;
+    font-size: 14px;
+}
 .wcuf_already_uplaoded_data_container h4 {
     margin-bottom: 0px;
     font-weight: normal;
@@ -21,8 +32,10 @@ ol.wcuf_file_preview_list {
     margin: 0 !important;
 }
 div#wcuf_summary_uploaded_files h2 {
-	font-size: 16px;
-    margin-bottom: 20px;
+    font-size: 16px;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(0,0,0,.1);
 }
 #omOrder input.labelauty {
 	display: block !important;
