@@ -2170,14 +2170,21 @@ unset( $tabs['additional_information'] ); // Remove the additional information t
 return $tabs;
 
 }
-add_filter('woocommerce_shortcode_products_query', 'add_shortcode_orderby_options', 10, 2);
-
-function add_shortcode_orderby_options ($args, $atts) {
-    if ($atts['orderby'] == "my-custom-sorting-option") {
-        $args['orderby']  = 'meta_value';
-        $args['meta_key'] = 'my_custom_field_name';
-    }
-    return $args;
-    return $atts;
-}
+function woo_products( $atts ) {
+         global $post;
+         $product_Out = '';
+                $atts = shortcode_atts(
+         array(
+           'product_ids' => '',// your product id goes here
+         ), $atts, 'bartag' );
+         $pro_ids = explode(",", $atts['product_ids']);
+         foreach ($pro_ids as $key => $values) {
+            $product_obj = $product = wc_get_product( $values );
+            //call your html and data in $product out variable
+            $product_Out .= '<div class="product_name">'.$values.'</div>';
+         }
+         return $product_Out;
+     }
+     add_shortcode( 'woo_products', 'woo_products' );
+     //use this shortcode [woo_products product_ids="9,86"]
 ?>
