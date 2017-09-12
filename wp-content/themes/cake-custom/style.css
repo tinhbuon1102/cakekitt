@@ -2,6 +2,14 @@
  Theme Name: cake Custom
  Template:     cake
  */
+.woocommerce button.button.disabled1, .woocommerce button.button.disabled1:hover {
+    background-color: #ececec;
+    border-color: #b8b8b9;
+    color: #b8b8b9;
+}
+div#wcuf_save_uploaded_files_button_area {
+    display: none;
+}
 #wcuf_cart_ajax_container .wcuf_summary_file_list_block {
     padding: 0;
 }
