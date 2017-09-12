@@ -2170,4 +2170,14 @@ unset( $tabs['additional_information'] ); // Remove the additional information t
 return $tabs;
 
 }
+add_filter('woocommerce_shortcode_products_query', 'add_shortcode_orderby_options', 10, 2);
+
+function add_shortcode_orderby_options ($args, $atts) {
+    if ($atts['orderby'] == "my-custom-sorting-option") {
+        $args['orderby']  = 'meta_value';
+        $args['meta_key'] = 'my_custom_field_name';
+    }
+    return $args;
+    return $atts;
+}
 ?>
