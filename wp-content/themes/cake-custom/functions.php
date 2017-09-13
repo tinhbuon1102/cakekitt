@@ -295,8 +295,7 @@ function icheck_scripts ()
 	wp_enqueue_script('kana_js', get_stylesheet_directory_uri() . '/js/jquery.autoKana.js', array());
 	wp_enqueue_style('cake_child_css', get_stylesheet_directory_uri() . '/style.css');
 	wp_enqueue_script('overlay_js', get_stylesheet_directory_uri() . '/js/loadingoverlay.js', array());
-	//wp_enqueue_script('fancybox_js', get_stylesheet_directory_uri() . '/js/fancybox.js', array());
-	//wp_enqueue_script('fancyboxcustom_js', get_stylesheet_directory_uri() . '/js/fancycustom.js', array());
+	wp_enqueue_script('jquery-form');
 	wp_enqueue_script('autoheight_js', get_stylesheet_directory_uri() . '/js/jQueryAutoHeight.js', array());
 	wp_enqueue_style('cake_child_css', get_stylesheet_directory_uri() . '/css/fancybox.css');
 	wp_enqueue_script('custom_js', get_stylesheet_directory_uri() . '/js/custom.js', array());
