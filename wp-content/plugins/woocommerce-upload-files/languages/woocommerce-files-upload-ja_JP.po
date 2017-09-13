@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce Upload Files\n"
 "POT-Creation-Date: 2017-08-26 16:49+0200\n"
-"PO-Revision-Date: 2017-09-13 04:23+0900\n"
+"PO-Revision-Date: 2017-09-12 15:19+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja_JP\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: classes/acf/acf.php:63
 msgid "Advanced Custom Fields"
-msgstr "高度なオプション"
+msgstr ""
 
 #: classes/acf/acf.php:358 classes/acf/includes/admin/admin.php:117
 msgid "Field Groups"
@@ -4090,7 +4090,7 @@ msgstr ""
 
 #: classes/com/WCUF_Shortcode.php:346 classes/com/WCUF_Shortcode.php:378
 msgid "Download / View file"
-msgstr "ダウンロード / ファイルを見る"
+msgstr ""
 
 #: classes/com/WCUF_Text.php:11 classes/com/WCUF_Text.php:65
 msgid "#"
@@ -4126,7 +4126,7 @@ msgstr ""
 
 #: classes/com/WCUF_Text.php:50
 msgid "Save upload(s)"
-msgstr "画像を追加"
+msgstr "アップロードした画像を追加"
 
 #: classes/com/WCUF_Text.php:53
 msgid "Select quantity:"
@@ -4146,7 +4146,9 @@ msgstr ""
 
 #: classes/com/WCUF_Text.php:62
 msgid "When ready to save the uploaded file(s), click on the following button:"
-msgstr "アップロードした画像を追加するには下記ボタンをクリックしてください。"
+msgstr ""
+"アップロード後、プリント画像を追加(変更)する場合は以下のボタンをクリックして"
+"ください。"
 
 #: classes/com/WCUF_WCPriceCalculatorMeasurementHelper.php:67
 #, php-format

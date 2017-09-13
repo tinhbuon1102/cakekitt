@@ -691,12 +691,15 @@ function wcuf_hide_add_to_cart_button_if_product_page_and_before_add()
 	
 	if(!wcuf_exist_a_field_before_add_to_cart || (wcuf_all_required_uploads_have_been_performed(true) && wcuf_check_multiple_upload_status(null)))
 	{
-		jQuery('.single_add_to_cart_button, .quantity').fadeIn(600);
+		/*jQuery('.single_add_to_cart_button, .quantity').fadeIn(600);*/
+		jQuery('.single_add_to_cart_button, .quantity').removeClass("disabled1")
 		jQuery('.wcuf_required_upload_add_to_cart_warning_message').fadeOut(400);
 	}
 	else
 	{
-		jQuery('.single_add_to_cart_button, .quantity').fadeOut(400);
+		/*jQuery('.single_add_to_cart_button, .quantity').fadeOut(400);*/
+				jQuery('.single_add_to_cart_button, .quantity').addClass("disabled1")
+
 		jQuery('.wcuf_required_upload_add_to_cart_warning_message').fadeIn(600);
 	}
 	
