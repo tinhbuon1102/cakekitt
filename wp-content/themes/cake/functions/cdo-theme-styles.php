@@ -124,6 +124,8 @@ function cake_add_stylesheet() {
 	wp_enqueue_style('cake-woocommerce',  get_template_directory_uri() . '/css/woocommerce-theme.css', '', null, 'screen, all');
 	wp_enqueue_style('cake-slideshow', get_template_directory_uri() . '/css/slideshow.css', '', null, 'screen, all');	
 	wp_enqueue_style('cake-main', get_template_directory_uri() . '/style.css', '', null, 'all');
+	wp_enqueue_style('cake-child', get_stylesheet_directory_uri() . '/style.css?'. date("Hi", filemtime( get_stylesheet_directory() . '/style.css')), array('cake-main') );
+	//wp_enqueue_style('cake-main', get_bloginfo('stylesheet_url'), false, time() );
 	
 	if($sliderchoose=="slick-slider"){
 		wp_enqueue_style('cdo-slick');

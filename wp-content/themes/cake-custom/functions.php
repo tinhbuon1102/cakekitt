@@ -2170,4 +2170,5 @@ unset( $tabs['additional_information'] ); // Remove the additional information t
 return $tabs;
 
 }
+
 ?>
