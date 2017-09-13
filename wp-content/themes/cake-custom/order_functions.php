@@ -207,6 +207,7 @@ function cake_steps_store(){
 		}
 		
 		$_SESSION['cake_custom_order'] = isset($_SESSION['cake_custom_order']) ? $_SESSION['cake_custom_order'] : array();
+		pr($_SESSION['cake_custom_order']);
 		$_SESSION['cake_custom_order'][$_POST['step']] = $_POST;
 	}
 
