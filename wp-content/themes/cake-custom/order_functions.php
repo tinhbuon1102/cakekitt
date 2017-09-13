@@ -182,6 +182,11 @@ function get_size_cake_shape_price() {
 add_action('wp_ajax_nopriv_cake_steps_store', 'cake_steps_store');
 add_action('wp_ajax_cake_steps_store', 'cake_steps_store');
 function cake_steps_store(){
+	if (!session_id())
+	{
+		session_start();
+	}
+	
 	// Remove cart items
 	if (isset($_POST['data-item-remove'])){
 		$step = $_POST['step_remove'];
@@ -207,7 +212,6 @@ function cake_steps_store(){
 		}
 		
 		$_SESSION['cake_custom_order'] = isset($_SESSION['cake_custom_order']) ? $_SESSION['cake_custom_order'] : array();
-		pr($_SESSION['cake_custom_order']);
 		$_SESSION['cake_custom_order'][$_POST['step']] = $_POST;
 	}
 
