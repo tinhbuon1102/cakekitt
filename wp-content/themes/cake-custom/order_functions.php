@@ -441,7 +441,8 @@ function cake_steps_store(){
 			$aResponse['error'] = __('Sorry but we only accept order more than ¥8000', 'cake');
 		}
 	}
-	elseif ($_POST['step'] >= 3)
+	
+	if ($_POST['step'] >= 3)
 	{
 		$fieldMapping = getCustomFormFieldMapping();
 		$aResponse['confirm_html'] = getOrderDetail();
