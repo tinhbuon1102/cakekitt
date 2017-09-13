@@ -99,6 +99,14 @@ $(function(){
             				return '';
             			}
             			
+            			if (currentStepActive == 3)
+                        {
+                        	// Hide Next button
+                        	$('#button_wraper').hide();
+                        	$('#confirmation_wraper').removeClass('disable');
+                        	$('#confirmation_content').html('<div><img src="'+ gl_templateUrl +'/images/loading-1.gif"/></div>');
+                        }
+            			
             			$('form#omOrder .step_wraper').slideUp();
                 		$('form#omOrder .step_wraper[data-step="'+ (currentStepActive + 1) +'"]').slideDown(function(){
                 			var percentComplete = currentStepActive == 3 ? 100 : (currentStepActive * 33);
@@ -112,15 +120,6 @@ $(function(){
                             }, 500);
             				$('form.form-style-common .help-block').addClass('disable');
             				$('body').trigger('resize');
-                            
-                            
-                            if (currentStepActive == 3)
-                            {
-                            	// Hide Next button
-                            	$('#button_wraper').hide();
-                            	$('#confirmation_wraper').removeClass('disable');
-                            	$('#confirmation_content').html('<div><img src="'+ gl_templateUrl +'/images/loading-1.gif"/></div>');
-                            }	
                 		});
             		}
             		
