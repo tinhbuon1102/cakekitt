@@ -457,12 +457,15 @@ function hide_plugin_order_by_product ()
 		'wpcustom-category-image/load.php',
 		'login-with-ajax/login-with-ajax.php',
 		'advanced-custom-fields/acf.php',
-		'wcp-contact-form/wcp-contact-form.php'
+		'wcp-contact-form/wcp-contact-form.php',
+		'woo-extra-product-options/woo-extra-product-options.php'
 	);
+	$active_plugins = get_option('active_plugins');
+	
 	$myplugins = $wp_list_table->items;
 	foreach ( $myplugins as $key => $val )
 	{
-		if ( in_array($key, $hidearr) )
+		if ( in_array($key, $hidearr) && in_array($key, $active_plugins))
 		{
 			unset($wp_list_table->items[$key]);
 		}

@@ -98,10 +98,6 @@ jQuery(document).ready(function(){
 	$('#username').attr( 'placeholder', 'ユーザネームまたはメールアドレス' );
 	$('#password').attr( 'placeholder', 'パスワード' );
 	
-	$('input.radio_input, input.checkbox_input').on('ifUnchecked', function(event){
-		$(this).closest('li').find('.suboption_box').toggleClass('disable');
-	});
-	
 	var ribbonWidth = $( ".label-btn" ).outerWidth();
 	var ribbonHalfWidth = $( ".label-btn" ).outerWidth() / 2;
 	$('head').append('<style>.label-btn:after { width: ' + ribbonWidth + 'px; } </style>');

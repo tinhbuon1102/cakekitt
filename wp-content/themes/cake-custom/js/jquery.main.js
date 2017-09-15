@@ -163,7 +163,6 @@ $(function(){
     	});
     	
     	$('input.radio_input, input.checkbox_input').on('ifChecked', function(event){
-    		$(this).closest('li').find('.suboption_box').toggleClass('disable');
     		if ($(this).attr('name') == 'custom_order_cake_shape')
     		{
     			if (roundGroup.indexOf($(this).val()) != -1)
@@ -638,6 +637,36 @@ $(function(){
    {
 	   initCustomOrderForm();
    }
+   
+   $('input.radio_input, input.checkbox_input').on('ifChecked', function(event){
+	   	var suboption = $(this).closest('li').find('.suboption_box');
+	   	suboption.toggleClass('disable');
+	   	if (suboption.find('textarea').length)
+	   	{
+	   		if (suboption.find('textarea').attr('required'))
+			{
+				suboption.find('textarea').removeAttr('required');
+			}
+			else {
+				suboption.find('textarea').attr('required', 'required');
+			}
+	   	}
+	});
+   
+   $('input.radio_input, input.checkbox_input').on('ifUnchecked', function(event){
+	   var suboption = $(this).closest('li').find('.suboption_box');
+	   	suboption.toggleClass('disable');
+	   	if (suboption.find('textarea').length)
+	   	{
+	   		if (suboption.find('textarea').attr('required'))
+			{
+				suboption.find('textarea').removeAttr('required');
+			}
+			else {
+				suboption.find('textarea').attr('required', 'required');
+			}
+	   	}
+	});
    
    $('body').on('change', '#deliver_postcode, #billing_postcode, #shipping_postcode', function(){
 		var zip1 = $.trim($(this).val());
