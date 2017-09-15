@@ -79,7 +79,7 @@ class WEPOF_Product_Field_InputText{
 				$html .= '</tr></tbody></table>';
 			}*/
 			
-			if ($this->get_name() == 'plate')
+			if ($this->get_name() == 'message_plate')
 			{
 				$extra_option = '';
 				$extra_option .= '<div class="thwepo-extra-options form-row form-row-wide suboption_box disable'. $this->get_cssclass_str() .'" id="MessageOptionbox">';
