@@ -1,0 +1,85 @@
+# Copyright (C) 2014 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version:  Woocommerce Product Custom Options Lite\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/woocommerce-product-addons\n"
+"POT-Creation-Date: 2014-07-21 14:23:29+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"Last-Translator: \n"
+"Language-Team: Phoeniixx <ankit@phoeniixx.com>\n"
+
+msgid "\"%s\" is a required field."
+msgstr ""
+
+msgid "The maximum allowed length for \"%s\" is %s letters."
+msgstr ""
+
+msgid "Remove"
+msgstr ""
+
+msgid "Click to toggle"
+msgstr ""
+
+msgid "Option"
+msgstr ""
+
+msgid "Custom input (text field)"
+msgstr ""
+
+msgid "Custom input (text area)"
+msgstr ""
+
+msgid "Option Name"
+msgstr ""
+
+msgid "Required fields?"
+msgstr ""
+
+msgid "Option Label"
+msgstr ""
+
+msgid "Option Price"
+msgstr ""
+
+msgid "Label"
+msgstr ""
+
+msgid "Woocommerce custom options could not detect an active Woocommerce plugin. Make sure you have activated it. | <a href=\"%1$s\">Hide Notice</a>"
+msgstr ""
+
+msgid "Custom Options"
+msgstr ""
+
+msgid "New Custom Option"
+msgstr ""
+
+msgid "Are you sure you want remove this option?"
+msgstr ""
+
+msgid "General Options"
+msgstr ""
+
+msgid "Enable Custom Options"
+msgstr ""
+
+msgid "Show Options Total"
+msgstr ""
+
+msgid "Show Final Total"
+msgstr ""
+
+msgid "Options Total"
+msgstr ""
+
+msgid "Final Total"
+msgstr ""
+
+msgid "Max"
+msgstr ""
+
+msgid "Option"
+msgstr ""
