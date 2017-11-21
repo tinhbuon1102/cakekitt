@@ -1,0 +1,87 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Woocommerce Product Custom Options Lite\n"
+"POT-Creation-Date: 2015-09-26 14:31+0200\n"
+"PO-Revision-Date: 2016-01-13 16:27+0530\n"
+"Last-Translator: ankit <ankit@phoeniixx>\n"
+"Language-Team: phoeniixx team\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.5.4\n"
+
+msgid "\"%s\" is a required field."
+msgstr "\"%s\" est un champ obligatoire ."
+
+msgid "The maximum allowed length for \"%s\" is %s letters."
+msgstr "La longueur maximale autorisée pour \"%s\" est les lettres %s ."
+
+msgid "Remove"
+msgstr "enlever"
+
+msgid "Click to toggle"
+msgstr "Cliquer ici pour basculer"
+
+msgid "Custom input (text field)"
+msgstr "Entrée personnalisée ( text field )"
+
+msgid "Custom input (text area)"
+msgstr "Entrée personnalisée ( text area )"
+
+msgid "Option Name"
+msgstr "Nom de l'option"
+
+msgid "Required fields?"
+msgstr "Champs requis?"
+
+msgid "Option Label"
+msgstr "Option Étiquette"
+
+msgid "Option Price"
+msgstr "Option Prix"
+
+msgid "Label"
+msgstr "Étiquette"
+
+msgid ""
+"Woocommerce custom options could not detect an active Woocommerce plugin. "
+"Make sure you have activated it. | <a href=\"%1$s\">Hide Notice</a>"
+msgstr ""
+"Options personnalisées WooCommerce pourraient pas détecter un plugin "
+"WooCommerce active. Assurez-vous que vous avez activé . | <a href=\"%1$s"
+"\">Hide Notice</a>"
+
+msgid "Custom Options"
+msgstr "Options sur mesure"
+
+msgid "New Custom Option"
+msgstr "Nouvelle option personnalisée"
+
+msgid "Are you sure you want remove this option?"
+msgstr "Êtes-vous sûr de vouloir supprimer cette option ?"
+
+msgid "General Options"
+msgstr "Options générales"
+
+msgid "Enable Custom Options"
+msgstr "Activer Custom Options"
+
+msgid "Show Options Total"
+msgstr "Afficher totale Options"
+
+msgid "Show Final Total"
+msgstr "Afficher totale finale"
+
+msgid "Options Total"
+msgstr "totale Options"
+
+msgid "Final Total"
+msgstr "totale finale"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "Option"
+msgstr "Option"
