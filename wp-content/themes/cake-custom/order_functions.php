@@ -451,6 +451,16 @@ function cake_steps_store(){
 	echo json_encode($aResponse);die;
 }
 
+add_filter( 'woocommerce_product_is_taxable', 'kitt_woocommerce_product_is_taxable', 10, 2 );
+function kitt_woocommerce_product_is_taxable ($taxable, $product)
+{
+	if (strpos($product->post->post_name, 'custom-order-product') !== false)
+	{
+		$taxable = false;
+	}
+	return $taxable;
+}
+
 
 function calculateProductCart(&$aData = array(), $cartTotal = 0, $b_isCreateOrder = false){
 	$aFormData = getFormData();
