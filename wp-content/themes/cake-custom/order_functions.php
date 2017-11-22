@@ -627,6 +627,7 @@ function kitt_create_temporary_product(&$aData, $totalPrice) {
 	update_post_meta( $post_id, 'is_custom_order_product', 1);
 	update_post_meta( $post_id, '_manage_stock', "no" );
 	update_post_meta( $post_id, '_backorders', "no" );
+	update_post_meta( $post_id, '_tax_status', "none" );
 	
 	
 	update_post_meta( $post_id, '_regular_price', $totalPrice );
