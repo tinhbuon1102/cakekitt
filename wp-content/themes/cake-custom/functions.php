@@ -458,7 +458,8 @@ function hide_plugin_order_by_product ()
 		'login-with-ajax/login-with-ajax.php',
 		'advanced-custom-fields/acf.php',
 		'wcp-contact-form/wcp-contact-form.php',
-		'woo-extra-product-options/woo-extra-product-options.php'
+		'woo-extra-product-options/woo-extra-product-options.php',
+		'woocommerce-files-upload/upload-files.php'
 	);
 	$active_plugins = get_option('active_plugins');
 	

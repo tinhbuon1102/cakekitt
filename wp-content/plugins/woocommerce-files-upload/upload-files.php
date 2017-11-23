@@ -23,7 +23,10 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 {
 	
 	include_once( "classes/com/vendor/getid3/getid3.php"); 
-	include_once( "classes/com/WCUF_Acf.php"); 
+	if (strpos($_GET['page'], 'acf-') !== false || strpos($_GET['page'], 'woocommerce-files-upload') !== false)
+	{
+		include_once( "classes/com/WCUF_Acf.php"); 
+	}
 	
 	
 	//com
