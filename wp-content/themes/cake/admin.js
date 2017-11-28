@@ -1,19 +1,19 @@
 jQuery(function($) {
 	'use strict';
 	if (!$('#custom_order_cake_decorate').is(':checked')) {
-		$('#icingcookie_wraper').addClass('disabled');
-		$('#custom_order_basecolor_text_wraper').addClass('disabled');
-        $('#custom_order_icingcookie_qty_wraper').addClass('disabled');
+		$('#macaron_wraper').addClass('disabled');
+		$('#custom_order_macaron_qty_wraper').addClass('disabled');
+        $('#custom_order_macaron_color_wraper').addClass('disabled');
 	}
 	if (!$('#custom_order_cake_decorate-cupcake').is(':checked')) {
 		$('#cupcake_wraper').addClass('disabled');
 		$('#custom_order_cupcake_qty_wraper').addClass('disabled');
         $('#custom_order_cpck_text_wraper').addClass('disabled');
 	}
-	if (!$('#custom_order_cake_decorate-macaron').is(':checked')) {
-		$('#macaron_wraper').addClass('disabled');
-		$('#custom_order_macaron_qty_wraper').addClass('disabled');
-        $('#custom_order_macaron_color_wraper').addClass('disabled');
+	if (!$('#custom_order_cake_decorate-icingcookie').is(':checked')) {
+		$('#icingcookie_wraper').addClass('disabled');
+		$('#custom_order_basecolor_text_wraper').addClass('disabled');
+        $('#custom_order_icingcookie_qty_wraper').addClass('disabled');
 	}
 	if (!$('#custom_order_cake_decorate-flower').is(':checked')) {
 		$('#flower_wraper').addClass('disabled');
@@ -33,13 +33,13 @@ jQuery(function($) {
 	}
 	$('#custom_order_cake_decorate').change(function(){
 	if ($(this).is(':checked')) {
-		$('#icingcookie_wraper').removeClass('disabled');
-		$('#custom_order_basecolor_text_wraper').removeClass('disabled');
-        $('#custom_order_icingcookie_qty_wraper').removeClass('disabled');
+		$('#macaron_wraper').removeClass('disabled');
+		$('#custom_order_macaron_qty_wraper').removeClass('disabled');
+        $('#custom_order_macaron_color_wraper').removeClass('disabled');
 	} else {
-		$('#icingcookie_wraper').addClass('disabled');
-		$('#custom_order_basecolor_text_wraper').addClass('disabled');
-        $('#custom_order_icingcookie_qty_wraper').addClass('disabled');
+		$('#macaron_wraper').addClass('disabled');
+		$('#custom_order_macaron_qty_wraper').addClass('disabled');
+        $('#custom_order_macaron_color_wraper').addClass('disabled');
 	}
 	});
 	$('#custom_order_cake_decorate-cupcake').change(function(){
