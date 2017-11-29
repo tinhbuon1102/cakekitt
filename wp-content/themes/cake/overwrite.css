@@ -5229,6 +5229,9 @@ body.page-id-61 #content-wrapper {
     text-align: center;
 }
 @media only screen and (max-width: 479px) {
+.parallax-text h3 {
+    font-size: 16px;
+}
 .has-parallax-slider #content-wrapper {
     margin-bottom: -40px;
 }
