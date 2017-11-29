@@ -5213,6 +5213,21 @@ div#wcSec .mobile-flex-wrap .col-sm-6:first-child {
 body.page-id-61 #content-wrapper {
 	padding-bottom: 0;
 }
+.parallax-text h2, .parallax-text h3 {
+    text-align: center;
+}
+.parallax-text h2 {
+	margin-bottom: 30px;
+    font-size: 48px;
+	font-family: 'bebas_neuebold';
+    font-weight: 600;
+}
+.parallax-text h3 {
+    font-size: 24px;
+}
+.parallax-center .form-group {
+    text-align: center;
+}
 @media only screen and (max-width: 479px) {
 .has-parallax-slider #content-wrapper {
     margin-bottom: -40px;
