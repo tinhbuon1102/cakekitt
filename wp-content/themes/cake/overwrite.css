@@ -5210,6 +5210,9 @@ div#wcSec .mobile-flex-wrap .col-sm-6:first-child {
     width: 100%;
 }
 }
+body.page-id-61 #content-wrapper {
+	padding-bottom: 0;
+}
 @media only screen and (max-width: 479px) {
 .has-parallax-slider #content-wrapper {
     margin-bottom: -40px;
