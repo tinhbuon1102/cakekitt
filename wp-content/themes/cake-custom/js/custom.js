@@ -92,12 +92,12 @@ jQuery(document).ready(function(){
         	$('#plate').wrap('<div class="select-style black border-dark"></div>');
         	$('#message_type').wrap('<div class="select-style black border-dark"></div>');
         	
-        	$('#plate > option:eq(0)').text('選び出す');
-        	
         	// Add require
         	$('#plate').addClass('validate[required]');
         	
         	$('html').on('change', '#plate', function(){
+        		$('#plate > option:eq(0)').text('選び出す');
+        		
         		if($(this).val() == 'Yes')
         		{
         			$('.thwepo-extra-options.select_message_type').fadeIn();
@@ -112,6 +112,8 @@ jQuery(document).ready(function(){
         	});
         	
         	$('html').on('change', '#message_type', function(){
+        		$('#message_type > option:eq(0)').text('選び出す');
+        		
         		if($(this).val() == '')
         		{
         			$('.thwepo-extra-options.text_message_other').hide();
