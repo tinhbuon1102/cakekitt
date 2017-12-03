@@ -89,6 +89,9 @@ jQuery(document).ready(function(){
         	$('#text_message').val();
         	$('#text_message_other').val();
         	
+        	$('#plate').wrap('<div class="select-style black border-dark"></div>');
+        	$('#message_type').wrap('<div class="select-style black border-dark"></div>');
+        	
         	// Add require
         	$('#plate').addClass('validate[required]');
         	
