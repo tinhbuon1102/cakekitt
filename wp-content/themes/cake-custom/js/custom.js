@@ -92,6 +92,9 @@ jQuery(document).ready(function(){
         	$('#plate').wrap('<div class="select-style black border-dark"></div>');
         	$('#message_type').wrap('<div class="select-style black border-dark"></div>');
         	
+        	$('#plate > option:eq(0)').text('選び出す');
+        	$('#message_type > option:eq(0)').text('選び出す');
+        	
         	// Add require
         	$('#plate').addClass('validate[required]');
         	
