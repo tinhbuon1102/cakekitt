@@ -89,8 +89,8 @@ jQuery(document).ready(function(){
         	$('#text_message').val();
         	$('#text_message_other').val();
         	
-        	$('#plate').wrap('<div class="select-style black border-dark"></div>');
-        	$('#message_type').wrap('<div class="select-style black border-dark"></div>');
+        	$('#plate').wrap('<div class="select-style black border-dark custom_select_wraper"></div>');
+        	$('#message_type').wrap('<div class="select-style black border-dark custom_select_wraper"></div>');
         	
         	$('#plate > option:eq(0)').text('選び出す');
         	$('#message_type > option:eq(0)').text('選び出す');
