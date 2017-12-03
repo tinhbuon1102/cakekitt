@@ -105,6 +105,7 @@ jQuery(document).ready(function(){
         			$('#message_type').addClass('validate[required]');
         		}
         		else {
+        			$('#message_type').val('').change();
         			$('.thwepo-extra-options.select_message_type').fadeOut();
         			$('#message_type').removeClass('validate[required]');
         		}
