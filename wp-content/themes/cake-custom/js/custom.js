@@ -99,7 +99,7 @@ jQuery(document).ready(function(){
         	$('#plate').addClass('validate[required]');
         	
         	$('html').on('change', '#plate', function(){
-        		$('#plate > option:eq(0)').text('選び出す');
+        		setTimeout(function(){$('#plate > option:eq(0)').text('選び出す');}, 500);
         		
         		if($(this).val() == 'Yes')
         		{
@@ -115,7 +115,7 @@ jQuery(document).ready(function(){
         	});
         	
         	$('html').on('change', '#message_type', function(){
-        		$('#message_type > option:eq(0)').text('選び出す');
+        		setTimeout(function(){$('#message_type > option:eq(0)').text('選び出す');}, 500);
         		
         		if($(this).val() == '')
         		{
