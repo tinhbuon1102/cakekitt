@@ -90,20 +90,20 @@ class WEPOF_Product_Field_Select{
 			if($this->get_title_position() === 'left'){
 				$html .= '<p class="thwepo-extra-options left form-row form-row-wide '. $this->get_cssclass_str() .'">';
 				$html .= '<label for="'. $this->get_name() .'" class="'. $this->get_title_class_str() .'">'.$this->get_title().'</label>';
-				$html .= '<select id="'.$this->get_name().'" name="'.$this->get_name().'" placeholder="'.$this->get_placeholder().'" value="'.$value.'" >';
+				$html .= '<select data-show_option_none="yes" id="'.$this->get_name().'" name="'.$this->get_name().'" placeholder="'.$this->get_placeholder().'" value="'.$value.'" >';
 				foreach($this->get_options() as $option_key => $option_text){
 					$selected = ($option_text === $value) ? 'selected' : '';
-					$html .= '<option value="'.$option_text.'" '.$selected.'>'.$option_text.'</option>';
+					$html .= '<option value="'.$option_text.'" '.$selected.' class="attached enabled">'.$option_text.'</option>';
 				}
 				$html .= '</select>';
 				$html .= '</p>';
 			}else{
 				$html .= '<p class="thwepo-extra-options form-row form-row-wide '. $this->get_cssclass_str() .'">';
 				$html .= '<label for="'. $this->get_name() .'" class="'. $this->get_title_class_str() .'">'.$this->get_title().'</label>';
-				$html .= '<select id="'.$this->get_name().'" name="'.$this->get_name().'" placeholder="'.$this->get_placeholder().'" value="'.$value.'" >';
+				$html .= '<select data-show_option_none="yes" id="'.$this->get_name().'" name="'.$this->get_name().'" placeholder="'.$this->get_placeholder().'" value="'.$value.'" >';
 				foreach($this->get_options() as $option_key => $option_text){
 					$selected = ($option_text === $value) ? 'selected' : '';
-					$html .= '<option value="'.$option_text.'" '.$selected.'>'.$option_text.'</option>';
+					$html .= '<option value="'.$option_text.'" '.$selected.' class="attached enabled">'.$option_text.'</option>';
 				}
 				$html .= '</select>';
 				$html .= '</p>';
