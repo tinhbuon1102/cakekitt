@@ -225,7 +225,7 @@ class WEPOF_Product_Options_Frontend extends WEPOF_Product_Options_Utils {
 		return $valid;
 	}
 
-	private function validate_field($valid, $field, $value){		
+	private function validate_field($valid, $field, $value){
 		if($field->is_required() && empty($value)) {
 			$this->wcpf_add_error($this->__wcpf( 'Please enter a value for '.$field->get_title() ));
 			$valid = false;

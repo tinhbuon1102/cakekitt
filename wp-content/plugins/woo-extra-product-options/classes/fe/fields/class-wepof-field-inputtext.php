@@ -111,7 +111,7 @@ class WEPOF_Product_Field_InputText{
 			}
 			else {
 				$extra_option = '';
-				$extra_option .= '<div class="thwepo-extra-options form-row form-row-wide'. $this->get_cssclass_str() .'">';
+				$extra_option .= '<div class="thwepo-extra-options form-row form-row-wide '. $this->get_cssclass_str() .'">';
 				$extra_option .= '<textarea id="'.$this->get_name().'" name="'.$this->get_name().'" placeholder="'.$this->get_placeholder().'" value="'.$value.'" >'.$value.'</textarea>';
 				$extra_option .= '</div>';
 				

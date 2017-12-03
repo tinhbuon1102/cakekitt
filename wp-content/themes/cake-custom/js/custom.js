@@ -81,6 +81,66 @@ jQuery(document).ready(function(){
             }
         });
 
+        
+        if ($('.thwepo-extra-options.select_plate').length)
+        {
+        	$('#plate').val();
+        	$('#message_type').val();
+        	$('#text_message').val();
+        	$('#text_message_other').val();
+        	
+        	// Add require
+        	$('#plate').addClass('validate[required]');
+        	
+        	$('html').on('change', '#plate', function(){
+        		if($(this).val() == 'Yes')
+        		{
+        			$('.thwepo-extra-options.select_message_type').fadeIn();
+        			$('#message_type').addClass('validate[required]');
+        		}
+        		else {
+        			$('.thwepo-extra-options.select_message_type').fadeOut();
+        			$('#message_type').removeClass('validate[required]');
+        		}
+        	});
+        	
+        	$('html').on('change', '#message_type', function(){
+        		if($(this).val() == '')
+        		{
+        			$('.thwepo-extra-options.text_message_other').hide();
+        			$('.thwepo-extra-options.text_message').hide();
+        			$('#message_other').addClass('validate[required]');
+        		}
+        		else if($(this).val() != 'Others')
+        		{
+        			$('.thwepo-extra-options.text_message').fadeIn();
+        			$('.thwepo-extra-options.text_message_other').hide();
+        			
+        			$('#message_other').removeClass('validate[required]');
+        			
+        			$('.text_message #message').attr('placeholder', $('#message_type').val() + ' for who ?');
+        		}
+        		else {
+        			$('.thwepo-extra-options.text_message_other').fadeIn();
+        			$('.thwepo-extra-options.text_message').hide();
+        			
+        			$('#message_other').addClass('validate[required]');
+        			$('#message_other').attr('placeholder', 'Write your original message');
+        		}
+        	});
+        	
+        	$('html').on('click', '.single_add_to_cart_button', function(e) {
+        		var cartForm = $("form.cart");
+        		e.preventDefault();
+        		cartForm.validationEngine({promptPosition: 'inline', addFailureCssClassToField: "inputError", bindMethod:"live"});
+        		var validate = cartForm.validationEngine('validate');
+        		if (validate)
+        		{
+        			cartForm.submit();
+        		}
+        	});
+        }
+        
     });
 	
 	$('input.checkbox_input.labelauty').on('change', function(event){

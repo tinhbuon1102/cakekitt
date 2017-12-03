@@ -261,6 +261,13 @@ form.variations_form .variations .woocommerce-variation-price {
 .notice-message {
     font-size: .9em;
 }
+
+.thwepo-extra-options.select_message_type,
+.thwepo-extra-options.text_message,
+.thwepo-extra-options.text_message_other
+{
+	display: none;
+}
 /*==============================*/
 /*=====      lightbox      =====*/
 /*==============================*/

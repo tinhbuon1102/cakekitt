@@ -423,6 +423,9 @@
 						var scrollContainerPos = -parseInt(overflowDIV.offset().top);
 
 						destination += scrollContainerScroll + scrollContainerPos - 5;
+						
+						destination = destination - $('.navbar-fixed-top.scroll').height() - 100;
+						
 						var scrollContainer = $(options.overflownDIV).filter(":not(:animated)");
 
 						scrollContainer.animate({ scrollTop: destination }, 1100, function(){
@@ -430,6 +433,8 @@
 						});
 
 					} else {
+						destination = destination - $('.navbar-fixed-top.scroll').height() - 100;
+						
 						$("html, body").animate({
 							scrollTop: destination
 						}, 1100, function(){
