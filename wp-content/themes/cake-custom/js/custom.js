@@ -85,10 +85,9 @@ jQuery(document).ready(function(){
         if ($('.thwepo-extra-options.select_plate').length)
         {
         	var defaultSelectOption = '選択してください';
-        	$('#plate').val();
-        	$('#message_type').val();
-        	$('.text_message #message').val();
-        	$('#message_other').val();
+        	$('.thwepo-extra-options select').val('');
+        	$('.thwepo-extra-options input').val('');
+        	$('.thwepo-extra-options textarea').val('');
         	
         	$('#plate').wrap('<div class="select-style black border-dark custom_select_wraper"></div>');
         	$('#message_type').wrap('<div class="select-style black border-dark custom_select_wraper"></div>');
