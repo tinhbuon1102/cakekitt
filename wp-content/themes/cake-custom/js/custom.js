@@ -102,7 +102,7 @@ jQuery(document).ready(function(){
         	$('html').on('change', '#plate', function(){
         		setTimeout(function(){$('#plate > option:eq(0)').text(defaultSelectOption);}, 300);
         		
-        		if($(this).val() == 'Yes' || $(this).val() == 'はい')
+        		if($(this).val() == 'Yes' || $(this).val() == 'はい' || $(this).val() == '有り')
         		{
         			$('.thwepo-extra-options.select_message_type').fadeIn();
         			$('#message_type').addClass('validate[required]');
