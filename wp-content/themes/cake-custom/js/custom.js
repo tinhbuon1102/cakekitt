@@ -84,6 +84,7 @@ jQuery(document).ready(function(){
         
         if ($('.thwepo-extra-options.select_plate').length)
         {
+        	var defaultSelectOption = '選択してください';
         	$('#plate').val();
         	$('#message_type').val();
         	$('#text_message').val();
@@ -92,20 +93,20 @@ jQuery(document).ready(function(){
         	$('#plate').wrap('<div class="select-style black border-dark custom_select_wraper"></div>');
         	$('#message_type').wrap('<div class="select-style black border-dark custom_select_wraper"></div>');
         	
-        	$('#plate > option:eq(0)').text('選び出す');
-        	$('#message_type > option:eq(0)').text('選び出す');
+        	$('#plate > option:eq(0)').text(defaultSelectOption);
+        	$('#message_type > option:eq(0)').text(defaultSelectOption);
         	
         	// Add require
         	$('#plate').addClass('validate[required]');
         	
         	$('html').on('change', '#plate', function(){
-        		setTimeout(function(){$('#plate > option:eq(0)').text('選び出す');}, 300);
+        		setTimeout(function(){$('#plate > option:eq(0)').text(defaultSelectOption);}, 300);
         		
         		if($(this).val() == 'Yes')
         		{
         			$('.thwepo-extra-options.select_message_type').fadeIn();
         			$('#message_type').addClass('validate[required]');
-        			$('#message_type > option:eq(0)').text('選び出す');
+        			$('#message_type > option:eq(0)').text(defaultSelectOption);
         		}
         		else {
         			$('#message_type').val('').change();
@@ -115,7 +116,7 @@ jQuery(document).ready(function(){
         	});
         	
         	$('html').on('change', '#message_type', function(){
-        		setTimeout(function(){$('#message_type > option:eq(0)').text('選び出す');}, 300);
+        		setTimeout(function(){$('#message_type > option:eq(0)').text(defaultSelectOption);}, 300);
         		
         		if($(this).val() == '')
         		{
