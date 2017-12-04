@@ -102,7 +102,7 @@ jQuery(document).ready(function(){
         	$('html').on('change', '#plate', function(){
         		setTimeout(function(){$('#plate > option:eq(0)').text(defaultSelectOption);}, 300);
         		
-        		if($(this).val() == 'Yes')
+        		if($(this).val() == 'Yes' || $(this).val() == 'はい')
         		{
         			$('.thwepo-extra-options.select_message_type').fadeIn();
         			$('#message_type').addClass('validate[required]');
@@ -124,21 +124,28 @@ jQuery(document).ready(function(){
         			$('.thwepo-extra-options.text_message').hide();
         			$('#message_other').addClass('validate[required]');
         		}
-        		else if($(this).val() != 'Others')
+        		else if($(this).val() != 'その他' && $(this).val() != 'Others')
         		{
         			$('.thwepo-extra-options.text_message').fadeIn();
         			$('.thwepo-extra-options.text_message_other').hide();
         			
         			$('#message_other').removeClass('validate[required]');
         			
-        			$('.text_message #message').attr('placeholder', $('#message_type').val() + ' for who ?');
+        			if ($(this).val() == 'Happy Birthday')
+        			{
+        				$('.text_message #message').attr('placeholder', 'お誕生日の方のお名前');
+        			}
+        			if ($(this).val() == 'Happy Wedding')
+        			{
+        				$('.text_message #message').attr('placeholder', 'ご結婚される方のお名前');
+        			}
         		}
         		else {
         			$('.thwepo-extra-options.text_message_other').fadeIn();
         			$('.thwepo-extra-options.text_message').hide();
         			
         			$('#message_other').addClass('validate[required]');
-        			$('#message_other').attr('placeholder', 'Write your original message');
+        			$('#message_other').attr('placeholder', 'オリジナルメッセージを記入してください');
         		}
         	});
         	
