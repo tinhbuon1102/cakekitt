@@ -87,8 +87,8 @@ jQuery(document).ready(function(){
         	var defaultSelectOption = '選択してください';
         	$('#plate').val();
         	$('#message_type').val();
-        	$('#text_message').val();
-        	$('#text_message_other').val();
+        	$('.text_message #message').val();
+        	$('#message_other').val();
         	
         	$('#plate').wrap('<div class="select-style black border-dark custom_select_wraper"></div>');
         	$('#message_type').wrap('<div class="select-style black border-dark custom_select_wraper"></div>');
