@@ -1592,3 +1592,28 @@ function kitt_send_email_customer_placed_order($order_id)
 // send place order email when created order
 add_action( 'woocommerce_order_status_pending', 'kitt_send_email_customer_placed_order', 10, 3 );
 add_action( 'woocommerce_checkout_order_processed', 'kitt_send_email_customer_placed_order', 10, 3 );
+
+add_filter( 'ac/column/value', 'kitt_modify_shipping_date_order_column', 100, 3 );
+function kitt_modify_shipping_date_order_column( $value, $id, $column ) {
+	$fieldName = 'custom_order_pickup_date';
+	$fieldNameTime = 'custom_order_pickup_time';
+	
+	if ( $column->get_option('field') == $fieldName ) {
+		if (get_field('custom_order_pickup_date'))
+		{
+			$value = date('Y/m/d', strtotime(get_field($fieldName))) . '<br />' . get_field('custom_order_pickup_time') . ':00';
+		}
+		else {
+			$orderFormData = get_post_meta($id, 'cake_custom_order', true);
+			$defaultValueDate = isset($orderFormData[$fieldName]) ? (is_array($orderFormData[$fieldName]) ? implode(PHP_EOL, $orderFormData[$fieldName]) : $orderFormData[$fieldName]) : '';
+			$defaultValueTime = isset($orderFormData[$fieldNameTime]) ? (is_array($orderFormData[$fieldNameTime]) ? implode(PHP_EOL, $orderFormData[$fieldNameTime]) : $orderFormData[$fieldNameTime]) : '';
+			
+			if ($defaultValueDate)
+			{
+				$value = date('Y/m/d', strtotime($defaultValueDate)) . '<br />' . $defaultValueTime . ':00';
+			}
+		}
+		
+	}
+	return $value;
+}
