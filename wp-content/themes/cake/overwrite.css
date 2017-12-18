@@ -3295,7 +3295,7 @@ div#content-wrapper.page-access {
     position: relative;
 }
 #access-con .bg-shop-img {
-	background: url(http://kitt-sweets.jp/wp-content/uploads/2017/02/head_bg_access.jpg);
+	background: url(../cake-custom/images/bg_ac.jpg);
     background-repeat: no-repeat;
     background-position: inherit;
     background-size: cover;
