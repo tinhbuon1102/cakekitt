@@ -6,6 +6,11 @@ define('KITT_MAX_LAYER_ESTIMATION', 3);
 define('KITT_MINIMUM_PRICE_CHECKOUT', 8000);
 define('KITT_CAKESIZE_ROUND_FOR_LAYER_1', 2);
 
+function add_files() {
+// サイト共通のCSSの読み込み
+wp_enqueue_style( 'overwrite', get_stylesheet_directory_uri() . '/overwrite.css', "", '20171218' );
+}
+add_action( 'wp_enqueue_scripts', 'add_files' );
 // Include order function file
 include 'order_functions.php';
 

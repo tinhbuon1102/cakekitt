@@ -1,0 +1,7 @@
+/* CSS Document */
+#access-con .bg-shop-img {
+	background: url(images/bg_ac.jpg);
+    background-repeat: no-repeat;
+    background-position: inherit;
+    background-size: cover;
+}
