@@ -19,7 +19,7 @@ $showpostdate = get_theme_mod('cake_date_meta', 'true');
 	
 	<div class="image-post">
 		<figure class="featured-img">
-			<?php the_post_thumbnail('cake-custom-image', array('class' => 'img-full-size')); ?>
+			<?php the_post_thumbnail('full', array('class' => 'img-full-size')); ?>
 		</figure>
 		
 	</div><!-- .image-post -->
