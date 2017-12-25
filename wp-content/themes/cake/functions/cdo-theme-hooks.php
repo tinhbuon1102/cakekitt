@@ -450,7 +450,7 @@ function cake_get_social_icon(){
 	$get_social_links = array('cake_rss'=>'rss','cake_facebook'=>'facebook','cake_twitter'=>'twitter','cake_instagram'=>'instagram', 'cake_linkedin'=>'linkedin', 'cake_flickr'=>'flickr','cake_google-plus'=>'google-plus', 'cake_dribbble'=>'dribbble' , 'cake_pinterest'=>'pinterest', 'cake_github'=>'github', 'cake_youtube'=>'youtube', 'cake_vimeo'=>'vimeo', 'cake_tumblr'=>'tumblr', 'cake_behance'=>'behance', 'cake_vk'=>'vk', 'cake_xing'=>'xing', 'cake_soundcloud'=>'soundcloud');
 	
 	$output ='';
-	  $output .='<ul class="cake-social-icon">';
+	  $output .='<ul class="cake-social-icon"><li class="line-link"><a href="https://line.me/R/ti/p/%40vsn4249d" target="_blank"><img border="0" alt="友だち追加" src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png"></a></li>';
 	  
 		if($get_social_links){
 			foreach($get_social_links as $social_link => $social_name) {

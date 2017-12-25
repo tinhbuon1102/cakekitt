@@ -2,6 +2,30 @@
  Theme Name: cake Custom
  Template:     cake
  */
+.line-link img {
+    height: 100%;
+    width: auto;
+}
+.sub_head .line-link img {
+    max-height: 24px;
+}
+#footer .cake-social-icon li.line-link {
+    width: auto;
+    height: 50px;
+}
+#footer .cake-social-icon li.line-link a {
+    width: auto;
+    height: 35px;
+	display: inline-block;
+    vertical-align: middle;
+}
+@media (min-width: 768px) {
+	#footer .cake-social-icon li.line-link a {
+	display: block;
+	}
+}
+
+
 .woocommerce div.product form.cart .button.single_add_to_cart_button.disabled1, .woocommerce div.product form.cart .button.single_add_to_cart_button.button.disabled1:hover {
     background-color: #ececec;
     border-color: #b8b8b9;
