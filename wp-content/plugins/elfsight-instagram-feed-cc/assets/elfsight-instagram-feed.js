@@ -6663,7 +6663,9 @@ function(e) {
             value: function() {
                 var e = this;
                 return r(t.prototype.__proto__ || Object.getPrototypeOf(t.prototype), "addView", this).call(this).then(function() {
+                	console.log(e.$loadMore.attr('class'));
                     e.$loadMore.toggleClass(s.default.alias + "-posts-grid-load-more-visible", e.posts.fetcher.hasNext())
+                    console.log(e.$loadMore.attr('class'));
                 })
             }
         }, {
