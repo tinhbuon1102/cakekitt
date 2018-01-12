@@ -992,6 +992,7 @@ function instagram_format_media($raw_data, $external = null) {
 
     $image_ratio = $raw_data['dimensions']['height'] / $raw_data['dimensions']['width'];
 
+    $raw_data['display_src'] = $raw_data['display_src'] ? $raw_data['display_src'] : $raw_data['thumbnail_src'];
     $formatted_item = array(
         'attribution' => null,
         'video_url' => !empty($raw_data['video_url']) ? $raw_data['video_url'] : null,
@@ -1004,15 +1005,15 @@ function instagram_format_media($raw_data, $external = null) {
         'likes' => null,
         'images' => array(
             'low_resolution' => array(
-                'url' => instagram_resize_image(!empty($raw_data['display_src']) ? $raw_data['display_src'] : $raw_data['display_url'], 320, 320),
-                'width' => 320,
-                'height' => $image_ratio * 320
+                'url' => instagram_resize_image(!empty($raw_data['display_src']) ? $raw_data['display_src'] : $raw_data['display_url'], 640, 640),
+                'width' => 640,
+                'height' => $image_ratio * 640
             ),
 
             'thumbnail' => array(
-                'url' => instagram_resize_image(!empty($raw_data['display_src']) ? $raw_data['display_src'] : $raw_data['display_url'], 150, 150),
-                'width' => 150,
-                'height' => $image_ratio * 150
+                'url' => instagram_resize_image(!empty($raw_data['display_src']) ? $raw_data['display_src'] : $raw_data['display_url'], 640, 640),
+                'width' => 640,
+                'height' => $image_ratio * 640
             ),
 
             'standard_resolution' => array(
@@ -1192,7 +1193,6 @@ function instagram_format_media($raw_data, $external = null) {
 }
 
 function instagram_resize_image($url, $width, $height) {
-	return $url;
     if (preg_match('#/s\d+x\d+/#', $url)) {
         return preg_replace('#/s\d+x\d+/#', '/s' . $width . 'x' . $height . '/', $url);
 
