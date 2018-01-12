@@ -1192,6 +1192,7 @@ function instagram_format_media($raw_data, $external = null) {
 }
 
 function instagram_resize_image($url, $width, $height) {
+	var_dump($url);die;
 	return $url;
     if (preg_match('#/s\d+x\d+/#', $url)) {
         return preg_replace('#/s\d+x\d+/#', '/s' . $width . 'x' . $height . '/', $url);
