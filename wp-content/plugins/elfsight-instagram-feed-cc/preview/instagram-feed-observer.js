@@ -1,12 +1,12 @@
 /*
 
 Elfsight Instagram Feed
-Version: 3.0.0
-Release date: Thu Dec 21 2017
+Version: 3.3.0
+Release date: Thu Apr 12 2018
 
 https://elfsight.com
 
-Copyright (c) 2017 Elfsight, LLC. ALL RIGHTS RESERVED
+Copyright (c) 2018 Elfsight, LLC. ALL RIGHTS RESERVED
 
 */(function(eapps) {
 

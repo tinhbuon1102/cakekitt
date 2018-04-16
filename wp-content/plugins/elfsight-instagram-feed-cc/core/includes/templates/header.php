@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) exit;
 
     <div class="elfsight-admin-header-version">
         <span class="elfsight-admin-tooltip-trigger">
-            <span class="elfsight-admin-tag-2"><?php _e('Version ' . $this->version, $this->textDomain); ?></span>
+            <span class="elfsight-admin-header-version-text"><?php _e('Version ' . $this->version, $this->textDomain); ?></span>
             
             <?php if ($activated && !empty($last_check_datetime) && !$has_new_version): ?>
                 <span class="elfsight-admin-tooltip-content">

@@ -4,21 +4,24 @@ if (!defined('ABSPATH')) exit;
 
 ?><nav class="elfsight-admin-menu">
     <ul class="elfsight-admin-menu-list">
-        <li class="elfsight-admin-menu-list-item"><a href="#/widgets/" data-elfsight-admin-page="widgets"><?php _e('Widgets', $this->textDomain); ?></a></li>
-        <li class="elfsight-admin-menu-list-item"><a href="#/support/" data-elfsight-admin-page="support"><?php _e('Support', $this->textDomain); ?></a></li>
-        <li class="elfsight-admin-menu-list-item"><a href="#/preferences/" data-elfsight-admin-page="preferences"><?php _e('Preferences', $this->textDomain); ?></a></li>
-        <li class="elfsight-admin-menu-list-item-activation elfsight-admin-menu-list-item">
-            <a href="#/activation/" data-elfsight-admin-page="activation" class="elfsight-admin-tooltip-trigger">
-                <?php _e('Activation', $this->textDomain); ?>
+        <?php foreach ($this->menu as $menu_item) { ?>
+            <?php if (!empty($menu_item['menu_title'])) {?>
+                <li class="elfsight-admin-menu-list-item-<?php echo $menu_item['id'] ?> elfsight-admin-menu-list-item">
+                    <a href="#/<?php echo $menu_item['id'] ?>/" data-elfsight-admin-page="<?php echo $menu_item['id'] ?>"<?php echo !empty($menu_item['notification']) ? ' class="elfsight-admin-tooltip-trigger"' : ''?>>
+                        <?php echo $menu_item['menu_title'] ?>
 
-                <span class="elfsight-admin-menu-list-item-notification"></span>
+                        <?php if (!empty($menu_item['notification'])) {?>
+                            <span class="elfsight-admin-menu-list-item-notification"></span>
 
-                <span class="elfsight-admin-tooltip-content">
-                    <span class="elfsight-admin-tooltip-content-inner">
-                        <?php _e('The plugin is not activated', $this->textDomain); ?>
-                    </span>
-                </span>
-            </a>
-        </li>
+                            <span class="elfsight-admin-tooltip-content">
+                                <span class="elfsight-admin-tooltip-content-inner">
+                                    <?php echo $menu_item['notification']; ?>
+                                </span>
+                            </span>
+                        <?php } ?>
+                    </a>
+                </li>
+            <?php } ?>
+        <?php } ?>
     </ul>
 </nav>   
