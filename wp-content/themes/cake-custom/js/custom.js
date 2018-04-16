@@ -32,6 +32,11 @@ jQuery(document).ready(function(){
         // For ie8 support
         var textContent = ('textContent' in document) ? 'textContent' : 'innerText';
 
+		
+		
+		//$('#order_pickup_time').attr('min',15);
+		
+		
         // Example functionality to demonstrate a value feedback
         function valueOutput(element) {
             var pick_time = element.value;
@@ -51,6 +56,9 @@ jQuery(document).ready(function(){
             valueOutput(e.target);
         });
         
+		
+	
+		
         // Basic rangeslider initialization
         $element.rangeslider({
 

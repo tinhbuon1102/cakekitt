@@ -25,7 +25,9 @@
 	}
 }
 
-
+.testgit {
+  color:#000;
+}
 .woocommerce div.product form.cart .button.single_add_to_cart_button.disabled1, .woocommerce div.product form.cart .button.single_add_to_cart_button.button.disabled1:hover {
     background-color: #ececec;
     border-color: #b8b8b9;
