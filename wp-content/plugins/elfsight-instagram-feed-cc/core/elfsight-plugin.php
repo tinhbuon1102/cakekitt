@@ -103,6 +103,8 @@ if (!class_exists('ElfsightPlugin')) {
         public function addShortcode($atts) {
             $this->isShortcodePresent = true;
 
+            $atts = $this->formatAtts($atts);
+
             $defaults = array();
 
             $defaults = $this->recursiveDefaults($this->editorSettings['properties'], $defaults);
@@ -123,11 +125,36 @@ if (!class_exists('ElfsightPlugin')) {
             }
 
             $options = shortcode_atts($defaults, $atts, str_replace('-', '_', $this->slug));
+            $options = apply_filters($this->getOptionName('shortcode_options'), $options);
+
             $optionsString = rawurlencode(json_encode($options));
 
             $result = '<div data-' . $this->slug . '-options="' . $optionsString . '"></div>';
 
             return $result;
+        }
+
+        public function formatAtts($atts){
+            if (!function_exists('dashesToCamelCase')) {
+                function dashesToCamelCase($string, $capitalizeFirstCharacter = false) {
+                    $string = preg_replace_callback('/_[a-zA-Z]/', 'capitalize', $string);
+                    $string = preg_replace_callback('/-[a-zA-Z]/', 'capitalize', $string);
+
+                    return $string;
+                }
+            }
+
+            if (!function_exists('capitalize')) {
+                function capitalize($matches) {
+                    return strtoupper($matches[0][1]);
+                }
+            }
+
+            foreach ($atts as $key => $value) {
+                $atts[dashesToCamelCase($key)] = $value;
+            }
+
+            return $atts;
         }
 
         function registerWidget() {

@@ -28,6 +28,15 @@ if (!class_exists('ElfsightPluginAdmin')) {
         private $widgetsApi;
 
         private $capability;
+        private $roleCapabitily = array(
+            'admin' => 'manage_options',
+            'editor' => 'edit_pages',
+            'author' => 'publish_posts'
+        );
+
+        private $pages;
+        private $customPages;
+        private $menu;
 
         public function __construct($config, $widgetsApi) {
             $this->name = $config['name'];
@@ -45,9 +54,15 @@ if (!class_exists('ElfsightPluginAdmin')) {
             $this->updateUrl = $config['update_url'];
             $this->previewUrl = $config['preview_url'];
             $this->observerUrl = !empty($config['observer_url']) ? $config['observer_url'] : null;
+            $this->customScriptUrl = !empty($config['admin_custom_script_url']) ? $config['admin_custom_script_url'] : null;
+            $this->customStyleUrl = !empty($config['admin_custom_style_url']) ? $config['admin_custom_style_url'] : null;
 
             $this->productUrl = $config['product_url'];
             $this->supportUrl = $config['support_url'];
+
+            $this->customPages = !empty($config['admin_custom_pages']) ? $config['admin_custom_pages'] : array();
+            $this->pages = $this->generatePages();
+            $this->menu = $this->generateMenu();
 
             $this->widgetsApi = $widgetsApi;
 
@@ -57,7 +72,7 @@ if (!class_exists('ElfsightPluginAdmin')) {
             add_action('wp_ajax_' . $this->getOptionName('update_preferences'), array($this, 'updatePreferences'));
             add_action('wp_ajax_' . $this->getOptionName('update_activation_data'), array($this, 'updateActivationData'));
 
-            $this->capability = apply_filters('elfsight_admin_capability', 'manage_options');
+            $this->capability = apply_filters('elfsight_admin_capability', $this->roleCapabitily[get_option($this->getOptionName('access_role'), 'admin')]);
         }
 
         public function addMenuPage() {
@@ -66,13 +81,35 @@ if (!class_exists('ElfsightPluginAdmin')) {
 
         public function registerAssets() {
             wp_register_style('elfsight-admin', plugins_url('assets/elfsight-admin.css', $this->pluginFile), array(), $this->version);
-            wp_register_script('elfsight-admin', plugins_url('assets/elfsight-admin.js', $this->pluginFile), array('jquery'), $this->version, true);
+
+            if ($this->customStyleUrl) {
+                wp_register_style('elfsight-admin-custom', $this->customStyleUrl, array('elfsight-admin'), $this->version);
+            }
+
+            wp_register_script('elfsight-admin', plugins_url('assets/elfsight-admin.js', $this->pluginFile), array(), $this->version, true);
+
+            if ($this->customScriptUrl) {
+                wp_register_script('elfsight-admin-custom', $this->customScriptUrl, array('jquery', 'elfsight-admin'), $this->version, true);
+            }
         }
 
         public function enqueueAssets($hook) {
             if ($hook == $this->menuId) {
                 wp_enqueue_style('elfsight-admin');
+                if ($this->customStyleUrl) {
+                    wp_enqueue_style('elfsight-admin-custom');
+                }
+
                 wp_enqueue_script('elfsight-admin');
+                if ($this->customScriptUrl) {
+                    wp_enqueue_script('elfsight-admin-custom');
+                }
+
+                // remove emoji
+                remove_action('wp_head', 'print_emoji_detection_script', 7);
+                remove_action('wp_print_styles', 'print_emoji_styles');
+                remove_action('admin_print_scripts', 'print_emoji_detection_script');
+                remove_action('admin_print_styles', 'print_emoji_styles');
             }
         }
 
@@ -91,6 +128,7 @@ if (!class_exists('ElfsightPluginAdmin')) {
             $preferences_custom_css = is_readable($custom_css_path) ? file_get_contents($custom_css_path) : '';
             $preferences_custom_js = is_readable($custom_js_path) ? file_get_contents($custom_js_path) : '';
             $preferences_force_script_add = get_option($this->getOptionName('force_script_add'));
+            $preferences_access_role = get_option($this->getOptionName('access_role'), 'admin');
 
             // activation
             $purchase_code = get_option($this->getOptionName('purchase_code'), '');
@@ -101,49 +139,43 @@ if (!class_exists('ElfsightPluginAdmin')) {
 
             $activation_css_classes = '';
             if ($activated) {
-                 $activation_css_classes .= 'elfsight-admin-activation-activated ';
-            }
-            else if (!empty($purchase_code)) {
+                $activation_css_classes .= 'elfsight-admin-activation-activated ';
+            } else if (!empty($purchase_code)) {
                 $activation_css_classes .= 'elfsight-admin-activation-invalid ';
             }
             if ($has_new_version) {
                 $activation_css_classes .= 'elfsight-admin-activation-has-new-version ';
             }
 
-            ?><div class="<?php echo $activation_css_classes; ?>elfsight-admin wrap">
-                <h2 class="elfsight-admin-wp-notifications-hack"></h2>
+            ?>
+            <div class="<?php echo $activation_css_classes; ?>elfsight-admin wrap">
+            <h2 class="elfsight-admin-wp-notifications-hack"></h2>
 
-                <div class="elfsight-admin-wrapper">
-                    <?php require_once(plugin_dir_path(__FILE__) . implode(DIRECTORY_SEPARATOR, array('templates', 'header.php'))); ?>
+            <div class="elfsight-admin-wrapper">
+                <?php require_once(plugin_dir_path(__FILE__) . implode(DIRECTORY_SEPARATOR, array('templates', 'header.php'))); ?>
 
-                    <main class="elfsight-admin-main elfsight-admin-loading" data-elfsight-admin-slug="<?php echo $this->slug; ?>" data-elfsight-admin-widgets-clogged="<?php echo $widgets_clogged; ?>">
-                        <div class="elfsight-admin-loader"></div>
+                <main class="elfsight-admin-main elfsight-admin-loading"
+                      data-elfsight-admin-slug="<?php echo $this->slug; ?>"
+                      data-elfsight-admin-widgets-clogged="<?php echo $widgets_clogged; ?>">
+                    <div class="elfsight-admin-loader"></div>
 
-                        <div class="elfsight-admin-menu-container">
-                            <?php require_once(plugin_dir_path(__FILE__) . implode(DIRECTORY_SEPARATOR, array('templates', 'menu.php'))); ?>
+                    <div class="elfsight-admin-menu-container">
+                        <?php require_once(plugin_dir_path(__FILE__) . implode(DIRECTORY_SEPARATOR, array('templates', 'menu.php'))); ?>
 
-                            <?php require_once(plugin_dir_path(__FILE__) . implode(DIRECTORY_SEPARATOR, array('templates', 'menu-actions.php'))); ?>
-                        </div>
+                        <?php require_once(plugin_dir_path(__FILE__) . implode(DIRECTORY_SEPARATOR, array('templates', 'menu-actions.php'))); ?>
+                    </div>
 
-                        <div class="elfsight-admin-pages-container">
-                            <?php require_once(plugin_dir_path(__FILE__) . implode(DIRECTORY_SEPARATOR, array('templates', 'page-welcome.php'))); ?>
+                    <div class="elfsight-admin-pages-container">
+                        <?php
+                            foreach ($this->pages as $page) {
+                                require_once($page['template']);
+                            }
+                        ?>
+                    </div>
+                </main>
 
-                            <?php require_once(plugin_dir_path(__FILE__) . implode(DIRECTORY_SEPARATOR, array('templates', 'page-widgets.php'))); ?>
-
-                            <?php require_once(plugin_dir_path(__FILE__) . implode(DIRECTORY_SEPARATOR, array('templates', 'page-edit-widget.php'))); ?>
-
-                            <?php require_once(plugin_dir_path(__FILE__) . implode(DIRECTORY_SEPARATOR, array('templates', 'page-support.php'))); ?>
-
-                            <?php require_once(plugin_dir_path(__FILE__) . implode(DIRECTORY_SEPARATOR, array('templates', 'page-preferences.php'))); ?>
-
-                            <?php require_once(plugin_dir_path(__FILE__) . implode(DIRECTORY_SEPARATOR, array('templates', 'page-activation.php'))); ?>
-
-                            <?php require_once(plugin_dir_path(__FILE__) . implode(DIRECTORY_SEPARATOR, array('templates', 'page-error.php'))); ?>
-                        </div>
-                    </main>
-
-                    <?php //require_once(plugin_dir_path(__FILE__) . implode(DIRECTORY_SEPARATOR, array('templates', 'other-products.php'))); ?>
-                </div>
+                <?php //require_once(plugin_dir_path(__FILE__) . implode(DIRECTORY_SEPARATOR, array('templates', 'other-products.php'))); ?>
+            </div>
             </div>
         <?php }
 
@@ -158,7 +190,7 @@ if (!class_exists('ElfsightPluginAdmin')) {
             if (isset($_REQUEST['preferences_force_script_add'])) {
                 $result['success'] = true;
 
-                update_option($this->getOptionName('force_script_add'),  $_REQUEST['preferences_force_script_add']);
+                update_option($this->getOptionName('force_script_add'), $_REQUEST['preferences_force_script_add']);
             }
 
             // custom css
@@ -171,6 +203,13 @@ if (!class_exists('ElfsightPluginAdmin')) {
             if (isset($_REQUEST['preferences_custom_js'])) {
                 $file_type = 'js';
                 $file_content = $_REQUEST['preferences_custom_js'];
+            }
+
+            // user role select
+            if (isset($_REQUEST['access_role'])) {
+                $result['success'] = true;
+
+                update_option($this->getOptionName('access_role'), $_REQUEST['access_role']);
             }
 
             if (isset($file_content)) {
@@ -193,7 +232,7 @@ if (!class_exists('ElfsightPluginAdmin')) {
                     file_put_contents($path, stripslashes($file_content));
                 }
             }
-           
+
             exit(json_encode($result));
         }
 
@@ -209,7 +248,61 @@ if (!class_exists('ElfsightPluginAdmin')) {
         private function getOptionName($name) {
             return str_replace('-', '_', $this->slug) . '_' . $name;
         }
+
+        private function generatePages() {
+            $plugin_dir = plugin_dir_path(__FILE__);
+            $default_pages = array(
+                array(
+                    'id' => 'welcome',
+                    'template' => $plugin_dir . implode(DIRECTORY_SEPARATOR, array('templates', 'page-welcome.php'))
+                ),
+                array(
+                    'id' => 'widgets',
+                    'menu_title' => 'Widgets',
+                    'template' => $plugin_dir . implode(DIRECTORY_SEPARATOR, array('templates', 'page-widgets.php'))
+                ),
+                array(
+                    'id' => 'edit-widget',
+                    'template' => $plugin_dir . implode(DIRECTORY_SEPARATOR, array('templates', 'page-edit-widget.php'))
+                ),
+                array(
+                    'id' => 'support',
+                    'menu_title' => 'Support',
+                    'template' => $plugin_dir . implode(DIRECTORY_SEPARATOR, array('templates', 'page-support.php'))
+                ),
+                array(
+                    'id' => 'preferences',
+                    'menu_title' => 'Preferences',
+                    'template' => $plugin_dir . implode(DIRECTORY_SEPARATOR, array('templates', 'page-preferences.php'))
+                ),
+                array(
+                    'id' => 'activation',
+                    'menu_title' => 'Activation',
+                    'template' => $plugin_dir . implode(DIRECTORY_SEPARATOR, array('templates', 'page-activation.php')),
+                    'notification' => __('The plugin is not activated', $this->textDomain)
+                ),
+                array(
+                    'id' => 'error',
+                    'template' => $plugin_dir . implode(DIRECTORY_SEPARATOR, array('templates', 'page-error.php'))
+                )
+            );
+
+            return array_merge($default_pages, $this->customPages);
+        }
+
+        private function generateMenu() {
+            $menu = array();
+
+            foreach ($this->pages as $page) {
+                if (!empty($page['menu_title'])) {
+                    array_splice($menu, isset($page['menu_index']) ? $page['menu_index'] : count($this->pages), 0, array($page));
+                }
+            }
+
+            return $menu;
+        }
     }
+
 }
 
 ?>

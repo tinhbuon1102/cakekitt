@@ -3,8 +3,11 @@
 if (!defined('ABSPATH')) exit;
 
 ?><div class="elfsight-admin-menu-actions">
-	<div class="elfsight-admin-menu-actions-activate-container">
-    	<a class="elfsight-admin-menu-actions-activate elfsight-admin-button-red elfsight-admin-button-border elfsight-admin-button" href="#/activation/" data-elfsight-admin-page="activation"><?php _e('Activate now', $this->textDomain); ?></a>
+	<div class="elfsight-admin-menu-actions-activation-container">
+		<span class="elfsight-admin-menu-actions-activation-label"><?php _e('CodeCanyon License:', $this->textDomain); ?></span>
+		<a class="elfsight-admin-menu-actions-activation-status" href="#/activation/" data-elfsight-admin-page="activation"><?php _e('Not Activated', $this->textDomain); ?></span>
+
+    	<a class="elfsight-admin-menu-actions-activation-button elfsight-admin-button-black elfsight-admin-button-border elfsight-admin-button" href="#/activation/" data-elfsight-admin-page="activation"><?php _e('Activate License', $this->textDomain); ?></a>
 	</div>
 
     <?php if ($has_new_version) {?>

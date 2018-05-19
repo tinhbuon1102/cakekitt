@@ -48,7 +48,7 @@ if (!class_exists('ElfsightWidgetsApi')) {
                     `time_created` varchar(10) NOT NULL,
                     `time_updated` varchar(10) NOT NULL,
                     `active` int(1) NOT NULL DEFAULT "1",
-                    `options` text NOT NULL,
+                    `options` text COLLATE utf8mb4_general_ci NOT NULL,
                     PRIMARY KEY (`id`)
                 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;'
             );
@@ -124,7 +124,8 @@ if (!class_exists('ElfsightWidgetsApi')) {
                 $invalid_fields[] = 'options';
 
             } else {
-                $options_json = rawurldecode($_POST['options']);
+                $options_json = $this->formatInputOptions($_POST['options']);
+                $options_json = apply_filters(str_replace('-', '_', $this->slug) . '_widget_options', $options_json);
 
                 if (!json_decode($options_json)) {
                     $invalid_fields[] = 'options';
@@ -151,7 +152,7 @@ if (!class_exists('ElfsightWidgetsApi')) {
                     $result['error'] = __('An MySQL error occurred while adding new widget.', $this->textDomain);
 
                 } else if (get_option(str_replace('-', '_', $this->slug) . '_widgets_clogged') !== 'true') {
-                   update_option(str_replace('-', '_', $this->slug) . '_widgets_clogged', 'true');
+                    update_option(str_replace('-', '_', $this->slug) . '_widgets_clogged', 'true');
                 }
             }
         }
@@ -160,7 +161,7 @@ if (!class_exists('ElfsightWidgetsApi')) {
             global $wpdb;
 
             $table_name = $this->getTableName();
-            
+
             $id = !empty($_POST['id']) ? intval($_POST['id']) : null;
 
             if (!$id) {
@@ -182,7 +183,7 @@ if (!class_exists('ElfsightWidgetsApi')) {
             global $wpdb;
 
             $table_name = $this->getTableName();
-            
+
             $id = !empty($_POST['id']) ? intval($_POST['id']) : null;
 
             if (!$id) {
@@ -206,7 +207,8 @@ if (!class_exists('ElfsightWidgetsApi')) {
             $table_name = $this->getTableName();
             $id = !empty($_POST['id']) ? intval($_POST['id']) : null;
             $name = !empty($_POST['name']) ? $_POST['name'] : null;
-            $options_json = !empty($_POST['options']) ? rawurldecode($_POST['options']) : null;
+            $options_json = !empty($_POST['options']) ? $this->formatInputOptions($_POST['options']) : null;
+            $options_json = apply_filters(str_replace('-', '_', $this->slug) . '_widget_options', $options_json);
 
             if (!$id) {
                 $result['status'] = false;
@@ -249,6 +251,13 @@ if (!class_exists('ElfsightWidgetsApi')) {
                     $result['error'] = __('Widget with the specified id doesnt exist.', $this->textDomain);
                 }
             }
+        }
+
+        public function formatInputOptions($options) {
+            $options = rawurldecode($options);
+            $options = str_replace("\'", "\u0027", $options); // JSON_HEX_APOS
+
+            return $options;
         }
     }
 }

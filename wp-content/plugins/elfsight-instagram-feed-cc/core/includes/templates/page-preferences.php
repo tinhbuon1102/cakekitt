@@ -98,5 +98,31 @@ if (!defined('ABSPATH')) exit;
                 </div>
             </div>
         </div>
+
+        <?php if(current_user_can('manage_options')) { ?>
+            <div class="elfsight-admin-divider"></div>
+
+            <div class="elfsight-admin-page-preferences-option-roles elfsight-admin-page-preferences-option">
+                <div class="elfsight-admin-page-preferences-option-info">
+                    <h4 class="elfsight-admin-page-preferences-option-info-name">
+                        <?php _e('Who can access the plugin', $this->textDomain); ?>
+                    </h4>
+
+                    <div class="elfsight-admin-caption">
+                        <?php _e('Here you can set the minimal permissions role that can access the plugin.', $this->textDomain); ?>
+                    </div>
+                </div>
+                
+                <div class="elfsight-admin-page-preferences-option-input-container">
+                    <div class="elfsight-admin-page-preferences-option-input-select-container">
+                        <select class="elfsight-admin-page-preferences-option-input-select" name="preferences_access_role">
+                            <option value="admin" <?php echo ($preferences_access_role === 'admin') ? 'selected' : ''?>><?php _e('Admin', $this->textDomain); ?></option>
+                            <option value="editor" <?php echo ($preferences_access_role === 'editor') ? 'selected' : ''?>><?php _e('Editor', $this->textDomain); ?></option>
+                            <option value="author" <?php echo ($preferences_access_role === 'author') ? 'selected' : ''?>><?php _e('Author', $this->textDomain); ?></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
     </div>
 </article>
