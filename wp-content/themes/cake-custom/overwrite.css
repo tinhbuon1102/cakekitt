@@ -5,3 +5,9 @@
     background-position: inherit;
     background-size: cover;
 }
+.question-form ul.list-type li {
+    margin-left: 0;
+}
+#omc-form .question-form ul.list-type li:first-child {
+	padding-left: 0;
+}
