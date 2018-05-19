@@ -44,6 +44,10 @@ if ($inspired_pic)
 			<div class="circle">3</div>
 			<div class="text">STEP3</div>
 		</div>
+		<div class="step fourth" data-step="4">
+			<div class="circle">4</div>
+			<div class="text">STEP4</div>
+		</div>
 	</div>
 </div>
 <div class="col-md-8 columns">
@@ -75,9 +79,6 @@ if ($inspired_pic)
 							?>	
 								<?php foreach ( $terms as $term_index => $term ) { 
 									if (strpos($term->slug, 'cake_type_') === false) continue;
-									
-									// Auto set cake_type_f checked
-									$_REQUEST['type'] = 'cake_type_f';
 								?>
 									<li class="m-input__radio">
 										<input type="radio" name="custom_order_cake_type" id="<?php echo $term->slug?>" class="radio_input validate[required]" value="<?php echo $term->slug?>" <?php echo $_REQUEST['type'] == $term->slug ? 'checked' : ''?> >
@@ -111,7 +112,7 @@ if ($inspired_pic)
 				<ul class="about-design">
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
-							<span class="title-number display-table-cell">1</span>
+							<span class="title-number display-table-cell">2</span>
 							<span class="display-table-cell pl-2"><?php echo __('Choose shape', 'cake')?></span>
 						</h4>
 						<ul class="cake-shape text-radio list-type round-icon-select col_5">
@@ -146,7 +147,7 @@ if ($inspired_pic)
 					</li>
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
-							<span class="title-number display-table-cell">2</span>
+							<span class="title-number display-table-cell">3</span>
 							<span class="display-table-cell pl-2"><?php echo __('Choose flavor', 'cake')?></span>
 						</h4>
 						<ul class="cake-flavor text-radio list-type round-icon-select col_5">
@@ -176,7 +177,7 @@ if ($inspired_pic)
 					</li>
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
-							<span class="title-number display-table-cell">3</span>
+							<span class="title-number display-table-cell">4</span>
 							<span class="display-table-cell pl-2"><?php echo __('Choose Size', 'cake')?></span>
 						</h4>
 						<div class="cake-layer select-wrapper">
@@ -228,7 +229,7 @@ if ($inspired_pic)
 					</li>
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
-							<span class="title-number display-table-cell">4</span>
+							<span class="title-number display-table-cell">5</span>
 							<span class="display-table-cell pl-2"><?php _e( 'Choose color', 'cake' ); ?></span>
 						</h4>
 						<ul class="cake-color text-radio list-type">
@@ -262,7 +263,7 @@ if ($inspired_pic)
 					</li>
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
-							<span class="title-number display-table-cell">5</span>
+							<span class="title-number display-table-cell">6</span>
 							<span class="display-table-cell pl-2"><?php _e( 'Choose decorations', 'cake' ); ?></span>
 						</h4>
 						<ul class="cake-decorate text-radio list-type row">
@@ -436,7 +437,7 @@ if ($inspired_pic)
 					</li>
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
-							<span class="title-number display-table-cell">6</span>
+							<span class="title-number display-table-cell">7</span>
 							<span class="display-table-cell pl-2"><?php _e( 'Message Plate', 'woocommerce' ); ?></span>
 						</h4>
 						<ul class="cake-message text-radio list-type">
@@ -472,7 +473,7 @@ if ($inspired_pic)
 					</li>
 					<li class="main-option upload_cakePic_wraper">
 						<h4 class="heading-form display-table mb-3">
-							<span class="title-number display-table-cell">7</span>
+							<span class="title-number display-table-cell">8</span>
 							<span class="display-table-cell pl-2"><?php _e( 'Inspired Pics', 'woocommerce' ); ?></span>
 						</h4>
 						<ul id="inspired_images" class="inspired_images">
@@ -990,7 +991,7 @@ if ($inspired_pic)
 		</div>
 		
 		<div id="button_wraper">
-			<input class="cdo-button submit_prev" type="button" name="submit_prev" id="submit_prev_3" value="<?php echo esc_html__( 'Previous', 'cake')?>" style="display: none;"/>
+			<input class="cdo-button submit_prev" type="button" name="submit_prev" id="submit_prev_3" value="<?php echo esc_html__( 'Previous', 'cake')?>" />
 			<input class="cdo-button submit_next" type="button" name="submit_next" id="submit_next_3" data-text-end="<?php echo esc_html__( 'View Confirm', 'woocommerce')?>" data-text-next="<?php echo esc_html__( 'Next', 'cake')?>" value="<?php echo esc_html__( 'Next', 'cake')?>" />
 		</div>
 	</form>

@@ -4079,7 +4079,7 @@ ul.type-cake.c-list_3Column {
     margin: 0 auto;
 }
 .container #first_step, #second_step, #third_step, #fourth_step { display: none; }
-.container #first_step { display: block; }
+.container #second_step { display: block; }
 #omc-form .m-section_content_selectOption .c-list_3Column .m-input__radio {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;

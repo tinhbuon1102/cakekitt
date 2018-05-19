@@ -72,8 +72,10 @@ jQuery(function($) {
 		$('.calendar').pignoseCalendar({
 			select: onClickHandler,
 			lang: 'jp',
+			date: moment().add(3, 'days'),
+			initialize: true,
 			disabledRanges: [
-				['1011-10-05', moment().subtract(1, 'days').format('YYYY-MM-DD')],
+				['1011-10-05', moment().add(2, 'days').format('YYYY-MM-DD')],
 			]
 		});
 

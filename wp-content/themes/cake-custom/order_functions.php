@@ -269,6 +269,7 @@ function cake_steps_store(){
 						$cakePrice = !empty($cakePrice) ? $cakePrice['amount'] : 0;
 						$defaultPrice = $cakePrice;
 						$cartTotal += $cakePrice;
+						$cake_shape_price = $cakePrice;
 						$cartHtml .= '
 							<h5 class="detail-row pt-1 pb-1" id="cart_' . $fieldName . '">
 								<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_shape-'.$fieldValue.' size30 blk"></i></span>
@@ -369,8 +370,14 @@ function cake_steps_store(){
 						foreach ( $fieldValue as $keyDecorate => $decorate )
 						{
 							$keyPrice = ('custom_order_cake_decorate__' . $decorate);
-							$cakePrice = $cakePrices[$keyPrice];
-							$cakePrice = !empty($cakePrice) ? $cakePrice['amount'] : 0;
+							if ($decorate == 'fruit')
+							{
+								$cakePrice = $cake_shape_price * KITT_DECORATE_FRUIT_RATE;
+							}
+							else {
+								$cakePrice = $cakePrices[$keyPrice];
+								$cakePrice = !empty($cakePrice) ? $cakePrice['amount'] : 0;
+							}
 								
 							$decorateQtyText = '';
 							$qtyFormat = 'custom_order_'.$decorate.'_qty';
@@ -703,7 +710,7 @@ function submit_form_order(){
 	cleanTemporaryData();
 	
 	$aRequiredFields = array(
-		'custom_order_cake_type',
+// 		'custom_order_cake_type',
 		'custom_order_cake_shape',
 		'custom_order_cakecolor',
 		'custom_order_cakeflavor',

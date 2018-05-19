@@ -14,6 +14,7 @@ wp-content/uploads/
 wp-content/wp-cache-config.php
 wp-content/plugins/hello.php
 wp-snapshots
+wp-content/plugins/elfsight-instagram-feed-cc/api
 
 .settings
 .env

@@ -216,7 +216,7 @@ $(function(){
 			}
     	});
     	
-        $('body').on('click', 'form#omOrder .submit_next', function(){
+    $('body').on('click', 'form#omOrder .submit_next', function(event, is_validate){
         	$('.formError.inline').remove()
         	$("form#omOrder").validationEngine({promptPosition: 'inline', addFailureCssClassToField: "inputError", bindMethod:"live"});
         	
@@ -225,9 +225,21 @@ $(function(){
         	order_form_data = $(divCurrentStep + ' input:visible, '+ divCurrentStep +' select:visible, '+ divCurrentStep +' textarea:visible, '+ divCurrentStep +' input[type="hidden"]').serialize();
         	order_form_data += '&action=cake_steps_store&step=' + currentStepActive
         	
-        	var validate = $("form#omOrder").validationEngine('validate');
+        	if (is_validate == 'no')
+        	{
+        		validate = false;
+        	}
+        	else {
+        		var validate = $("form#omOrder").validationEngine('validate');
+        	}
+        	
     		var checkecaketype = $("input:radio[name='custom_order_cake_type']").is(':checked')
     		var checkcakeshape = $("input:radio[name='custom_order_cake_shape']").is(':checked')
+    		
+    		if (currentStepActive >= 2)
+	    	{
+	    		$('.submit_prev').show();
+	    	}
     		
         	if (validate && (checkecaketype || checkcakeshape))
         	{
@@ -254,6 +266,11 @@ $(function(){
         	
         	var currentStepActive = $('form#omOrder .step_wraper:visible').data('step');
         	var changeStep = currentStepActive - 1;
+        	
+        	if (changeStep == 2)
+        	{
+        		$('.submit_prev').hide();
+        	}
     		
     		// Add current class for slide step
     		$('#four_steps .step').removeClass('current');
@@ -586,7 +603,7 @@ $(function(){
     	var checkedType = jQuery('input[name="custom_order_cake_type"]:checked').val();
     	if (checkedType)
     	{
-    		$('input.submit_next').trigger('click');
+    		$('input.submit_next').trigger('click', ['no']);
     		jQuery('input[name="custom_order_cake_type"]:checked').iCheck('check');
     	}
     	
