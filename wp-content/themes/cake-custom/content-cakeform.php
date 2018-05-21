@@ -23,6 +23,8 @@ if ($inspired_pic)
 	file_put_contents($dest_file, $tmp_img);
 	$inspired_pic = $upload_dir['baseurl'] . '/temp/' . $file_name;
 }
+$yearMonthDays = kitt_get_year_month_day();
+$current_year = date('Y');
 ?>
 
 <script type="text/javascript">
@@ -585,7 +587,6 @@ if ($inspired_pic)
 								<div class="field col-md-6 birth-field">
 									<label class="label"><?php _e( 'Birthday', 'cake' ); ?></label>
 									<?php 
-									$yearMonthDays = kitt_get_year_month_day();
 									$birth_date = get_user_meta( get_current_user_id(), 'birth_date', true);
 									$default	= array( 'day' => 1, 'month' => 1, 'year' => 1980, );
 									$birth_date = $birth_date ? $birth_date : $default;
@@ -724,24 +725,24 @@ if ($inspired_pic)
 				<label class="label"><?php _e( '当店をどこで知りましたか？', 'woocommerce' ); ?></label>
 				<ul class="question_list text-radio list-type">
 					<li class="m-input__radio">
-						<input type="radio" name="q01" id="q01_a" class="radio_input validate[required]" value="検索エンジン">
-						<label for="検索エンジン" class="js-fixHeightChildText radio_label">
+						<input type="radio" name="survey[engine]" id="q01_a" class="radio_input validate[required]" value="検索エンジン">
+						<label for="q01_a" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">検索エンジン</span></h5>
 							</div>
 						</label>
 					</li>
 					<li class="m-input__radio">
-						<input type="radio" name="q01" id="q01_b" class="radio_input validate[required]" value="facebook">
-						<label for="facebook" class="js-fixHeightChildText radio_label">
+						<input type="radio" name="survey[engine]" id="q01_b" class="radio_input validate[required]" value="facebook">
+						<label for="q01_b" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">facebook</span></h5>
 							</div>
 						</label>
 					</li>
 					<li class="m-input__radio">
-						<input type="radio" name="q01" id="q01_c" class="radio_input validate[required]" value="その他">
-						<label for="その他" class="js-fixHeightChildText radio_label">
+						<input type="radio" name="survey[engine]" id="q01_c" class="radio_input validate[required]" value="その他">
+						<label for="q01_c" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">その他</span></h5>
 							</div>
@@ -753,16 +754,16 @@ if ($inspired_pic)
 				<label class="label"><?php _e( '以前Kittのケーキをご注文されたことがありますか？', 'woocommerce' ); ?></label>
 				<ul class="question_list text-radio list-type">
 					<li class="m-input__radio">
-						<input type="radio" name="q02" id="q02_a" class="radio_input validate[required]" value="はい">
-						<label for="はい" class="js-fixHeightChildText radio_label">
+						<input type="radio" name="survey[placed]" id="q02_a" class="radio_input validate[required]" value="はい">
+						<label for="q02_a" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">はい</span></h5>
 							</div>
 						</label>
 					</li>
 					<li class="m-input__radio">
-						<input type="radio" name="q02" id="q02_b" class="radio_input validate[required]" value="いいえ">
-						<label for="いいえ" class="js-fixHeightChildText radio_label">
+						<input type="radio" name="survey[placed]" id="q02_b" class="radio_input validate[required]" value="いいえ">
+						<label for="q02_b" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">いいえ</span></h5>
 							</div>
@@ -776,21 +777,27 @@ if ($inspired_pic)
 				<label class="label"><?php _e( '差し支えなければ最近のご利用日を教えてください。', 'woocommerce' ); ?></label>
 				<div class="row">
 					<div class="col-sm-4">
-						<select name="use_year">
+						<select name="survey[use][year]">
 							<!--show from 2017-->
-							<option value="year">Year</option>
+							<?php for($i = $current_year - 1; $i <= $current_year; $i ++) { ?>
+							<option value="<?php echo $i?>"><?php echo $i?></option>
+							<?php }?>
 						</select>
 					</div>
 					<div class="col-sm-4">
-						<select name="use_month">
+						<select name="survey[use][month]">
 							<!--show All month-->
-							<option value="month">Month</option>
+							<?php foreach($yearMonthDays['months'] as $monthNumber) { ?>
+							<option value="<?php echo $monthNumber?>"><?php echo $monthNumber?></option>
+							<?php }?>
 						</select>
 					</div>
 					<div class="col-sm-4">
-						<select name="use_date">
+						<select name="survey[use][day]">
 							<!--show All dates-->
-							<option value="date">Date</option>
+							<?php foreach($yearMonthDays['days'] as $dayNumber) { ?>
+							<option value="<?php echo $dayNumber?>"><?php echo $dayNumber?></option>
+							<?php }?>
 						</select>
 					</div>
 				</div>
@@ -801,24 +808,24 @@ if ($inspired_pic)
 				<label class="label"><?php _e( 'ご利用回数', 'woocommerce' ); ?></label>
 				<ul class="question_list text-radio list-type">
 					<li class="m-input__radio">
-						<input type="radio" name="q04" id="q04_a" class="radio_input validate[required]" value="1回目">
-						<label for="1回目" class="js-fixHeightChildText radio_label">
+						<input type="radio" name="survey[usage]" id="q04_a" class="radio_input validate[required]" value="1回目">
+						<label for="q04_a" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">1回目</span></h5>
 							</div>
 						</label>
 					</li>
 					<li class="m-input__radio">
-						<input type="radio" name="q04" id="q04_b" class="radio_input validate[required]" value="2回目">
-						<label for="2回目" class="js-fixHeightChildText radio_label">
+						<input type="radio" name="survey[usage]" id="q04_b" class="radio_input validate[required]" value="2回目">
+						<label for="q04_b" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">2回目</span></h5>
 							</div>
 						</label>
 					</li>
 					<li class="m-input__radio">
-						<input type="radio" name="q04" id="q04_c" class="radio_input validate[required]" value="5回目以上">
-						<label for="5回目以上" class="js-fixHeightChildText radio_label">
+						<input type="radio" name="survey[usage]" id="q04_c" class="radio_input validate[required]" value="5回目以上">
+						<label for="q04_c" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">5回目以上</span></h5>
 							</div>
@@ -832,40 +839,40 @@ if ($inspired_pic)
 				<label class="label"><?php _e( '差し支えなければ、お味についてお聞かせください', 'woocommerce' ); ?></label>
 				<ul class="question_list text-radio list-type">
 					<li class="m-input__radio">
-						<input type="radio" name="q05" id="q05_a" class="radio_input" value="大変満足">
-						<label for="大変満足" class="js-fixHeightChildText radio_label">
+						<input type="radio" name="survey[taste]" id="q05_a" class="radio_input" value="大変満足">
+						<label for="q05_a" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">大変満足</span></h5>
 							</div>
 						</label>
 					</li>
 					<li class="m-input__radio">
-						<input type="radio" name="q05" id="q05_b" class="radio_input" value="満足">
-						<label for="満足" class="js-fixHeightChildText radio_label">
+						<input type="radio" name="survey[taste]" id="q05_b" class="radio_input" value="満足">
+						<label for="q05_b" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">満足</span></h5>
 							</div>
 						</label>
 					</li>
 					<li class="m-input__radio">
-						<input type="radio" name="q05" id="q05_c" class="radio_input" value="普通">
-						<label for="普通" class="js-fixHeightChildText radio_label">
+						<input type="radio" name="survey[taste]" id="q05_c" class="radio_input" value="普通">
+						<label for="q05_c" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">普通</span></h5>
 							</div>
 						</label>
 					</li>
 					<li class="m-input__radio">
-						<input type="radio" name="q05" id="q05_d" class="radio_input" value="やや不満">
-						<label for="やや不満" class="js-fixHeightChildText radio_label">
+						<input type="radio" name="survey[taste]" id="q05_d" class="radio_input" value="やや不満">
+						<label for="q05_d" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">やや不満</span></h5>
 							</div>
 						</label>
 					</li>
 					<li class="m-input__radio">
-						<input type="radio" name="q05" id="q05_e" class="radio_input" value="不満">
-						<label for="不満" class="js-fixHeightChildText radio_label">
+						<input type="radio" name="survey[taste]" id="q05_e" class="radio_input" value="不満">
+						<label for="q05_e" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">不満</span></h5>
 							</div>
@@ -879,40 +886,40 @@ if ($inspired_pic)
 				<label class="label"><?php _e( '差し支えなければ、お値段についてお聞かせください', 'woocommerce' ); ?></label>
 				<ul class="question_list text-radio list-type">
 					<li class="m-input__radio">
-						<input type="radio" name="q06" id="q06_a" class="radio_input" value="大変満足">
-						<label for="大変満足" class="js-fixHeightChildText radio_label">
+						<input type="radio" name="survey[price]" id="q06_a" class="radio_input" value="大変満足">
+						<label for="q06_a" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">大変満足</span></h5>
 							</div>
 						</label>
 					</li>
 					<li class="m-input__radio">
-						<input type="radio" name="q06" id="q06_b" class="radio_input" value="満足">
-						<label for="満足" class="js-fixHeightChildText radio_label">
+						<input type="radio" name="survey[price]" id="q06_b" class="radio_input" value="満足">
+						<label for="q06_b" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">満足</span></h5>
 							</div>
 						</label>
 					</li>
 					<li class="m-input__radio">
-						<input type="radio" name="q06" id="q06_c" class="radio_input" value="普通">
-						<label for="普通" class="js-fixHeightChildText radio_label">
+						<input type="radio" name="survey[price]" id="q06_c" class="radio_input" value="普通">
+						<label for="q06_c" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">普通</span></h5>
 							</div>
 						</label>
 					</li>
 					<li class="m-input__radio">
-						<input type="radio" name="q06" id="q06_d" class="radio_input" value="やや不満">
-						<label for="やや不満" class="js-fixHeightChildText radio_label">
+						<input type="radio" name="survey[price]" id="q06_d" class="radio_input" value="やや不満">
+						<label for="q06_d" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">やや不満</span></h5>
 							</div>
 						</label>
 					</li>
 					<li class="m-input__radio">
-						<input type="radio" name="q06" id="q06_e" class="radio_input" value="不満">
-						<label for="不満" class="js-fixHeightChildText radio_label">
+						<input type="radio" name="survey[price]" id="q06_e" class="radio_input" value="不満">
+						<label for="q06_e" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">不満</span></h5>
 							</div>
@@ -926,54 +933,56 @@ if ($inspired_pic)
 				<label class="label"><?php _e( '差し支えなければ、特に良かった点についてお聞かせください', 'woocommerce' ); ?></label>
 				<ul class="question_list text-radio list-type">
 					<li class="m-input__radio">
-						<input type="radio" name="q07" id="q07_a" class="radio_input" value="価格">
-						<label for="価格" class="js-fixHeightChildText radio_label">
+						<input type="radio" name="survey[particular]" id="q07_a" class="radio_input survey_particular" value="価格">
+						<label for="q07_a" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">価格</span></h5>
 							</div>
 						</label>
 					</li>
 					<li class="m-input__radio">
-						<input type="radio" name="q07" id="q07_b" class="radio_input" value="味">
-						<label for="味" class="js-fixHeightChildText radio_label">
+						<input type="radio" name="survey[particular]" id="q07_b" class="radio_input survey_particular" value="味">
+						<label for="q07_b" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">味</span></h5>
 							</div>
 						</label>
 					</li>
 					<li class="m-input__radio">
-						<input type="radio" name="q07" id="q07_c" class="radio_input" value="デザイン">
-						<label for="デザイン" class="js-fixHeightChildText radio_label">
+						<input type="radio" name="survey[particular]" id="q07_c" class="radio_input survey_particular" value="デザイン">
+						<label for="q07_c" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">デザイン</span></h5>
 							</div>
 						</label>
 					</li>
 					<li class="m-input__radio">
-						<input type="radio" name="q07" id="q07_d" class="radio_input" value="接客サービス">
-						<label for="接客サービス" class="js-fixHeightChildText radio_label">
+						<input type="radio" name="survey[particular]" id="q07_d" class="radio_input survey_particular" value="接客サービス">
+						<label for="q07_d" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">接客サービス</span></h5>
 							</div>
 						</label>
 					</li>
 					<li class="m-input__radio">
-						<input type="radio" name="q07" id="q07_e" class="radio_input" value="メニュー">
-						<label for="メニュー" class="js-fixHeightChildText radio_label">
+						<input type="radio" name="survey[particular]" id="q07_e" class="radio_input survey_particular" value="メニュー">
+						<label for="q07_e" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">メニュー</span></h5>
 							</div>
 						</label>
 					</li>
 					<li class="m-input__radio">
-						<input type="radio" name="q07" id="q07_f" class="radio_input" value="その他">
-						<label for="その他" class="js-fixHeightChildText radio_label">
+						<input type="radio" name="survey[particular]" id="q07_f" class="radio_input survey_particular" value="その他">
+						<label for="q07_f" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">その他（記入）</span></h5>
 							</div>
 						</label>
 						<!--show input_show when above radio is selected-->
-						<div class="input_show" style="display: none;"><textarea></textarea></div>
+						<div class="input_show" id="survey_particular_comment" style="display: none;">
+							<textarea name="survey_comment"></textarea>
+						</div>
 					</li>
 				</ul>
 			</div>

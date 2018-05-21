@@ -159,7 +159,11 @@ $(function(){
         	
         
     	$('body').on('change', 'form#omOrder input:radio, form#omOrder input:checkbox, form#omOrder select:not([name="custom_order_layer"])', function(){
-    		showItemInCart();
+    		// Dont load cart when click question input
+    		if (!$(this).closest('.question-form').length)
+    		{
+    			showItemInCart();
+    		}
     	});
     	
     	$('input.radio_input, input.checkbox_input').on('ifChecked', function(event){
@@ -802,5 +806,18 @@ $(function(){
 	           }
            });
 	   })
+   }
+   
+   if ($('#q07_f').length)
+   {
+ 	  $(document).on('change', '.survey_particular', function(){
+ 		  if ($(this).attr('id') == 'q07_f')
+ 		  {
+ 			  $('#survey_particular_comment').show();
+ 		  }
+ 		  else {
+ 			  $('#survey_particular_comment').hide();
+ 		  }
+ 	  })
    }
 });

@@ -1523,9 +1523,47 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 		}
 	}
 	$divRow .= '</div>';
+	if ($is_email)
+	{
+		$divRow .= '<div class="survey_wraper">';
+		$serveyLabels = kitt_get_survey_label();
+		foreach ($_SESSION['cake_custom_order'] as $stepData)
+		{
+			if (isset($stepData['survey']))
+			{
+				foreach ($stepData['survey'] as $survey_index => $survey)
+				{
+					$survey_value = is_array($survey) ? implode('-', $survey) : $survey;
+					$divRow .= '<div class="survey_content">';
+					$divRow .= '<span class="survey_label">'.$serveyLabels[$survey_index].': </span>';
+					if ($survey_index == 'particular' && $survey == 'その他')
+					{
+						$divRow .= '<span class="survey_value">'.$survey_value . ($stepData['survey_comment'] ? '(' . $stepData['survey_comment'] . ')' : '').'</span>';
+					}
+					else {
+						$divRow .= '<span class="survey_value">'.$survey_value	.'</span>';
+					}
+					$divRow .= '</div>';
+				}
+			}
+		}
+		$divRow .= '</div>';
+	}
 	return $divRow;
 }
 
+function kitt_get_survey_label ()
+{
+	return array(
+		'engine' => '当店をどこで知りましたか',
+		'placed' => '以前Kittのケーキをご注文されたことがありますか',
+		'use' => '差し支えなければ最近のご利用日を教えてください。',
+		'usage' => 'ご利用回数',
+		'taste' => '差し支えなければ、お味についてお聞かせください',
+		'price' => '差し支えなければ、お値段についてお聞かせください',
+		'particular' => '差し支えなければ、特に良かった点についてお聞かせください',
+	);
+}
 function kitt_add_product_to_cart($product_id) {
 	$found = false;
 	//check if product already in cart
