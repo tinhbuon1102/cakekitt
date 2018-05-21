@@ -1526,7 +1526,7 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 	return $divRow;
 }
 
-add_action( 'woocommerce_email_customer_details', '', 100, 4 );
+add_action( 'woocommerce_email_customer_details', 'kitt_woocommerce_email_customer_details', 100, 4 );
 function kitt_woocommerce_email_customer_details($order, $sent_to_admin, $plain_text, $email)
 {
 	if ($sent_to_admin)
