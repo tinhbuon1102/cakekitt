@@ -1531,7 +1531,6 @@ function kitt_woocommerce_email_customer_details($order, $sent_to_admin, $plain_
 {
 	if ($sent_to_admin)
 	{
-		die('xxx');
 		$divRow .= '<div class="survey_wraper">';
 		$serveyLabels = kitt_get_survey_label();
 		foreach ($_SESSION['cake_custom_order'] as $stepData)
