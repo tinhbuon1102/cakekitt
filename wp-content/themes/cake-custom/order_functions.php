@@ -1523,8 +1523,15 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 		}
 	}
 	$divRow .= '</div>';
-	if ($is_email)
+	return $divRow;
+}
+
+add_action( 'woocommerce_email_customer_details', '', 100, 4 );
+function kitt_woocommerce_email_customer_details($order, $sent_to_admin, $plain_text, $email)
+{
+	if ($sent_to_admin)
 	{
+		die('xxx');
 		$divRow .= '<div class="survey_wraper">';
 		$serveyLabels = kitt_get_survey_label();
 		foreach ($_SESSION['cake_custom_order'] as $stepData)
@@ -1549,7 +1556,7 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 		}
 		$divRow .= '</div>';
 	}
-	return $divRow;
+	echo $divRow;
 }
 
 function kitt_get_survey_label ()
