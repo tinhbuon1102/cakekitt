@@ -1531,7 +1531,12 @@ function kitt_woocommerce_email_customer_details($order, $sent_to_admin, $plain_
 {
 	if ($sent_to_admin)
 	{
-		$divRow .= '<div class="survey_wraper">';
+		$divRow .= '<div class="survey_wraper">
+				<h3 style="color:#e2a6c0;display:block;font-family:&quot;Helvetica Neue&quot;,Helvetica,Roboto,Arial,sans-serif;font-size:16px;font-weight:bold;line-height:130%;margin:16px 0 8px;text-align:left">
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">Survey Information</font>
+				</font>
+				</h3>';
 		$serveyLabels = kitt_get_survey_label();
 		foreach ($_SESSION['cake_custom_order'] as $stepData)
 		{
