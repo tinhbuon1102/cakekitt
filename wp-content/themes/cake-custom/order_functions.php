@@ -1283,7 +1283,7 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 						$minuteTime = $aPickTimes[1] ? $aPickTimes[1] : '00';
 						
 // 						$fieldValue = $fieldValue < 12 ? ($fieldValue . __('AM', 'cake')) : ($fieldValue . __('PM', 'cake'));
-						$fieldValue = $hourTime . ':' . $minuteTime;
+						$fieldValue = $hourTime . ':' . $minuteTime . ' ~ ' . ($hourTime + 1) . ':' . $minuteTime;
 						break;
 						
 					case 'custom_order_cake_type':

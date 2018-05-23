@@ -48,7 +48,7 @@ jQuery(document).ready(function(){
             var timeText = pick_time < 12 ? (gl_timeAM) : (gl_timePM);
             if (output)
             {
-            	output[textContent] = hourTime + ':' + minuteTime;
+            	output[textContent] = hourTime + ':' + minuteTime + ' ~ ' + (parseInt(hourTime) + 1) + ':' + minuteTime;
             }
         }
 
