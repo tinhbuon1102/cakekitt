@@ -977,6 +977,15 @@ function custom_meta_order_detail_box_markup($post)
 	echo '</table>';
 }
 
+add_filter('views_edit-shop_order', 'kitt_sort_status_views_edit_shop_order', 100, 1);
+function kitt_sort_status_views_edit_shop_order($views)
+{
+	$trash = $views['trash'];
+	unset($views['trash']);
+	$views['trash'] = $trash;
+	return $views;
+}
+
 function save_custom_order_detail_meta_box ( $post_id, $post, $update )
 {
 	if ( ! isset($_POST["meta-box-nonce"]) || ! wp_verify_nonce($_POST["meta-box-nonce"], basename(__FILE__)) ) return $post_id;
@@ -2178,15 +2187,6 @@ unset( $tabs['additional_information'] ); // Remove the additional information t
 
 return $tabs;
 
-}
-
-add_filter('views_edit-shop_order', 'kitt_sort_status_views_edit_shop_order', 100, 1);
-function kitt_sort_status_views_edit_shop_order($views)
-{
-	$trash = $views['trash'];
-	unset($views['trash']);
-	$views['trash'] = $trash;
-	return $views;
 }
 
 ?>
