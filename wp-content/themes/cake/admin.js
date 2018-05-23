@@ -19,10 +19,10 @@ jQuery(function($) {
 		$('#flower_wraper').addClass('disabled');
 		$('#custom_order_flowercolor_wraper').addClass('disabled');
 	}
-	if (!$('#custom_order_cake_decorate-print').is(':checked')) {
-		$('#photocakepic_wraper').addClass('disabled');
-		$('#custom_order_photocakepic_wraper').addClass('disabled');
-	}
+//	if (!$('#custom_order_cake_decorate-print').is(':checked')) {
+//		$('#photocakepic_wraper').addClass('disabled');
+//		$('#custom_order_photocakepic_wraper').addClass('disabled');
+//	}
 	if (!$('#custom_order_cake_decorate-candy').is(':checked')) {
 		$('#candy_wraper').addClass('disabled');
 		$('#custom_order_candy_text_wraper').addClass('disabled');

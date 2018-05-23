@@ -864,9 +864,9 @@ function custom_meta_order_detail_box_markup($post)
 					if ('custom_order_flowercolor' == $fieldName) {
 						echo '<tr id="flower_wraper" class="'.$class.' group-label"><th colspan="2" class="deco-group-label"><i class="iconkitt-kitt_icons_flower"></i>'.__('Flower', 'cake').'</th></tr>';
 					}
-					if ('custom_order_photocakepic' == $fieldName) {
-						echo '<tr id="photocakepic_wraper" class="'.$class.' group-label"><th colspan="2" class="deco-group-label"><i class="iconkitt-kitt_icons_print"></i>'.__('Photo Cake Pic', 'cake').'</th></tr>';
-					}
+// 					if ('custom_order_photocakepic' == $fieldName) {
+// 						echo '<tr id="photocakepic_wraper" class="'.$class.' group-label"><th colspan="2" class="deco-group-label"><i class="iconkitt-kitt_icons_print"></i>'.__('Photo Cake Pic', 'cake').'</th></tr>';
+// 					}
 					if ('custom_order_candy_text' == $fieldName) {
 						echo '<tr id="candy_wraper" class="'.$class.' group-label"><th colspan="2" class="deco-group-label"><i class="iconkitt-kitt_icons_candy"></i>'.__('Candy', 'cake').'</th></tr>';
 					}

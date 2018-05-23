@@ -466,7 +466,7 @@ $current_year = date('Y');
 										</div>
 									</div>
 									<?php }?>
-									<?php //if ($value == 'print') {?>
+									<?php if ($value == 'print') {?>
 									<!--<div id="optionbox07" class="suboption_box disable upload_cakePic_wraper">
 										<div class="sub_form">
 											<ul class="inspired_images"></ul>
@@ -475,7 +475,7 @@ $current_year = date('Y');
 											<input type="file" class="filestyle upload_cakePic validate[required]" name="upload_cakePic" id="custom_order_photocakepic">
 										</div>
 									</div>-->
-									<?php //}?>
+									<?php }?>
 									
 									<?php if ($value == 'candy') {?>
 									<div id="optionbox08" class="suboption_box disable">

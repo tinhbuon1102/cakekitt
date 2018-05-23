@@ -1017,9 +1017,9 @@ function getDecorationGroup(){
 		'flower' => array(
 			'custom_order_flowercolor' => array('label' => __('color', 'cake')),
 		),
-		'print' => array(
-			'custom_order_photocakepic' => array('label' => __('printing photo', 'cake')),
-		),
+// 		'print' => array(
+// 			'custom_order_photocakepic' => array('label' => __('printing photo', 'cake')),
+// 		),
 		'candy' => array(
 			'custom_order_candy_text' => array('label' => __('detail note', 'cake')),
 		),
@@ -1124,6 +1124,9 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 						'class' => 'col-xs-12'
 					),
 					'custom_order_cakePic' => array(
+						'class' => 'col-xs-12'
+					),
+					'custom_order_photocakepic' => array(
 						'class' => 'col-xs-12'
 					),
 					'custom_order_cake_decorate' => array(

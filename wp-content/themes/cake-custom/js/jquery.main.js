@@ -574,6 +574,9 @@ $(function(){
     		picHiddenName = $(this).attr('id');
     		picElement = $(this);
     		
+    		$('form#omOrder').validationEngine('hideAll');
+        $('form#omOrder').validationEngine('detach');
+            
     		picWraper.find(".image_loading").html('<img class="loading-image" style="width: auto !important" src="'+ gl_templateUrl +'/images/loading.gif" />');
             $("form#omOrder").ajaxForm({
             	url: gl_ajaxUrl,
