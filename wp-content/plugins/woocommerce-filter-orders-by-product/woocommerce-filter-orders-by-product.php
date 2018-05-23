@@ -24,6 +24,7 @@ class FOA_Woo_Filter_Orders_by_Product{
 		add_action( 'init', array( $this, 'load_textdomain' ) );
 		add_action( 'restrict_manage_posts', array( $this, 'product_filter_in_order' ), 50  );
 		add_action( 'posts_where', array( $this, 'product_filter_where' ));
+		add_filter( 'request',               array( $this, 'filter_orders_by_payment_method_query' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts_and_styles' ));
 		add_filter( 'wp_count_posts', array( $this, 'kitt_wp_count_posts' ), 10, 3);
 	}
@@ -92,6 +93,33 @@ class FOA_Woo_Filter_Orders_by_Product{
 		    	<option value="<?php echo KITT_CUSTOM_ORDER?>" <?php echo (isset($_REQUEST['order_type_filter']) && $_REQUEST['order_type_filter'] == KITT_CUSTOM_ORDER) ? 'selected' : '';?>><?php _e('Custom Order', 'woocommerce-filter-orders-by-product'); ?></option>
 		    </select>
 		</span>
+		
+		
+		<?php 
+		$gateways = WC()->payment_gateways->get_available_payment_gateways();
+		$enabled_gateways = [];
+		
+		if( $gateways ) {
+			foreach( $gateways as $gateway ) {
+		
+				if( $gateway->enabled == 'yes' ) {
+		
+					$enabled_gateways[$gateway->id] = $gateway->title;
+		
+				}
+			}
+		}
+		
+		
+		?>
+		<span id="payment_filter_wrap">
+		    <select name="payment_filter" id="payment_filter">
+		    	<option value=""><?php _e('All Payment Methods', 'woocommerce-filter-orders-by-product'); ?></option>
+		    	<?php foreach ($enabled_gateways as $gate_way_id => $enabled_gateway) {?>
+		    	<option value="<?php echo $gate_way_id?>" <?php echo (isset($_REQUEST['payment_filter']) && $_REQUEST['payment_filter'] == $gate_way_id) ? 'selected' : '';?>><?php echo $enabled_gateway ?></option>
+		    	<?php }?>
+		    </select>
+		</span>
 	    <?php
 	}
 
@@ -123,6 +151,16 @@ class FOA_Woo_Filter_Orders_by_Product{
 		}
 		return $where;
 	}
+	
+	public function filter_orders_by_payment_method_query( $vars ) {
+		global $typenow;
+		if ( 'shop_order' === $typenow && isset( $_GET['payment_filter'] ) ) {
+			$vars['meta_key']   = '_payment_method';
+			$vars['meta_value'] = wc_clean( $_GET['payment_filter'] );
+		}
+		return $vars;
+	}
+	
 	// scripts_and_styles
 	public function scripts_and_styles(){
 		wp_enqueue_script( 'foa-fuzzy-script', plugin_dir_url( __FILE__ ).'fuzzy-dropdown.min.js', array( 'jquery' ) );
