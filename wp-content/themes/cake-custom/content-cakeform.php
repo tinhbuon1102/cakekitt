@@ -286,7 +286,7 @@ $current_year = date('Y');
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">5</span>
-							<span class="display-table-cell pl-2"><?php _e( 'Photo Print Cake?', 'woocommerce' ); ?></span>
+							<span class="display-table-cell pl-2"><?php echo $field_mappings['custom_order_printq']['field']['label']; ?>?</span>
 						</h4>
 						<ul class="cake-print text-radio list-type">
 							<?php 
