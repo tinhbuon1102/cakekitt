@@ -2,6 +2,27 @@
 $userID = (int) get_current_user_id();
 $user_data = get_userdata( $userID );
 
+$meta_query_args = array(
+	'relation' => 'AND',
+	array(
+		'key'     => '_customer_user',
+		'value'   => $userID,
+		'compare' => '='
+	),
+	array(
+		'key'     => 'cake_custom_order',
+		'value'   => '',
+		'compare' => '!='
+	)
+);
+
+$customer_orders = get_posts( array(
+	'numberposts' => 1,
+	'meta_query'    => $meta_query_args,
+	'post_type'   => wc_get_order_types(),
+	'post_status' => array_keys( wc_get_order_statuses() ),
+) );
+
 // Reset session form 
 $_SESSION['cake_custom_order'] = array();
 $field_mappings = getCustomFormFieldMapping();
@@ -753,6 +774,7 @@ $current_year = date('Y');
 						</div>
 					</li>
 		            <!--Start show this only for first time order by user or guest-->
+		            <?php if (!$userID || ($userID && empty($customer_orders))) {?>
 		            <li class="main-option">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">4</span>
@@ -1028,6 +1050,7 @@ $current_year = date('Y');
 		</div>
 	</div>
 		            </li>
+		            <?php }?>
 		           <!--End show this only for first time order by user or guest-->
 				</ul>
 			</div>
