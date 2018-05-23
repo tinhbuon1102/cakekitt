@@ -219,6 +219,7 @@ function cake_steps_store(){
 		'custom_order_layer',
 		'custom_order_cakeflavor',
 		'custom_order_cakecolor',
+		'custom_order_printq',
 		'custom_order_cake_decorate',
 		'custom_order_msgplate'
 	);
@@ -367,6 +368,22 @@ function cake_steps_store(){
 								<span class="display-table-cell width-full cake-color-name">' . $fieldLabel . '</span>
 							</h5>';
 						break;
+						
+					case 'custom_order_printq':
+						if ($fieldValue == 'print_yes')
+						{
+							$cakePrice = 1000;
+							$cartHtml .= '
+							<h5 class="detail-row pt-1 pb-1" id="cart_' . $fieldName . '">
+								<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_printq size30 blk"></i></span>
+								<span class="display-table-cell width-full cake-shape-name">' . $fieldMapping[$fieldName]['field']['label'] . '</span>
+								<span class="display-table-cell price-value pr-5 printq-price">'.showCakePrice($cakePrice).'</span>
+							</h5>';
+							
+							$cartTotal += $cakePrice;
+						}
+						break;
+						
 					case 'custom_order_cake_decorate':
 						foreach ( $fieldValue as $keyDecorate => $decorate )
 						{
