@@ -265,6 +265,44 @@ $current_year = date('Y');
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
 							<span class="title-number display-table-cell">5</span>
+							<span class="display-table-cell pl-2"><?php _e( 'Photo Print Cake?', 'woocommerce' ); ?></span>
+						</h4>
+						<ul class="cake-print text-radio list-type">
+							<?php 
+							$index = 0;
+							foreach ($field_mappings['custom_order_printq']['value'] as $value => $label) {
+								$index ++;
+							?>
+								<li class="m-input__radio">
+									<input type="radio" name="custom_order_printq" id="custom_order_printq_<?php echo $value?>" class="radio_input validate[required]" 
+									<?php echo $field_mappings['custom_order_printq']['field']['default_value'] == $value  ? 'checked' : ''?>
+									value="<?php echo $value?>">
+									<label for="custom_order_msgplate_<?php echo $value?>" class="js-fixHeightChildText radio_label">
+										<div class="radio_option radio_size">
+											<h5 class="js-fixHeightChildTitle radio_option_caption">
+												<span class="caption_wrap"><?php echo $label?></span>
+											</h5>
+										</div>
+									</label>
+									<?php if ($value == 'print_no') {?>
+									<?php }?>
+									<?php if ($value == 'print_yes') {?>
+									<div id="optionbox07" class="suboption_box disable upload_cakePic_wraper">
+										<div class="sub_form">
+											<ul class="inspired_images"></ul>
+											<span class="option_label"><?php _e( 'Upload pictures', 'woocommerce' ); ?></span>
+											<div class="image_loading"></div>
+											<input type="file" class="filestyle upload_cakePic validate[required]" name="upload_cakePic" id="custom_order_photocakepic">
+										</div>
+									</div>
+									<?php }?>
+								</li>
+							<?php }?>
+						</ul>
+					</li>
+					<li class="main-option">
+						<h4 class="heading-form display-table mb-3">
+							<span class="title-number display-table-cell">6</span>
 							<span class="display-table-cell pl-2"><?php _e( 'Choose decorations', 'cake' ); ?></span>
 						</h4>
 						<ul class="cake-decorate text-radio list-type row">
@@ -273,6 +311,7 @@ $current_year = date('Y');
 							foreach ($field_mappings['custom_order_cake_decorate']['value'] as $value => $label) {
 								$indexDecorate ++;
 							?>
+							
 								<li class="m-input__checkbox col-md-4 custom_order_cake_decorate_<?php echo $value?>">
 									<input type="checkbox" name="custom_order_cake_decorate[<?php echo $indexDecorate - 1?>]" id="<?php echo $value?>" class="check_input checkbox_input labelauty has_subop" value="<?php echo $value?>" aria-label="<?php echo $label?>" data-labelauty="<?php echo $label?>">
 									<!--<label for="<?php echo $value?>" class="js-fixHeightChildText checkbox_label <?php echo $value?>">
@@ -406,16 +445,16 @@ $current_year = date('Y');
 										</div>
 									</div>
 									<?php }?>
-									<?php if ($value == 'print') {?>
-									<div id="optionbox07" class="suboption_box disable upload_cakePic_wraper">
+									<?php //if ($value == 'print') {?>
+									<!--<div id="optionbox07" class="suboption_box disable upload_cakePic_wraper">
 										<div class="sub_form">
 											<ul class="inspired_images"></ul>
 											<span class="option_label"><?php _e( 'Upload pictures', 'woocommerce' ); ?></span>
 											<div class="image_loading"></div>
 											<input type="file" class="filestyle upload_cakePic validate[required]" name="upload_cakePic" id="custom_order_photocakepic">
 										</div>
-									</div>
-									<?php }?>
+									</div>-->
+									<?php //}?>
 									
 									<?php if ($value == 'candy') {?>
 									<div id="optionbox08" class="suboption_box disable">
@@ -438,7 +477,7 @@ $current_year = date('Y');
 					</li>
 					<li class="main-option">
 						<h4 class="heading-form display-table mb-3">
-							<span class="title-number display-table-cell">6</span>
+							<span class="title-number display-table-cell">7</span>
 							<span class="display-table-cell pl-2"><?php _e( 'Message Plate', 'woocommerce' ); ?></span>
 						</h4>
 						<ul class="cake-message text-radio list-type">
@@ -474,7 +513,7 @@ $current_year = date('Y');
 					</li>
 					<li class="main-option upload_cakePic_wraper">
 						<h4 class="heading-form display-table mb-3">
-							<span class="title-number display-table-cell">7</span>
+							<span class="title-number display-table-cell">8</span>
 							<span class="display-table-cell pl-2"><?php _e( 'Inspired Pics', 'woocommerce' ); ?></span>
 						</h4>
 						<ul id="inspired_images" class="inspired_images">
