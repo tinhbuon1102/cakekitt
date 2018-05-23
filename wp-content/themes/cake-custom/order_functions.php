@@ -227,7 +227,7 @@ function cake_steps_store(){
 	$cakePrices = get_option('cake_custom_price');
 	$cartTotal = 0;
 	$defaultPrice = 0;
-
+	$cake_shape_price = 0;
 	foreach ( $_SESSION['cake_custom_order'] as $step => $cakeStepData )
 	{
 		foreach ( $cakeStepData as $fieldName => $fieldValue )
@@ -269,7 +269,7 @@ function cake_steps_store(){
 						$cakePrice = !empty($cakePrice) ? $cakePrice['amount'] : 0;
 						$defaultPrice = $cakePrice;
 						$cartTotal += $cakePrice;
-						$cake_shape_price = $cakePrice;
+						$cake_shape_price += $cakePrice;
 						$cartHtml .= '
 							<h5 class="detail-row pt-1 pb-1" id="cart_' . $fieldName . '">
 								<span class="display-table-cell pr-2"><i class="iconkitt-kitt_icons_shape-'.$fieldValue.' size30 blk"></i></span>
@@ -335,6 +335,7 @@ function cake_steps_store(){
 						
 						// Add price to total
 						$cartTotal += $cakePrice;
+						$cake_shape_price += $cakePrice;
 						
 						$cartHtml .= '
 							<h5 class="detail-row pt-1 pb-1" id="cart_' . $fieldName . '">
