@@ -2180,4 +2180,13 @@ return $tabs;
 
 }
 
+add_filter('views_edit-shop_order', 'kitt_sort_status_views_edit_shop_order', 100, 1);
+function kitt_sort_status_views_edit_shop_order($views)
+{
+	$trash = $views['trash'];
+	unset($views['trash']);
+	$views['trash'] = $trash;
+	return $views;
+}
+
 ?>
