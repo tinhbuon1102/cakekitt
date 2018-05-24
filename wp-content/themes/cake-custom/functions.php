@@ -1179,6 +1179,7 @@ function woocommerce_valid_order_statuses_for_payment_custom_order ( $valid_orde
 		}
 	}
 	$valid_order_statuses[] = 'accepted';
+	$valid_order_statuses[] = 'on-hold';
 	return $valid_order_statuses;
 }
 add_filter( 'woocommerce_valid_order_statuses_for_payment', 'woocommerce_valid_order_statuses_for_payment_custom_order', 10, 3 );
