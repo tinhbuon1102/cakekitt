@@ -618,7 +618,7 @@ function cake_price_combination_callback() {
 }
 
 // Register Accept status for order
-add_action( 'init', 'register_my_new_order_statuses' );
+// add_action( 'init', 'register_my_new_order_statuses' );
 function register_my_new_order_statuses() {
 	register_post_status( 'wc-accepted', array(
 		'label'                     => _x( '注文受付承認', 'Order status', 'woocommerce' ),
@@ -630,7 +630,7 @@ function register_my_new_order_statuses() {
 	) );
 }
 
-add_filter( 'wc_order_statuses', 'my_new_wc_order_statuses' );
+// add_filter( 'wc_order_statuses', 'my_new_wc_order_statuses' );
 // Register in wc_order_statuses.
 function my_new_wc_order_statuses( $order_statuses ) {
 	$order_statuses['wc-accepted'] = _x( '注文受付承認', 'Order status', 'woocommerce' );
@@ -658,6 +658,13 @@ add_action('woocommerce_order_status_complete_to_accepted','order_send_invoice')
 add_action('woocommerce_order_status_failed_to_accepted','order_send_invoice');
 add_action('woocommerce_order_status_cancelled_to_accepted','order_send_invoice');
 add_action('woocommerce_order_status_refunded_to_accepted','order_send_invoice');
+
+add_action('woocommerce_order_status_pending_to_on-hold','order_send_invoice');
+add_action('woocommerce_order_status_processing_to_on-hold','order_send_invoice');
+add_action('woocommerce_order_status_complete_to_on-hold','order_send_invoice');
+add_action('woocommerce_order_status_failed_to_on-hold','order_send_invoice');
+add_action('woocommerce_order_status_cancelled_to_on-hold','order_send_invoice');
+add_action('woocommerce_order_status_refunded_to_on-hold','order_send_invoice');
 
 
 add_action( 'woocommerce_order_status_accepted_to_on-hold', 'send_email_on_hold' );
