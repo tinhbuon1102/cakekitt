@@ -9,7 +9,7 @@ define('KITT_CAKESIZE_ROUND_FOR_LAYER_1', 2);
 
 function add_files() {
 // サイト共通のCSSの読み込み
-wp_enqueue_style( 'overwrite', get_stylesheet_directory_uri() . '/overwrite.css', "", '20171218' );
+wp_enqueue_style( 'overwrite', get_stylesheet_directory_uri() . '/overwrite.css', "", '20180524' );
 }
 add_action( 'wp_enqueue_scripts', 'add_files', 1000 );
 // Include order function file
