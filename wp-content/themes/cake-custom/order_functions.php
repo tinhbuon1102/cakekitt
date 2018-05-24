@@ -1124,17 +1124,17 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 			'label' => __('Cake Info', 'cake'),
 			'groups' => array(
 				array(
-					'custom_order_cake_type' => array(
-						'class' => 'col-xs-3'
-					),
+// 					'custom_order_cake_type' => array(
+// 						'class' => 'col-xs-3'
+// 					),
 					'custom_order_cake_shape' => array(
-						'class' => 'col-xs-3'
+						'class' => 'col-xs-4'
 					),
 					'custom_order_cakeflavor' => array(
-						'class' => 'col-xs-3'
+						'class' => 'col-xs-4'
 					),
 					'custom_order_cakecolor' => array(
-						'class' => 'col-xs-3'
+						'class' => 'col-xs-4'
 					),
 				),
 				array(
