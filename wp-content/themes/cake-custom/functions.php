@@ -618,7 +618,7 @@ function cake_price_combination_callback() {
 }
 
 // Register Accept status for order
-// add_action( 'init', 'register_my_new_order_statuses' );
+add_action( 'init', 'register_my_new_order_statuses' );
 function register_my_new_order_statuses() {
 	register_post_status( 'wc-accepted', array(
 		'label'                     => _x( '注文受付承認', 'Order status', 'woocommerce' ),
@@ -630,7 +630,7 @@ function register_my_new_order_statuses() {
 	) );
 }
 
-// add_filter( 'wc_order_statuses', 'my_new_wc_order_statuses' );
+add_filter( 'wc_order_statuses', 'my_new_wc_order_statuses' );
 // Register in wc_order_statuses.
 function my_new_wc_order_statuses( $order_statuses ) {
 	$order_statuses['wc-accepted'] = _x( '注文受付承認', 'Order status', 'woocommerce' );
