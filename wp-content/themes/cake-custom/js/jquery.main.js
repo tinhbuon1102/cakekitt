@@ -162,7 +162,32 @@ $(function(){
     		// Dont load cart when click question input
     		if (!$(this).closest('.question-form').length)
     		{
-    			showItemInCart();
+    			var input_name = $(this).attr('name');
+    			var input = $(this).get(0)
+    			var aCartShowingItems = [
+    					//'custom_order_cake_type',
+    					'custom_order_cake_shape',
+    					'custom_order_layer',
+    					'custom_order_cakeflavor',
+    					'custom_order_cakecolor',
+    					'custom_order_printq',
+    					'custom_order_cake_decorate',
+    					'custom_order_msgplate'
+    				];
+    			$.each(aCartShowingItems, function(index, field_name){
+    				if (input_name.indexOf(field_name) != -1)
+    				{
+    	    				showItemInCart();
+    	    				
+    	    				if (input_name == 'custom_order_cake_shape')
+    	    				{
+    	    					// Get layer size 
+    	    	    				$('select[name="custom_order_layer"]').trigger('change');
+    	    				}
+    				}
+    			});
+    			
+    			
     		}
     	});
     	
@@ -223,7 +248,6 @@ $(function(){
     $('body').on('click', 'form#omOrder .submit_next', function(event, is_validate){
         	$('.formError.inline').remove()
         	$("form#omOrder").validationEngine({promptPosition: 'inline', addFailureCssClassToField: "inputError", bindMethod:"live"});
-        	
         	var currentStepActive = $('form#omOrder .step_wraper:visible').data('step');
         	var divCurrentStep = 'form#omOrder .step_wraper[data-step="'+ (currentStepActive) +'"]';
         	order_form_data = $(divCurrentStep + ' input:visible, '+ divCurrentStep +' select:visible, '+ divCurrentStep +' textarea:visible, '+ divCurrentStep +' input[type="hidden"]').serialize();
@@ -630,7 +654,12 @@ $(function(){
     		var layer = $(this).val();
     		$.ajax({
  	           url: gl_ajaxUrl,
- 	           data: {action: 'get_layer_cake_size', layer: layer, szSizeRound : $('select[name="custom_order_cakesize_round"]').val(), szSizeSquare : $('select[name="custom_order_cakesize_square"]').val()}, 
+ 	           data: {  
+ 	        	   	action: 'get_layer_cake_size', 
+ 	        	   	layer: layer, 
+ 	        	   	shape: $('input[name="custom_order_cake_shape"]:checked').val(),
+ 	        	   	szSizeRound : $('select[name="custom_order_cakesize_round"]').val(), 
+ 	        	   	szSizeSquare : $('select[name="custom_order_cakesize_square"]').val()}, 
  	           method: 'POST',
  	           dataType: 'json',
  	           success: function(response){

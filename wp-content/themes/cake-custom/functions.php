@@ -2197,4 +2197,26 @@ return $tabs;
 
 }
 
+add_action('wp', 'addPickUpdateTimeField');
+function addPickUpdateTimeField(){	
+	if ($_GET['update_pickup_date_time'])
+	{
+		$args = array(
+			'post_type' => 'shop_order',
+			'meta_query' => array(
+				array(
+					'key' => 'cake_custom_order',
+					'compare' => 'EXISTS',
+				)
+			)
+		);
+		$query = new WP_Query( $args );
+		foreach($query->posts as $post) {
+			$orderFormData = get_post_meta($post->ID, 'cake_custom_order', true);
+			$pickup_date = $orderFormData['custom_order_pickup_date'];
+			$pickup_time = $orderFormData['custom_order_pickup_time'];
+			update_post_meta($post->ID, 'custom_order_pickup_date_time', $pickup_date . ' ' . $pickup_time);
+		}
+	}
+}
 ?>

@@ -388,13 +388,16 @@ function cake_steps_store(){
 						foreach ( $fieldValue as $keyDecorate => $decorate )
 						{
 							$keyPrice = ('custom_order_cake_decorate__' . $decorate);
-							if ($decorate == 'fruit')
+							if ($decorate == 'fruit' && $cake_shape_price)
 							{
 								$cakePrice = $cake_shape_price * KITT_DECORATE_FRUIT_RATE;
 							}
 							else {
 								$cakePrice = $cakePrices[$keyPrice];
 								$cakePrice = !empty($cakePrice) ? $cakePrice['amount'] : 0;
+								
+								//@TODO Fixed price 
+								$cakePrice = 2000;
 							}
 								
 							$decorateQtyText = '';
@@ -666,9 +669,10 @@ add_action('wp_ajax_nopriv_get_layer_cake_size', 'get_layer_cake_size');
 add_action('wp_ajax_get_layer_cake_size', 'get_layer_cake_size');
 function get_layer_cake_size() {
 	$field_mappings = getCustomFormFieldMapping();
+	$szShape = $_POST['shape'];
 	$aSizeRound = $field_mappings['custom_order_cakesize_round']['value'];
 	$aSizeSquare = $field_mappings['custom_order_cakesize_square']['value'];
-	$iLayer = (int)$_POST['layer'];
+	$iLayer = $szShape == 'custom' ? -1 : (int)$_POST['layer'];
 	$szSizeRound = $_POST['szSizeRound'];
 	$szSizeSquare = $_POST['szSizeSquare'];
 	

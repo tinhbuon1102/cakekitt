@@ -154,9 +154,19 @@ class FOA_Woo_Filter_Orders_by_Product{
 	
 	public function filter_orders_by_payment_method_query( $vars ) {
 		global $typenow;
-		if ( 'shop_order' === $typenow && isset( $_GET['payment_filter'] ) ) {
+		if ( 'shop_order' === $typenow && isset( $_GET['payment_filter'] ) && $_GET['payment_filter'] ) {
 			$vars['meta_key']   = '_payment_method';
 			$vars['meta_value'] = wc_clean( $_GET['payment_filter'] );
+		}
+		
+		if ( 'shop_order' === $typenow && isset( $_GET['order_type_filter'] ) && $_GET['order_type_filter'] == KITT_CUSTOM_ORDER) {
+			$meta_query = array(
+				array(
+					'key' => 'custom_order_pickup_date',
+				)
+			);
+			$vars['meta_query'] = !$vars['meta_query'] ? $meta_query : array_merge($vars['meta_query'], $meta_query);
+			$vars['orderby'] = array( 'custom_order_pickup_date' => 'ASC');
 		}
 		return $vars;
 	}
