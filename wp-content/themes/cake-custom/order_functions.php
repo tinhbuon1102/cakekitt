@@ -168,6 +168,14 @@ function get_size_cake_shape_price() {
 			$html .= '<option value="'.$sizeKey.'">'.$sizeVal.'</option>';
 		}
 	}
+	elseif (in_array($shapeSelected, array('heart')))
+	{
+		// Heart
+		foreach ($fieldMapping['custom_order_cakesize_heart']['value'] as $sizeKey => $sizeVal)
+		{
+			$html .= '<option value="'.$sizeKey.'">'.$sizeVal.'</option>';
+		}
+	}
 	else {
 		// Square
 		foreach ($fieldMapping['custom_order_cakesize_square']['value'] as $sizeKey => $sizeVal)
@@ -256,11 +264,16 @@ function cake_steps_store(){
 						break;
 					case 'custom_order_cake_shape':
 						// Get shape size
-						$cakeSize = $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_round'] ? $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_round'] : $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_square'];
+						$cakeSize = $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_round'] ? $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_round'] : ($_SESSION['cake_custom_order'][$step]['custom_order_cakesize_square'] ? $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_square'] : $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_heart']);
 						if (in_array($fieldValue, getArrayRoundShape()))
 						{
 							// Round
 							$keyPrice = ('custom_order_cake_shape_custom_order_cakesize_round' . '__' . $fieldValue . '_' . $cakeSize);
+						}
+						elseif (in_array($fieldValue, array('heart')))
+						{
+							// Heart
+							$keyPrice = ('custom_order_cake_shape_custom_order_cakesize_heart' . '__' . $fieldValue . '_' . $cakeSize);
 						}
 						else {
 							// Square
@@ -285,7 +298,7 @@ function cake_steps_store(){
 						$cakePrice = $cakePrices[$keyPrice];
 						$cakePrice = !empty($cakePrice) ? $cakePrice['amount'] : 0;
 						
-						$cakeSize = $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_round'] ? $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_round'] : $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_square'];
+						$cakeSize = $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_round'] ? $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_round'] : ($_SESSION['cake_custom_order'][$step]['custom_order_cakesize_square'] ? $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_square'] : $_SESSION['cake_custom_order'][$step]['custom_order_cakesize_heart']);
 						
 						// Get layer cake size
 						if ($fieldValue <= KITT_MAX_LAYER_ESTIMATION)
@@ -295,6 +308,11 @@ function cake_steps_store(){
 							{
 								// Round
 								$aCakeSize = array_keys($fieldMapping['custom_order_cakesize_round']['value']);
+							}
+							elseif (in_array($szCakeShape, array('heart')))
+							{
+								// Heart
+								$aCakeSize = array_keys($fieldMapping['custom_order_cakesize_heart']['value']);
 							}
 							else {
 								// Square
@@ -316,6 +334,11 @@ function cake_steps_store(){
 								{
 									// Round
 									$keyPriceSize = ('custom_order_cake_shape_custom_order_cakesize_round' . '__' . $szCakeShape . '_' . $szLayerSize);
+								}
+								elseif (in_array($szCakeShape, array('heart')))
+								{
+									// Heart
+									$keyPriceSize = ('custom_order_cake_shape_custom_order_cakesize_heart' . '__' . $szCakeShape . '_' . $szLayerSize);
 								}
 								else {
 									// Square
@@ -446,8 +469,8 @@ function cake_steps_store(){
 	
 	$aData = getFormData();
 	$szCakeShape = $aData['custom_order_cake_shape'];
-	$cakeSize = isset($aData['custom_order_cakesize_round']) ? $aData['custom_order_cakesize_round'] : $aData['custom_order_cakesize_square'];
-	$lastCakeSize = isset($aData['custom_order_cakesize_round']) ? end($fieldMapping['custom_order_cakesize_round']['value']) : end($fieldMapping['custom_order_cakesize_square']['value']);
+	$cakeSize = isset($aData['custom_order_cakesize_round']) ? $aData['custom_order_cakesize_round'] : ($aData['custom_order_cakesize_square'] ? $aData['custom_order_cakesize_square'] : $aData['custom_order_cakesize_heart']);
+	$lastCakeSize = isset($aData['custom_order_cakesize_round']) ? end($fieldMapping['custom_order_cakesize_round']['value']) : (isset($aData['custom_order_cakesize_square']) ? end($fieldMapping['custom_order_cakesize_square']['value']) : end($fieldMapping['custom_order_cakesize_heart']['value']));
 	
 	$noticeMessage = $cartTotal > 0 ? __('Cake price is not inluding the esitmation because of special size', 'cake') : __('We can’t calculate the esitmation  because of special size', 'cake');
 	if ($cakeSize == $lastCakeSize)
@@ -672,27 +695,32 @@ function get_layer_cake_size() {
 	$szShape = $_POST['shape'];
 	$aSizeRound = $field_mappings['custom_order_cakesize_round']['value'];
 	$aSizeSquare = $field_mappings['custom_order_cakesize_square']['value'];
+	$aSizeHeart = $field_mappings['custom_order_cakesize_heart']['value'];
 	$iLayer = $szShape == 'custom' ? -1 : (int)$_POST['layer'];
 	$szSizeRound = $_POST['szSizeRound'];
 	$szSizeSquare = $_POST['szSizeSquare'];
+	$szSizeHeart = $_POST['szSizeHeart'];
 	
 	switch($iLayer)
 	{
 		case 1:
 			// Hide first option of round/square size
 			$aSizeRound = array_slice( $aSizeRound, KITT_CAKESIZE_ROUND_FOR_LAYER_1, count($aSizeRound), TRUE );
-			$aSizeSquare = array_slice( $aSizeSquare, 1, count($aSizeRound), TRUE );
+			$aSizeSquare = array_slice( $aSizeSquare, 1, count($aSizeSquare), TRUE );
+// 			$aSizeHeart = array_slice( $aSizeHeart, 1, count($aSizeRound), TRUE );
 			break;
 		case 2:
 		case KITT_MAX_LAYER_ESTIMATION:
 			// Hide first option of round/square size
 			$aSizeRound = array_slice( $aSizeRound, 2, count($aSizeRound), TRUE );
-			$aSizeSquare = array_slice( $aSizeSquare, 2, count($aSizeRound), TRUE );
+			$aSizeSquare = array_slice( $aSizeSquare, 2, count($aSizeSquare), TRUE );
+// 			$aSizeHeart = array_slice( $aSizeHeart, 2, count($aSizeRound), TRUE );
 			break;
 		default:
 			// Hide all options except last option round/square
 			$aSizeRound = array_slice( $aSizeRound, -1, 1, TRUE );
 			$aSizeSquare = array_slice( $aSizeSquare, -1, 1, TRUE );
+			$aSizeHeart = array_slice( $aSizeHeart, -1, 1, TRUE );
 			break;
 	}
 	
@@ -700,9 +728,10 @@ function get_layer_cake_size() {
 	{
 		$aSizeRound = array('' => __('Select Size', 'cake')) + $aSizeRound;
 		$aSizeSquare = array('' => __('Select Size', 'cake')) + $aSizeSquare;
+		$aSizeHeart = array('' => __('Select Size', 'cake')) + $aSizeHeart;
 	}
 	
-	$square_option = $round_option = '';
+	$square_option = $round_option = $heart_option = '';
 	foreach ($aSizeRound as $szSizeVal => $szSizeLabel)
 	{
 		$round_option .= '<option value="'.$szSizeVal.'"' .($szSizeRound == $szSizeVal  ? 'selected' : ''). '>' . 
@@ -716,7 +745,18 @@ function get_layer_cake_size() {
 							$szSizeLabel .
 						'</option>';
 	}
-	$response = array('custom_order_cakesize_round' => $round_option, 'custom_order_cakesize_square' => $square_option);
+	
+	foreach ($aSizeHeart as $szSizeVal => $szSizeLabel)
+	{
+		$heart_option .= '<option value="'.$szSizeVal.'"' .($szSizeHeart == $szSizeVal  ? 'selected' : ''). '>' .
+				$szSizeLabel .
+				'</option>';
+	}
+	
+	$response = array('custom_order_cakesize_round' => $round_option, 
+		'custom_order_cakesize_square' => $square_option,
+		'custom_order_cakesize_heart' => $heart_option
+	);
 	echo json_encode($response);die;
 }
 
@@ -985,7 +1025,7 @@ function getCakesizeGroup(){
 			'custom_order_cakesize_square'	
 		),
 		'heart' => array(
-			'custom_order_cakesize_square'	
+			'custom_order_cakesize_heart'	
 		),
 		'star' => array(
 			'custom_order_cakesize_square'	
@@ -1004,6 +1044,14 @@ function getCakeSizeOption($shapeSelected, $aData){
 		foreach ($fieldMapping['custom_order_cakesize_round']['value'] as $sizeKey => $sizeVal)
 		{
 			if ($sizeVal == $aData['custom_order_cakesize_round'])
+				return $sizeVal;
+		}
+	}
+	else if (in_array($shapeSelected, array('heart')))
+	{
+		foreach ($fieldMapping['custom_order_cakesize_heart']['value'] as $sizeKey => $sizeVal)
+		{
+			if ($sizeVal == $aData['custom_order_cakesize_heart'])
 				return $sizeVal;
 		}
 	}
@@ -1229,8 +1277,8 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 	
 	// Show estimation notice - BEGIN
 	$szCakeShape = $aData['custom_order_cake_shape'];
-	$cakeSize = isset($aData['custom_order_cakesize_round']) ? $aData['custom_order_cakesize_round'] : $aData['custom_order_cakesize_square'];
-	$lastCakeSize = isset($aData['custom_order_cakesize_round']) ? end($fieldMapping['custom_order_cakesize_round']['value']) : end($fieldMapping['custom_order_cakesize_square']['value']);
+	$cakeSize = isset($aData['custom_order_cakesize_round']) ? $aData['custom_order_cakesize_round'] : ($aData['custom_order_cakesize_square'] ? $aData['custom_order_cakesize_square'] : $aData['custom_order_cakesize_heart']);
+	$lastCakeSize = isset($aData['custom_order_cakesize_round']) ? end($fieldMapping['custom_order_cakesize_round']['value']) : (isset($aData['custom_order_cakesize_square']) ? end($fieldMapping['custom_order_cakesize_square']['value']) : end($fieldMapping['custom_order_cakesize_heart']['value']));
 	
 	if ($cakeSize == $lastCakeSize)
 	{

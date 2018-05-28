@@ -168,6 +168,9 @@ $(function(){
     					//'custom_order_cake_type',
     					'custom_order_cake_shape',
     					'custom_order_layer',
+    					'custom_order_cakesize_square',
+    					'custom_order_cakesize_heart',
+    					'custom_order_cakesize_round',
     					'custom_order_cakeflavor',
     					'custom_order_cakecolor',
     					'custom_order_printq',
@@ -198,14 +201,30 @@ $(function(){
     			{
     				$('select[name="custom_order_cakesize_round"]').removeClass('disable');
     				$('select[name="custom_order_cakesize_square"]').addClass('disable');
+    				$('select[name="custom_order_cakesize_heart"]').addClass('disable');
+    				
     				$('select[name="custom_order_cakesize_round"]').addClass("validate[required]");
+    				$('select[name="custom_order_cakesize_square"]').removeClass("validate[required]");
+    				$('select[name="custom_order_cakesize_heart"]').removeClass("validate[required]");
+    			}
+    			else if (['heart'].indexOf($(this).val()) != -1)
+    			{
+    				$('select[name="custom_order_cakesize_heart"]').removeClass('disable');
+    				$('select[name="custom_order_cakesize_round"]').addClass('disable');
+    				$('select[name="custom_order_cakesize_square"]').addClass('disable');
+    				
+    				$('select[name="custom_order_cakesize_heart"]').addClass("validate[required]");
+    				$('select[name="custom_order_cakesize_round"]').removeClass("validate[required]");
     				$('select[name="custom_order_cakesize_square"]').removeClass("validate[required]");
     			}
     			else {
-    				$('select[name="custom_order_cakesize_round"]').addClass('disable');
     				$('select[name="custom_order_cakesize_square"]').removeClass('disable');
-    				$('select[name="custom_order_cakesize_round"]').removeClass("validate[required]");
+    				$('select[name="custom_order_cakesize_round"]').addClass('disable');
+    				$('select[name="custom_order_cakesize_heart"]').addClass('disable');
+    				
     				$('select[name="custom_order_cakesize_square"]').addClass("validate[required]");
+    				$('select[name="custom_order_cakesize_round"]').removeClass("validate[required]");
+    				$('select[name="custom_order_cakesize_heart"]').removeClass("validate[required]");
     			}
     		}
     	});
@@ -659,25 +678,25 @@ $(function(){
  	        	   	layer: layer, 
  	        	   	shape: $('input[name="custom_order_cake_shape"]:checked').val(),
  	        	   	szSizeRound : $('select[name="custom_order_cakesize_round"]').val(), 
+ 	        	   	szSizeHeart : $('select[name="custom_order_cakesize_heart"]').val(), 
  	        	   	szSizeSquare : $('select[name="custom_order_cakesize_square"]').val()}, 
  	           method: 'POST',
  	           dataType: 'json',
  	           success: function(response){
- 	        	   if (response.custom_order_cakesize_round)
- 	        		{
- 	        		   $('select[name="custom_order_cakesize_round"]').html(response.custom_order_cakesize_round);
- 	        		}
- 	        	   if (response.custom_order_cakesize_square)
-	        		{
-	        		   $('select[name="custom_order_cakesize_square"]').html(response.custom_order_cakesize_square);
-	        		}
- 	        	   
- 	        	   // trigger size change to get cart
- 	        	   if ($('select[name="custom_order_cakesize_round"]').is(':visible'))
- 	        		  $('select[name="custom_order_cakesize_round"]').trigger('change');
- 	        	   else
- 	        		  $('select[name="custom_order_cakesize_square"]').trigger('change');
- 	        	   
+	 	        	   if (response.custom_order_cakesize_round)
+	 	        		{
+	 	        		   $('select[name="custom_order_cakesize_round"]').html(response.custom_order_cakesize_round);
+	 	        		}
+	 	        	  if (response.custom_order_cakesize_heart)
+		        		{
+		        		   $('select[name="custom_order_cakesize_heart"]').html(response.custom_order_cakesize_heart);
+		        		}
+	 	        	   if (response.custom_order_cakesize_square)
+		        		{
+		        		   $('select[name="custom_order_cakesize_square"]').html(response.custom_order_cakesize_square);
+		        		}
+	 	        	   
+	 	        	   
  	           },
  	           error: function(response){
  	        	   $('body').LoadingOverlay("hide");

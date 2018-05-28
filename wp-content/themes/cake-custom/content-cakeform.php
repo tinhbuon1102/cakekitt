@@ -246,6 +246,20 @@ $current_year = date('Y');
 									</option>
 								<?php }?>
 							</select>
+							
+							<select name="custom_order_cakesize_heart" class="form-control select select-primary disable" data-toggle="select">
+								<option value=""><?php echo __('Select Size', 'cake')?></option>
+								<!--for heart shape-->
+								<?php 
+								$index = 0;
+								foreach ($field_mappings['custom_order_cakesize_heart']['value'] as $value => $label) {
+									$index ++;
+								?>
+									<option value="<?php echo $value?>" <?php echo $field_mappings['custom_order_cakesize_heart']['field']['default_value'] == $value  ? 'selected' : ''; ?>>
+										<?php echo $label?>
+									</option>
+								<?php }?>
+							</select>
 						</div>
 						
 					</li>

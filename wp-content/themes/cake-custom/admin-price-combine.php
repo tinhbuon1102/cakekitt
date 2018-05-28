@@ -20,9 +20,16 @@ function storePriceSubmit ()
 		if (in_array($_POST['price']['type']['custom_order_cake_shape'], getArrayRoundShape()))
 		{
 			unset($_POST['price']['type']['custom_order_cakesize_square']);
+			unset($_POST['price']['type']['custom_order_cakesize_heart']);
+		}
+		elseif (in_array($_POST['price']['type']['custom_order_cake_shape'], array('heart')))
+		{
+			unset($_POST['price']['type']['custom_order_cakesize_square']);
+			unset($_POST['price']['type']['custom_order_cakesize_round']);
 		}
 		else {
 			unset($_POST['price']['type']['custom_order_cakesize_round']);
+			unset($_POST['price']['type']['custom_order_cakesize_heart']);
 		}
 		
 		$myKey .= implode('_', array_keys($_POST['price']['type'])) .'__'. implode('_', $_POST['price']['type']);
@@ -92,7 +99,7 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 	margin-right: 20px;
 }
 
-#acf-field-price-type_custom_order_cakesize_square, #acf-field-price-type_custom_order_cakesize_round {
+#acf-field-price-type_custom_order_cakesize_square, #acf-field-price-type_custom_order_cakesize_round, , #acf-field-price-type_custom_order_cakesize_heart{
 	display: none;
 }
 </style>
@@ -133,6 +140,16 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 				$args = array(
 					'type' => 'select',
 					'name' => 'price[type][custom_order_cakesize_round]',
+					'class' => 'validate[required]',
+					'choices' => array('' => __('Select Size'))
+				);
+				
+				kitt_acf_render_field_wrap( $args);
+				
+				// create field
+				$args = array(
+					'type' => 'select',
+					'name' => 'price[type][custom_order_cakesize_heart]',
 					'class' => 'validate[required]',
 					'choices' => array('' => __('Select Size'))
 				);
@@ -342,6 +359,7 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
 			
 			$('#acf-field-price-type_custom_order_cakesize_square').fadeOut();
 			$('#acf-field-price-type_custom_order_cakesize_round').fadeOut();
+			$('#acf-field-price-type_custom_order_cakesize_heart').fadeOut();
 			
 			var shapeElement = $(this);
 			var formData = $(this).closest('form').serialize();
@@ -356,18 +374,33 @@ $cakePrices = is_array($cakePrices) ? $cakePrices : array();
         			if (roundGroup.indexOf(shapeElement.val()) != -1)
         			{
         				$('#acf-field-price-type_custom_order_cakesize_square').attr('disabled', true);
+        				$('#acf-field-price-type_custom_order_cakesize_heart').attr('disabled', true);
+        				
         				$('#acf-field-price-type_custom_order_cakesize_round').attr('disabled', false);
         				$('#acf-field-price-type_custom_order_cakesize_round').fadeIn();
+
+        			}
+        			else if (['heart'].indexOf(shapeElement.val()) != -1)
+        			{
+        				$('#acf-field-price-type_custom_order_cakesize_square').attr('disabled', true);
+        				$('#acf-field-price-type_custom_order_cakesize_round').attr('disabled', true);
+        				
+        				$('#acf-field-price-type_custom_order_cakesize_heart').attr('disabled', false);
+        				$('#acf-field-price-type_custom_order_cakesize_heart').fadeIn();
+
         			}
         			else {
-        				$('#acf-field-price-type_custom_order_cakesize_square').attr('disabled', false);
         				$('#acf-field-price-type_custom_order_cakesize_round').attr('disabled', true);
+        				$('#acf-field-price-type_custom_order_cakesize_heart').attr('disabled', true);
+        				
+        				$('#acf-field-price-type_custom_order_cakesize_square').attr('disabled', false);
         				$('#acf-field-price-type_custom_order_cakesize_square').fadeIn();
         			}
 
                     
                 	$('#acf-field-price-type_custom_order_cakesize_square').html(response);
                 	$('#acf-field-price-type_custom_order_cakesize_round').html(response);
+                	$('#acf-field-price-type_custom_order_cakesize_heart').html(response);
                 }
             });
 			

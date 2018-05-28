@@ -454,6 +454,9 @@ function get_galposts_details(){
 		if (in_array($cakeShape, getArrayRoundShape())){
 			$response['size'] = get_field('custom_order_cakesize_round', $post_id);
 		}
+		elseif (in_array($cakeShape, array('heart'))){
+			$response['size'] = get_field('custom_order_cakesize_heart', $post_id);
+		}
 		else {
 			$response['size'] = get_field('custom_order_cakesize_square', $post_id);
 		}
@@ -853,11 +856,15 @@ function custom_meta_order_detail_box_markup($post)
 				{
 					$showBlock = 'custom_order_cakesize_round';
 				}
+				elseif (in_array($orderFormData['custom_order_cake_shape'], array('heart')))
+				{
+					$showBlock = 'custom_order_cakesize_heart';
+				}
 				else {
 					$showBlock = 'custom_order_cakesize_square';
 				}
 				
-				$class = ($showBlock != $fieldName && in_array($fieldName, array('custom_order_cakesize_round', 'custom_order_cakesize_square'))) ? 'disable' : '';
+				$class = ($showBlock != $fieldName && in_array($fieldName, array('custom_order_cakesize_round', 'custom_order_cakesize_square', 'custom_order_cakesize_heart'))) ? 'disable' : '';
 				
 				if (isset($aDecorations[$fieldName]) && isset($aDecorations[$fieldName]['label']))
 				{
