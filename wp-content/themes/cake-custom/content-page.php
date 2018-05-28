@@ -19,7 +19,7 @@
 					<p>Full custom order</p>
 					<span class="price_label">¥8,000~</span>
 					<span class="desc jp">あなたのお好きなデザインのケーキをご注文いただけます。</span>
-					<a href="#" class="minimal_link">注文する</a>
+					<a href="<?php echo esc_url( home_url( '/' ) ); ?>order-made-form/" class="round_link">注文する</a>
 				</figcaption>
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>order-made-form/" class="card_link"></a>
 				<img src="<?php echo get_stylesheet_directory_uri(); ?>/images/order_cake01.jpg" />
@@ -32,7 +32,7 @@
 					<p>Menu order</p>
 					<span class="price_label">¥4,500~</span>
 					<span class="desc jp">Kittオリジナルのケーキメニューをご注文いただけます。</span>
-					<a href="#" class="minimal_link">注文する</a>
+					<a href="<?php echo esc_url( home_url( '/' ) ); ?>menu/" class="round_link">注文する</a>
 				</figcaption>
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>menu/" class="card_link"></a>
 				<img src="<?php echo get_stylesheet_directory_uri(); ?>/images/order_cake02.jpg" />

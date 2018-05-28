@@ -318,7 +318,7 @@ function icheck_scripts ()
 	wp_enqueue_script('jquery-form');
 	wp_enqueue_script('autoheight_js', get_stylesheet_directory_uri() . '/js/jQueryAutoHeight.js', array());
 	wp_enqueue_style('cake_child_css', get_stylesheet_directory_uri() . '/css/fancybox.css');
-	wp_enqueue_script('custom_js', get_stylesheet_directory_uri() . '/js/custom.js', array(), '20180528');
+	wp_enqueue_script('custom_js', get_stylesheet_directory_uri() . '/js/custom.js', array(), '20180529');
 	
 	// Localize the script with new data
 	$phpvalues = array(

@@ -7,7 +7,7 @@
 .banner-parallax .carousel,
 .banner-parallax .carousel-inner,
 .banner-parallax .item{height:100%;}
-.banner-parallax .parallax-image{height:100%;background-position:top center;background-repeat:no-repeat;background-attachment:fixed;background-size:cover;}
+.banner-parallax .parallax-image{height:100%;background-position:top center;background-repeat:no-repeat;background-size:cover;}
 .parallax-text{position:absolute;top:0;left:0;width:100%;height:100%;}
 .parallax-text h2,
 .parallax-text h3,
