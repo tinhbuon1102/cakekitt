@@ -1679,7 +1679,8 @@ function kitt_modify_shipping_date_order_column( $value, $id, $column ) {
 	if ( $column->get_option('field') == $fieldName ) {
 		if (get_field('custom_order_pickup_date'))
 		{
-			$value = date('Y/m/d', strtotime(get_field($fieldName))) . '<br />' . get_field('custom_order_pickup_time') . ':00';
+			$pickup_time = str_replace('.5', ':30', get_field('custom_order_pickup_time'));
+			$value = date('Y/m/d', strtotime(get_field($fieldName))) . '<br />' . $pickup_time . ':00';
 		}
 		else {
 			$orderFormData = get_post_meta($id, 'cake_custom_order', true);
@@ -1688,6 +1689,7 @@ function kitt_modify_shipping_date_order_column( $value, $id, $column ) {
 			
 			if ($defaultValueDate)
 			{
+				$defaultValueTime = str_replace('.5', ':30', $defaultValueTime);
 				$value = date('Y/m/d', strtotime($defaultValueDate)) . '<br />' . $defaultValueTime . ':00';
 			}
 		}

@@ -154,21 +154,45 @@ class FOA_Woo_Filter_Orders_by_Product{
 	
 	public function filter_orders_by_payment_method_query( $vars ) {
 		global $typenow;
-		if ( 'shop_order' === $typenow && isset( $_GET['payment_filter'] ) && $_GET['payment_filter'] ) {
+		if ( 'shop_order' === $typenow && isset( $_GET['payment_filter'] ) ) {
 			$vars['meta_key']   = '_payment_method';
 			$vars['meta_value'] = wc_clean( $_GET['payment_filter'] );
 		}
 		
-		if ( 'shop_order' === $typenow && isset( $_GET['order_type_filter'] ) && $_GET['order_type_filter'] == KITT_CUSTOM_ORDER) {
+		if ( 'shop_order' === $typenow) {
 			$meta_query = array(
 				array(
-					'key' => 'custom_order_pickup_date',
-				)
+					'key' => 'custom_order_pickup_date_time',
+					'compare'   => 'EXISTS',
+				),
 			);
 			$vars['meta_query'] = !$vars['meta_query'] ? $meta_query : array_merge($vars['meta_query'], $meta_query);
-			$vars['orderby'] = array( 'custom_order_pickup_date' => 'ASC');
 		}
 		return $vars;
+	}
+	
+	public function kitt_posts_orderby_pickup_date_time( $orderby, &$query )
+	{
+		global $wpdb, $typenow;
+		if ($typenow == 'shop_order' && $query->query['post_type'] == 'shop_order')
+		{
+			$old_orderby = $orderby;
+			$orderby = "(case when TIMEDIFF(wp_postmeta.meta_value, NOW())  < 0 then 1 else 0 end), abs(TIMEDIFF(wp_postmeta.meta_value, NOW()) ) ASC";
+			$orderby = $old_orderby ? $orderby . ', ' . $old_orderby : $orderby;
+		}
+		return $orderby;
+	}
+	
+	
+	function kitt_posts_request_orderby_pickup_date_time ($request, $query)
+	{
+		global $wpdb, $typenow;
+		if ($typenow == 'shop_order' && $query->query['post_type'] == 'shop_order')
+		{
+			pr($request);die;
+		}
+	
+		return $request;
 	}
 	
 	// scripts_and_styles
@@ -177,5 +201,8 @@ class FOA_Woo_Filter_Orders_by_Product{
 		wp_enqueue_style( 'foa-fuzzy-styles', plugin_dir_url( __FILE__ ).'style.css' );
 	}
 }
+
+add_filter('posts_orderby_request', array('FOA_Woo_Filter_Orders_by_Product', 'kitt_posts_orderby_pickup_date_time'), 10, 2);
+// add_filter( 'posts_request', array('FOA_Woo_Filter_Orders_by_Product', 'kitt_posts_request_orderby_pickup_date_time'), 10 ,2 );
 
 FOA_Woo_Filter_Orders_by_Product::instance();
