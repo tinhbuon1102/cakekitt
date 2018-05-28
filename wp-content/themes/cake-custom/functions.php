@@ -2237,6 +2237,7 @@ function addPickUpdateTimeField(){
 			{
 				$pickup_date = $orderFormData['custom_order_pickup_date'];
 				$pickup_time = str_replace('.5', ':30', $orderFormData['custom_order_pickup_time']);
+				$pickup_time = str_replace('24', '23', $pickup_time);
 			}
 			update_post_meta($post->ID, 'custom_order_pickup_date_time', isset($pickup_date) ? $pickup_date . ' ' . $pickup_time : '');
 		}

@@ -177,7 +177,7 @@ class FOA_Woo_Filter_Orders_by_Product{
 		if ($typenow == 'shop_order' && $query->query['post_type'] == 'shop_order')
 		{
 			$old_orderby = $orderby;
-			$orderby = "(case when DATEDIFF(wp_postmeta.meta_value, NOW())  < 0 then 1 else 0 end), abs(DATEDIFF(wp_postmeta.meta_value, NOW()) ) ASC";
+			$orderby = "case when DATEDIFF(wp_postmeta.meta_value, NOW())  < 0 then 1 else 0 end ASC, DATEDIFF(wp_postmeta.meta_value, NOW())  ASC";
 			$orderby = $old_orderby ? $orderby . ', ' . $old_orderby : $orderby;
 		}
 		return $orderby;
