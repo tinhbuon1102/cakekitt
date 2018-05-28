@@ -1061,6 +1061,7 @@ function save_custom_order_detail_meta_box ( $post_id, $post, $update )
 		}
 		// Save custom order 
 		update_post_meta($post_id, "cake_custom_order", $updatedCustomOrder);
+		update_post_meta($post_id, 'custom_order_pickup_date_time', $updatedCustomOrder['custom_order_pickup_date'] . ' ' . str_replace('.5', ':30', $updatedCustomOrder['custom_order_pickup_time']));
 		
 		// Calculate automatically shipping, taxes
 		$order_item_ids = array_keys($shipping_methods);
@@ -1835,6 +1836,7 @@ function kitt_custom_checkout_field_update_order_meta( $order_id )
 		unset($_POST['cake_custom_order']['custom_order_customer_sex']);
 		
 		update_post_meta($order_id, 'cake_custom_order', $_POST['cake_custom_order']);
+		update_post_meta($order_id, 'custom_order_pickup_date_time', $_POST['cake_custom_order']['custom_order_pickup_date'] . ' ' . str_replace('.5', ':30', $_POST['cake_custom_order']['custom_order_pickup_time']));
 	}
 }
 

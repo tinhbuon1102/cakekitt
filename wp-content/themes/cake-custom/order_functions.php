@@ -921,6 +921,7 @@ function submit_form_order(){
 			
 			// Update order detail to meta
 			update_post_meta($order->id, 'cake_custom_order', $aData);
+			update_post_meta($order->id, 'custom_order_pickup_date_time', $aData['custom_order_pickup_date'] . ' ' . str_replace('.5', ':30', $aData['custom_order_pickup_time']));
 	
 			$userID     = (int) get_current_user_id();
 			update_user_meta($userID, 'first_name', get_user_meta($userID, 'first_name', true) ? get_user_meta($userID, 'first_name', true) : $aData['custom_order_customer_name_first']);
