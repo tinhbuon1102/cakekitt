@@ -1,9 +1,9 @@
 === Instagram Feed ===
-Contributors: smashballoon
+Contributors: smashballoon, craig-at-smash-balloon
 Tags: Instagram, Instagram feed, Instagram photos, Instagram widget, Instagram gallery
 Requires at least: 3.0
-Tested up to: 4.8
-Stable tag: 1.4.9
+Tested up to: 4.9
+Stable tag: 1.8.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,6 @@ Display beautifully clean, customizable, and responsive feeds from multiple Inst
 Display Instagram photos from any non-private Instagram accounts, either in the same single feed or in multiple different ones.
 
 = Features =
-* **Compatible with the June 1st Instagram API changes**
 * Super **simple to set up**
 * Display photos from **multiple Instagram accounts** in the same feed or in separate feeds
 * Completely **responsive** and mobile ready - layout looks great on any screen size and in any container width
@@ -140,7 +139,7 @@ Yep. You can display multiple Instagram feeds by using our built-in shortcode op
 
 Yep. You can just separate the IDs by commas, either in the User ID(s) field on the plugin's Settings page, or directly in the shortcode like so: `[instagram-feed id="12986477,13460080"]`.
 
-= How do I find my Instagram Access Token and User ID =
+= How do I find my Instagram Access Token and Instagram User ID =
 
 We've made it super easy. Simply click on the big blue button on the Instagram Feed Settings page and log into your Instagram account. The plugin will then retrieve and display both your Access Token and User ID from Instagram.
 
@@ -311,6 +310,62 @@ We understand that sometimes you need help, have issues or just have questions. 
 * Plus more customization options added all the time!
 
 == Changelog ==
+= 1.8.3 =
+* Fix: SVG icons caused some display problems in IE 11
+* Fix: Removed support for using usernames in the User ID setting due to recent API changes. Will now default to the User ID attached to the Access Token.
+* Fix: Backup feed not always being used when Access Tokens expire
+* Fix: Access Tokens may have been incorrectly saved as invalid under certain circumstances
+
+= 1.8.2 =
+* Tweak: Setting "Cache Error API Recheck" enabled by default for new installs
+* Fix: Page caches created with the WP Rocket plugin will be cleared when the Instagram Feed settings are updated or the cache is forced to clear
+* Fix: Fixed a rare issue where feeds were displaying "Looking for cache that doesn't exist" when page caching was not being used
+
+= 1.8.1 =
+* Fix: Fixed issue where feeds were displaying "Looking for cache that doesn't exist" when page caching was not being used
+* Fix: Font method setting not working when "Are you using an ajax theme?" setting is enabled
+
+= 1.8 =
+* Important: Due to [recent changes](https://smashballoon.com/instagram-api-changes-april-4-2018/) in the Instagram API it is no longer possible to display photos from other Instagram accounts which are not your own. You can only display the user feed of the account which is associated with your Access Token.
+* New: Added an Access Token shortcode option and support for multiple Access Tokens. If you own multiple Instagram accounts then you can now use multiple Access Tokens in order to display user feeds from each account, either in separate feeds, or in the same feed. Just use the `accesstoken` shortcode option. See [this FAQ](https://smashballoon.com/display-multiple-instagram-feeds/#multiple-user-feeds) for more information on displaying multiple User feeds.
+
+= 1.7 =
+* New: Added feed caching to limit the number of API requests. Use the setting on the "Configure" tab "Check for new posts every" to set how long feed data will be cached before refreshing.
+* New: Added backup caching for all feeds. If the feed is unable to display then a backup feed will be shown to visitors if one is available. The backup cache can be disabled or cleared by using the following setting: `Customize > Misc > Enable Backup Caching`.
+* New: Icons are now generated as SVGs for a sharper look and more semantic markup
+* New: Carousel posts include an icon to indicate that they are carousel posts
+* Tweak: Using the "sort posts by random" feature will include the most recent 33 posts instead of just the posts shown in the feed
+* Fix: links back to instagram.com will use the "www" prefix
+
+= 1.6.2 =
+* Fix: Fixed a rare issue where the Load More button wouldn't be displayed after the last update if the Instagram account didn't have many posts
+
+= 1.6.1 =
+* Fix: Fixed Font Awesome 5.0 causing Instagram icon to appear as a question mark with a circle
+* Fix: Fixed inline padding style for sbi_images element causing validation error when set to "0" or blank space
+* Fix: Added a workaround for an Instagram API bug which caused some feeds to show fewer posts than expected
+
+= 1.6 =
+* New: Loading icon appears when waiting for new posts after clicking the "Load More..." button
+* New: Added translation files for Dutch (nl_NL)
+* Fix: Fixed a potential security vulnerability. Thanks to [Magnus Stubman](http://dumpco.re/) for reporting the issue.
+
+= 1.5.1 =
+* New: The plugin is now compatible with the [WPML plugin](https://wpml.org/) allowing you to use multiple translations for your feeds on your multi-language sites
+* New: Added translation files for Danish (da_DK), Finnish (fi_FL), Japanese (ja_JP), Norwegian (nn_NO), Portuguese (pt_PT), and Swedish (sv_SE) to translate the "Load More" and "Follow on Instagram" text
+
+= 1.5 =
+* New: Improved tool for retrieving Instagram Access Tokens
+* New: Added an option to show/hide Instagram bio text in feed header
+* New: Feeds that include IDs from "private" Instagram accounts will now ignore the private data and display a message to logged-in site admins which indicates that one of the Instagram accounts is private
+* New: Feeds without any Instagram posts yet will display a message informing logged-in admins to make a post on Instagram in order to view the feed
+* New: Added translation files for French (fr_FR), German (de_DE), English (en_EN), Spanish (es_ES), Italian (it_IT), and Russian (ru_RU) to translate "Load More..." and "Follow on Instagram"
+* Tweak: Optimized several images used in the Instagram feed including loader.png
+* Tweak: Font Awesome stylesheet handle has been renamed so it will only be loaded once if our Custom Facebook Feed plugin is also active
+* Fix: Updated the Font Awesome icon font to the latest version: 4.7.0
+* Fix: Padding removed from "Load More" button if no buttons are being used in the Instagram feed
+* Fix: All links in the feed are now https
+* Fix: Fixed JavaScript errors which were being caused if the Instagram Access Token had expired or the user ID was incorrect, private, or had no Instagram posts
 
 = 1.4.9 =
 * Compatible with WordPress 4.8

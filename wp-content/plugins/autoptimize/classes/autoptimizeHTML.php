@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 class autoptimizeHTML extends autoptimizeBase {
     private $keepcomments = false;
-    private $exclude = array('<!-- ngg_resource_manager_marker -->');
+    private $exclude = array('<!-- ngg_resource_manager_marker -->', '<!--noindex-->', '<!--/noindex-->');
     
     public function read($options) {
         // Remove the HTML comments?
@@ -66,11 +66,11 @@ class autoptimizeHTML extends autoptimizeBase {
                 }
             }
 
-			// revslider data attribs somehow suffer from HTML optimization, this fixes that
-            if ( class_exists('RevSlider') || apply_filters('autoptimize_filter_html_dataattrib_cleanup', false) ) {
-				$this->content = preg_replace('#\n(data-.*$)\n#Um',' $1 ', $this->content);
-				$this->content = preg_replace('#(=\"[^"]*\")(\w)#','$1 $2', $this->content);
-			}
+            // revslider data attribs somehow suffer from HTML optimization, this fixes that
+            if ( class_exists('RevSlider') && apply_filters('autoptimize_filter_html_dataattrib_cleanup', false) ) {
+                $this->content = preg_replace('#\n(data-.*$)\n#Um',' $1 ', $this->content);
+                $this->content = preg_replace('#<[^>]*(=\"[^"\'<>\s]*\")(\w)#','$1 $2', $this->content);
+            }
 
             return true;
         }

@@ -23,45 +23,37 @@ if ( !class_exists( 'YITH_WCBM' ) ) {
         /**
          * Single instance of the class
          *
-         * @var \YITH_WCBM
+         * @var YITH_WCBM
          * @since 1.0.0
          */
-        protected static $instance;
+        protected static $_instance;
 
         /**
-         * Plugin version
-         *
-         * @var string
-         * @since 1.0.0
+         * @var YITH_WCBM_Admin|YITH_WCBM_Admin_Premium
          */
-        public $version = YITH_WCBM_VERSION;
+        public $admin;
 
         /**
-         * Plugin object
-         *
-         * @var string
-         * @since 1.0.0
+         * @var YITH_WCBM_Frontend|YITH_WCBM_Frontend_Premium
          */
-        public $obj = null;
+        public $frontend;
 
         /**
          * Returns single instance of the class
          *
-         * @return \YITH_WCBM
+         * @return YITH_WCBM|YITH_WCBM_Premium
          * @since 1.0.0
          */
         public static function get_instance() {
-            if ( is_null( self::$instance ) ) {
-                self::$instance = new self();
-            }
+            $self = __CLASS__ . ( class_exists( __CLASS__ . '_Premium' ) ? '_Premium' : '' );
 
-            return self::$instance;
+            return !is_null( $self::$_instance ) ? $self::$_instance : $self::$_instance = new $self;
         }
 
         /**
          * Constructor
          *
-         * @return mixed| YITH_WCBM_Admin | YITH_WCBM_Frontend
+         * @return YITH_WCBM
          * @since 1.0.0
          */
         public function __construct() {
@@ -72,13 +64,13 @@ if ( !class_exists( 'YITH_WCBM' ) ) {
             YITH_WCBM_Post_Types::init();
 
             // Class admin
-            if ( is_admin() && ( ! isset( $_REQUEST['action'] ) || ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] != 'yith_load_product_quick_view' ) ) ) {
-                YITH_WCBM_Admin();
-            } // Class frontend
+            if ( is_admin() && ( !isset( $_REQUEST[ 'action' ] ) || ( isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] != 'yith_load_product_quick_view' ) ) ) {
+                $this->admin = YITH_WCBM_Admin();
+            }
 
             $is_ajax_request = defined( 'DOING_AJAX' ) && DOING_AJAX;
             if ( !is_admin() || $is_ajax_request ) {
-                YITH_WCBM_Frontend();
+                $this->frontend = YITH_WCBM_Frontend();
             }
         }
 
@@ -106,11 +98,9 @@ if ( !class_exists( 'YITH_WCBM' ) ) {
 /**
  * Unique access to instance of YITH_WCBM class
  *
- * @return \YITH_WCBM
+ * @return YITH_WCBM|YITH_WCBM_Premium
  * @since 1.0.0
  */
 function YITH_WCBM() {
     return YITH_WCBM::get_instance();
 }
-
-?>

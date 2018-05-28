@@ -31,12 +31,7 @@ class autoptimizeStyles extends autoptimizeBase {
             $this->whitelist = array_filter(array_map('trim',explode(",",$whitelistCSS)));
         }
         
-        if ($options['nogooglefont'] == true) {
-            $removableCSS = "fonts.googleapis.com";
-        } else {
-            $removableCSS = "";
-        }
-        $removableCSS = apply_filters( 'autoptimize_filter_css_removables', $removableCSS);
+        $removableCSS = apply_filters( 'autoptimize_filter_css_removables','' );
         if (!empty($removableCSS)) {
             $this->cssremovables = array_filter(array_map('trim',explode(",",$removableCSS)));
         }
@@ -269,7 +264,7 @@ class autoptimizeStyles extends autoptimizeBase {
             // remove comments to avoid importing commented-out imports
             $thiscss_nocomments = preg_replace('#/\*.*\*/#Us','',$thiscss);
 
-            while(preg_match_all('#@import.*(?:;|$)#Um',$thiscss_nocomments,$matches)) {
+            while(preg_match_all('#@import +(?:url)?(?:(?:\\(([\"\']?)(?:[^\"\')]+)\\1\\)|([\"\'])(?:[^\"\']+)\\2)(?:[^,;\"\']+(?:,[^,;\"\']+)*)?)(?:;)#m',$thiscss_nocomments,$matches)) {
                 foreach($matches[0] as $import)    {
                     if ($this->isremovable($import,$this->cssremovables)) {
                         $thiscss = str_replace($import,'',$thiscss);
@@ -327,6 +322,7 @@ class autoptimizeStyles extends autoptimizeBase {
         foreach($this->csscode as &$code) {
             // Check for already-minified code
             $hash = md5($code);
+            do_action( 'autoptimize_action_css_hash', $hash );
             $ccheck = new autoptimizeCache($hash,'css');
             if($ccheck->check()) {
                 $code = $ccheck->retrieve();
@@ -543,8 +539,13 @@ class autoptimizeStyles extends autoptimizeBase {
                 
                 //Add the stylesheet either deferred (import at bottom) or normal links in head
                 if($this->defer == true) {
-                    $preloadCssBlock .= '<link rel="preload" as="style" media="'.$media.'" href="'.$url.'" onload="this.rel=\'stylesheet\'" />';
+                    
+                    // Filter to modify the onload attribute - passes value and the stylesheet url
+                    $preloadOnLoad = apply_filters('autoptimize_filter_css_preload_onload', "this.onload=null;this.rel='stylesheet'", $url);
+                    
+                    $preloadCssBlock .= '<link rel="preload" as="style" media="'.$media.'" href="'.$url.'" onload="'.$preloadOnLoad.'" />';
                     $noScriptCssBlock .= '<link type="text/css" media="'.$media.'" href="'.$url.'" rel="stylesheet" />';
+                    
                 } else {
                     if (strlen($this->csscode[$media]) > $this->cssinlinesize) {
                         $this->inject_in_html('<link type="text/css" media="'.$media.'" href="'.$url.'" rel="stylesheet" />',$replaceTag);
@@ -555,13 +556,15 @@ class autoptimizeStyles extends autoptimizeBase {
             }
             
             if($this->defer == true) {
-                $preloadPolyfill = '<script data-cfasync=\'false\'>/*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
-!function(a){"use strict";var b=function(b,c,d){function e(a){return h.body?a():void setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
-/*! loadCSS rel=preload polyfill. [c]2017 Filament Group, Inc. MIT License */
-!function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(b){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);</script>';
+                $preloadPolyfill = '<script data-cfasync=\'false\'>!function(t){"use strict";t.loadCSS||(t.loadCSS=function(){});var e=loadCSS.relpreload={};if(e.support=function(){var e;try{e=t.document.createElement("link").relList.supports("preload")}catch(t){e=!1}return function(){return e}}(),e.bindMediaToggle=function(t){function e(){t.media=a}var a=t.media||"all";t.addEventListener?t.addEventListener("load",e):t.attachEvent&&t.attachEvent("onload",e),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(e,3e3)},e.poly=function(){if(!e.support())for(var a=t.document.getElementsByTagName("link"),n=0;n<a.length;n++){var o=a[n];"preload"!==o.rel||"style"!==o.getAttribute("as")||o.getAttribute("data-loadcss")||(o.setAttribute("data-loadcss",!0),e.bindMediaToggle(o))}},!e.support()){e.poly();var a=t.setInterval(e.poly,500);t.addEventListener?t.addEventListener("load",function(){e.poly(),t.clearInterval(a)}):t.attachEvent&&t.attachEvent("onload",function(){e.poly(),t.clearInterval(a)})}"undefined"!=typeof exports?exports.loadCSS=loadCSS:t.loadCSS=loadCSS}("undefined"!=typeof global?global:this);</script>';
                 $noScriptCssBlock .= "</noscript>";
                 $this->inject_in_html($preloadCssBlock.$noScriptCssBlock,$replaceTag);
-                $this->inject_in_html($preloadPolyfill,array('</body>','before'));
+                
+                // Adds preload polyfill at end of body tag
+                $this->inject_in_html(
+                    apply_filters('autoptimize_css_preload_polyfill', $preloadPolyfill),
+                    array('</body>','before')
+                );
             }
         }
 
@@ -571,7 +574,7 @@ class autoptimizeStyles extends autoptimizeBase {
     
     static function fixurls($file, $code) {
         // Switch all imports to the url() syntax
-        $code = preg_replace( '#@import ("|\')(.+?)\.css.*("|\')#', '@import url("${2}.css")', $code );
+        $code = preg_replace( '#@import ("|\')(.+?)\.css.*?("|\')#', '@import url("${2}.css")', $code );
 
         if ( preg_match_all( self::ASSETS_REGEX, $code, $matches ) ) {
             $file = str_replace( WP_ROOT_DIR, '/', $file );

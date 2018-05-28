@@ -167,7 +167,7 @@ if ( !function_exists( 'yith_wcbm_get_badge' ) ) {
             return '';
         }
 
-        $badge_container = '';
+        $badge_html = '';
 
         $bm_meta = get_post_meta( $id_badge, '_badge_meta', true );
         $default = array(
@@ -190,9 +190,9 @@ if ( !function_exists( 'yith_wcbm_get_badge' ) ) {
 
         ob_start();
         yith_wcbm_get_template( 'badge_content.php', $args );
-        $badge_container .= ob_get_clean();
+        $badge_html .= ob_get_clean();
 
-        return $badge_container;
+        return apply_filters( 'yith_wcbm_get_badge', $badge_html, $id_badge, $product_id );
 
     }
 }
@@ -276,22 +276,24 @@ if ( !function_exists( 'yith_wcbm_create_capabilities' ) ) {
 }
 
 if ( !function_exists( 'yith_wcbm_get_badges' ) ) {
-    function yith_wcbm_get_badges( $return = 'ids' ) {
-        $args = array(
+    function yith_wcbm_get_badges( $args = array() ) {
+        $default_args = array(
             'posts_per_page' => -1,
             'post_type'      => 'yith-wcbm-badge',
             'orderby'        => 'title',
             'order'          => 'ASC',
             'post_status'    => 'publish',
+            'fields'         => 'ids'
         );
 
-        if ( $return == 'ids' ) {
-            $args[ 'fields' ] = 'ids';
-        }
+        $args = wp_parse_args( $args, $default_args );
 
         return get_posts( $args );
     }
 }
 
-
-?>
+if ( !function_exists( 'yith_wcmb_is_wpml_parent_based_on_default_language' ) ) {
+    function yith_wcmb_is_wpml_parent_based_on_default_language() {
+        return apply_filters( 'yith_wcmb_is_wpml_parent_based_on_default_language', false );
+    }
+}

@@ -261,5 +261,29 @@ class DUPX_U
         return str_replace("/", "\\", $path);
     }
 
+	 /**
+     *  Sanitize input for XSS code
+     *
+     *  @param string $val		The value to sanitize
+     *
+     *  @return string Returns the input value cleaned up.
+     */
+    public static function sanitize($input)
+    {
+        return filter_var($input, FILTER_SANITIZE_STRING);
+    }
+
+     /**
+     *  Check PHP version
+     *
+     *  @param string $version		PHP version we looking for
+     *
+     *  @return boolean Returns true if version is same or above.
+     */
+    public static function isVersion($version)
+    {
+        return (version_compare(PHP_VERSION, $version) >= 0);
+    }
+
 }
 ?>

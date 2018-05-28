@@ -26,17 +26,13 @@ class WooCommerce_Product_Subtitle_Order_View_Page extends WooCommerce_Product_S
     }  
     
     public function hookup_area(){ 
-        
         $position = $this->get_position();
-        
         if($position == 'title'){
            $key = 'woocommerce_order_item_name'; 
         } else {
             $key = 'woocommerce_order_item_quantity_html';
         }
-		
 		$p = 10; 
-		
 		if(empty($position)){ return;}
         add_filter($key,array($this,'order_page_subtitle'),$p,3);
     } 

@@ -15,7 +15,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'save') {
 
     //Package
 	$mysqldump_enabled		= isset($_POST['package_dbmode']) && $_POST['package_dbmode'] == 'mysql' ? "1" : "0";
-	$mysqldump_exe_file		= isset($_POST['package_mysqldump_path']) ? trim(esc_sql(strip_tags($_POST['package_mysqldump_path']))) : null;
+	$mysqldump_exe_file		= isset($_POST['package_mysqldump_path']) 
+								? trim(DUP_DB::escSQL(strip_tags($_POST['package_mysqldump_path']), true))
+								: null;
 	$mysqldump_path_valid	= is_file($mysqldump_exe_file) ? true : false;
 	
 	DUP_Settings::Set('last_updated', date('Y-m-d-H-i-s'));
@@ -56,7 +58,7 @@ $mysqlDumpFound = ($mysqlDumpPath) ? true : false;
     <input type="hidden" name="page"   value="duplicator-settings">
 
     <?php if ($action_updated) : ?>
-        <div id="message" class="updated below-h2"><p><?php echo $action_response; ?></p></div>
+        <div id="message" class="notice notice-success is-dismissible dup-wpnotice-box"><p><?php echo $action_response; ?></p></div>
     <?php endif; ?>
 
     <h3 class="title"><?php _e("Visual", 'duplicator') ?> </h3>
@@ -89,12 +91,12 @@ $mysqlDumpFound = ($mysqlDumpPath) ? true : false;
 					</optgroup>
 				</select>
                 <p class="description">
-                    <?php _e("The date format shown in the 'Created' column on the Packages screen.", 'duplicator'); ?>
+                    <?php _e("The UTC date format shown in the 'Created' column on the Packages screen.", 'duplicator'); ?> <br/>
+					<small><?php _e("To use WordPress timezone formats consider an upgrade to Duplicator Pro.", 'duplicator'); ?></small>
                 </p>
             </td>
         </tr>
 		</table>
-		<br/>
 
 		<h3 class="title"><?php _e("Processing", 'duplicator') ?> </h3>
 		<hr size="1" />

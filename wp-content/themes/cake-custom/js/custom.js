@@ -304,6 +304,7 @@ if (jQuery(".ordercake-cart-sidebar-container2").length)
 	var divfixHeight = $('.round-icon-select #fixwh-inner .center-middle-fix').height();
 	$('.round-icon-select #fixwh-inner').css('height', divWidth + 'px');
 	$('.round-icon-select #fixwh-inner .center-middle-fix').css('margin-top', '-' + (divfixHeight / 2 + 10) + 'px');
+	$('.float_contact').css('top', (windowHeight - 60) + 'px');
 	});
 	
 	/* nav scroll*/

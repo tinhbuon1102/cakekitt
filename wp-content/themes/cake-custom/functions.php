@@ -9,9 +9,23 @@ define('KITT_CAKESIZE_ROUND_FOR_LAYER_1', 2);
 
 function add_files() {
 // サイト共通のCSSの読み込み
-wp_enqueue_style( 'overwrite', get_stylesheet_directory_uri() . '/overwrite.css', "", '20180524' );
+wp_enqueue_style( 'overwrite', get_stylesheet_directory_uri() . '/overwrite.css', "", '20180528' );
 }
 add_action( 'wp_enqueue_scripts', 'add_files', 1000 );
+
+function prefix_nav_description( $item_output, $item, $depth, $args ) {
+ if ( !empty( $item->description ) ) {
+ $item_output = str_replace( '">' . $args->link_before . $item->title, '">' . $args->link_before . '<span class="menu-item-title">' . $item->title . '</span>' . '<span class="menu-item-desc ja">' . $item->description . '</span>' , $item_output );
+ }
+ return $item_output;
+}
+add_filter( 'walker_nav_menu_start_el', 'prefix_nav_description', 10, 4 );
+
+add_shortcode('hurl', 'shortcode_hurl');
+function shortcode_hurl() {
+return home_url( '/' );
+}
+
 // Include order function file
 include 'order_functions.php';
 
@@ -304,7 +318,7 @@ function icheck_scripts ()
 	wp_enqueue_script('jquery-form');
 	wp_enqueue_script('autoheight_js', get_stylesheet_directory_uri() . '/js/jQueryAutoHeight.js', array());
 	wp_enqueue_style('cake_child_css', get_stylesheet_directory_uri() . '/css/fancybox.css');
-	wp_enqueue_script('custom_js', get_stylesheet_directory_uri() . '/js/custom.js', array());
+	wp_enqueue_script('custom_js', get_stylesheet_directory_uri() . '/js/custom.js', array(), '20180528');
 	
 	// Localize the script with new data
 	$phpvalues = array(

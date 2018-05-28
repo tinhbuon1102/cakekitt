@@ -270,11 +270,11 @@ table.table-four-colums {
     display : block;
 }
 
-#yith-wcbm-opacity {
+input.yith-wcbm-range-input[type=range] {
     float : left;
 }
 
-#output-opacity {
+.yith-wcbm-range-output {
     background-color : #eee;
     border           : 1px #ddd solid;
     border-radius    : 50%;
@@ -392,7 +392,7 @@ th.column-yith_wcbm_preview, td.column-yith_wcbm_preview {
 }
 
 td.column-yith_wcbm_preview {
-    height     : 60px;
+    height         : 60px;
     vertical-align : middle;
 }
 
@@ -401,4 +401,37 @@ td.column-yith_wcbm_preview {
     display  : inline-block;
     left     : 0;
     top      : 0;
+}
+
+#yith-wcbm-3d-rotation-table {
+    width : 100%;
+}
+
+#yith-wcbm-3d-rotation-table td {
+    text-align : center;
+}
+
+#yith-wcbm-3d-rotation-table .yith-wcbm-range-input[type=range] {
+    width  : calc(100% - 28px);
+    margin : 0;
+}
+
+span#yith-wcbm-rotation-mode-change {
+    font-size      : 10px;
+    text-transform : uppercase;
+    padding        : 7px 12px;
+    color          : #fff;
+    background     : #8aa9b3;
+    font-weight    : 800;
+    border-radius  : 3px;
+    cursor         : pointer;
+}
+
+span#yith-wcbm-rotation-mode-change:hover {
+    background : #60acc3;
+}
+
+#yith-wcbm-3d-rotation-table td:last-child,
+#yith-wcbm-3d-rotation-table th:last-child {
+    width : 80px
 }
