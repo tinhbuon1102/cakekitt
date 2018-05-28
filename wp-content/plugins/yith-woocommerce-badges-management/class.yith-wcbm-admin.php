@@ -11,8 +11,6 @@ if ( !defined( 'YITH_WCBM' ) ) {
     exit;
 } // Exit if accessed directly
 
-require_once( 'functions.yith-wcbm.php' );
-
 if ( !class_exists( 'YITH_WCBM_Admin' ) ) {
     /**
      * Admin class.
@@ -25,10 +23,10 @@ if ( !class_exists( 'YITH_WCBM_Admin' ) ) {
         /**
          * Single instance of the class
          *
-         * @var \YITH_WCQV_Admin
+         * @var YITH_WCBM_Admin
          * @since 1.0.0
          */
-        protected static $instance;
+        protected static $_instance;
 
         /**
          * Plugin options
@@ -69,23 +67,21 @@ if ( !class_exists( 'YITH_WCBM_Admin' ) ) {
          * @access public
          * @since  1.0.0
          */
-        public $doc_url    = 'http://yithemes.com/docs-plugins/yith-woocommerce-badges-management/';
-        public $demo_url   = 'http://plugins.yithemes.com/yith-woocommerce-badge-management';
-        public $yith_url   = 'http://www.yithemes.com';
+        public $doc_url    = 'https://docs.yithemes.com/yith-woocommerce-badge-management/';
+        public $demo_url   = 'https://plugins.yithemes.com/yith-woocommerce-badge-management';
+        public $yith_url   = 'https://www.yithemes.com';
         public $plugin_url = 'https://yithemes.com/themes/plugins/yith-woocommerce-badges-management/';
 
         /**
          * Returns single instance of the class
          *
-         * @return \YITH_WCBM
+         * @return YITH_WCBM_Admin | YITH_WCBM_Admin_Premium
          * @since 1.0.0
          */
         public static function get_instance() {
-            if ( is_null( self::$instance ) ) {
-                self::$instance = new self();
-            }
+            $self = __CLASS__ . ( class_exists( __CLASS__ . '_Premium' ) ? '_Premium' : '' );
 
-            return self::$instance;
+            return !is_null( $self::$_instance ) ? $self::$_instance : $self::$_instance = new $self;
         }
 
         /**
@@ -139,9 +135,8 @@ if ( !class_exists( 'YITH_WCBM_Admin' ) ) {
 
             $post = get_post( $id );
 
-            if ( !$post || $post->post_type != YITH_WCBM_Post_Types::$badge )
+            if ( !$post || $post->post_type !== YITH_WCBM_Post_Types::$badge )
                 wp_die( sprintf( __( 'Error while duplicating badge: badge #%s not found', 'yith-woocommerce-badge-management' ), $id ) );
-
 
             $new_post = array(
                 'post_status' => $post->post_status,
@@ -180,7 +175,7 @@ if ( !class_exists( 'YITH_WCBM_Admin' ) ) {
          * @return array
          */
         public function add_duplicate_action_on_badges( $actions, $post ) {
-            if ( $post->post_type == YITH_WCBM_Post_Types::$badge && $post->post_status == 'publish' ) {
+            if ( $post->post_type === YITH_WCBM_Post_Types::$badge && $post->post_status === 'publish' ) {
 
                 $duplicate_link = wp_nonce_url( add_query_arg( array( 'post_type' => YITH_WCBM_Post_Types::$badge,
                                                                       'action'    => 'duplicate_badge',
@@ -239,7 +234,7 @@ if ( !class_exists( 'YITH_WCBM_Admin' ) ) {
 
             $links[] = '<a href="' . admin_url( "admin.php?page={$this->_panel_page}" ) . '">' . __( 'Settings', 'yith-woocommerce-badges-management' ) . '</a>';
             if ( defined( 'YITH_WCBM_FREE_INIT' ) ) {
-                $links[] = '<a href="' . $this->_premium_landing . '" target="_blank">' . __( 'Premium Version', 'ywcm' ) . '</a>';
+                $links[] = '<a href="' . $this->_premium_landing . '" target="_blank">' . __( 'Premium Version', 'yith-woocommerce-badges-management' ) . '</a>';
             }
 
             return $links;
@@ -255,7 +250,7 @@ if ( !class_exists( 'YITH_WCBM_Admin' ) ) {
          * @param $plugin_data
          * @param $status
          *
-         * @return   Array
+         * @return   array
          * @since    1.0
          * @author   Leanza Francesco <leanzafrancesco@gmail.com>
          * @use      plugin_row_meta
@@ -305,6 +300,10 @@ if ( !class_exists( 'YITH_WCBM_Admin' ) ) {
                 'options-path'     => YITH_WCBM_DIR . '/plugin-options',
             );
 
+            $enable_shop_manager = get_option( 'yith-wcbm-enable-shop-manager', 'no' ) === 'yes';
+            if ( $enable_shop_manager ) {
+                $args[ 'capability' ] = 'manage_woocommerce';
+            }
 
             /* === Fixed: not updated theme  === */
             if ( !class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
@@ -315,19 +314,35 @@ if ( !class_exists( 'YITH_WCBM_Admin' ) ) {
         }
 
         public function admin_enqueue_scripts() {
-            wp_enqueue_style( 'yith_wcbm_admin_style', YITH_WCBM_ASSETS_URL . '/css/admin.css' );
-            wp_enqueue_style( 'wp-color-picker' );
-            wp_enqueue_script( 'wp-color-picker' );
-            wp_enqueue_script( 'jquery-ui-tabs' );
-            wp_enqueue_style( 'jquery-ui-style-css', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css' );
-            wp_enqueue_style( 'googleFontsOpenSans', '//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' );
+            $screen = get_current_screen();
 
-            $screen     = get_current_screen();
-            $metabox_js = defined( 'YITH_WCBM_PREMIUM' ) ? 'metabox_options_premium.js' : 'metabox_options.js';
+            if ( in_array( $screen->id, array( 'yith-wcbm-badge', 'edit-yith-wcbm-badge', 'product' ) ) ) {
+                wp_enqueue_style( 'yith_wcbm_admin_style', YITH_WCBM_ASSETS_URL . '/css/admin.css', array(), YITH_WCBM_VERSION );
+            }
 
-            if ( 'yith-wcbm-badge' == $screen->id ) {
-                wp_enqueue_script( 'yith_wcbm_metabox_options', YITH_WCBM_ASSETS_URL . '/js/' . $metabox_js, array( 'jquery', 'wp-color-picker' ), '1.0.0', true );
+            if ( in_array( $screen->id, array( 'yith-wcbm-badge', 'edit-yith-wcbm-badge' ) ) ) {
+                wp_enqueue_style( 'googleFontsOpenSans', '//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' );
+
+            }
+            
+            if ( in_array( $screen->id, array( 'yith-wcbm-badge' ) ) ) {
+                wp_enqueue_style( 'wp-color-picker' );
+                wp_enqueue_style( 'jquery-ui-style-css', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css' );
+
+                wp_enqueue_script( 'wp-color-picker' );
+                wp_enqueue_script( 'jquery-ui-tabs' );
+
+                $metabox_js = defined( 'YITH_WCBM_PREMIUM' ) ? 'metabox_options_premium.js' : 'metabox_options.js';
+
+                wp_enqueue_script( 'yith_wcbm_metabox_options', YITH_WCBM_ASSETS_URL . '/js/' . $metabox_js, array( 'jquery', 'wp-color-picker' ), YITH_WCBM_VERSION, true );
                 wp_localize_script( 'yith_wcbm_metabox_options', 'ajax_object', array( 'assets_url' => YITH_WCBM_ASSETS_URL, 'wp_ajax_url' => admin_url( 'admin-ajax.php' ) ) );
+
+                $yith_wcbm_language = array(
+                    'slider' => __( 'Slider', 'yith-woocommerce-badge-management' ),
+                    'number' => __( 'Number', 'yith-woocommerce-badge-management' ),
+                );
+
+                wp_localize_script( 'yith_wcbm_metabox_options', 'yith_wcbm_language', $yith_wcbm_language );
             }
         }
 
@@ -342,7 +357,7 @@ if ( !class_exists( 'YITH_WCBM_Admin' ) ) {
         public function add_capabilities() {
             $caps = yith_wcbm_create_capabilities( array( 'badge', 'badges' ) );
 
-            // gets the admin and shop_mamager roles
+            // gets the admin and shop_manager roles
             $admin        = get_role( 'administrator' );
             $shop_manager = get_role( 'shop_manager' );
 
@@ -416,7 +431,8 @@ if ( !class_exists( 'YITH_WCBM_Admin' ) ) {
 
         function badge_settings_tabs() {
             global $post;
-            $bm_meta  = get_post_meta( $post->ID, '_yith_wcbm_product_meta', true );
+            $product  = wc_get_product( $post->ID );
+            $bm_meta  = yit_get_prop( $product, '_yith_wcbm_product_meta', true );
             $id_badge = ( isset( $bm_meta[ 'id_badge' ] ) ) ? $bm_meta[ 'id_badge' ] : '';
             ?>
             <p class="form-field">
@@ -446,12 +462,12 @@ if ( !class_exists( 'YITH_WCBM_Admin' ) ) {
         }
 
 
-        public function badge_settings_save( $post_id ) {
+        public function badge_settings_save( $product_id ) {
             if ( !empty( $_POST[ '_yith_wcbm_product_meta' ] ) ) {
                 $product_meta               = $_POST[ '_yith_wcbm_product_meta' ];
                 $product_meta[ 'id_badge' ] = ( !empty( $product_meta[ 'id_badge' ] ) ) ? $product_meta[ 'id_badge' ] : '';
 
-                update_post_meta( $post_id, '_yith_wcbm_product_meta', $product_meta );
+                update_post_meta( $product_id, '_yith_wcbm_product_meta', $product_meta );
             }
         }
 
@@ -483,11 +499,9 @@ if ( !class_exists( 'YITH_WCBM_Admin' ) ) {
 /**
  * Unique access to instance of YITH_WCBM_Admin class
  *
- * @return \YITH_WCBM_Admin
+ * @return YITH_WCBM_Admin
  * @since 1.0.0
  */
 function YITH_WCBM_Admin() {
     return YITH_WCBM_Admin::get_instance();
 }
-
-?>

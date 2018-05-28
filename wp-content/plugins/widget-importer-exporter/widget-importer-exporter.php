@@ -1,18 +1,18 @@
 <?php
 /**
  * Plugin Name: Widget Importer & Exporter
- * Plugin URI: https://wpultimate.com/widget-importer-exporter
+ * Plugin URI: https://churchthemes.com/plugins/widget-importer-exporter/
  * Description: Imports and exports widgets.
- * Version: 1.5.1
- * Author: WP Ultimate
- * Author URI: https://wpultimate.com
+ * Version: 1.5.3
+ * Author: churchthemes.com
+ * Author URI: https://churchthemes.com
  * License: GPLv2 or later
  * Text Domain: widget-importer-exporter
  * Domain Path: /languages
  *
  * @package   Widget_Importer_Exporter
- * @copyright Copyright (c) 2013 - 2017, WP Ultimate
- * @link      https://wpultimate.com/widget-importer-exporter
+ * @copyright Copyright (c) 2013 - 2017, churchthemes.com
+ * @link      https://churchthemes.com/plugins/widget-importer-exporter/
  * @license   GPLv2 or later
  */
 
@@ -190,7 +190,6 @@ class Widget_Importer_Exporter {
 				WIE_INC_DIR . '/export.php',
 				WIE_INC_DIR . '/import.php',
 				WIE_INC_DIR . '/mime-types.php',
-				WIE_INC_DIR . '/notices.php',
 				WIE_INC_DIR . '/page.php',
 				WIE_INC_DIR . '/widgets.php',
 

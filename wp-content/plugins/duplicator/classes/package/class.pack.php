@@ -117,11 +117,17 @@ class DUP_Package
 		$report['ARC']['FilterFilesAll'] = $this->Archive->FilterFilesAll;
 		$report['ARC']['FilterExtsAll'] = $this->Archive->FilterExtsAll;
         $report['ARC']['FilterInfo'] = $this->Archive->FilterInfo;
+        $report['ARC']['RecursiveLinks'] = $this->Archive->RecursiveLinks;
+        $report['ARC']['UnreadableItems'] = array_merge($this->Archive->FilterInfo->Files->Unreadable,$this->Archive->FilterInfo->Dirs->Unreadable);
         $report['ARC']['Status']['Size']  = ($this->Archive->Size > DUPLICATOR_SCAN_SIZE_DEFAULT) ? 'Warn' : 'Good';
         $report['ARC']['Status']['Names'] = (count($this->Archive->FilterInfo->Files->Warning) + count($this->Archive->FilterInfo->Dirs->Warning)) ? 'Warn' : 'Good';
+        $report['ARC']['Status']['UnreadableItems'] = !empty($this->Archive->RecursiveLinks) || !empty($report['ARC']['UnreadableItems'])? 'Warn' : 'Good';
+
         //$report['ARC']['Status']['Big']   = count($this->Archive->FilterInfo->Files->Size) ? 'Warn' : 'Good';
         $report['ARC']['Dirs']  = $this->Archive->Dirs;
         $report['ARC']['Files'] = $this->Archive->Files;
+		$report['ARC']['Status']['AddonSites'] = count($this->Archive->FilterInfo->Dirs->AddonSites) ? 'Warn' : 'Good';
+            
 
 
         //DATABASE
@@ -183,7 +189,7 @@ class DUP_Package
         $php_max_memory = ($php_max_memory === false) ? "Unabled to set php memory_limit" : DUPLICATOR_PHP_MAX_MEMORY." ({$php_max_memory} default)";
 
         $info = "********************************************************************************\n";
-        $info .= "DUPLICATOR-LITE PACKAGE-LOG: ".@date("Y-m-d H:i:s")."\n";
+        $info .= "DUPLICATOR-LITE PACKAGE-LOG: ".@date(get_option('date_format')." ".get_option('time_format'))."\n";
         $info .= "NOTICE: Do NOT post to public sites or forums \n";
         $info .= "********************************************************************************\n";
         $info .= "VERSION:\t".DUPLICATOR_VERSION."\n";
@@ -268,7 +274,7 @@ class DUP_Package
         $info .= "RECORD ID:[{$this->ID}]\n";
         $info .= "TOTAL PROCESS RUNTIME: {$timerSum}\n";
         $info .= "PEAK PHP MEMORY USED: ".DUP_Server::getPHPMemory(true)."\n";
-        $info .= "DONE PROCESSING => {$this->Name} ".@date("Y-m-d H:i:s")."\n";
+        $info .= "DONE PROCESSING => {$this->Name} ".@date(get_option('date_format')." ".get_option('time_format'))."\n";
 
         DUP_Log::Info($info);
         DUP_Log::Close();

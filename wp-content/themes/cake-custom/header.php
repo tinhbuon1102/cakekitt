@@ -29,4 +29,5 @@ $layout = get_theme_mod('cake_layout_type', 'fullwidth');
 
 <div class="ip-container <?php echo esc_attr($layout); ?>" id="ip-container">
 
-<?php do_action('cake_header_section');?>
+<?php //do_action('cake_header_section');?>
+<?php /*Menu*/ get_template_part( 'templates/nav', 'bar' ); ?>

@@ -1,14 +1,13 @@
 <?php
 /**
  * Framework Name: YIT Plugin Framework
- * Version: 2.9.41
+ * Version: 3.0.13
  * Author: Yithemes
  * Text Domain: yith-plugin-fw
  * Domain Path: /languages/
  *
  * @author  Your Inspiration Themes
- * @package YITH WooCommerce Ajax Navigation
- * @version 2.0
+ * @version 3.0.13
  */
 /**
  * This file belongs to the YIT Plugin Framework.
@@ -25,7 +24,7 @@ if ( ! defined ( 'ABSPATH' ) ) {
 
 if ( ! function_exists ( 'yit_maybe_plugin_fw_loader' ) ) {
     /**
-     * YITH WooCommerce Ajax Navigation
+     * yit_maybe_plugin_fw_loader
      *
      * @since 1.0.0
      */
@@ -54,3 +53,5 @@ if ( ! function_exists ( 'yit_maybe_plugin_fw_loader' ) ) {
         }
     }
 }
+
+

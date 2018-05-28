@@ -4,14 +4,11 @@
  *
  * @author  Yithemes
  * @package YITH WooCommerce Badge Management
- * @version 1.1.1
  */
 
 if ( !defined( 'YITH_WCBM' ) ) {
     exit;
 } // Exit if accessed directly
-
-require_once( 'functions.yith-wcbm.php' );
 
 if ( !class_exists( 'YITH_WCBM_Frontend' ) ) {
     /**
@@ -25,18 +22,10 @@ if ( !class_exists( 'YITH_WCBM_Frontend' ) ) {
         /**
          * Single instance of the class
          *
-         * @var \YITH_WCBM_Frontend
+         * @var YITH_WCBM_Frontend
          * @since 1.0.0
          */
-        protected static $instance;
-
-        /**
-         * Plugin version
-         *
-         * @var string
-         * @since 1.0.0
-         */
-        public $version = YITH_WCBM_VERSION;
+        protected static $_instance;
 
         /**
          * @type bool
@@ -50,17 +39,21 @@ if ( !class_exists( 'YITH_WCBM_Frontend' ) ) {
         private $is_in_minicart = false;
 
         /**
+         * @since 1.3.7
+         * @var array
+         */
+        public $badge_filters = array();
+
+        /**
          * Returns single instance of the class
          *
-         * @return \YITH_WCBM_Frontend
+         * @return YITH_WCBM_Frontend|YITH_WCBM_Frontend_Premium
          * @since 1.0.0
          */
         public static function get_instance() {
-            if ( is_null( self::$instance ) ) {
-                self::$instance = new self();
-            }
+            $self = __CLASS__ . ( class_exists( __CLASS__ . '_Premium' ) ? '_Premium' : '' );
 
-            return self::$instance;
+            return !is_null( $self::$_instance ) ? $self::$_instance : $self::$_instance = new $self;
         }
 
         /**
@@ -70,19 +63,19 @@ if ( !class_exists( 'YITH_WCBM_Frontend' ) ) {
          * @since  1.0.0
          */
         public function __construct() {
+            $this->badge_filters = array(
+                array( 'woocommerce_single_product_image_html', array( $this, 'show_badge_on_product' ), 99, 2 ),
+                array( 'woocommerce_single_product_image_thumbnail_html', array( $this, 'show_badge_on_product_thumbnail' ), 99, 2 ),
+                array( 'post_thumbnail_html', array( $this, 'show_badge_on_product' ), 999, 2 ),
+            );
 
-            // Action to add custom badge in single product page
-            add_filter( 'woocommerce_single_product_image_html', array( $this, 'show_badge_on_product' ), 10, 2 );
+            add_filter( 'yith_wcbm_product_thumbnail_container', array( $this, 'show_badge_on_product' ), 999, 2 );
 
-            // add frontend css
-            add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+            $this->add_badge_filters();
 
             // edit sale flash badge
             add_filter( 'woocommerce_sale_flash', array( $this, 'sale_flash' ), 10, 2 );
 
-            // POST Thumbnail [to add custom badge in shop page]
-            add_filter( 'post_thumbnail_html', array( $this, 'show_badge_on_product' ), 999, 2 );
-            add_filter( 'yith_wcbm_product_thumbnail_container', array( $this, 'show_badge_on_product' ), 999, 2 );
 
             // action to set this->is_in_sidebar
             add_action( 'dynamic_sidebar_before', array( $this, 'set_is_in_sidebar' ) );
@@ -92,6 +85,9 @@ if ( !class_exists( 'YITH_WCBM_Frontend' ) ) {
             add_action( 'woocommerce_before_mini_cart', array( $this, 'set_is_in_minicart' ) );
             add_action( 'woocommerce_after_mini_cart', array( $this, 'unset_is_in_minicart' ) );
 
+            // add frontend css
+            add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+
             /**
              * Theme support
              */
@@ -100,14 +96,37 @@ if ( !class_exists( 'YITH_WCBM_Frontend' ) ) {
         }
 
         /**
+         * Add Badge Filters
+         *
+         * @since 1.3.7
+         */
+        public function add_badge_filters() {
+            foreach ( $this->badge_filters as $badge_filter ) {
+                add_filter( $badge_filter[ 0 ], $badge_filter[ 1 ], $badge_filter[ 2 ], $badge_filter[ 3 ] );
+            }
+        }
+
+        /**
+         * Remove Badge Filters
+         *
+         * @since 1.3.7
+         */
+        public function remove_badge_filters() {
+            foreach ( $this->badge_filters as $badge_filter ) {
+                remove_filter( $badge_filter[ 0 ], $badge_filter[ 1 ], $badge_filter[ 2 ] );
+            }
+        }
+
+        /**
          * THEME SUPPORT
          * start the container and start an OB
          */
         public function theme_badge_container_start() {
-            remove_filter( 'post_thumbnail_html', array( $this, 'show_badge_on_product' ), 999 );
-            remove_filter( 'woocommerce_single_product_image_html', array( $this, 'show_badge_on_product' ), 10 );
+            if ( !apply_filters( 'yith_wcbm_theme_badge_container_start_check', true ) )
+                return;
 
-            ob_start();
+            $this->remove_badge_filters();
+            $this->badge_container_start();
         }
 
         /**
@@ -115,14 +134,30 @@ if ( !class_exists( 'YITH_WCBM_Frontend' ) ) {
          * print the OB saved with the badges
          */
         public function theme_badge_container_end() {
+            if ( !apply_filters( 'yith_wcbm_theme_badge_container_end_check', true ) )
+                return;
+
+            $this->badge_container_end();
+            $this->add_badge_filters();
+        }
+
+        /**
+         * start the container and start an OB
+         */
+        public function badge_container_start() {
+            ob_start();
+        }
+
+        /**
+         * print the OB saved with the badges
+         */
+        public function badge_container_end() {
             global $post;
             $post_id = !!$post ? $post->ID : 0;
 
             echo apply_filters( 'yith_wcbm_product_thumbnail_container', ob_get_clean(), $post_id );
-
-            add_filter( 'post_thumbnail_html', array( $this, 'show_badge_on_product' ), 999, 2 );
-            add_filter( 'woocommerce_single_product_image_html', array( $this, 'show_badge_on_product' ), 10, 2 );
         }
+
 
         /**
          * Show the badge on product
@@ -218,11 +253,15 @@ if ( !class_exists( 'YITH_WCBM_Frontend' ) ) {
             $hide_in_sidebar = get_option( 'yith-wcbm-hide-in-sidebar', 'yes' ) == 'yes';
             $show_in_sidebar = !$hide_in_sidebar;
 
+            // not use is_cart() function to prevent issues with mini-cart
+            $is_cart = is_page( wc_get_page_id( 'cart' ) ) || wc_post_content_has_shortcode( 'woocommerce_cart' );
+
             $allowed = ( !$this->is_in_sidebar() || $show_in_sidebar );
             $allowed = $allowed && !$this->is_in_minicart;
-            $allowed = $allowed && ( !is_cart() || ( apply_filters( 'yith_wcbm_allow_badges_in_cart_page', false ) ) );
+            $allowed = $allowed && ( !$is_cart || ( apply_filters( 'yith_wcbm_allow_badges_in_cart_page', false ) ) );
             $allowed = $allowed && ( !is_checkout() || ( apply_filters( 'yith_wcbm_allow_badges_in_checkout_page', false ) ) );
             $allowed = $allowed && !$this->is_in_email();
+            $allowed = $allowed && !is_feed();
 
             // ---- YITH WooCommerce Waiting list
             $allowed = $allowed && !did_action( 'send_yith_waitlist_mail_instock' );
@@ -234,6 +273,11 @@ if ( !class_exists( 'YITH_WCBM_Frontend' ) ) {
             // ---- YITH WooCommerce Question & Answer
             $allowed = $allowed && !did_action( 'yith_questions_answers_after_new_answer' );
             $allowed = $allowed && !did_action( 'yith_questions_answers_after_new_question' );
+
+            // ---- YITH WooCommerce Wishlist
+            if ( function_exists( 'yith_wcwl_is_wishlist_page' ) && function_exists( 'yith_wcwl_is_wishlist' ) ) {
+                $allowed = $allowed && !yith_wcwl_is_wishlist_page() && !yith_wcwl_is_wishlist();
+            }
 
             return apply_filters( 'yith_wcbm_is_allowed_badge_showing', $allowed );
         }
@@ -257,7 +301,8 @@ if ( !class_exists( 'YITH_WCBM_Frontend' ) ) {
 
             $badge_overrides_default_on_sale = get_option( 'yith-wcbm-product-badge-overrides-default-on-sale', 'yes' ) == 'yes';
 
-            $bm_meta  = get_post_meta( $product_id, '_yith_wcbm_product_meta', true );
+            $product  = wc_get_product( $product_id );
+            $bm_meta  = yit_get_prop( $product, '_yith_wcbm_product_meta', true );
             $id_badge = ( isset( $bm_meta[ 'id_badge' ] ) ) ? $bm_meta[ 'id_badge' ] : '';
 
             if ( $hide_on_sale_default || ( $id_badge != '' && $badge_overrides_default_on_sale ) ) {
@@ -300,10 +345,16 @@ if ( !class_exists( 'YITH_WCBM_Frontend' ) ) {
                 return $val;
 
             $product_id = $this->get_wpml_parent_id( $product_id );
-            $bm_meta    = get_post_meta( $product_id, '_yith_wcbm_product_meta', true );
-            $id_badge   = ( isset( $bm_meta[ 'id_badge' ] ) ) ? $bm_meta[ 'id_badge' ] : '';
+            $product    = wc_get_product( $product_id );
+            if ( !$product )
+                return $val;
 
-            $badge_container = "<div class='container-image-and-badge'>" . $val;
+            $bm_meta  = yit_get_prop( $product, '_yith_wcbm_product_meta', true );
+            $id_badge = ( isset( $bm_meta[ 'id_badge' ] ) ) ? $bm_meta[ 'id_badge' ] : '';
+
+            $clearfix_class  = apply_filters( 'yith_wcbm_clearfix_class', '' ); // through this filter you can set yith-wcbm-clearfix
+            $extra_classes   = apply_filters( 'yith_wcbm_container_image_and_badge_extra_classes', '' );
+            $badge_container = "<div class='container-image-and-badge $clearfix_class $extra_classes'>" . $val;
             $badge_content   = '';
 
             if ( !defined( 'YITH_WCBM_PREMIUM' ) ) {
@@ -319,6 +370,41 @@ if ( !class_exists( 'YITH_WCBM_Frontend' ) ) {
 
             return $badge_container;
 
+        }
+
+        public function show_badge_on_product_thumbnail( $val, $thumb_id ) {
+            global $product;
+            if ( !did_action( 'woocommerce_product_thumbnails' ) && $product ) {
+                $product_id = yit_get_base_product_id( $product );
+                if ( $product_id ) {
+                    $print_badges_directly = false;
+                    $div_close             = '</div>';
+                    if ( version_compare( WC()->version, '3.0', '>=' ) && get_theme_support( 'wc-product-gallery-slider' ) ) {
+                        $_val = $val;
+                        $_val = rtrim( $_val );
+                        if ( strrpos( $_val, $div_close ) === strlen( $_val ) - strlen( $div_close ) ) {
+                            $print_badges_directly = true;
+                            $val                   = $_val;
+                        }
+                    }
+
+                    if ( $print_badges_directly ) {
+                        $bm_meta  = yit_get_prop( $product, '_yith_wcbm_product_meta', true );
+                        $id_badge = ( isset( $bm_meta[ 'id_badge' ] ) ) ? $bm_meta[ 'id_badge' ] : '';
+                        $val      = substr( $val, 0, -strlen( $div_close ) );
+                        if ( !defined( 'YITH_WCBM_PREMIUM' ) ) {
+                            $val .= yith_wcbm_get_badge( $id_badge, $product_id );
+                        } else {
+                            $val .= yith_wcbm_get_badges_premium( $id_badge, $product_id );
+                        }
+                        $val .= $div_close;
+                    } else {
+                        $val = $this->show_badge_on_product( $val, $product_id );
+                    }
+                }
+            }
+
+            return $val;
         }
 
         public function enqueue_scripts() {
@@ -373,6 +459,9 @@ if ( !class_exists( 'YITH_WCBM_Frontend' ) ) {
                         'font_size'                   => 13,
                         'line_height'                 => -1,
                         'opacity'                     => 100,
+                        'rotation'                    => array( 'x' => 0, 'y' => 0, 'z' => 0 ),
+                        'flip_text_horizontally'      => false,
+                        'flip_text_vertically'        => false,
                         'id_badge'                    => $id_badge
                     );
 
@@ -405,17 +494,22 @@ if ( !class_exists( 'YITH_WCBM_Frontend' ) ) {
         }
 
         public function get_wpml_parent_id( $id, $post_type = 'product' ) {
-
-            global $sitepress;
-            if ( isset( $sitepress ) ) {
-
-                $default_language = $sitepress->get_default_language();
-
-                if ( function_exists( 'icl_object_id' ) ) {
-                    $id = icl_object_id( $id, $post_type, true, $default_language );
-                } else {
-                    if ( function_exists( 'wpml_object_id_filter' ) ) {
-                        $id = wpml_object_id_filter( $id, $post_type, true, $default_language );
+            if ( !yith_wcmb_is_wpml_parent_based_on_default_language() ) {
+                /** @var WPML_Post_Translation $wpml_post_translations */
+                global $wpml_post_translations;
+                if ( $wpml_post_translations && $parent_id = $wpml_post_translations->get_original_element( $id ) )
+                    $id = $parent_id;
+            } else {
+                // get the id in the default language
+                global $sitepress;
+                if ( isset( $sitepress ) ) {
+                    $default_language = $sitepress->get_default_language();
+                    if ( function_exists( 'icl_object_id' ) ) {
+                        $id = icl_object_id( $id, $post_type, true, $default_language );
+                    } else {
+                        if ( function_exists( 'wpml_object_id_filter' ) ) {
+                            $id = wpml_object_id_filter( $id, $post_type, true, $default_language );
+                        }
                     }
                 }
             }
@@ -427,11 +521,9 @@ if ( !class_exists( 'YITH_WCBM_Frontend' ) ) {
 /**
  * Unique access to instance of YITH_WCBM_Frontend class
  *
- * @return \YITH_WCBM_Frontend
+ * @return YITH_WCBM_Frontend|YITH_WCBM_Frontend_Premium
  * @since 1.0.0
  */
 function YITH_WCBM_Frontend() {
     return YITH_WCBM_Frontend::get_instance();
 }
-
-?>

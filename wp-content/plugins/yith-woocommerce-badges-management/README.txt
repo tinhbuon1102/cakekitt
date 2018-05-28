@@ -3,8 +3,8 @@
 Contributors: yithemes
 Tags: badges, badge, woocommerce, products, themes, yit, e-commerce, shop, yith, badges management, premium, yithemes, product badge, global badge, category badge, woocommerce badge
 Requires at least: 4.0
-Tested up to: 4.7
-Stable tag: 1.2.13
+Tested up to: 4.9.4
+Stable tag: 1.3.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,7 +44,60 @@ YITH WooCommerce Badge Management will add a new submenu called "Badge Managemen
 
 == Changelog ==
 
-= 1.2.13 - Released: Jan 27, 2016 =
+= 1.3.9 - Released: Mar 23, 2018 =
+
+* Fix - minor bug
+
+= 1.3.8 - Released: Mar 22, 2018 =
+
+* Update - Plugin Framework
+* Fix - issue in WooCommerce gallery
+
+= 1.3.7 - Released: Feb 08, 2018 =
+
+* New - support to WooCommerce 3.3.1
+* New - support to WordPress 4.9.4
+* Update - Plugin Framework
+* Fix - issues in combination with Yoast SEO plugin
+* Fix - enqueue styles and scripts only where needed
+* Dev - added yith_wcbm_container_image_and_badge_extra_classes filter
+
+= 1.3.6 - Released: Oct 12, 2017 =
+
+* New - support to WooCommerce 3.2.0
+
+= 1.3.5 - Released: Aug 04, 2017 =
+
+* Fix - use woocommerce_single_product_image_thumbnail_html
+* Dev - added yith_wcbm_get_badge filter
+
+= 1.3.4 - Released: May 09, 2017 =
+
+* Fix - badge saving
+* Fix - hidden badges in feeds
+* Tweak - removed badges in wishlist table of YITH WooCommerce Wishlist
+
+= 1.3.3 - Released: Apr 11, 2017 =
+
+* New - support to WooCommerce 3.0.1
+* Fix - post thumbnail issue
+
+= 1.3.2 - Released: Apr 05, 2017 =
+
+* New - support to WooCommerce 3.0.0
+* Fix - badge saving
+
+= 1.3.1 - Released: Mar 31, 2017 =
+
+* New - support to WooCommerce 3.0.0-RC2
+* Fix - removed inline badge styles
+
+= 1.3.0 - Released: Mar 10, 2017 =
+
+* New - support to WooCommerce 2.7.0-RC1
+* New - support to Wordpress 4.7.3
+
+= 1.2.13 - Released: Jan 27, 2017 =
 
 * Fix - badge style issue
 

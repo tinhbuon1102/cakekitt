@@ -18,6 +18,7 @@
     select#archive-format {min-width:100px; margin:1px 0 4px 0}
     span#dup-archive-filter-file {color:#A62426; display:none}
     span#dup-archive-filter-db {color:#A62426; display:none}
+	span#dup-archive-db-only {color:#A62426; display:none}
     div#dup-file-filter-items, div#dup-db-filter-items {padding:5px 0;}
 	div#dup-db-filter-items {font-stretch:ultra-condensed; font-family:Calibri; }
 	form#dup-form-opts textarea#filter-files {height:85px}
@@ -35,7 +36,7 @@
 	div.dup-store-pro a {text-decoration:underline}
 	span.dup-pro-text {font-style:italic; font-size:12px; color:#555; font-style:italic }
 	div#dup-exportdb-items-checked, div#dup-exportdb-items-off {min-height:275px; display:none}
-	div#dup-exportdb-items-checked {padding: 5px; max-width:650px}
+	div#dup-exportdb-items-checked {padding: 5px; max-width:700px}
 
     /*INSTALLER SECTION*/
     div.dup-installer-header-1 {font-weight:bold; padding-bottom:2px; width:100%}
@@ -48,7 +49,7 @@
 	ul.add-menu-item-tabs li, ul.category-tabs li {padding:3px 30px 5px}
 </style>
 
-<form id="dup-form-opts" method="post" action="?page=duplicator&tab=new2<?php echo $retry_enabled ? '&retry=1' : '';?>" data-validate="parsley">
+<form id="dup-form-opts" method="post" action="?page=duplicator&tab=new2<?php echo "&retry={$retry_state}"; ?>" data-validate="parsley">
 <input type="hidden" id="dup-form-opts-action" name="action" value="">
 <?php wp_nonce_field('dup_form_opts', 'dup_form_opts_nonce_field', false); ?>
 
@@ -97,13 +98,14 @@ STORAGE -->
 							<img src="<?php echo DUPLICATOR_PLUGIN_URL ?>assets/img/amazon-64.png" /> 
 							<img src="<?php echo DUPLICATOR_PLUGIN_URL ?>assets/img/dropbox-64.png" /> 
 							<img src="<?php echo DUPLICATOR_PLUGIN_URL ?>assets/img/google_drive_64px.png" /> 
-							<img src="<?php echo DUPLICATOR_PLUGIN_URL ?>assets/img/ftp-64.png" /> 
-							<?php echo sprintf(__('%1$s, %2$s, %3$s, %4$s and other storage options available in', 'duplicator'), 'Amazon', 'Dropbox', 'Google Drive', 'FTP'); ?>
+							<img src="<?php echo DUPLICATOR_PLUGIN_URL ?>assets/img/ftp-64.png" />
+                            <img src="<?php echo DUPLICATOR_PLUGIN_URL ?>assets/img/onedrive-48px.png" />
+							<?php echo sprintf(__('%1$s, %2$s, %3$s, %4$s, %5$s and other storage options available in', 'duplicator'), 'Amazon', 'Dropbox', 'Google Drive', 'FTP', 'OneDrive'); ?>
 							<a href="https://snapcreek.com/duplicator/?utm_source=duplicator_free&utm_medium=wordpress_plugin&utm_content=free_storage&utm_campaign=duplicator_pro" target="_blank"><?php _e('Duplicator Pro', 'duplicator');?></a> 
 							<i class="fa fa-lightbulb-o" 
 								data-tooltip-title="<?php _e("Additional Storage:", 'duplicator'); ?>" 
 								data-tooltip="<?php _e('Duplicator Pro allows you to create a package and then store it at a custom location on this server or to a cloud '
-										. 'based location such as Google Drive, Amazon, Dropbox or FTP.', 'duplicator'); ?>">
+										. 'based location such as Google Drive, Amazon, Dropbox, OneDrive or FTP.', 'duplicator'); ?>">
 							 </i>
 						</span>
 					</div>                            
@@ -122,7 +124,8 @@ ARCHIVE -->
         <i class="fa fa-file-archive-o"></i> <?php _e('Archive', 'duplicator') ?> &nbsp;
         <span style="font-size:13px">
             <span id="dup-archive-filter-file" title="<?php _e('File filter enabled', 'duplicator') ?>"><i class="fa fa-files-o"></i> <i class="fa fa-filter"></i> &nbsp;&nbsp;</span> 
-            <span id="dup-archive-filter-db" title="<?php _e('Database filter enabled', 'duplicator') ?>"><i class="fa fa-table"></i> <i class="fa fa-filter"></i></span>	
+            <span id="dup-archive-filter-db" title="<?php _e('Database filter enabled', 'duplicator') ?>"><i class="fa fa-table"></i> <i class="fa fa-filter"></i></span>
+			<span id="dup-archive-db-only" title="<?php _e('Archive Only the Database', 'duplicator') ?>"> <?php _e('Database Only', 'duplicator') ?> </span>
         </span>
         <div class="dup-box-arrow"></div>
     </div>		
@@ -144,7 +147,6 @@ ARCHIVE -->
 					$upload_dir = DUP_Util::safePath($uploads['basedir']);
 					$filter_dir_count  = isset($Package->Archive->FilterDirs)  ? count(explode(";", $Package->Archive->FilterDirs)) -1  : 0;
 					$filter_file_count = isset($Package->Archive->FilterFiles) ? count(explode(";", $Package->Archive->FilterFiles)) -1 : 0;
-
                 ?>
            
 				<input type="checkbox"  id="export-onlydb" name="export-onlydb"  onclick="Duplicator.Pack.ExportOnlyDB()" <?php echo ($Package->Archive->ExportOnlyDB) ? "checked='checked'" :""; ?> />
@@ -202,24 +204,28 @@ ARCHIVE -->
 				</div>
 
 				<div id="dup-exportdb-items-checked"  style="<?php echo ($Package->Archive->ExportOnlyDB) ? 'block' : 'none'; ?>">
-					<?php 
+					<?php
+
+						if ($retry_state == '2') {
+							echo '<i style="color:maroon">';
+							_e("This option has automatically been checked because you have opted for a <i class='fa fa-random'></i> Two-Part Install Process.  Please complete the package build and continue with the ", 'duplicator');
+								printf('%s <a href="https://snapcreek.com/duplicator/docs/quick-start/?utm_source=duplicator_free&utm_medium=wordpress_plugin&utm_content=host_interupt_2partlink&utm_campaign=build_issues#quick-060-q" target="faq">%s</a>.',
+								__('', 'duplicator'),
+								__('Quick Start Two-Part Install Instructions', 'duplicator'));
+							echo '</i><br/><br/>';
+						}
+
 						_e("<b>Overview:</b><br/> This advanced option excludes all files from the archive.  Only the database and a copy of the installer.php "
 						. "will be included in the archive.zip file. The option can be used for backing up and moving only the database.", 'duplicator');
-						
-						echo '<br/><br/>';
-
-						_e("<b><i class='fa fa-exclamation-circle'></i> Notice:</b><br/>  Installing only the database over an existing site may have unintended consequences.  "
-						 . "Be sure to know the state of your system before installing the database without the associated files. ", 'duplicator');
 
 						echo '<br/><br/>';
 
-						_e("For example, if you have WordPress 4.6 on this site and you copy this sites database to a host that has WordPress 4.8 files then the source code of the files "
-							. " will not be in sync with the database causing possible errors.", 'duplicator');
-						
-						echo '<br/><br/>';
-						
-						_e("This can also be true of plugins and themes.   When moving only the database be sure to know the database will be compatible with ALL source code files."
-						. "  Please use this advanced feature with caution!", 'duplicator');
+						_e("<b><i class='fa fa-exclamation-circle'></i> Notice:</b><br/>", 'duplicator');
+
+						_e("Please use caution when installing only the database over an existing site and be sure the correct files correspond with the database. For example, "
+							. "if WordPress 4.6 is on this site and you copy the database to a host that has WordPress 4.8 files then the source code of the files will not be "
+							. "in sync with the database causing possible errors.  If you’re immediately moving the source files with the database then you can ignore this notice. "
+							. "Please use this advanced feature with caution!", 'duplicator');
 					?>
 					<br/><br/>
 				</div>
@@ -435,9 +441,19 @@ jQuery(document).ready(function ($)
 	Duplicator.Pack.ExportOnlyDB = function ()
 	{
 		$('#dup-exportdb-items-off, #dup-exportdb-items-checked').hide();
-		$("#export-onlydb").is(':checked')
-			? $('#dup-exportdb-items-checked').show()
-			: $('#dup-exportdb-items-off').show();
+		if ($("#export-onlydb").is(':checked')) {
+			$('#dup-exportdb-items-checked').show();
+			$('#dup-archive-db-only').show(100);
+			$('#dup-archive-filter-db').hide();
+			$('#dup-archive-filter-file').hide();
+		} else {
+			$('#dup-exportdb-items-off').show();
+			$('#dup-exportdb-items-checked').hide();
+			$('#dup-archive-db-only').hide();
+			Duplicator.Pack.ToggleFileFilters();
+		}
+
+		Duplicator.Pack.ToggleDBFilters();
 	};
 
 	/* Enable/Disable the file filter elements */
@@ -526,8 +542,8 @@ jQuery(document).ready(function ($)
 		}
 	}
 
-	<?php if ($retry_dbenabled) :?>
-		$('#dup-pack-archive-panel').show(500);
+	<?php if ($retry_state == '2') :?>
+		$('#dup-pack-archive-panel').show();
 		$('#export-onlydb').prop( "checked", true );
 	<?php endif; ?>
 	
