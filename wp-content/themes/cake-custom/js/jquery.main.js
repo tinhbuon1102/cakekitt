@@ -298,7 +298,7 @@ $(function(){
                 
         		// Add current class for slide step
         		$('#four_steps .step').removeClass('current');
-        		$('#four_steps .step[data-step="'+ (currentStepActive + 1) +'"]').addClass('current');
+        		$('#four_steps .step[data-step="'+ (currentStepActive) +'"]').addClass('current');
 
         		// Store value to server
                 showItemInCart(true, currentStepActive);
@@ -323,7 +323,7 @@ $(function(){
     		
     		// Add current class for slide step
     		$('#four_steps .step').removeClass('current');
-    		$('#four_steps .step[data-step="'+ (changeStep) +'"]').addClass('current');
+    		$('#four_steps .step[data-step="'+ (changeStep - 1) +'"]').addClass('current');
     		
     		$('form#omOrder .step_wraper').slideUp();
     		$('form#omOrder .step_wraper[data-step="'+ (changeStep) +'"]').slideDown(function(){
