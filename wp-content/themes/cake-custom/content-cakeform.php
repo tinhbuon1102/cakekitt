@@ -1004,54 +1004,6 @@ $current_year = date('Y');
 				<label class="label"><?php _e( 'お値段についてお聞かせください', 'woocommerce' ); ?></label>
 				<ul class="question_list text-radio list-type">
 					<li class="m-input__radio">
-						<input type="radio" name="survey[taste]" id="q05_a" class="radio_input" value="大変満足">
-						<label for="q05_a" class="js-fixHeightChildText radio_label">
-							<div class="radio_option radio_size">
-								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">大変満足</span></h5>
-							</div>
-						</label>
-					</li>
-					<li class="m-input__radio">
-						<input type="radio" name="survey[taste]" id="q05_b" class="radio_input" value="満足">
-						<label for="q05_b" class="js-fixHeightChildText radio_label">
-							<div class="radio_option radio_size">
-								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">満足</span></h5>
-							</div>
-						</label>
-					</li>
-					<li class="m-input__radio">
-						<input type="radio" name="survey[taste]" id="q05_c" class="radio_input" value="普通">
-						<label for="q05_c" class="js-fixHeightChildText radio_label">
-							<div class="radio_option radio_size">
-								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">普通</span></h5>
-							</div>
-						</label>
-					</li>
-					<li class="m-input__radio">
-						<input type="radio" name="survey[taste]" id="q05_d" class="radio_input" value="やや不満">
-						<label for="q05_d" class="js-fixHeightChildText radio_label">
-							<div class="radio_option radio_size">
-								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">やや不満</span></h5>
-							</div>
-						</label>
-					</li>
-					<li class="m-input__radio">
-						<input type="radio" name="survey[taste]" id="q05_e" class="radio_input" value="不満">
-						<label for="q05_e" class="js-fixHeightChildText radio_label">
-							<div class="radio_option radio_size">
-								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">不満</span></h5>
-							</div>
-						</label>
-					</li>
-				</ul>
-			</div>
-		</div>
-		
-		<div class="row">
-			<div class="field col-xs-12">
-				<label class="label"><?php _e( 'お味についてお聞かせください', 'woocommerce' ); ?></label>
-				<ul class="question_list text-radio list-type">
-					<li class="m-input__radio">
 						<input type="radio" name="survey[price]" id="q06_a" class="radio_input" value="大変満足">
 						<label for="q06_a" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
@@ -1094,7 +1046,53 @@ $current_year = date('Y');
 				</ul>
 			</div>
 		</div>
-		
+		<div class="row">
+			<div class="field col-xs-12">
+				<label class="label"><?php _e( 'お味についてお聞かせください', 'woocommerce' ); ?></label>
+				<ul class="question_list text-radio list-type">
+					<li class="m-input__radio">
+						<input type="radio" name="survey[taste]" id="q05_a" class="radio_input" value="大変満足">
+						<label for="q05_a" class="js-fixHeightChildText radio_label">
+							<div class="radio_option radio_size">
+								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">大変満足</span></h5>
+							</div>
+						</label>
+					</li>
+					<li class="m-input__radio">
+						<input type="radio" name="survey[taste]" id="q05_b" class="radio_input" value="満足">
+						<label for="q05_b" class="js-fixHeightChildText radio_label">
+							<div class="radio_option radio_size">
+								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">満足</span></h5>
+							</div>
+						</label>
+					</li>
+					<li class="m-input__radio">
+						<input type="radio" name="survey[taste]" id="q05_c" class="radio_input" value="普通">
+						<label for="q05_c" class="js-fixHeightChildText radio_label">
+							<div class="radio_option radio_size">
+								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">普通</span></h5>
+							</div>
+						</label>
+					</li>
+					<li class="m-input__radio">
+						<input type="radio" name="survey[taste]" id="q05_d" class="radio_input" value="やや不満">
+						<label for="q05_d" class="js-fixHeightChildText radio_label">
+							<div class="radio_option radio_size">
+								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">やや不満</span></h5>
+							</div>
+						</label>
+					</li>
+					<li class="m-input__radio">
+						<input type="radio" name="survey[taste]" id="q05_e" class="radio_input" value="不満">
+						<label for="q05_e" class="js-fixHeightChildText radio_label">
+							<div class="radio_option radio_size">
+								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">不満</span></h5>
+							</div>
+						</label>
+					</li>
+				</ul>
+			</div>
+		</div>
 		<!--added newly-->
 		<div class="row">
 			<div class="field col-xs-12">

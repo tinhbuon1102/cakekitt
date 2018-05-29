@@ -1642,18 +1642,18 @@ function kitt_woocommerce_email_customer_details($order, $sent_to_admin, $plain_
 function kitt_get_survey_label ()
 {
 	return array(
-		'engine' => '当店をどこで知りましたか',
-		'engine_other' => 'Other Engine',
-		'social' => 'Social Engine',
+		'engine' => '当店をどこで知りましたか？',
+		'engine_other' => 'その他',
+		'social' => 'SNS種類',
 		'social_comment' => 'Social Other',
-		'placed' => '以前Kittのケーキをご注文されたことがありますか',
-		'use' => '差し支えなければ最近のご利用日を教えてください。',
+		'placed' => '当店のケーキをご注文されたことがありますか？',
+		'use' => '最近のご利用日',
 		'usage' => 'ご利用回数',
-		'taste' => '差し支えなければ、お味についてお聞かせください',
-		'price' => '差し支えなければ、お値段についてお聞かせください',
-		'design' => 'デザインについてお聞かせください',
-		'particular' => '差し支えなければ、特に良かった点についてお聞かせください',
-		'other_comment' => 'ご意見・ご希望等ございましたら、お聞かせください',
+		'taste' => '味について',
+		'price' => '値段について',
+		'design' => 'デザインについて',
+		'particular' => '特に良かった点',
+		'other_comment' => 'ご意見・ご希望等',
 	);
 }
 function kitt_add_product_to_cart($product_id) {
