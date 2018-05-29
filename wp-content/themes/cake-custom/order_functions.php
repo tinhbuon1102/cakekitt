@@ -704,14 +704,14 @@ function get_layer_cake_size() {
 	switch($iLayer)
 	{
 		case 1:
+		case 2:
 			// Hide first option of round/square size
-			$aSizeRound = array_slice( $aSizeRound, KITT_CAKESIZE_ROUND_FOR_LAYER_1, count($aSizeRound), TRUE );
+			$aSizeRound = array_slice( $aSizeRound, 1, count($aSizeRound), TRUE );
 			$aSizeSquare = array_slice( $aSizeSquare, 1, count($aSizeSquare), TRUE );
 // 			$aSizeHeart = array_slice( $aSizeHeart, 1, count($aSizeHeart), TRUE );
 			break;
-		case 2:
 		case KITT_MAX_LAYER_ESTIMATION:
-			// Hide first option of round/square size
+			// Hide 2 first options of round/square size
 			$aSizeRound = array_slice( $aSizeRound, 2, count($aSizeRound), TRUE );
 			$aSizeSquare = array_slice( $aSizeSquare, 2, count($aSizeSquare), TRUE );
 // 			$aSizeHeart = array_slice( $aSizeHeart, 2, count($aSizeHeart), TRUE );
