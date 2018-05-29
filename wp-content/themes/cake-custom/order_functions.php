@@ -1643,6 +1643,9 @@ function kitt_get_survey_label ()
 {
 	return array(
 		'engine' => '当店をどこで知りましたか',
+		'engine_other' => 'Other Engine',
+		'social' => 'Social Engine',
+		'social_comment' => 'Social Other',
 		'placed' => '以前Kittのケーキをご注文されたことがありますか',
 		'use' => '差し支えなければ最近のご利用日を教えてください。',
 		'usage' => 'ご利用回数',
