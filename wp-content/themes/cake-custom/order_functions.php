@@ -1084,6 +1084,8 @@ function getDecorationGroup(){
 		'heartchoco' => array(
 		),
 		'fruit' => array(
+			'custom_order_fruit_detail' => array('label' => __('Fruit Details', 'cake')),
+			'custom_order_fruit_detail_text' => array('label' => __('Fruit Details text', 'cake')),
 		),
 		'flower' => array(
 			'custom_order_flowercolor' => array('label' => __('color', 'cake')),
