@@ -176,7 +176,8 @@ $(function(){
     					'custom_order_cakecolor',
     					'custom_order_printq',
     					'custom_order_cake_decorate',
-    					'custom_order_msgplate'
+    					'custom_order_msgplate',
+    					'custom_order_shipping'
     				];
     			$.each(aCartShowingItems, function(index, field_name){
     				if (input_name.indexOf(field_name) != -1)
