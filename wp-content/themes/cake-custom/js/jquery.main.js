@@ -671,6 +671,13 @@ $(function(){
     	
     	$('body').on('change', 'select[name="custom_order_layer"]', function(){
     		var layer = $(this).val();
+    		var notice_layer = $('.cake-size.select-wrapper').find('.text-notice-layer');
+    		notice_layer.addClass('disabled');
+    		if (layer == 2 || layer == 3)
+    		{
+    			notice_layer.removeClass('disabled');
+    			notice_layer.text(layer + '段目のサイズを選択してください');
+    		}
     		$.ajax({
  	           url: gl_ajaxUrl,
  	           data: {  
