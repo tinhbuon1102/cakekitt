@@ -848,19 +848,22 @@ $current_year = date('Y');
 							</div>
 						</label>
 						<!--show this if SNS is checked-->
-						<span class="dropdown">
-							<select name="">
+						<span class="dropdown" style="display: none;" id="engine_sns">
+							<select name="survey[social]">
 								<option value="Instagram">Instagram</option>
 								<option value="facebook">facebook</option>
 								<option value="twitter">twitter</option>
 								<option value="LINE＠">LINE＠</option>
 								<option value="その他（記入）">その他（記入）</option>
 							</select>
+							
+							<!--show this if その他（記入） is selected-->
+							<span class="block_textarea" style="display: none;" id="engine_sns_comment">
+								<textarea name="survey[social_comment]" class="validate[required]" placeholder="ご希望の形についてご記入ください。"></textarea>
+							</span>
+							<!--/show this if その他（記入） is selected-->
 						</span>
 						<!--/show this if SNS is checked-->
-						<!--show this if その他（記入） is selected-->
-						<span class="block_textarea"><textarea name=""></textarea></span>
-						<!--/show this if その他（記入） is selected-->
 					</li>
 					<li class="m-input__radio">
 						<input type="radio" name="survey[engine]" id="q01_b" class="radio_input validate[required]" value="知人の紹介">
@@ -902,7 +905,9 @@ $current_year = date('Y');
 							</div>
 						</label>
 						<!--show if その他（記入）is checked-->
-						<span class="block_textarea"><textarea name=""></textarea></span>
+						<span class="block_textarea" style="display: none;" id="engine_other">
+							<textarea name="survey[engine_other]" class="validate[required]" placeholder="ご希望の形についてご記入ください。"></textarea>
+						</span>
 						<!--/show if その他（記入）is checked-->
 					</li>
 				</ul>
@@ -1096,7 +1101,7 @@ $current_year = date('Y');
 				<label class="label"><?php _e( 'デザインについてお聞かせください', 'woocommerce' ); ?></label>
 				<ul class="question_list text-radio list-type">
 					<li class="m-input__radio">
-						<input type="radio" name="survey[price]" id="q062_a" class="radio_input" value="大変満足">
+						<input type="radio" name="survey[design]" id="q062_a" class="radio_input" value="大変満足">
 						<label for="q062_a" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">大変満足</span></h5>
@@ -1104,7 +1109,7 @@ $current_year = date('Y');
 						</label>
 					</li>
 					<li class="m-input__radio">
-						<input type="radio" name="survey[price]" id="q062_b" class="radio_input" value="満足">
+						<input type="radio" name="survey[design]" id="q062_b" class="radio_input" value="満足">
 						<label for="q062_b" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">満足</span></h5>
@@ -1112,7 +1117,7 @@ $current_year = date('Y');
 						</label>
 					</li>
 					<li class="m-input__radio">
-						<input type="radio" name="survey[price]" id="q062_c" class="radio_input" value="普通">
+						<input type="radio" name="survey[design]" id="q062_c" class="radio_input" value="普通">
 						<label for="q062_c" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">普通</span></h5>
@@ -1120,7 +1125,7 @@ $current_year = date('Y');
 						</label>
 					</li>
 					<li class="m-input__radio">
-						<input type="radio" name="survey[price]" id="q062_d" class="radio_input" value="やや不満">
+						<input type="radio" name="survey[design]" id="q062_d" class="radio_input" value="やや不満">
 						<label for="q062_d" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">やや不満</span></h5>
@@ -1128,7 +1133,7 @@ $current_year = date('Y');
 						</label>
 					</li>
 					<li class="m-input__radio">
-						<input type="radio" name="survey[price]" id="q062_e" class="radio_input" value="不満">
+						<input type="radio" name="survey[design]" id="q062_e" class="radio_input" value="不満">
 						<label for="q062_e" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
 								<h5 class="js-fixHeightChildTitle radio_option_caption"><span class="caption_wrap">不満</span></h5>
@@ -1193,7 +1198,7 @@ $current_year = date('Y');
 						</label>
 						<!--show input_show when above radio is selected-->
 						<div class="input_show" id="survey_particular_comment" style="display: none;">
-							<textarea name="survey_comment"></textarea>
+							<textarea name="survey_comment" class="validate[required]" placeholder="ご希望の形についてご記入ください。"></textarea>
 						</div>
 					</li>
 				</ul>
@@ -1204,7 +1209,7 @@ $current_year = date('Y');
 		<div class="row">
 			<div class="field col-xs-12">
 				<label class="label"><?php _e( 'ご意見・ご希望等ございましたら、お聞かせください', 'woocommerce' ); ?></label>
-				<div class="input_textarea"><textarea name="other_comment"></textarea></div>
+				<div class="input_textarea"><textarea name="survey[other_comment]" class="validate[required]" ></textarea></div>
 			</div>
 		</div>
 		<!--/added newly-->

@@ -1648,7 +1648,9 @@ function kitt_get_survey_label ()
 		'usage' => 'ご利用回数',
 		'taste' => '差し支えなければ、お味についてお聞かせください',
 		'price' => '差し支えなければ、お値段についてお聞かせください',
+		'design' => 'デザインについてお聞かせください',
 		'particular' => '差し支えなければ、特に良かった点についてお聞かせください',
+		'other_comment' => 'ご意見・ご希望等ございましたら、お聞かせください',
 	);
 }
 function kitt_add_product_to_cart($product_id) {

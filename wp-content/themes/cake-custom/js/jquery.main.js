@@ -896,6 +896,34 @@ $(function(){
  		  else {
  			  $('#survey_particular_comment').hide();
  		  }
- 	  })
+ 	  });
+ 	  
+ 	 $(document).on('change', 'input[name="survey[engine]"]', function(){
+ 		  if ($(this).attr('id') == 'q01_a')
+		  {
+			  $('#engine_sns').show();
+		  }
+		  else {
+			  $('#engine_sns').hide();
+		  }
+		  
+ 		  if ($(this).attr('id') == 'q01_c')
+		  {
+			  $('#engine_other').show();
+		  }
+		  else {
+			  $('#engine_other').hide();
+		  }
+	  });
+ 	 
+ 	$(document).on('change', '#engine_sns', function(){
+		  if ($(this).find('option:last').is(':checked'))
+		  {
+			  $('#engine_sns_comment').show();
+		  }
+		  else {
+			  $('#engine_sns_comment').hide();
+		  }
+	  })
    }
 });
