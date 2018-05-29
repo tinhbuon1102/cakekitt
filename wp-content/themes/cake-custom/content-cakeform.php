@@ -260,7 +260,7 @@ $current_year = date('Y');
 									</option>
 								<?php }?>
 							</select>
-							<div class="disabled text-notice-layer">
+							<div class="disable text-notice-layer">
 								
 							</div>
 						</div>
