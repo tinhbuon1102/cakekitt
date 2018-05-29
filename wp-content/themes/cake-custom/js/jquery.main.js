@@ -696,6 +696,20 @@ $(function(){
 		        		   $('select[name="custom_order_cakesize_square"]').html(response.custom_order_cakesize_square);
 		        		}
 	 	        	   
+	 	        	   if (layer == '特注段数')
+	 	        	   {
+	 	        		 $('select[name="custom_order_cakesize_round"] option:last').prop('selected', true)
+	 	        		 $('select[name="custom_order_cakesize_square"] option:last').prop('selected', true)
+	 	        		 $('select[name="custom_order_cakesize_heart"] option:last').prop('selected', true)
+	 	        	   }
+	 	        	   else {
+	 	        		  $('select[name="custom_order_cakesize_round"] option:first').prop('selected', true)
+		 	        	  $('select[name="custom_order_cakesize_square"] option:first').prop('selected', true)
+		 	          $('select[name="custom_order_cakesize_heart"] option:first').prop('selected', true)
+	 	        	   }
+	 	        	  $('select[name="custom_order_cakesize_round"]').trigger('change');
+	 	        	  $('select[name="custom_order_cakesize_square"]').trigger('change');
+	 	        	  $('select[name="custom_order_cakesize_heart"]').trigger('change');
 	 	        	   
  	           },
  	           error: function(response){
