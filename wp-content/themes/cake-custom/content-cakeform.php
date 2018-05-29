@@ -942,26 +942,29 @@ $current_year = date('Y');
 				<label class="label"><?php _e( '最近のご利用日を教えてください', 'woocommerce' ); ?></label>
 				<div class="row">
 					<div class="col-sm-4">
-						<span class="dropdown"><select name="survey[use][year]">
+						<span class="dropdown"><select name="survey[use][year]" class="validate[required]">
 							<!--show from 2017-->
+							<option value="">年を選択</option>
 							<?php for($i = $current_year - 1; $i <= $current_year; $i ++) { ?>
 							<option value="<?php echo $i?>"><?php echo $i?></option>
 							<?php }?>
 							</select></span>
 					</div>
 					<div class="col-sm-4">
-						<select name="survey[use][month]">
+						<select name="survey[use][month]" class="validate[required]">
 							<!--show All month-->
+							<option value="">月を選択</option>
 							<?php foreach($yearMonthDays['months'] as $monthNumber) { ?>
 							<option value="<?php echo $monthNumber?>"><?php echo $monthNumber?></option>
 							<?php }?>
 						</select>
 					</div>
 					<div class="col-sm-4">
-						<select name="survey[use][day]">
+						<select name="survey[use][day]" class="validate[required]">
 							<!--show All dates-->
+							<option value="">日を選択</option>
 							<?php foreach($yearMonthDays['days'] as $dayNumber) { ?>
-							<option value="<?php echo $dayNumber?>"><?php echo $dayNumber?></option>
+							<option value="<?php echo $dayNumber?>日"><?php echo $dayNumber?>日</option>
 							<?php }?>
 						</select>
 					</div>
