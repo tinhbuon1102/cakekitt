@@ -707,9 +707,9 @@ $(function(){
 		 	        	  $('select[name="custom_order_cakesize_square"] option:first').prop('selected', true)
 		 	          $('select[name="custom_order_cakesize_heart"] option:first').prop('selected', true)
 	 	        	   }
-	 	        	  $('select[name="custom_order_cakesize_round"]').trigger('change');
-	 	        	  $('select[name="custom_order_cakesize_square"]').trigger('change');
-	 	        	  $('select[name="custom_order_cakesize_heart"]').trigger('change');
+	 	        	  $('select[name="custom_order_cakesize_round"]:visible').trigger('change');
+	 	        	  $('select[name="custom_order_cakesize_square"]:visible').trigger('change');
+	 	        	  $('select[name="custom_order_cakesize_heart"]:visible').trigger('change');
 	 	        	   
  	           },
  	           error: function(response){
