@@ -473,7 +473,7 @@ function cake_steps_store(){
 	$lastCakeSize = isset($aData['custom_order_cakesize_round']) ? end($fieldMapping['custom_order_cakesize_round']['value']) : (isset($aData['custom_order_cakesize_square']) ? end($fieldMapping['custom_order_cakesize_square']['value']) : end($fieldMapping['custom_order_cakesize_heart']['value']));
 	
 	$noticeMessage = $cartTotal > 0 ? __('Cake price is not inluding the esitmation because of special size', 'cake') : __('We can’t calculate the esitmation  because of special size', 'cake');
-	if ($cakeSize == $lastCakeSize)
+	if (!$cake_shape_price)
 	{
 		$aResponse['cart_notice'] .= '<div class="col-md-12 columns">' . $noticeMessage .'</div>';
 	}
