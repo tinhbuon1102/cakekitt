@@ -457,6 +457,36 @@ $current_year = date('Y');
 									</div>
 									<?php }?>
 									
+									<?php if ($value == 'fruit') {?>
+									<div id="optionbox011" class="suboption_box disable">
+										<div class="sub_form">
+											<ul class="fruit-text text-radio list-type row">
+												<?php 
+												$index = 0;
+												foreach ($field_mappings['custom_order_fruit_detail']['value'] as $value => $label) {
+													$index ++;
+												?>
+													<li class="m-input__radio col-md-12">
+														<input type="radio" name="custom_order_fruit_detail" id="fruit_detail_<?php echo $value?>" class="radio_input validate[required]" 
+														<?php echo $field_mappings['custom_order_fruit_detail']['field']['default_value'] == $value  ? 'checked' : ''?>
+														value="<?php echo $value?>">
+														<label for="fruit_detail_<?php echo $value?>" class="js-fixHeightChildText radio_label">
+															<div class="radio_option radio_size">
+																<h5 class="js-fixHeightChildTitle radio_option_caption">
+																	<span class="caption_wrap"><?php echo $label?></span>
+																</h5>
+															</div>
+														</label>
+													</li>
+												<?php }?>
+											</ul>
+										</div>
+										<div class="sub_form" id="custom_order_fruit_detail_text_wraper" style="display:none;">
+											<textarea name="custom_order_fruit_detail_text" class="subinfo txtLL empty validate[required]" placeholder="色の詳細"></textarea>
+										</div>
+									</div>
+									<?php }?>
+									
 									<?php if ($value == 'flower') {?>
 									<div id="optionbox06" class="suboption_box disable">
 										<div class="sub_form">

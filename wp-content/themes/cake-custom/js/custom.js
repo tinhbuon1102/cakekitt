@@ -182,6 +182,14 @@ jQuery(document).ready(function(){
 		$('#custom_order_macaron_color_text_wraper').hide();
 	});
 	
+	$('#fruit_detail_designated_fruits').on('ifChecked', function(event) {
+		$('#custom_order_fruit_detail_text_wraper').show();
+	});
+	
+	$('#fruit_detail_designated_fruits').on('ifUnchecked', function(event) {
+		$('#custom_order_fruit_detail_text_wraper').hide();
+	});
+	
 	$('#username').attr( 'placeholder', 'ユーザネームまたはメールアドレス' );
 	$('#password').attr( 'placeholder', 'パスワード' );
 	
