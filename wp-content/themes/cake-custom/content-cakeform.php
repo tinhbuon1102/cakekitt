@@ -509,6 +509,14 @@ $current_year = date('Y');
 										</div>
 									</div>
 									<?php }?>
+									
+									<?php if ($value == 'chocolatedeco') {?>
+									<div id="optionbox10" class="suboption_box disable">
+										<div class="sub_form">
+											<textarea name="custom_order_chocolatedeco_text" class="subinfo txtLL empty validate[required]" placeholder="ご希望のデザイン詳細をご記入ください。"></textarea>
+										</div>
+									</div>
+									<?php }?>
 								</li>
 							<?php }?>
 						</ul>

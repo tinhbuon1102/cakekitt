@@ -1097,6 +1097,9 @@ function getDecorationGroup(){
 		'figure' => array(
 			'custom_order_doll_text' => array('label' => __('detail note', 'cake')),
 		),
+		'chocolatedeco' => array(
+			'custom_order_chocolatedeco_text' => array('label' => __('detail note', 'cake')),
+		),
 		'sugarcoating' => array(
 		),
 	);
