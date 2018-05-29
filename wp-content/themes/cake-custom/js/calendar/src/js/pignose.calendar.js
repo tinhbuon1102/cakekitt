@@ -1,20 +1,4 @@
-.question-form > .row:nth-child(4) > .field > .label:before {
-    content: "2";
-}
-.question-form > .row:nth-child(5) > .field > .label:before {
-    content: "2";
-}
-.question-form > .row:nth-child(6) > .field > .label:before {
-    content: "2";
-}.question-form > .row:nth-child(4) > .field > .label:before {
-    content: "2";
-}
-.question-form > .row:nth-child(5) > .field > .label:before {
-    content: "2";
-}
-.question-form > .row:nth-child(6) > .field > .label:before {
-    content: "2";
-}/************************************************************************************************************
+/************************************************************************************************************
  *
  * @ PIGNOSE Calendar
  * @ Date Feb 02. 2017
