@@ -1,6 +1,7 @@
 var order_form_data = {};
 $(function(){
 	var step_store_request;
+	var get_size_request;
     //original field values
     var field_values = {
             //id        :  value
@@ -36,7 +37,7 @@ $(function(){
 		
 		if (step_store_request)
 		{
-			//step_store_request.abort();
+			step_store_request.abort();
 		}
 		
 		
@@ -678,7 +679,11 @@ $(function(){
     			notice_layer.removeClass('disable');
     			notice_layer.text(layer + '段目のサイズを選択してください');
     		}
-    		$.ajax({
+    		if (get_size_request)
+    		{
+    			get_size_request.abort();
+    		}
+    		get_size_request = $.ajax({
  	           url: gl_ajaxUrl,
  	           data: {  
  	        	   	action: 'get_layer_cake_size', 
