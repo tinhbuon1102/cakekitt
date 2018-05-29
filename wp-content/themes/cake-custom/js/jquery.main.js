@@ -180,7 +180,7 @@ $(function(){
     					'custom_order_shipping'
     				];
     			$.each(aCartShowingItems, function(index, field_name){
-    				if (input_name.indexOf(field_name) != -1)
+    				if ($(input).is(':visible') && input_name.indexOf(field_name) != -1)
     				{
     	    				showItemInCart();
     	    				
