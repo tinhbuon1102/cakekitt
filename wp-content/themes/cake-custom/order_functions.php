@@ -484,7 +484,7 @@ function cake_steps_store(){
 	$aResponse['cart_total'] = ($cart->total ? $cart->get_total() : showCakePrice($cakePrice)) . KITT_APPROXIMATELY_SYMBOL;
 	
 	// Show COnfirmation page
-	if ($_POST['step'] >= 2)
+	if ($_POST['step'] >= 2 && $cake_shape_price)
 	{
 		// Check if price < 8000 -> not allow next step
 		if ($cart->subtotal < KITT_MINIMUM_PRICE_CHECKOUT)
