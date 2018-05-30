@@ -371,7 +371,7 @@ function cake_get_footer_section(){
 
 								   foreach ($img as $theurl){
 									   
-									  $output .= '<img src="'.esc_url($theurl).'" alt="" />'; 
+									  $output .= '<span class="paylogo_img"><img src="'.esc_url($theurl).'" alt="" /></span>'; 
 
 								   }
 								   $output .='</div>';

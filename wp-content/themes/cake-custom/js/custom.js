@@ -304,15 +304,16 @@ if (jQuery(".ordercake-cart-sidebar-container2").length)
 
 	$(window).on('load resize', function(){
 	//width値を取得する
-	var windowHeight = $(window).height();
+	//var windowHeight = $(window).height();
 	var sideWidth = $('.ordercake-cart-sidebar-container').width();
 	$('.cake-cart-sidebar').css('width', sideWidth + 'px');
 	
 	var divWidth = $('.round-icon-select #fixwh-inner').width();
 	var divfixHeight = $('.round-icon-select #fixwh-inner .center-middle-fix').height();
+	var navH = $('.nav-container').height();
 	$('.round-icon-select #fixwh-inner').css('height', divWidth + 'px');
 	$('.round-icon-select #fixwh-inner .center-middle-fix').css('margin-top', '-' + (divfixHeight / 2 + 10) + 'px');
-	$('.float_contact').css('top', (windowHeight - 60) + 'px');
+	$('.float_contact').css('top', (navH + 10) + 'px');
 	});
 	
 	/* nav scroll*/

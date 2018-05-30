@@ -482,7 +482,7 @@ $current_year = date('Y');
 											</ul>
 										</div>
 										<div class="sub_form" id="custom_order_fruit_detail_text_wraper" style="display:none;">
-											<textarea name="custom_order_fruit_detail_text" class="subinfo txtLL empty validate[required]" placeholder="色の詳細"></textarea>
+											<textarea name="custom_order_fruit_detail_text" class="subinfo txtLL empty validate[required]" placeholder="ご希望のフルーツをご記入ください"></textarea>
 										</div>
 									</div>
 									<?php }?>
@@ -800,6 +800,7 @@ $current_year = date('Y');
 								</label>
 								<div class="calendar"></div>
 								<input type="hidden" name="custom_order_pickup_date" id="custom_order_pickup_date" value="<?php echo date('Y-m-d')?>"/>
+								<span class="text_helper">通常2日前までのオーダーのみ受け付けておりますが、場合によってはそれより短い期間でも製造可能ですので、店舗にお問合せ下さい。</span>
 							</div>
 							<div class="col-md-6 columns">
 								<label class="label mb-2">
@@ -852,14 +853,14 @@ $current_year = date('Y');
 							<select name="survey[social]">
 								<option value="Instagram">Instagram</option>
 								<option value="facebook">facebook</option>
-								<option value="twitter">twitter</option>
+								<option value="Twitter">Twitter</option>
 								<option value="LINE＠">LINE＠</option>
 								<option value="その他（記入）">その他（記入）</option>
 							</select>
 							
 							<!--show this if その他（記入） is selected-->
 							<span class="block_textarea" style="display: none;" id="engine_sns_comment">
-								<textarea name="survey[social_comment]" class="validate[required]" placeholder="ご希望の形についてご記入ください。"></textarea>
+								<textarea name="survey[social_comment]" class="validate[required]" placeholder=""></textarea>
 							</span>
 							<!--/show this if その他（記入） is selected-->
 						</span>
@@ -942,7 +943,7 @@ $current_year = date('Y');
 				<label class="label"><?php _e( '最近のご利用日を教えてください', 'woocommerce' ); ?></label>
 				<div class="row">
 					<div class="col-sm-4">
-						<span class="dropdown"><select name="survey[use][year]" class="validate[required]">
+						<span class="dropdown"><select name="survey[use][year]" class="">
 							<!--show from 2017-->
 							<option value="">年を選択</option>
 							<?php for($i = $current_year - 1; $i <= $current_year; $i ++) { ?>
@@ -951,7 +952,7 @@ $current_year = date('Y');
 							</select></span>
 					</div>
 					<div class="col-sm-4">
-						<select name="survey[use][month]" class="validate[required]">
+						<select name="survey[use][month]" class="">
 							<!--show All month-->
 							<option value="">月を選択</option>
 							<?php foreach($yearMonthDays['months'] as $monthNumber) { ?>
@@ -960,7 +961,7 @@ $current_year = date('Y');
 						</select>
 					</div>
 					<div class="col-sm-4">
-						<select name="survey[use][day]" class="validate[required]">
+						<select name="survey[use][day]" class="">
 							<!--show All dates-->
 							<option value="">日を選択</option>
 							<?php foreach($yearMonthDays['days'] as $dayNumber) { ?>
@@ -1210,7 +1211,7 @@ $current_year = date('Y');
 		<div class="row">
 			<div class="field col-xs-12">
 				<label class="label"><?php _e( 'ご意見・ご希望等ございましたら、お聞かせください', 'woocommerce' ); ?></label>
-				<div class="input_textarea"><textarea name="survey[other_comment]" class="validate[required]" ></textarea></div>
+				<div class="input_textarea"><textarea name="survey[other_comment]" class="" ></textarea></div>
 			</div>
 		</div>
 		<!--/added newly-->

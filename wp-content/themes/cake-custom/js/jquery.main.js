@@ -678,7 +678,7 @@ $(function(){
     		if (layer == 2 || layer == 3)
     		{
     			notice_layer.removeClass('disable');
-    			notice_layer.text(layer + '段目のサイズを選択してください');
+    			notice_layer.text(/*layer + */'1段目のサイズを選択してください');
     		}
     		if (get_size_request)
     		{
