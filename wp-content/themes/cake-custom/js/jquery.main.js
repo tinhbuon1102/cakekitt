@@ -429,6 +429,9 @@ $(function(){
         $('body').on('click', '#submit_form_order', function(){
         	$('#submit_form_order').hide();
         	$('body').LoadingOverlay("show");
+        	
+        	//@TODO allow guest order
+        	is_loggedin = true;
         	if (is_loggedin)
         	{
         		$.ajax({
