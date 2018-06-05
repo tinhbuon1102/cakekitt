@@ -949,25 +949,25 @@ $current_year = date('Y');
 							<?php for($i = $current_year - 1; $i <= $current_year; $i ++) { ?>
 							<option value="<?php echo $i?>"><?php echo $i?></option>
 							<?php }?>
-							</select></span>
+							</select></span><!--/dropdown-->
 					</div>
 					<div class="col-sm-4">
-						<select name="survey[use][month]" class="">
+						<span class="dropdown"><select name="survey[use][month]" class="">
 							<!--show All month-->
 							<option value="">月を選択</option>
 							<?php foreach($yearMonthDays['months'] as $monthNumber) { ?>
 							<option value="<?php echo $monthNumber?>"><?php echo $monthNumber?></option>
 							<?php }?>
-						</select>
+						</select></span><!--/dropdown-->
 					</div>
 					<div class="col-sm-4">
-						<select name="survey[use][day]" class="">
+						<span class="dropdown"><select name="survey[use][day]" class="">
 							<!--show All dates-->
 							<option value="">日を選択</option>
 							<?php foreach($yearMonthDays['days'] as $dayNumber) { ?>
 							<option value="<?php echo $dayNumber?>日"><?php echo $dayNumber?>日</option>
 							<?php }?>
-						</select>
+						</select></span><!--/dropdown-->
 					</div>
 				</div>
 			</div>
@@ -1191,7 +1191,7 @@ $current_year = date('Y');
 							</div>
 						</label>
 					</li>
-					<li class="m-input__radio">
+					<li class="m-input__radio list_full_radio">
 						<input type="radio" name="survey[particular]" id="q07_f" class="radio_input survey_particular" value="その他">
 						<label for="q07_f" class="js-fixHeightChildText radio_label">
 							<div class="radio_option radio_size">
@@ -1200,7 +1200,7 @@ $current_year = date('Y');
 						</label>
 						<!--show input_show when above radio is selected-->
 						<div class="input_show" id="survey_particular_comment" style="display: none;">
-							<textarea name="survey_comment" class="validate[required]" placeholder="ご希望の形についてご記入ください。"></textarea>
+							<textarea name="survey_comment" class="validate[required]" placeholder=""></textarea>
 						</div>
 					</li>
 				</ul>
