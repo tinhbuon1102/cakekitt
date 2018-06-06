@@ -815,7 +815,7 @@ $current_year = date('Y');
 												<button type="button" class="button button--ghost circle">-</button>
 											</div>
 											<div class="display-table-cell">
-												<input type="range" class="abcbd" id="order_pickup_time" name="custom_order_pickup_time" min="9" max="23" step="0.5" value="9" data-rangeslider />
+												<input type="range" id="order_pickup_time" name="custom_order_pickup_time" min="9" max="23" step="0.5" value="9" data-rangeslider />
 											</div>
 											<div class="time-range__plus display-table-cell">
 												<button type="button" class="button button--ghost circle">+</button>
