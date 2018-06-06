@@ -1721,7 +1721,7 @@ function extra_delivery_fields_in_checkout_page( $checkout ) {
 									<button type="button" class="button button--ghost circle">-</button>
 								</div>
 								<div class="display-table-cell">
-									<input type="range" id="order_pickup_time" name="cake_custom_order[custom_order_pickup_time]" min="9" max="23" step="0.5" value="9" data-rangeslider />
+									<input type="range" id="order_pickup_time" name="cake_custom_order[custom_order_pickup_time]" min="9" max="23" step="0.5" value="15" data-rangeslider />
 								</div>
 								<div class="time-range__plus display-table-cell">
 									<button type="button" class="button button--ghost circle">+</button>
