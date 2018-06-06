@@ -921,6 +921,7 @@ function submit_form_order(){
 			
 			// Update order detail to meta
 			update_post_meta($order->id, 'cake_custom_order', $aData);
+			update_post_meta($order->id, 'survey_order', $_SESSION['cake_custom_order'][3]['survey']);
 			update_post_meta($order->id, 'custom_order_pickup_date_time', $aData['custom_order_pickup_date'] . ' ' . str_replace('.5', ':30', $aData['custom_order_pickup_time']));
 	
 			if ($userID)
@@ -1616,24 +1617,23 @@ function kitt_woocommerce_email_customer_details($order, $sent_to_admin, $plain_
 				'<h3 style=\'color: #e2a6c0; display: block; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 130%; margin: 16px 0 8px; text-align: left;\'>アンケート回答</h3>
 				</h3>';
 		$serveyLabels = kitt_get_survey_label();
-		foreach ($_SESSION['cake_custom_order'] as $stepData)
+		$survey_order = get_post_meta($order->id, 'survey_order', true);
+		
+		if (!empty($survey_order))
 		{
-			if (isset($stepData['survey']))
+			foreach ($survey_order as $survey_index => $survey)
 			{
-				foreach ($stepData['survey'] as $survey_index => $survey)
+				$survey_value = is_array($survey) ? implode('-', $survey) : $survey;
+				$divRow .= '<div class="survey_content">';
+				$divRow .= '<span class="survey_label">'.$serveyLabels[$survey_index].': </span>';
+				if ($survey_index == 'particular' && $survey == 'その他')
 				{
-					$survey_value = is_array($survey) ? implode('-', $survey) : $survey;
-					$divRow .= '<div class="survey_content">';
-					$divRow .= '<span class="survey_label">'.$serveyLabels[$survey_index].': </span>';
-					if ($survey_index == 'particular' && $survey == 'その他')
-					{
-						$divRow .= '<span class="survey_value">'.$survey_value . ($stepData['survey_comment'] ? '(' . $stepData['survey_comment'] . ')' : '').'</span>';
-					}
-					else {
-						$divRow .= '<span class="survey_value">'.$survey_value	.'</span>';
-					}
-					$divRow .= '</div>';
+					$divRow .= '<span class="survey_value">'.$survey_value . ($stepData['survey_comment'] ? '(' . $stepData['survey_comment'] . ')' : '').'</span>';
 				}
+				else {
+					$divRow .= '<span class="survey_value">'.$survey_value	.'</span>';
+				}
+				$divRow .= '</div>';
 			}
 		}
 		$divRow .= '</div>';

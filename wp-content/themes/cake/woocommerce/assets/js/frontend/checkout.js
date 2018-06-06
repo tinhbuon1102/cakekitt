@@ -345,6 +345,12 @@ jQuery( function( $ ) {
 				return false;
 			}
 
+			$form.validationEngine({promptPosition: 'inline', addFailureCssClassToField: "inputError", bindMethod:"live"});
+	    		var is_valid = $form.validationEngine('validate');
+	    		if (!is_valid)
+	    		{
+	    			return false;
+	    		}
 			// Trigger a handler to let gateways manipulate the checkout if needed
 			if ( $form.triggerHandler( 'checkout_place_order' ) !== false && $form.triggerHandler( 'checkout_place_order_' + wc_checkout_form.get_payment_method() ) !== false ) {
 

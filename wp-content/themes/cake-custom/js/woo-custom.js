@@ -23,8 +23,5 @@ $(function() {
 	$('#customer_details > .col-1 > .woocommerce-billing-fields > h3').addClass('numbering display-table');
 	$('#customer_details h3.numbering').wrapInner('<span class="display-table-cell pl-2"></span>');
 	$('<span class="title-number display-table-cell"></span>').insertBefore('#customer_details h3.numbering .pl-2');
-	$('<span class="title-number display-table-cell"></span>').insertBefore('#checkoutbox .columns h4.heading-form .pl-2');
 	$('#customer_details .col-1 h3.numbering .title-number').append('1');//numbering for Enter your info
-	$('#checkoutbox .columns h4.heading-form .title-number').append('2');//numbering for Deliver info
-	
 });
