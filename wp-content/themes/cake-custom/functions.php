@@ -1771,7 +1771,7 @@ function showSurveyCheckout()
 	$current_year = date('Y');
 ?>
 <!--Start show this only for first time order by user or guest-->
-	<?php if (true || !$userID || ($userID && empty($customer_orders))) {?>
+	<?php if (!$userID || ($userID && empty($customer_orders))) {?>
 		<li class="main-option">
 		<h4 class="heading-form display-table mb-3">
 			<span class="title-number display-table-cell">3</span>

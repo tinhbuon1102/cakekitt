@@ -1624,6 +1624,8 @@ function kitt_woocommerce_email_customer_details($order, $sent_to_admin, $plain_
 			foreach ($survey_order as $survey_index => $survey)
 			{
 				$survey_value = is_array($survey) ? implode('-', $survey) : $survey;
+				if (!$survey_value) continue;
+				
 				$divRow .= '<div class="survey_content">';
 				$divRow .= '<span class="survey_label">'.$serveyLabels[$survey_index].': </span>';
 				if ($survey_index == 'particular' && $survey == 'その他')
