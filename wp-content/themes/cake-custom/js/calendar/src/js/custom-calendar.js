@@ -43,8 +43,8 @@ jQuery(function($) {
 					{
 						var currentHour = parseInt(moment().format("H"))+1;
 						
-						if(currentHour < 9){
-							currentHour=9;
+						if(currentHour < 15){
+							currentHour=15;
 						}
 						
 						$('[data-rangeslider]').attr('min', currentHour);
@@ -56,7 +56,7 @@ jQuery(function($) {
 						}
 					}
 					else {
-						$('[data-rangeslider]').attr('min', 9);
+						$('[data-rangeslider]').attr('min', 15);
 					}
 				}
 				
