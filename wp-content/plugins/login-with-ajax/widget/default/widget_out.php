@@ -37,6 +37,10 @@
 					まだ会員でない方は、<a href="<?php echo esc_attr(LoginWithAjax::$url_register); ?>" class="lwa-links-register lwa-links-modal"><?php esc_html_e('Register','login-with-ajax') ?></a>
                         <?php endif; ?>
 				</p>
+				
+			<p class="form-row">
+				<input type="button" class="woocommerce-Button button skip-authenticate-btn" value="<?php esc_attr_e('Order without Register/Login', 'login-with-ajax'); ?>" tabindex="101" />
+			</p>	
             </div>
         </form>
         <?php if( !empty($lwa_data['remember']) && $lwa_data['remember'] == 1 ): ?>
@@ -101,6 +105,9 @@
 				</p>
 				<p class="form-row">
 					<input type="submit" name="wp-submit" id="wp-submit" class="woocommerce-Button button" value="<?php esc_attr_e('Register', 'login-with-ajax'); ?>" tabindex="100" />
+				</p>
+				<p class="form-row">
+					<input type="button" class="woocommerce-Button button skip-authenticate-btn" value="<?php esc_attr_e('Order without Register/Login', 'login-with-ajax'); ?>" tabindex="101" />
 				</p>
 		        <input type="hidden" name="login-with-ajax" value="register" />
 		        </div>

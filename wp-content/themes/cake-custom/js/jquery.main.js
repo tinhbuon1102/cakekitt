@@ -426,40 +426,43 @@ $(function(){
 	        });
         });
         
+        $('body').on('click', '.skip-authenticate-btn', function(){
+        		is_loggedin = true;
+        		$('#submit_form_order').trigger('click');
+        });
+        
         $('body').on('click', '#submit_form_order', function(){
-        	$('#submit_form_order').hide();
-        	$('body').LoadingOverlay("show");
-        	
-        	//@TODO allow guest order
-        	is_loggedin = true;
-        	if (is_loggedin)
-        	{
-        		$.ajax({
-                	url: gl_ajaxUrl,
-                	data: $('#confirmation_form').serialize(), 
-                    method: 'POST',
-                    dataType: 'json',
-                    success: function(response){
-                    	$('body').LoadingOverlay("hide");
-                    	if (response.error)
-                    	{
-                    		alert (response.message);
-                    	}
-                    	else {
-                    		// Redirect to thank you page
-                    		location.href = response.redirect;
-                    	}
-                    	$('#submit_form_order').show();
-                    },
-                    error: function(){
-                    	$('body').LoadingOverlay("hide");
-                    	$('#submit_form_order').show();
-                    }
-                });
-        	}
-        	else {
-        		showLoginPopup('register');
-        	}
+	        	$('#submit_form_order').hide();
+	        	$('body').LoadingOverlay("show");
+	        	
+	        	if (is_loggedin)
+	        	{
+	        		$.ajax({
+	                	url: gl_ajaxUrl,
+	                	data: $('#confirmation_form').serialize(), 
+	                    method: 'POST',
+	                    dataType: 'json',
+	                    success: function(response){
+	                    	$('body').LoadingOverlay("hide");
+	                    	if (response.error)
+	                    	{
+	                    		alert (response.message);
+	                    	}
+	                    	else {
+	                    		// Redirect to thank you page
+	                    		location.href = response.redirect;
+	                    	}
+	                    	$('#submit_form_order').show();
+	                    },
+	                    error: function(){
+	                    	$('body').LoadingOverlay("hide");
+	                    	$('#submit_form_order').show();
+	                    }
+	                });
+	        	}
+	        	else {
+	        		showLoginPopup('register');
+	        	}
         });
         
         $('#custom_order_login_modal').on('show.bs.modal', function (e) {
