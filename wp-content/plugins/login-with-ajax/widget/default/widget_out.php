@@ -107,7 +107,7 @@
 					<input type="submit" name="wp-submit" id="wp-submit" class="woocommerce-Button button" value="<?php esc_attr_e('Register', 'login-with-ajax'); ?>" tabindex="100" />
 				</p>
 				<p class="form-row">
-					<input type="button" class="woocommerce-Button button skip-authenticate-btn" value="<?php esc_attr_e('Order without Register/Login', 'login-with-ajax'); ?>" tabindex="101" />
+					<input type="button" class="woocommerce-Button button skip-authenticate-btn" value="<?php esc_attr_e('登録せずに注文する', 'login-with-ajax'); ?>" tabindex="101" />
 				</p>
 		        <input type="hidden" name="login-with-ajax" value="register" />
 		        </div>

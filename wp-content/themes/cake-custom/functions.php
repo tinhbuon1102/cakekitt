@@ -1708,6 +1708,7 @@ function extra_delivery_fields_in_checkout_page( $checkout ) {
 					</label>
 					<div class="calendar"></div>
 					<input type="hidden" name="cake_custom_order[custom_order_pickup_date]" id="custom_order_pickup_date" value="<?php echo date('Y-m-d')?>"/>
+					<span class="text_helper">通常1日前までのオーダーのみ受け付けておりますが、場合によってはそれより短い期間でも製造可能ですので、店舗にお問合せ下さい。</span>
 				</div>
 				<div class="col-md-6 columns">
 					<label class="label mb-2">
@@ -1848,7 +1849,7 @@ function showSurveyCheckout()
 						</label>
 						<!--show if その他（記入）is checked-->
 						<span class="block_textarea" style="display: none;" id="engine_other">
-							<textarea name="survey[engine_other]" class="validate[required]" placeholder="ご希望の形についてご記入ください。"></textarea>
+							<textarea name="survey[engine_other]" class="validate[required]" placeholder=""></textarea>
 						</span>
 						<!--/show if その他（記入）is checked-->
 					</li>

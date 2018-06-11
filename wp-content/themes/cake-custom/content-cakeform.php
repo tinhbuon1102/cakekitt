@@ -709,7 +709,8 @@ $current_year = date('Y');
 								</div>
 							</div>
 							<div class="mt-2 deliver-info disable">
-								<h4 class="heading-form mt-4 mb-2 text-gray"><?php echo __('Where do you want your order delivered?', 'cake')?></h4>
+								<h4 class="heading-form mt-4 mb-2 text-gray"><?php echo __('Where do you want your order delivered?', 'cake')?><span class="helper_text red">※配送可能エリア：東京23区内</span></h4>
+								
 								<div class="get-from-savedata <?php echo !is_user_logged_in() ? 'disable' : ''?>"><?php echo __('Do you wanna ship to saved adderess?', 'cake')?><input type="checkbox" name="user_saved_address" id="user_saved_address" value="1"></div>
 								<div class="form-fields">
 									<div class="row">
