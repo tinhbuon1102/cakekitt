@@ -67,15 +67,23 @@ jQuery(function($) {
 			
 			$box.text(text);
 		}
+		
+		if ($('.steps .step.first').length)
+		{
+			var dayLater = 3;
+		}
+		else {
+			var dayLater = 1;
+		}
 
 		// Default Calendar
 		$('.calendar').pignoseCalendar({
 			select: onClickHandler,
 			lang: 'jp',
-			date: moment().add(3, 'days'),
+			date: moment().add(dayLater, 'days'),
 			initialize: true,
 			disabledRanges: [
-				['1011-10-05', moment().add(2, 'days').format('YYYY-MM-DD')],
+				['1011-10-05', moment().add(dayLater - 1, 'days').format('YYYY-MM-DD')],
 			]
 		});
 
