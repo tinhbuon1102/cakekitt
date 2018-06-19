@@ -1,4 +1,7 @@
 <?php 
+$userID = (int) get_current_user_id();
+$user_data = get_userdata( $userID );
+
 // Reset session form 
 $_SESSION['cake_custom_order'] = array();
 $field_mappings = getCustomFormFieldMapping();
