@@ -313,9 +313,38 @@ figure.card_item span {
     line-height: 1;
 }
 figure.card_item span.desc {
-    margin-top: 6px;
+    margin-top: 10px;
 	margin-bottom: 20px;
 	line-height: 1.2;
+}
+figure.card_item span.del {
+	margin-top: 6px;
+	margin-bottom: 0px;
+}
+figure.card_item span.del > span {
+	display: inline-block;
+}
+.label_inline {
+    background: #000;
+    color: #FFF;
+    padding: 5px 10px;
+    font-weight: bold;
+    line-height: 1;
+}
+.label_pink {
+    background: rgba(225,120,152,1);
+}
+.label_blue {
+    background: rgba(94,166,201,1);
+}
+span.del small {
+	font-weight: bold;
+}
+.pinkcap span.del small {
+	color: rgba(225,120,152,1);
+}
+.bluecap span.del small {
+	color: rgba(94,166,201,1);
 }
 figure.card_item {
     position: relative;
@@ -383,6 +412,9 @@ section.cakeorder .card_block_text {
 }
 .m-input__radio {
     max-width: 160px;
+}
+.form-fields label.label {
+	line-height: 24px;
 }
 .form-fields label.label.required:after {
     content: "必須";
@@ -501,7 +533,7 @@ ul.cake-print.text-radio > li:first-child {
     -webkit-flex: none!important;
     -ms-flex: none!important;
     flex: none!important;
-    width: 72px;
+    width: 75px;
 }
 .list_full_radio {
     max-width: 100%;
@@ -539,7 +571,9 @@ ul.cake-print.text-radio > li:first-child {
     color: #FFF;
 }
 @media (min-width: 768px) {
-	
+	figure.card_item span.del {
+		min-height: 46px;
+	}
 	.banner-parallax .parallax-image {
     background-position: center 30% !important;
 	}

@@ -14,11 +14,13 @@
 			<div class="card_block_images">
 				<div class="card_item_column">
 				<figure class="card_item">
-				<figcaption>
+				<figcaption class="pinkcap">
 					<span class="subt jp">フルカスタムオーダー</span>
 					<p>Full custom order</p>
 					<span class="price_label">¥8,000~</span>
+					<span class="del jp"><span class="label_inline label_pink">配送可能エリア：東京23区内</span><br/><small><!--(送料¥1,500~)--></small></span>
 					<span class="desc jp">あなたのお好きなデザインのケーキをご注文いただけます。</span>
+					
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>order-made-form/" class="round_link">注文する</a>
 				</figcaption>
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>order-made-form/" class="card_link"></a>
@@ -27,11 +29,13 @@
 				</div><!--/card_item_column-->
 				<div class="card_item_column">
 				<figure class="card_item">
-				<figcaption>
+				<figcaption class="bluecap">
 					<span class="subt jp">メニューオーダー</span>
 					<p>Menu order</p>
 					<span class="price_label">¥4,500~</span>
+					<span class="del jp"><span class="label_inline label_blue">配送可能エリア：全国</span><br/><small>(宅配便配送可能地域のみ)</small></span>
 					<span class="desc jp">Kittオリジナルのケーキメニューをご注文いただけます。</span>
+					
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>menu/" class="round_link">注文する</a>
 				</figcaption>
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>menu/" class="card_link"></a>
