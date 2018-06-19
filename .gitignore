@@ -28,3 +28,5 @@ wp-content/db.php
 pull.php
 commit.php
 deploy.php
+*.zip
+*.gz
