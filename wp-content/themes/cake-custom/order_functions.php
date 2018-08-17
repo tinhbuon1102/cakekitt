@@ -97,7 +97,7 @@ function handle_file_upload(){
 				
 			$extension = substr($name, strrpos($name, '.') + 1);
 			if (in_array(strtolower($extension), $file_formats)) { // check it if it's a valid format or not
-				if ($size < (4096 * 1024)) {
+				if ($size < (1024 * 1024 * 10)) {
 					$upload_dir = wp_upload_dir();
 					$file_name = uniqid() . '_' . basename($file['name']);
 					$temp_folder = $upload_dir['basedir'] . '/temp/';
@@ -121,7 +121,7 @@ function handle_file_upload(){
 					}
 				} else {
 					$response['error'] = true;
-					$response['message'] = __('Error, Your image size is bigger than 4MB', 'cake');;
+					$response['message'] = __('Error, Your image size is bigger than 10MB', 'cake');;
 				}
 			} else {
 				$response['error'] = true;
