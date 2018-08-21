@@ -298,7 +298,11 @@ form.variations_form .variations .woocommerce-variation-price {
 .custom_select_wraper {
 	overflow: visible !important;
 }
-
+.image_loading {
+    color: red;
+    font-size: 12px;
+    line-height: 1.4;
+}
 /*==============================*/
 /*=====      lightbox      =====*/
 /*==============================*/

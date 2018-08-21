@@ -310,6 +310,7 @@ $current_year = date('Y');
 											<span class="option_label"><?php _e( 'Upload pictures', 'woocommerce' ); ?></span>
 											<div class="image_loading"></div>
 											<input type="file" class="filestyle upload_cakePic validate[required]" name="upload_cakePic" id="custom_order_photocakepic">
+											<p class="helptext">フォーマットの種類はjpg,pngのみ、ファイルサイズは10MB以下のみ対応しております。</p>
 										</div>
 									</div>
 									<?php }?>
@@ -581,6 +582,7 @@ $current_year = date('Y');
 						</ul>
 						<div id="image_loading" class="image_loading"></div>
 						<input type="file" class="filestyle upload_cakePic" name="upload_cakePic" id="custom_order_cakePic[]">
+						<p class="helptext">フォーマットの種類はjpg,pngのみ、ファイルサイズは10MB以下のみ対応しております。</p>
 					</li>
 				</ul>
 			</div>

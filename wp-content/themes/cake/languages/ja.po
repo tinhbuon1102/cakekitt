@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cake 1.2\n"
 "POT-Creation-Date: 2016-09-20 10:50+0700\n"
-"PO-Revision-Date: 2017-09-14 18:15+0900\n"
+"PO-Revision-Date: 2018-08-22 05:49+0900\n"
 "Last-Translator: \n"
 "Language-Team: codeopus\n"
 "Language: ja_JP\n"
@@ -2270,3 +2270,9 @@ msgstr "以前にご注文したことがある方は、以下からログイン
 
 msgid "Sorry but we only accept order more than ¥8000"
 msgstr "オーダーメイドケーキのご注文は8,000円以上からとなります。サイズを変更するか、オプションを追加してください。"
+
+msgid "Error, Invalid file format, only accept picture"
+msgstr "正しいフォーマットの写真を再度アップロードしてください。"
+
+msgid "Error, Your image size is bigger than 10MB"
+msgstr "ファイルサイズが10MBの写真を再度アップロードしてください。"
