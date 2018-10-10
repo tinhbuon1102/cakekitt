@@ -1,4 +1,15 @@
 /* CSS Document */
+.woocommerce div.product form.cart .fpf-fields label.checkbox {
+	font-weight: 400;
+	display: inline-block;
+    margin: 0;
+}
+.fpf-fields {
+    margin: 20px 0;
+    padding: 1.75rem;
+    background: rgba(233,184,203,.1);
+}
+
 h4.heading-form .helper_text {
     font-weight: bold;
     font-size: 12px;

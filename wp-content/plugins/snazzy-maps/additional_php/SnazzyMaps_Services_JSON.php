@@ -55,7 +55,7 @@
  * @license     http://www.opensource.org/licenses/bsd-license.php
  * @link        http://pear.php.net/pepr/pepr-proposal-show.php?id=198
  */
-
+namespace SnazzyMaps;
 /**
  * Marker constant for SnazzyMaps_Services_JSON::decode(), used to flag stack state
  */
@@ -619,7 +619,7 @@ class SnazzyMaps_Services_JSON
                             $obj = array();
                         } else {
                             $stk = array(SnazzyMaps_Services_JSON_IN_OBJ);
-                            $obj = new stdClass();
+                            $obj = new \stdClass();
                         }
                     }
 

@@ -19,41 +19,39 @@ function InitMap() {
 	
 	//MYMAP.placeMarkers(wpgmaps_markerurl+'?u='+UniqueCode,wpgmaps_localize[0].id,null,null,null);
 }
-jQuery(function() {
 
-    jQuery(document).ready(function(){
-        if (/1\.(0|1|2|3|4|5|6|7)\.(0|1|2|3|4|5|6|7|8|9)/.test(jQuery.fn.jquery)) {
-            setTimeout(function(){ 
-                document.getElementById('wpgmza_map').innerHTML = 'Error: Your version of jQuery is outdated. WP Google Maps requires jQuery version 1.7+ to function correctly. Go to Maps->Settings and check the box that allows you to over-ride your current jQuery to try eliminate this problem.';
-            }, 6000);
-        } else {
-            jQuery("#wpgmza_map").css({
-                height:wpgmaps_localize[0]['map_height']+''+wpgmaps_localize[0]['map_height_type'],
-                width:wpgmaps_localize[0]['map_width']+''+wpgmaps_localize[0]['map_width_type'],
-                overflow:'none'
-            });  
-           	InitMap();
-            jQuery('body').on('tabsactivate', function(){setTimeout(function(){InitMap();}, 500); });
-            jQuery('body').on('tabsshow', function(){setTimeout(function(){InitMap();}, 500); });
-            jQuery('body').on('accordionactivate', function(){setTimeout(function(){InitMap();}, 500); });
-            jQuery('body').on('click', '.wpb_tabs_nav li', function(){setTimeout(function(){InitMap();}, 500); });
-            jQuery('body').on('click', '.ui-tabs-nav li', function(event, ui) { InitMap(); });
-            jQuery('body').on('click', '.tp-tabs li a', function(event, ui) { InitMap(); });
-            jQuery('body').on('click', '.nav-tabs li a', function(event, ui) { InitMap(); });
-            jQuery('body').on('click', '.vc_tta-panel-heading', function(){setTimeout(function(){InitMap();}, 500); });
-            jQuery('body').on('click', '.ult_exp_section',function(){setTimeout(function(){InitMap();}, 500); });
-            jQuery('body').on('click', '.x-accordion-heading', function(){setTimeout(function(){InitMap();}, 500); });
-            jQuery('body').on('click', '.x-nav-tabs li', function(){setTimeout(function(){InitMap();}, 500); });
-            jQuery('body').on('click', '.tab-title', function(){setTimeout(function(){InitMap();}, 500); });
-            jQuery('body').on('click', '.tab-link', function(){setTimeout(function(){InitMap();}, 500); });
-            jQuery('body').on('click', '.et_pb_tabs_controls li', function(){setTimeout(function(){InitMap();}, 500); });
-            jQuery('body').on('click', '.fusion-tab-heading', function(){setTimeout(function(){InitMap();}, 500); });
-            jQuery('body').on('click', '.et_pb_tab', function(){setTimeout(function(){InitMap();}, 500); });
-            jQuery('body').on('click', '.tri-tabs-nav span', function(){setTimeout(function(){InitMap();}, 500); });
-            jQuery('body').on('click', '.gdl-tabs li', function(){setTimeout(function(){InitMap();}, 500); });
-            jQuery('body').on('click', '#tabnav  li', function(){setTimeout(function(){InitMap();}, 500); });
-        }
-    });
+jQuery(function($) {
+	if (/1\.(0|1|2|3|4|5|6|7)\.(0|1|2|3|4|5|6|7|8|9)/.test(jQuery.fn.jquery)) {
+		setTimeout(function(){ 
+			document.getElementById('wpgmza_map').innerHTML = 'Error: Your version of jQuery is outdated. WP Google Maps requires jQuery version 1.7+ to function correctly. Go to Maps->Settings and check the box that allows you to over-ride your current jQuery to try eliminate this problem.';
+		}, 6000);
+	} else {
+		jQuery("#wpgmza_map").css({
+			height:wpgmaps_localize[0]['map_height']+''+wpgmaps_localize[0]['map_height_type'],
+			width:wpgmaps_localize[0]['map_width']+''+wpgmaps_localize[0]['map_width_type'],
+			overflow:'none'
+		});  
+		InitMap();
+		jQuery('body').on('tabsactivate', function(){setTimeout(function(){InitMap();}, 500); });
+		jQuery('body').on('tabsshow', function(){setTimeout(function(){InitMap();}, 500); });
+		jQuery('body').on('accordionactivate', function(){setTimeout(function(){InitMap();}, 500); });
+		jQuery('body').on('click', '.wpb_tabs_nav li', function(){setTimeout(function(){InitMap();}, 500); });
+		jQuery('body').on('click', '.ui-tabs-nav li', function(event, ui) { InitMap(); });
+		jQuery('body').on('click', '.tp-tabs li a', function(event, ui) { InitMap(); });
+		jQuery('body').on('click', '.nav-tabs li a', function(event, ui) { InitMap(); });
+		jQuery('body').on('click', '.vc_tta-panel-heading', function(){setTimeout(function(){InitMap();}, 500); });
+		jQuery('body').on('click', '.ult_exp_section',function(){setTimeout(function(){InitMap();}, 500); });
+		jQuery('body').on('click', '.x-accordion-heading', function(){setTimeout(function(){InitMap();}, 500); });
+		jQuery('body').on('click', '.x-nav-tabs li', function(){setTimeout(function(){InitMap();}, 500); });
+		jQuery('body').on('click', '.tab-title', function(){setTimeout(function(){InitMap();}, 500); });
+		jQuery('body').on('click', '.tab-link', function(){setTimeout(function(){InitMap();}, 500); });
+		jQuery('body').on('click', '.et_pb_tabs_controls li', function(){setTimeout(function(){InitMap();}, 500); });
+		jQuery('body').on('click', '.fusion-tab-heading', function(){setTimeout(function(){InitMap();}, 500); });
+		jQuery('body').on('click', '.et_pb_tab', function(){setTimeout(function(){InitMap();}, 500); });
+		jQuery('body').on('click', '.tri-tabs-nav span', function(){setTimeout(function(){InitMap();}, 500); });
+		jQuery('body').on('click', '.gdl-tabs li', function(){setTimeout(function(){InitMap();}, 500); });
+		jQuery('body').on('click', '#tabnav  li', function(){setTimeout(function(){InitMap();}, 500); });
+	}
 });
 
 var MYMAP = {
@@ -197,7 +195,7 @@ MYMAP.placeMarkers = function(filename,map_id,radius,searched_center,distance_ty
 	                                    animation: google.maps.Animation.BOUNCE
 	                            });
                             } else { /* dont show icon */ }
-                            if (distance_type === "1") {
+                            if (distance_type == "1") {
                                 var populationOptions = {
                                       strokeColor: '#FF0000',
                                       strokeOpacity: 0.25,
@@ -225,7 +223,7 @@ MYMAP.placeMarkers = function(filename,map_id,radius,searched_center,distance_ty
                             check1 = check1 + 1;
                         }
                         var R = 0;
-                        if (distance_type === "1") {
+                        if (distance_type == "1") {
                             R = 3958.7558657440545; 
                         } else {
                             R = 6378.16; 
@@ -266,7 +264,7 @@ MYMAP.placeMarkers = function(filename,map_id,radius,searched_center,distance_ty
                         }
                         var d_string = "";
                         if (radius !== null) {                                 
-                            if (distance_type === "1") {
+                            if (distance_type == "1") {
                                 d_string = "<p style='min-width:100px; display:block;'>"+Math.round(d,2)+" "+wpgmaps_lang_m_away+"</p>"; 
                             } else {
                                 d_string = "<p style='min-width:100px; display:block;'>"+Math.round(d,2)+" "+wpgmaps_lang_km_away+"</p>";
@@ -327,7 +325,7 @@ MYMAP.placeMarkers = function(filename,map_id,radius,searched_center,distance_ty
 		                                    animation: google.maps.Animation.BOUNCE
 		                            });
 	                            } else { /* dont show icon */ }
-                                if (distance_type === "1") {
+                                if (distance_type == "1") {
                                     var populationOptions = {
                                           strokeColor: '#FF0000',
                                           strokeOpacity: 0.25,
@@ -355,7 +353,7 @@ MYMAP.placeMarkers = function(filename,map_id,radius,searched_center,distance_ty
                                 check1 = check1 + 1;
                             }
                             var R = 0;
-                            if (distance_type === "1") {
+                            if (distance_type == "1") {
                                 R = 3958.7558657440545; 
                             } else {
                                 R = 6378.16; 
@@ -396,7 +394,7 @@ MYMAP.placeMarkers = function(filename,map_id,radius,searched_center,distance_ty
                             }
                             var d_string = "";
 	                        if (radius !== null) {                                 
-	                            if (distance_type === "1") {
+	                            if (distance_type == "1") {
 	                                d_string = "<p style='min-width:100px; display:block;'>"+Math.round(d,2)+" "+wpgmaps_lang_m_away+"</p>"; 
 	                            } else {
 	                                d_string = "<p style='min-width:100px; display:block;'>"+Math.round(d,2)+" "+wpgmaps_lang_km_away+"</p>";
@@ -453,9 +451,9 @@ function add_polygon(polygonid) {
          strokeOpacity: tmp_data['lineopacity'],
          fillColor: "#"+tmp_data['fillcolor'],
          strokeWeight: 2,
-         map: MYMAP.map
+         map: MYMAP.map.googleMap
    });
-   WPGM_Path_Polygon[polygonid].setMap(MYMAP.map);
+   WPGM_Path_Polygon[polygonid].setMap(MYMAP.map.googleMap);
 
     polygon_center = bounds.getCenter();
 
@@ -582,7 +580,7 @@ function searchLocationsNear(mapid,center_searched) {
     clearLocations();
     var distance_type = document.getElementById("wpgmza_distance_type").value;
     var radius = document.getElementById('radiusSelect').value;
-    if (distance_type === "1") {
+    if (distance_type == "1") {
         if (radius === "1") { zoomie = 14; }
         else if (radius === "5") { zoomie = 12; }
         else if (radius === "10") { zoomie = 11; }

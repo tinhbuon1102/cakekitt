@@ -1,13 +1,15 @@
 <?php
+namespace SnazzyMaps;
 defined( 'ABSPATH' ) OR exit;
 
 
+class SnazzyMaps_Help {
 
-    function admin_help_head($tab){
+    public static function admin_help_head($tab){
     
     }
 
-    function admin_help_tab($tab){
+    public static function admin_help_tab($tab){
 ?>    
 
     <div class="row">
@@ -55,4 +57,7 @@ defined( 'ABSPATH' ) OR exit;
         </div>
     </div>   
 
-<?php } ?>
+<?php 
+	} 
+}
+?>

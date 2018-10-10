@@ -18,28 +18,23 @@ if ('undefined' === typeof window.jQuery) {
     
 }
 
-jQuery(function() {
+jQuery(function($) {
 
+	if (/1\.(0|1|2|3|4|5|6|7)\.(0|1|2|3|4|5|6|7|8|9)/.test(jQuery.fn.jquery)) {
+		setTimeout(function(){ 
+			for(var entry in wpgmaps_localize) {
+				document.getElementById('wpgmza_map_'+entry).innerHTML = wpgmza_jquery_error_string_2;
+			}
+		}, 3000);
+	} else {
 
-    jQuery(document).ready(function(){
-        if (/1\.(0|1|2|3|4|5|6|7)\.(0|1|2|3|4|5|6|7|8|9)/.test(jQuery.fn.jquery)) {
-            setTimeout(function(){ 
-                for(var entry in wpgmaps_localize) {
-                    document.getElementById('wpgmza_map_'+entry).innerHTML = wpgmza_jquery_error_string_2;
-                }
-            }, 3000);
-        } else {
-
-            for(var entry in wpgmaps_localize) {
-                InitMap(wpgmaps_localize[entry]['id'],false);
-            }
-           
-        }
-
-    });
+		for(var entry in wpgmaps_localize) {
+			InitMap(wpgmaps_localize[entry]['id'],false);
+		}
+	   
+	}
 
 });
-
 
 for(var entry in wpgmaps_localize) {
 
@@ -171,11 +166,11 @@ for(var entry in wpgmaps_localize) {
                                 var marker = new google.maps.Marker({
                                         position: point,
                                         map: MYMAP[entry].map,
-                                        animation: google.maps.Animation.BOUNCE
+                                        animation: WPGMZA.Marker.ANIMATION_BOUNCE
                                 });
                                 } else { /* do nothing */ }
 
-                                if (distance_type === "1") {
+                                if (distance_type == "1") {
                                     var populationOptions = {
                                           strokeColor: '#FF0000',
                                           strokeOpacity: 0.25,
@@ -203,7 +198,7 @@ for(var entry in wpgmaps_localize) {
                                 check1 = check1 + 1;
                             }
                             var R = 0;
-                            if (distance_type === "1") {
+                            if (distance_type == "1") {
                                 R = 3958.7558657440545; 
                             } else {
                                 R = 6378.16; 
@@ -244,7 +239,7 @@ for(var entry in wpgmaps_localize) {
                             }
                             var d_string = "";
                             if (radius !== null) {                                 
-                                if (distance_type === "1") {
+                                if (distance_type == "1") {
                                     d_string = "<p style='min-width:100px; display:block;'>"+Math.round(d,2)+" "+wpgmaps_lang_m_away+"</p>"; 
                                 } else {
                                     d_string = "<p style='min-width:100px; display:block;'>"+Math.round(d,2)+" "+wpgmaps_lang_km_away+"</p>"; 
@@ -318,7 +313,7 @@ for(var entry in wpgmaps_localize) {
 
 
 
-                                    if (distance_type === "1") {
+                                    if (distance_type == "1") {
                                         var populationOptions = {
                                               strokeColor: '#FF0000',
                                               strokeOpacity: 0.25,
@@ -346,7 +341,7 @@ for(var entry in wpgmaps_localize) {
                                     check1 = check1 + 1;
                                 }
                                 var R = 0;
-                                if (distance_type === "1") {
+                                if (distance_type == "1") {
                                     R = 3958.7558657440545; 
                                 } else {
                                     R = 6378.16; 
@@ -387,7 +382,7 @@ for(var entry in wpgmaps_localize) {
                                 }
                                 var d_string = "";
                                 if (radius !== null) {                                 
-                                    if (distance_type === "1") {
+                                    if (distance_type == "1") {
                                         d_string = "<p style='min-width:100px; display:block;'>"+Math.round(d,2)+" "+wpgmaps_lang_m_away+"</p>"; 
                                     } else {
                                         d_string = "<p style='min-width:100px; display:block;'>"+Math.round(d,2)+" "+wpgmaps_lang_km_away+"</p>"; 
@@ -445,7 +440,7 @@ function fillInAddress() {
   var place = autocomplete.getPlace();
 }
 var elementExists = document.getElementById("addressInput");
-if (typeof google === 'object' && typeof google.maps === 'object' && typeof google.maps.places === 'object' && typeof google.maps.places.Autocomplete === 'function') {
+if (typeof google === 'object' && typeof google.maps === 'object' && typeof google.maps.places === 'object' && typeof google.maps.places.Autocomplete === 'function' && WPGMZA.settings.engine == "google-maps") {
     if (elementExists !== null) {
         /* initialize the autocomplete form */
         autocomplete = new google.maps.places.Autocomplete(
@@ -636,7 +631,7 @@ function searchLocationsNear(mapid,center_searched) {
     clearLocations();
     var distance_type = document.getElementById("wpgmza_distance_type").value;
     var radius = document.getElementById('radiusSelect').value;
-    if (distance_type === "1") {
+    if (distance_type == "1") {
         if (radius === "1") { zoomie = 14; }
         else if (radius === "5") { zoomie = 12; }
         else if (radius === "10") { zoomie = 11; }

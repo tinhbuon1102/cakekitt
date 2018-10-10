@@ -247,22 +247,9 @@ function wpgmaps_b_admin_add_polyline_javascript($mapid) {
             $api_version_string = "v=3.exp&";
         }
         ?>
-        <?php if( get_option( 'wpgmza_google_maps_api_key' ) ){ ?>
-            <script type="text/javascript">
-                var gmapsJsHost = (("https:" == document.location.protocol) ? "https://" : "http://");
-                var wpgmza_api_key = '<?php echo get_option( 'wpgmza_google_maps_api_key' ); ?>';
-                document.write(unescape("%3Cscript src='" + gmapsJsHost + "maps.google.com/maps/api/js?<?php echo $api_version_string; ?>key="+wpgmza_api_key+"' type='text/javascript'%3E%3C/script%3E"));
-            </script>
-        <?php } else { ?>
-            <script type="text/javascript">
-                var wpgmza_temp_api_key = "<?php echo get_option('wpgmza_temp_api'); ?>";
-                var gmapsJsHost = (("https:" == document.location.protocol) ? "https://" : "http://");
-                document.write(unescape("%3Cscript src='" + gmapsJsHost + "maps.google.com/maps/api/js?<?php echo $api_version_string; ?>key="+wpgmza_temp_api_key+"&libraries=places' type='text/javascript'%3E%3C/script%3E"));
-            </script>
-        <?php } ?>
         <link rel='stylesheet' id='wpgooglemaps-css'  href='<?php echo wpgmaps_get_plugin_url(); ?>/css/wpgmza_style.css' type='text/css' media='all' />
         <script type="text/javascript" >
-            jQuery(document).ready(function(){
+            jQuery(function($) {
                     function wpgmza_InitMap() {
                         var myLatLng = new google.maps.LatLng(<?php echo $wpgmza_lat; ?>,<?php echo $wpgmza_lng; ?>);
                         MYMAP.init('#wpgmza_map', myLatLng, <?php echo $start_zoom; ?>);
@@ -476,28 +463,7 @@ function wpgmaps_b_admin_edit_polyline_javascript($mapid,$polyid) {
         if (!$fillopacity) { $fillopacity = "0.5"; }
         $linecolor = "#".$linecolor;
                         
-        
-        if (isset($wpgmza_settings['wpgmza_api_version']) && $wpgmza_settings['wpgmza_api_version'] != "") {
-            $api_version_string = "v=".$wpgmza_settings['wpgmza_api_version']."&";
-        } else {
-            $api_version_string = "v=3.exp&";
-        }
-        
-
         ?>
-        <?php if( get_option( 'wpgmza_google_maps_api_key' ) ){ ?>
-            <script type="text/javascript">
-                var gmapsJsHost = (("https:" == document.location.protocol) ? "https://" : "http://");
-                var wpgmza_api_key = '<?php echo get_option( 'wpgmza_google_maps_api_key' ); ?>';
-                document.write(unescape("%3Cscript src='" + gmapsJsHost + "maps.google.com/maps/api/js?<?php echo $api_version_string; ?>key="+wpgmza_api_key+"' type='text/javascript'%3E%3C/script%3E"));
-            </script>
-        <?php } else { ?>
-            <script type="text/javascript">
-                var wpgmza_temp_api_key = "<?php echo get_option('wpgmza_temp_api'); ?>";
-                var gmapsJsHost = (("https:" == document.location.protocol) ? "https://" : "http://");
-                document.write(unescape("%3Cscript src='" + gmapsJsHost + "maps.google.com/maps/api/js?<?php echo $api_version_string; ?>key="+wpgmza_temp_api_key+"&libraries=places' type='text/javascript'%3E%3C/script%3E"));
-            </script>
-        <?php } ?>
         <link rel='stylesheet' id='wpgooglemaps-css'  href='<?php echo wpgmaps_get_plugin_url(); ?>/css/wpgmza_style.css' type='text/css' media='all' />
         <script type="text/javascript" >
              // polygons variables
@@ -506,7 +472,7 @@ function wpgmaps_b_admin_edit_polyline_javascript($mapid,$polyid) {
             var poly_path = new google.maps.MVCArray;
             var path;
                 
-            jQuery(document).ready(function(){
+            jQuery(function($) {
                 
                     function wpgmza_InitMap() {
                         var myLatLng = new google.maps.LatLng(<?php echo $wpgmza_lat; ?>,<?php echo $wpgmza_lng; ?>);
@@ -580,7 +546,7 @@ function wpgmaps_b_admin_edit_polyline_javascript($mapid,$polyid) {
                         var WPGM_PathLineData_<?php echo $poly_id; ?> = [
                         <?php
                         $poly_array = wpgmza_b_return_polyline_array($poly_id);
-
+						
                         foreach ($poly_array as $single_poly) {
                             $poly_data_raw = str_replace(" ","",$single_poly);
                             $poly_data_raw = explode(",",$poly_data_raw);
@@ -592,6 +558,7 @@ function wpgmaps_b_admin_edit_polyline_javascript($mapid,$polyid) {
                         }
                         ?>
                     ];
+					
                     var WPGM_PathLine_<?php echo $poly_id; ?> = new google.maps.Polyline({
                       path: WPGM_PathLineData_<?php echo $poly_id; ?>,
                       strokeColor: "<?php echo $linecolor; ?>",
@@ -817,27 +784,29 @@ function wpgmza_b_return_polyline_options($poly_id) {
 }
 
 /**
- * Return the polyline data in the correct format
+ * Return the polyline data in the format of an array of coordinate-pair strings
  * 
  * @param  integer $poly_id Polyline ID
- * @return array            Poly data array
+ * @return array            Poly data array of coordinate-pair strings
  */
 function wpgmza_b_return_polyline_array($poly_id) {
     global $wpdb;
     global $wpgmza_tblname_polylines;
+	
     $results = $wpdb->get_results($wpdb->prepare("SELECT * FROM $wpgmza_tblname_polylines WHERE `id` = %d LIMIT 1",intval($poly_id)) );
-    foreach ( $results as $result ) {
-        $current_polydata = $result->polydata;
-        $new_polydata = str_replace("),(","|",$current_polydata);
-        $new_polydata = str_replace("(","",$new_polydata);
-        $new_polydata = str_replace("),","",$new_polydata);
-        $new_polydata = explode("|",$new_polydata);
-        foreach ($new_polydata as $poly) {
-            
-            $ret[] = $poly;
-        }
-        return $ret;
-    }
+	
+	if(empty($results))
+		return null;
+	
+	$polyline = $results[0];
+	$polydata = $polyline->polydata;
+	
+	$regex = '/-?(\d+)(\.\d+)?,\s*-?(\d+)(\.\d+)?/';
+	
+	if(!preg_match_all($regex, $polydata, $m))
+		return array();
+	
+	return $m[0];
 }
 
 /**

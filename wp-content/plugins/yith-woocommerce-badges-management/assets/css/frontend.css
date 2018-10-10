@@ -83,12 +83,14 @@ span.onsale {
 }
 
 /* ----- Flatsome ----- */
-.iosSlider.product-thumbnails .yith-wcbm-badge,
-#mini-cart-content .container-image-and-badge .yith-wcbm-badge {
+.yith-wcbm-theme-flatsome .iosSlider.product-thumbnails .yith-wcbm-badge,
+.yith-wcbm-theme-flatsome #mini-cart-content .container-image-and-badge .yith-wcbm-badge {
     display : none !important;
 }
 
-#mini-cart-content .container-image-and-badge {
+.yith-wcbm-theme-flatsome #mini-cart-content .container-image-and-badge,
+.yith-wcbm-theme-flatsome .products .container-image-and-badge,
+.yith-wcbm-theme-flatsome .yith-wcbm-badge img {
     position : static !important;
 }
 
@@ -136,6 +138,11 @@ span.onsale {
 /* ------ Request a Quote ------- */
 .yith-ywraq-list-widget-wrapper .yith-wcbm-badge {
     display : none !important;
+}
+
+/* ------ Added to cart popup ------- */
+.yith-wacp-content table.cart-list .yith-wcbm-badge {
+    display : none;
 }
 
 /* ------ Basel Theme -------- */

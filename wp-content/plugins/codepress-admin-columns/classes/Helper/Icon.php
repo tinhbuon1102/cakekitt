@@ -1,10 +1,8 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace AC\Helper;
 
-class AC_Helper_Icon {
+class Icon {
 
 	public function dashicon( $args = array() ) {
 		$defaults = array(
@@ -38,8 +36,8 @@ class AC_Helper_Icon {
 	/**
 	 * @since 3.0
 	 *
-	 * @param string $tooltip
-	 * @param string $title
+	 * @param bool   $tooltip
+	 * @param bool   $title
 	 * @param string $class
 	 *
 	 * @return string
@@ -54,6 +52,11 @@ class AC_Helper_Icon {
 
 	/**
 	 * @since 3.0
+	 *
+	 * @param bool   $tooltip
+	 * @param bool   $title
+	 * @param string $class
+	 *
 	 * @return string
 	 */
 	public function no( $tooltip = false, $title = true, $class = 'red' ) {
@@ -67,7 +70,8 @@ class AC_Helper_Icon {
 	/**
 	 * @since 3.0
 	 *
-	 * @param bool $display
+	 * @param        $is_true
+	 * @param string $tooltip
 	 *
 	 * @return string HTML Dashicon
 	 */

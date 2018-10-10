@@ -3,8 +3,8 @@
 Contributors: yithemes
 Tags: badges, badge, woocommerce, products, themes, yit, e-commerce, shop, yith, badges management, premium, yithemes, product badge, global badge, category badge, woocommerce badge
 Requires at least: 4.0
-Tested up to: 4.9.4
-Stable tag: 1.3.9
+Tested up to: 4.9.8
+Stable tag: 1.3.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,6 +43,20 @@ YITH WooCommerce Badge Management will add a new submenu called "Badge Managemen
 9. Frontend: Single product page example 4
 
 == Changelog ==
+
+= Version 1.3.11 - Released: Oct 09, 2018 =
+
+* New - support to WooCommerce 3.5.x
+* New - support to WordPress 4.9.8
+* Fix - hidden badges in YITH WooCommerce Added to Cart Popup
+* Fix - hidden badges in Orders on AJAX call
+* Update - plugin framework
+
+= Version 1.3.10 - Released: Jul 02, 2018 =
+
+* New - support to WooCommerce 3.4.3
+* New - support to WordPress 4.9.6
+* Update - plugin framework
 
 = 1.3.9 - Released: Mar 23, 2018 =
 

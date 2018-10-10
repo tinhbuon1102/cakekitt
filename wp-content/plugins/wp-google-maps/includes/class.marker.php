@@ -4,7 +4,7 @@ namespace WPGMZA;
 
 require_once(plugin_dir_path(__FILE__) . '/class.crud.php');
 
-class Marker extends Crud
+class Marker extends Crud implements \JsonSerializable
 {
 	protected $custom_fields;
 	
@@ -23,10 +23,23 @@ class Marker extends Crud
 		return apply_filters('wpgmza_create_marker_instance', $id_or_fields);
 	}
 	
+	public function jsonSerialize()
+	{
+		$json = Crud::jsonSerialize();
+		
+		unset($json['latlng']);
+		
+		$json['custom_field_data'] = $this->custom_fields;
+		
+		return $json;
+	}
+	
 	protected function get_placeholder_by_type($type)
 	{
+		global $wpgmza;
+		
 		if($type == 'point')
-			return "GeomFromText(%s)";
+			return "{$wpgmza->spatialFunctionPrefix}GeomFromText(%s)";
 		
 		return Crud::get_placeholder_by_type($type);
 	}
@@ -54,7 +67,7 @@ class Marker extends Crud
 			$this->get_column_parameter('latlng'),
 			$this->id
 		);
-		$stmt = $wpdb->prepare("UPDATE " . $this->get_table_name() . " SET lat=%s, lng=%s, latlng=GeomFromText(%s) WHERE id=%d", $params);
+		$stmt = $wpdb->prepare("UPDATE " . $this->get_table_name() . " SET lat=%s, lng=%s, latlng=ST_GeomFromText(%s) WHERE id=%d", $params);
 		$wpdb->query($stmt);
 	}
 	

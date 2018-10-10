@@ -15,23 +15,27 @@ if( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 function yith_wcwl_uninstall(){
     global $wpdb;
 
-    // define local private attribute
-    $wpdb->yith_wcwl_items = $wpdb->prefix . 'yith_wcwl';
-    $wpdb->yith_wcwl_wishlists = $wpdb->prefix . 'yith_wcwl_lists';
+	if ( defined( 'YITH_WCWL_REMOVE_ALL_DATA' ) && true === YITH_WCWL_REMOVE_ALL_DATA && ! defined( 'YITH_WCWL_PREMIUM' ) ) {
 
-    // Delete option from options table
-    delete_option( 'yith_wcwl_version' );
-    delete_option( 'yith_wcwl_db_version' );
-    $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s", 'yith_wcwl_%' ) );
+		// define local private attribute
+		$wpdb->yith_wcwl_items     = $wpdb->prefix . 'yith_wcwl';
+		$wpdb->yith_wcwl_wishlists = $wpdb->prefix . 'yith_wcwl_lists';
 
-    //delete pages created for this plugin
-    wp_delete_post( get_option( 'yith-wcwl-pageid' ), true );
+		// Delete option from options table
+		delete_option( 'yith_wcwl_version' );
+		delete_option( 'yith_wcwl_db_version' );
+		$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s", 'yith_wcwl_%' ) );
 
-    //remove any additional options and custom table
-    $sql = "DROP TABLE IF EXISTS `" . $wpdb->yith_wcwl_items . "`";
-    $wpdb->query( $sql );
-    $sql = "DROP TABLE IF EXISTS `" . $wpdb->yith_wcwl_wishlists . "`";
-    $wpdb->query( $sql );
+		//delete pages created for this plugin
+		wp_delete_post( get_option( 'yith-wcwl-pageid' ), true );
+
+		//remove any additional options and custom table
+		$sql = "DROP TABLE IF EXISTS `" . $wpdb->yith_wcwl_items . "`";
+		$wpdb->query( $sql );
+		$sql = "DROP TABLE IF EXISTS `" . $wpdb->yith_wcwl_wishlists . "`";
+		$wpdb->query( $sql );
+
+	}
 }
 
 

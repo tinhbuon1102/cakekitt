@@ -1,0 +1,26 @@
+*** Flexible Product Fields PRO for WooCommerce Changelog ***
+
+1.1.4 - 2018-08-08
+* Fixed fields ids when duplicating fields
+
+1.1.3 - 2018-05-23
+* Added support for WooCommerce 3.4
+
+1.1.2 - 2018-03-01
+* Fixed field default value for conditional logic
+* Fixed adding conditional logic with empty rule
+
+1.1.1 - 2018-01-25
+* Added support for WooCommerce 3.3
+
+1.1 - 2017-12-13
+* Added conditional logic for fields
+* Added new field type: Date
+* Added possibility to reduce the product price
+* Added field groups ordering
+
+1.0.1 - 2017-03-23
+* Fixed prices display for fields: input, textarea and checkbox
+
+1.0 - 2017-02-28
+* First Release!

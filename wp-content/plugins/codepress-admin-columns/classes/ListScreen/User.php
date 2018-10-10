@@ -1,20 +1,21 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace AC\ListScreen;
 
-class AC_ListScreen_User extends AC_ListScreenWP {
+use AC;
+use WP_Users_List_Table;
+
+class User extends AC\ListScreenWP {
 
 	public function __construct() {
 
-		$this->set_label( __( 'Users' ) );
-		$this->set_singular_label( __( 'User' ) );
-		$this->set_meta_type( 'user' );
-		$this->set_screen_base( 'users' );
-		$this->set_screen_id( 'users' );
-		$this->set_key( 'wp-users' );
-		$this->set_group( 'user' );
+		$this->set_label( __( 'Users' ) )
+		     ->set_singular_label( __( 'User' ) )
+		     ->set_meta_type( 'user' )
+		     ->set_screen_base( 'users' )
+		     ->set_screen_id( 'users' )
+		     ->set_key( 'wp-users' )
+		     ->set_group( 'user' );
 	}
 
 	/**
@@ -35,6 +36,10 @@ class AC_ListScreen_User extends AC_ListScreenWP {
 
 	/**
 	 * @since 2.4.10
+	 *
+	 * @param $wp_screen
+	 *
+	 * @return bool
 	 */
 	public function is_current_screen( $wp_screen ) {
 		return parent::is_current_screen( $wp_screen ) && 'delete' !== filter_input( INPUT_GET, 'action' );
@@ -46,6 +51,8 @@ class AC_ListScreen_User extends AC_ListScreenWP {
 	 * @param string $value
 	 * @param string $column_name
 	 * @param int    $user_id
+	 *
+	 * @return string
 	 */
 	public function manage_value( $value, $column_name, $user_id ) {
 		return $this->get_display_value_by_column_name( $column_name, $user_id, $value );
@@ -54,7 +61,7 @@ class AC_ListScreen_User extends AC_ListScreenWP {
 	/**
 	 * @param int $id
 	 *
-	 * @return WP_User
+	 * @return \WP_User
 	 */
 	protected function get_object( $id ) {
 		return get_userdata( $id );
@@ -71,11 +78,14 @@ class AC_ListScreen_User extends AC_ListScreenWP {
 		return $this->get_list_table()->single_row( $this->get_object( $id ) );
 	}
 
+	/**
+	 * @throws \ReflectionException
+	 */
 	protected function register_column_types() {
-		$this->register_column_type( new AC_Column_CustomField );
-		$this->register_column_type( new AC_Column_Actions );
+		$this->register_column_type( new AC\Column\CustomField );
+		$this->register_column_type( new AC\Column\Actions );
 
-		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/User', AC()->get_prefix() );
+		$this->register_column_types_from_dir( 'AC\Column\User' );
 	}
 
 }

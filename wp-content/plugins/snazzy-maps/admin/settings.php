@@ -1,16 +1,17 @@
 <?php
+namespace SnazzyMaps;
 defined( 'ABSPATH' ) OR exit;
 
 
-
-    function admin_my_snazzymaps_head($tab){           
-        if(isset($_POST['api_key'])){
-            update_option('MySnazzyAPIKey', $_POST['api_key']);   
+class SnazzyMaps_Settings {
+    public static function admin_my_snazzymaps_head($tab){           
+        if(isset($_POST['api_key']) && check_admin_referer('snazzy_maps_save_api_key')){
+            update_option('MySnazzyAPIKey', sanitize_text_field($_POST['api_key']));   
         }
     }
 
-    function admin_my_snazzymaps_tab($tab){
-        if(isset($_GET['action']) && $_GET['action'] == 'delete_key'){
+    public static function admin_my_snazzymaps_tab($tab){
+        if(isset($_GET['action']) && sanitize_text_field($_GET['action']) == 'delete_key'){
             delete_option('MySnazzyAPIKey');
         }        
         $api_key = get_option('MySnazzyAPIKey', null);
@@ -28,7 +29,8 @@ defined( 'ABSPATH' ) OR exit;
 
                <label for="api_key"><strong>API Key</strong></label>
                <input type="text" id="api_key" name="api_key" 
-                      placeholder="Enter your API Key" value="<?php echo $api_key; ?>"/>
+                      placeholder="Enter your API Key" value="<?php echo esc_attr($api_key); ?>"/>
+				<?php wp_nonce_field( 'snazzy_maps_save_api_key' ); ?>
                <button type="submit" class="button button-primary">SAVE</button>
                <?php if(!is_null($api_key)){ ?>
                   <a href="?page=snazzy_maps&tab=2&action=delete_key" 
@@ -38,4 +40,7 @@ defined( 'ABSPATH' ) OR exit;
         </div>
     </div>
    
-<?php } ?>
+<?php 
+	} 
+}
+?>

@@ -2,18 +2,18 @@
 /**
 * Plugin Name: YITH WooCommerce Badge Management
 * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-badges-management/
-* Description: YITH WooCommerce Badge Management allows you to create custom badge for every product.
-* Version: 1.3.9
-* Author: YITHEMES
-* Author URI: http://yithemes.com/
+* Description: <code><strong>YITH WooCommerce Badge Management</strong></code> allows you to highlight your products through custom badges, that show offers, discounts, and so on. You can use text badges and image badges to attract your customers. <a href="https://yithemes.com/" target="_blank">Find new awesome plugins on <strong>YITH</strong></a>
+* Version: 1.3.11
+* Author: YITH
+* Author URI: https://yithemes.com/
 * Text Domain: yith-woocommerce-badges-management
 * Domain Path: /languages/
 * WC requires at least: 3.0.0
-* WC tested up to: 3.3.x
+* WC tested up to: 3.5.x
 *
 * @author Yithemes
 * @package YITH WooCommerce Badge Management
-* @version 1.3.9
+* @version 1.3.11
 */
 /*  Copyright 2015  Your Inspiration Themes  (email : plugins@yithemes.com)
 
@@ -63,7 +63,7 @@ register_activation_hook( __FILE__, 'yith_plugin_registration_hook' );
 
 
 if ( ! defined( 'YITH_WCBM_VERSION' ) ){
-    define( 'YITH_WCBM_VERSION', '1.3.9' );
+    define( 'YITH_WCBM_VERSION', '1.3.11' );
 }
 
 if ( ! defined( 'YITH_WCBM_FREE_INIT' ) ) {
@@ -76,6 +76,10 @@ if ( ! defined( 'YITH_WCBM' ) ) {
 
 if ( ! defined( 'YITH_WCBM_FILE' ) ) {
     define( 'YITH_WCBM_FILE', __FILE__ );
+}
+
+if ( !defined( 'YITH_WCBM_SLUG' ) ) {
+    define( 'YITH_WCBM_SLUG', 'yith-woocommerce-badges-management' );
 }
 
 if ( ! defined( 'YITH_WCBM_URL' ) ) {

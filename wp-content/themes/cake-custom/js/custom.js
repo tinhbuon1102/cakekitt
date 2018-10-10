@@ -1,9 +1,15 @@
-jQuery(document).ready(function(){
+jQuery(document).ready(function($){
 	var address = [
 		{postcode : '#deliver_postcode', state : '#deliver_state', city: '#deliver_city', address1: '#deliver_addr1'},
 		{postcode : '#billing_postcode', state : '#billing_state', city: '#billing_city', address1: '#billing_address_1'},
 		{postcode : '#shipping_postcode', state : '#shipping_state', city: '#shipping_city', address1: '#shipping_address_1'},
 	]
+	
+	/*$(".fpf-fields label.checkbox input").iCheck({
+		checkboxClass: 'icheckbox_square-pink',
+		radioClass: 'iradio_square-pink',
+		increaseArea: '20%'
+	});*/
 	
 	// Make state, city, address is readonly
 	$.each(address, function(index, addressItem){
@@ -231,6 +237,7 @@ jQuery(document).ready(function(){
     });
 
     loadIcheck();
+	
   
 	jQuery('#BSbtndanger').filestyle({
 				buttonName : 'btn-danger',

@@ -24,7 +24,7 @@ if(!class_exists('mtekk_adminKit_message'))
 }
 abstract class mtekk_adminKit
 {
-	const version = '2.0.1';
+	const version = '2.0.2';
 	protected $full_name;
 	protected $short_name;
 	protected $plugin_basename;
@@ -275,7 +275,7 @@ abstract class mtekk_adminKit
 			$this->add_option($this->unique_prefix . '_options', $opts);
 			$this->add_option($this->unique_prefix . '_options_bk', $opts, '', 'no');
 			//Add the version, no need to autoload the db version
-			$this->add_option($this->unique_prefix . '_version', $this::version, '', 'no');
+			$this->update_option($this->unique_prefix . '_version', $this::version, 'no');
 		}
 		else
 		{
@@ -568,7 +568,7 @@ abstract class mtekk_adminKit
 			{
 				$temp .= '<br />' . $setting;
 			}
-			$this->messages[] = new mtekk_adminKit_message($temp . '<br />' . sprintf(esc_html__('Please include this message in your %sbug report%s.', $this->identifier), '<a title="' . sprintf(esc_attr__('Go to the %s support post for your version.', $this->identifier), $this->short_name) . '" href="' . $this->support_url . $this::version . '/#respond">', '</a>'), 'info');
+			$this->messages[] = new mtekk_adminKit_message($temp . '<br />' . sprintf(esc_html__('Please include this message in your %sbug report%s.', $this->identifier), '<a title="' . sprintf(esc_attr__('Go to the %s support forum.', $this->identifier), $this->short_name) . '" href="' . $this->support_url . '">', '</a>'), 'info');
 		}
 		add_action('admin_notices', array($this, 'messages'));
 	}

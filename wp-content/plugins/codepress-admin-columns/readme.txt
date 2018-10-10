@@ -3,9 +3,9 @@ Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 4.5
-Tested up to: 4.9.5
-Requires PHP: 5.2.4
-Stable tag: 3.1.10
+Tested up to: 4.9.8
+Requires PHP: 5.3.6
+Stable tag: 3.2.7
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -206,12 +206,61 @@ You can find a list of the available actions and filters (and examples on how to
 2. Posts Screen with the customized sortable columns.
 3. Settings page for the Media Library columns.
 4. Media Screen with the customized sortable columns.
-5. Settings page for Users columns.
+5. Settings page for Users columns../ch
 6. Users Screen with the customized sortable columns.
 7. Settings page showing the different displaying types for custom field.
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 3.2.7 =
+Release Date: September 25th, 2018
+
+* [Fixed] jQuery noConflict fixes for column settings page
+* [Improved] Post title column is now always available
+* [Improved] Disable autoloading for ACP options
+
+= 3.2.6 =
+Release Date: August 21th, 2018
+
+* [Improved] Set Admin Columns Capability on role instead of User
+
+= 3.2.5 =
+Release Date: August 15th, 2018
+
+* [Added] New JS API for column settings page. (Accessible through AC.Form)
+* [Improved] Exclude system files in Autoloader
+
+= 3.2.4 =
+
+Release Date: July 11th, 2018
+
+* [Fixed] Improved performance for ac_quickedit_events()
+
+= 3.2.3 =
+
+Release Date: June 26th, 2018
+
+* [Fixed] ThidParty classes are now using correct camelcasing
+
+= 3.2.2 =
+
+Release Date: June 26th, 2018
+
+* [Fixed] Fixed possible fatal error when running update.
+
+= 3.2.1 =
+
+Release Date: June 26th, 2018
+
+* [Fixed] Assets did not load correctly. Upgrade script fix.
+
+= 3.2 =
+
+Release Date: June 25th, 2018
+
+* [Removed] Support for PHP 5.2. The minimum version required to run Admin Columns is now PHP 5.3+.
+* [Removed] Deprecated functions (before 3.0) will be removed after 12 months.
 
 = 3.1.10 =
 

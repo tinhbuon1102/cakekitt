@@ -1,0 +1,294 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Product Fields PRO\n"
+"POT-Creation-Date: 2017-12-07 15:14+0100\n"
+"PO-Revision-Date: 2017-12-07 15:18+0100\n"
+"Last-Translator: Piotr Jabłonowski <piotr.jablonowski@wpdesk.net>\n"
+"Language-Team: Maciej Swoboda <support@wpdesk.pl>\n"
+"Language: pl_PL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.4\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: flexible-product-fields-pro.php\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SearchPathExcluded-1: classes/wpdesk\n"
+
+#: classes/class-flexible-product-fields-pro.php:83
+msgid "Required Field"
+msgstr "Pole wymagane"
+
+#: classes/class-flexible-product-fields-pro.php:136
+msgid "Heading"
+msgstr "Nagłówek"
+
+#: classes/class-flexible-product-fields-pro.php:150
+msgid "Date"
+msgstr "Data"
+
+#: classes/class-flexible-product-fields-pro.php:167
+msgid "Product"
+msgstr "Produkt"
+
+#: classes/class-flexible-product-fields-pro.php:168
+msgid "Category"
+msgstr "Kategoria"
+
+#: classes/class-flexible-product-fields-pro.php:169
+msgid "All products"
+msgstr "Wszystkie produkty"
+
+#: classes/class-flexible-product-fields-pro.php:177
+msgid "Insufficient privileges!"
+msgstr "Niewystraczające uprawnienia!"
+
+#: classes/class-flexible-product-fields-pro.php:182
+msgid "No fields to duplicate has been supplied!"
+msgstr "Nie ma żadnych pól do duplikowania!"
+
+#: classes/class-flexible-product-fields-pro.php:219
+msgid " (copy) "
+msgstr " (kopia) "
+
+#: classes/class-flexible-product-fields-pro.php:262
+#, php-format
+msgid "Fields creation failed, could not find original fields: %s."
+msgstr ""
+"Dodawanie pola nie powiodło się, nie można znaleźć oryginalnego pola: %s."
+
+#: classes/class-flexible-product-fields-pro.php:269
+msgid "Duplicate"
+msgstr "Duplikuj"
+
+#: flexible-product-fields-pro.php:118
+msgid "Close"
+msgstr "Zamknij"
+
+#: flexible-product-fields-pro.php:119
+msgid "Today"
+msgstr "Dzisiaj"
+
+#: flexible-product-fields-pro.php:122
+msgid "Next"
+msgstr "Następny"
+
+#: flexible-product-fields-pro.php:123
+msgid "Previous"
+msgstr "Poprzedni"
+
+#: flexible-product-fields-pro.php:143
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: flexible-product-fields-pro.php:145
+msgid "Documentation"
+msgstr "Dokumentacja"
+
+#: flexible-product-fields-pro.php:146
+msgid "Support"
+msgstr "Wsparcie"
+
+#: flexible-product-fields-pro.php:188
+#, php-format
+msgid ""
+"Flexible Product Fields PRO requires free Flexible Product Fields plugin. <a "
+"href=\"%s\">Install Flexible Product Fields →</a>"
+msgstr ""
+"Flexible Product Fields PRO wymaga darmowej wersji Flexible Product Fields.  "
+"<a href=\"%s\">Zainstaluj Flexible Product Fields →</a>"
+
+#: flexible-product-fields-pro.php:194
+#, php-format
+msgid ""
+"Flexible Product Fields PRO requires activating Flexible Product Fields "
+"plugin. <a href=\"%s\">Activate Flexible Product Fields →</a>"
+msgstr ""
+"Flexible Product Fields PRO wymaga darmowej wersji Flexible Product Fields.  "
+"<a href=\"%s\">Włącz Flexible Product Fields →</a>"
+
+#. Plugin Name of the plugin/theme
+msgid "Flexible Product Fields Pro"
+msgstr "Flexible Product Fields Pro"
+
+#. Plugin URI of the plugin/theme
+msgid ""
+"https://www.wpdesk.net/products/flexible-product-fields-pro-woocommerce/"
+msgstr "https://www.wpdesk.pl/sklep/flexible-product-fields-pro-woocommerce/"
+
+#. Description of the plugin/theme
+msgid ""
+"Allow customers to customize WooCommerce products before adding them to "
+"cart. Add fields: text, dropdown, checkbox, radio and assign fixed or "
+"percentage prices."
+msgstr ""
+"Umożliwiaj klientom konfigurację produktów WooCommerce przed dodaniem do "
+"koszyka. Dodaj pola: tekst, pole tekstowe, select, checkbox, radio i "
+"przypisz ceny kwotowo lub procentowo."
+
+#. Author of the plugin/theme
+msgid "WP Desk"
+msgstr "WP Desk"
+
+#. Author URI of the plugin/theme
+msgid "https://www.wpdesk.net/"
+msgstr "https://www.wpdesk.pl/"
+
+#~ msgid "Select"
+#~ msgstr "Select"
+
+#~ msgid "Radio"
+#~ msgstr "Radio"
+
+#~ msgid "Checkbox"
+#~ msgstr "Checkbox"
+
+#~ msgid ""
+#~ "Extension to the free version. Add new field types, category, price and "
+#~ "more."
+#~ msgstr ""
+#~ "Rozszerzenie darmowej wersji. Nowe typy pól, kategorie, ceny i inne."
+
+#~ msgid ""
+#~ "The %s%s%s License Key has not been activated, so the plugin is inactive! "
+#~ "%sClick here%s to activate the license key and the plugin."
+#~ msgstr ""
+#~ "Klucz licencyjny wtyczki %s%s%s nie został aktywowany, więc wtyczka jest "
+#~ "nieaktywna! %sKliknij tutaj%s, aby aktywować klucz licencyjny wtyczki."
+
+#~ msgid "Docs"
+#~ msgstr "Docs"
+
+#~ msgid ""
+#~ "<a href=\"%s\">Install the WP Desk Helper plugin</a> to activate and get "
+#~ "updates for your WP Desk plugins."
+#~ msgstr ""
+#~ "<a href=\"%s\">Zainstaluj wtyczkę WP Desk Helper</a>, aby aktywować i "
+#~ "otrzymywać aktualizacje wtyczek WP Desk."
+
+#~ msgid ""
+#~ "<a href=\"%s\">Activate the WP Desk Helper plugin</a> to activate and get "
+#~ "updates for your WP Desk plugins."
+#~ msgstr ""
+#~ "<a href=\"%s\">Włącz wtyczkę WP Desk Helper</a>, aby aktywować i "
+#~ "otrzymywać aktualizacje wtyczek WP Desk."
+
+#~ msgid "Settings updated."
+#~ msgstr "Ustawienia zostały zaktualizowane."
+
+#~ msgid "Assign this group to"
+#~ msgstr "Przypisz grupę do"
+
+#, fuzzy
+#~ msgid "Select products"
+#~ msgstr "Wszystkie produkty"
+
+#~ msgid "Value"
+#~ msgstr "Wartość"
+
+#~ msgid "Maximum cost"
+#~ msgstr "Maksymalny koszt"
+
+#~ msgid ""
+#~ "Set a maximum cost of shipping. This will override the costs configured "
+#~ "below."
+#~ msgstr ""
+#~ "Ustaw maksymalny koszt wysyłki. To nadpisze koszty ustawione w regułach."
+
+#~ msgid "Lowest cost"
+#~ msgstr "Najniższy koszt"
+
+#~ msgid "Highest cost"
+#~ msgstr "Najwyższy koszt"
+
+#~ msgid "Item"
+#~ msgstr "Sztuka"
+
+#~ msgid "Cart line item"
+#~ msgstr "Pozycja w koszyku"
+
+#~ msgid "Any class (must be set)"
+#~ msgstr "Dowolna klasa (musi być ustawiona)"
+
+#~ msgid "None"
+#~ msgstr "Brak"
+
+#~ msgid ""
+#~ "An Unexpected HTTP Error occurred during the API request.</p> <p><a href="
+#~ "\"?\" onclick=\"document.location.reload(); return false;\">Try again</a>"
+#~ msgstr ""
+#~ "Wystąpił nieoczekiwany błąd HTTP podczas zapytania API.</p> <p><a "
+#~ "href=„?” onclick=„document.location.reload(); return false;”>Spróbuj "
+#~ "ponownie</a>"
+
+#~ msgid "An unknown error occurred"
+#~ msgstr "Wystąpił nieznany błąd"
+
+#~ msgid "Additional cost"
+#~ msgstr "Dodatkowy koszt"
+
+#~ msgid "Enter additional shipping cost based on the Value field."
+#~ msgstr "Wpisz dodatkowy koszt bazujący na polu Wartość."
+
+#~ msgid "Value for additional cost."
+#~ msgstr "Wartość dodatkowego kosztu."
+
+#~ msgid "Shipping class"
+#~ msgstr "Klasa wysyłkowa"
+
+#~ msgid "Select shipping class that the rule applies to."
+#~ msgstr "Wybierz klasę wysyłkową, do której ma być stosowana reguła."
+
+#~ msgid "Stop"
+#~ msgstr "Zatrzymaj"
+
+#~ msgid "When this rule is matched stop calculating the following rules."
+#~ msgstr ""
+#~ "Jeśli zostanie spełniona wybrana reguła, zatrzymaj obliczanie kolejnych "
+#~ "reguł."
+
+#~ msgid "Cancel"
+#~ msgstr "Anuluj"
+
+#~ msgid "When this rule is matched do not show it in the checkout."
+#~ msgstr ""
+#~ "Jeśli zostanie spełniona wybrana reguła, nie pokazuj jej w zamówieniu."
+
+#~ msgid "Redirecting. If page not redirects click %s here %s."
+#~ msgstr ""
+#~ "Przekierowywanie. Jeśli strona nie przekierowuje cię automatycznie, "
+#~ "kliknij %s tu %s."
+
+#~ msgid ""
+#~ "Flexible Shipping PRO requires Flexible Shipping plugin. <a href=\"%s"
+#~ "\">Install Flexible Shipping →</a>"
+#~ msgstr ""
+#~ "Flexible Shipping PRO wymaga wtyczki Flexible Shipping. <a href=\"%s"
+#~ "\">Zainstaluj Flexible Shipping →</a>"
+
+#~ msgid ""
+#~ "Flexible Shipping PRO requires Flexible Shipping plugin. <a href=\"%s"
+#~ "\">Activate Flexible Shipping →</a>"
+#~ msgstr ""
+#~ "Flexible Shipping PRO wymaga wtyczki Flexible Shipping. <a href=\"%s"
+#~ "\">Włącz Flexible Shipping →</a>"
+
+#~ msgid "Flexible Shipping PRO"
+#~ msgstr "Flexible Shipping PRO"
+
+#~ msgid "https://www.wpdesk.net/products/flexible-shipping-pro-woocommerce/"
+#~ msgstr "https://www.wpdesk.pl/sklep/flexible-shipping-pro-woocommerce/"
+
+#~ msgid ""
+#~ "Extends the free version of Flexible Shipping by adding advanced pro "
+#~ "features."
+#~ msgstr ""
+#~ "Rozszerza bezpłatną wersję Flexible Shipping poprzez dodanie "
+#~ "zaawansowanych ustawień."

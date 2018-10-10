@@ -43,14 +43,14 @@ if(!class_exists('mtekk_adminKit'))
  */
 class bcn_admin extends mtekk_adminKit
 {
-	const version = '6.0.4';
+	const version = '6.2.0';
 	protected $full_name = 'Breadcrumb NavXT Settings';
 	protected $short_name = 'Breadcrumb NavXT';
 	protected $access_level = 'manage_options';
 	protected $identifier = 'breadcrumb-navxt';
 	protected $unique_prefix = 'bcn';
 	protected $plugin_basename = null;
-	protected $support_url = 'http://mtekk.us/archives/wordpress/plugins-wordpress/breadcrumb-navxt-';
+	protected $support_url = 'https://wordpress.org/support/plugin/breadcrumb-navxt/';
 	protected $breadcrumb_trail = null;
 	/**
 	 * Administrative interface class default constructor
@@ -295,7 +295,7 @@ class bcn_admin extends mtekk_adminKit
 			}
 		}
 		//Save the passed in opts to the object's option array
-		$this->opt = $opts;
+		$this->opt = mtekk_adminKit::parse_args($opts, $this->opt);
 		//End with resetting up the options
 		breadcrumb_navxt::setup_options($this->opt);
 	}
@@ -326,7 +326,7 @@ class bcn_admin extends mtekk_adminKit
 				'</p><h5>' . esc_html__('Resources', 'breadcrumb-navxt') . '</h5><ul><li>' .
 				sprintf(esc_html__("%sTutorials and How Tos%s: There are several guides, tutorials, and how tos available on the author's website.", 'breadcrumb-navxt'),'<a title="' . esc_attr__('Go to the Breadcrumb NavXT tag archive.', 'breadcrumb-navxt') . '" href="https://mtekk.us/archives/tag/breadcrumb-navxt">', '</a>') . '</li><li>' .
 				sprintf(esc_html__('%sOnline Documentation%s: Check out the documentation for more indepth technical information.', 'breadcrumb-navxt'), '<a title="' . esc_attr__('Go to the Breadcrumb NavXT online documentation', 'breadcrumb-navxt') . '" href="https://mtekk.us/code/breadcrumb-navxt/breadcrumb-navxt-doc/">', '</a>') . '</li><li>' .
-				sprintf(esc_html__('%sReport a Bug%s: If you think you have found a bug, please include your WordPress version and details on how to reproduce the bug.', 'breadcrumb-navxt'),'<a title="' . esc_attr__('Go to the Breadcrumb NavXT support post for your version.', 'breadcrumb-navxt') . '" href="https://mtekk.us/archives/wordpress/plugins-wordpress/breadcrumb-navxt-' . $this::version . '/#respond">', '</a>') . '</li></ul>' . 
+				sprintf(esc_html__('%sReport a Bug%s: If you think you have found a bug, please include your WordPress version and details on how to reproduce the bug.', 'breadcrumb-navxt'),'<a title="' . esc_attr__('Go to the Breadcrumb NavXT support post for your version.', 'breadcrumb-navxt') . '" href="https://wordpress.org/support/plugin/breadcrumb-navxt/">', '</a>') . '</li></ul>' . 
 				'<h5>' . esc_html__('Giving Back', 'breadcrumb-navxt') . '</h5><ul><li>' .
 				sprintf(esc_html__('%sDonate%s: Love Breadcrumb NavXT and want to help development? Consider buying the author a beer.', 'breadcrumb-navxt'),'<a title="' . esc_attr__('Go to PayPal to give a donation to Breadcrumb NavXT.', 'breadcrumb-navxt') . '" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FD5XEU783BR8U&lc=US&item_name=Breadcrumb%20NavXT%20Donation&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted">', '</a>') . '</li><li>' .
 				sprintf(esc_html__('%sTranslate%s: Is your language not available? Visit the Breadcrumb NavXT translation project on WordPress.org to start translating.', 'breadcrumb-navxt'),'<a title="' . esc_attr__('Go to the Breadcrumb NavXT translation project.', 'breadcrumb-navxt') . '" href="https://translate.wordpress.org/projects/wp-plugins/breadcrumb-navxt">', '</a>') . '</li></ul>';
@@ -543,6 +543,7 @@ class bcn_admin extends mtekk_adminKit
 						$this->textbox(__('Post Template', 'breadcrumb-navxt'), 'Hpost_post_template', '6', false, __('The template for post breadcrumbs.', 'breadcrumb-navxt'));
 						$this->textbox(__('Post Template (Unlinked)', 'breadcrumb-navxt'), 'Hpost_post_template_no_anchor', '4', false, __('The template for post breadcrumbs, used only when the breadcrumb is not linked.', 'breadcrumb-navxt'));
 						$this->input_check(__('Post Hierarchy Display', 'breadcrumb-navxt'), 'bpost_post_hierarchy_display', __('Show the hierarchy (specified below) leading to a post in the breadcrumb trail.', 'breadcrumb-navxt'), false, '', 'adminkit-enset-ctrl adminkit-enset');
+						$this->input_check(__('Post Hierarchy Use Parent First', 'breadcrumb-navxt'), 'bpost_post_hierarchy_parent_first', __('Use the parent of the post as the primary hierarchy, falling back to the hierarchy selected below when the parent hierarchy is exhausted.', 'breadcrumb-navxt'), false, '', 'adminkit-enset');
 						$this->input_check(__('Post Hierarchy Referer Influence', 'breadcrumb-navxt'), 'bpost_post_taxonomy_referer', __('Allow the referring page to influence the taxonomy selected for the hierarchy.', 'breadcrumb-navxt'), false, '', 'adminkit-enset');
 					?>
 					<tr valign="top">
@@ -581,6 +582,7 @@ class bcn_admin extends mtekk_adminKit
 						$this->textbox(__('Page Template', 'breadcrumb-navxt'), 'Hpost_page_template', '6', false, __('The template for page breadcrumbs.', 'breadcrumb-navxt'));
 						$this->textbox(__('Page Template (Unlinked)', 'breadcrumb-navxt'), 'Hpost_page_template_no_anchor', '4', false, __('The template for page breadcrumbs, used only when the breadcrumb is not linked.', 'breadcrumb-navxt'));
 						$this->input_hidden('bpost_page_hierarchy_display');
+						$this->input_hidden('bpost_page_hierarchy_parent_first');
 						$this->input_hidden('Spost_page_hierarchy_type');
 					?>
 				</table>
@@ -623,6 +625,7 @@ class bcn_admin extends mtekk_adminKit
 					<?php
 						$this->input_check(sprintf(__('%s Archive Display', 'breadcrumb-navxt'), $post_type->labels->singular_name), 'bpost_' . $post_type->name . '_archive_display', sprintf(__('Show the breadcrumb for the %s post type archives in the breadcrumb trail.', 'breadcrumb-navxt'), $singular_name_lc), !$post_type->has_archive);
 						$this->input_check(sprintf(__('%s Hierarchy Display', 'breadcrumb-navxt'), $post_type->labels->singular_name), 'bpost_' . $post_type->name . '_hierarchy_display', sprintf(__('Show the hierarchy (specified below) leading to a %s in the breadcrumb trail.', 'breadcrumb-navxt'), $singular_name_lc), false, '', 'adminkit-enset-ctrl adminkit-enset');
+						$this->input_check(sprintf(__('%s Hierarchy Use Parent First', 'breadcrumb-navxt'), $post_type->labels->singular_name), 'bpost_' . $post_type->name . '_hierarchy_parent_first', sprintf(__('Use the parent of the %s as the primary hierarchy, falling back to the hierarchy selected below when the parent hierarchy is exhausted.', 'breadcrumb-navxt'), $singular_name_lc), false, '', 'adminkit-enset');
 						$this->input_check(sprintf(__('%s Hierarchy Referer Influence', 'breadcrumb-navxt'), $post_type->labels->singular_name), 'bpost_' . $post_type->name . '_taxonomy_referer', __('Allow the referring page to influence the taxonomy selected for the hierarchy.', 'breadcrumb-navxt'), false, '', 'adminkit-enset');
 					?>
 					<tr valign="top">
@@ -727,7 +730,16 @@ class bcn_admin extends mtekk_adminKit
 						$this->textbox(__('Author Template', 'breadcrumb-navxt'), 'Hauthor_template', '6', false, __('The template for author breadcrumbs.', 'breadcrumb-navxt'));
 						$this->textbox(__('Author Template (Unlinked)', 'breadcrumb-navxt'), 'Hauthor_template_no_anchor', '4', false, __('The template for author breadcrumbs, used only when the breadcrumb is not linked.', 'breadcrumb-navxt'));
 						$this->input_select(__('Author Display Format', 'breadcrumb-navxt'), 'Sauthor_name', array("display_name", "nickname", "first_name", "last_name"), false, __('display_name uses the name specified in "Display name publicly as" under the user profile the others correspond to options in the user profile.', 'breadcrumb-navxt'));
+						$optid = mtekk_adminKit::get_valid_id('aauthor_root');
 					?>
+					<tr valign="top">
+						<th scope="row">
+							<label for="<?php echo $optid;?>"><?php esc_html_e('Author Root Page', 'breadcrumb-navxt');?></label>
+						</th>
+						<td>
+							<?php wp_dropdown_pages(array('name' => $this->unique_prefix . '_options[aauthor_root]', 'id' => $optid, 'echo' => 1, 'show_option_none' => __( '&mdash; Select &mdash;' ), 'option_none_value' => '0', 'selected' => $this->opt['aauthor_root']));?>
+						</td>
+					</tr>
 				</table>
 				<h3><?php _e('Miscellaneous', 'breadcrumb-navxt'); ?></h3>
 				<table class="form-table">

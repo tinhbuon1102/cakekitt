@@ -1,0 +1,860 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Flexible Product Fields\n"
+"POT-Creation-Date: 2018-08-20 11:54+0200\n"
+"PO-Revision-Date: 2018-08-20 11:54+0200\n"
+"Last-Translator: Piotr Jabłonowski <piotr.jablonowski@wpdesk.net>\n"
+"Language-Team: Maciej Swoboda <support@wpdesk.pl>\n"
+"Language: pl_PL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.1.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: flexible-product-fields.php\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SearchPathExcluded-1: classes/wpdesk\n"
+
+#: classes/fpf-cart.php:169
+#, php-format
+msgid "%s is required."
+msgstr "%s jest wymagane."
+
+#: classes/fpf-cart.php:174
+#, php-format
+msgid "Exceeded maximum number of characters for the %s field. (max: %s)"
+msgstr "Przekroczono maksymalną liczbę znaków w polu %s. (maks: %s)"
+
+#: classes/fpf-cart.php:185
+msgid "yes"
+msgstr "tak"
+
+#: classes/fpf-plugin.php:106
+msgid "Total"
+msgstr "Suma"
+
+#: classes/fpf-plugin.php:179
+msgid "Add Field"
+msgstr "Dodaj pole"
+
+#: classes/fpf-plugin.php:180
+msgid "Section"
+msgstr "Sekcja"
+
+#: classes/fpf-plugin.php:181
+msgid "Assign this group to"
+msgstr "Przypisz grupę do"
+
+#: classes/fpf-plugin.php:182
+msgid "Select products"
+msgstr "Wybierz produkty"
+
+#: classes/fpf-plugin.php:183
+msgid "Select categories"
+msgstr "Wybierz kategorie"
+
+#: classes/fpf-plugin.php:184
+msgid "Order Group"
+msgstr "Kolejność grupy"
+
+#: classes/fpf-plugin.php:185
+msgid "Select ..."
+msgstr "Wybierz ..."
+
+#: classes/fpf-plugin.php:186 classes/fpf-plugin.php:205
+msgid "Label"
+msgstr "Etykieta"
+
+#: classes/fpf-plugin.php:187
+msgid "Field Type"
+msgstr "Typ pola"
+
+#: classes/fpf-plugin.php:188
+msgid "Required"
+msgstr "Wymagane"
+
+#: classes/fpf-plugin.php:189
+msgid "Character Limit"
+msgstr "Limit znaków"
+
+#: classes/fpf-plugin.php:190
+msgid "CSS Class"
+msgstr "Klasa CSS"
+
+#: classes/fpf-plugin.php:191
+msgid "Placeholder"
+msgstr "Placeholder"
+
+#: classes/fpf-plugin.php:192 classes/fpf-plugin.php:204
+msgid "Value"
+msgstr "Wartość"
+
+#: classes/fpf-plugin.php:193
+msgid "Price type"
+msgstr "Typ ceny"
+
+#: classes/fpf-plugin.php:194 classes/fpf-plugin.php:207
+msgid "Price"
+msgstr "Cena"
+
+#: classes/fpf-plugin.php:195
+msgid "Date format"
+msgstr "Format daty"
+
+#: classes/fpf-plugin.php:196
+msgid "Days before"
+msgstr "Dni przed"
+
+#: classes/fpf-plugin.php:197
+msgid "Days after"
+msgstr "Dni po"
+
+#: classes/fpf-plugin.php:198
+msgid "Options"
+msgstr "Opcje"
+
+#: classes/fpf-plugin.php:199
+msgid "Conditional logic"
+msgstr "Logika warunkowa"
+
+#: classes/fpf-plugin.php:200
+msgid "New field"
+msgstr "Nowe pole"
+
+#: classes/fpf-plugin.php:201
+msgid "Edit field"
+msgstr "Edytuj"
+
+#: classes/fpf-plugin.php:202
+msgid "Delete field"
+msgstr "Usuń"
+
+#: classes/fpf-plugin.php:203
+msgid "Add Option"
+msgstr "Dodaj opcję"
+
+#: classes/fpf-plugin.php:206
+msgid "Price Type"
+msgstr "Typ ceny"
+
+#: classes/fpf-plugin.php:208
+msgid "Type to search"
+msgstr "Wpisz aby szukać"
+
+#: classes/fpf-plugin.php:209
+msgid ""
+"Sorry, there has been an error. Please try again later. Returned status "
+"code: "
+msgstr ""
+"Przepraszamy, wystąpił błąd. Proszę spróbować ponownie później. Zwrócony kod "
+"statusu: "
+
+#: classes/fpf-plugin.php:210
+msgid "This field type is available in PRO version."
+msgstr "To pole jest dostępne w wersji PRO."
+
+#: classes/fpf-plugin.php:212 classes/fpf-plugin.php:215
+#: classes/fpf-plugin.php:218 classes/fpf-plugin.php:220
+#: classes/fpf-plugin.php:224 classes/fpf-plugin.php:239
+msgid "Upgrade to PRO →"
+msgstr "Zaktualizuj do PRO →"
+
+#: classes/fpf-plugin.php:213 classes/fpf-plugin.php:219
+msgid "This option is available in PRO version."
+msgstr "Ta opcja jest dostępna w wersji PRO."
+
+#: classes/fpf-plugin.php:216
+msgid "Fields are available in PRO version."
+msgstr "Pola są dostępne w wersji PRO."
+
+#: classes/fpf-plugin.php:222
+msgid "Price fields are available in PRO version."
+msgstr "Pola ceny są dostępne w wersji PRO."
+
+#: classes/fpf-plugin.php:225
+msgid "Show this field if"
+msgstr "Pokaż to pole jeśli"
+
+#: classes/fpf-plugin.php:226
+msgid "Rules"
+msgstr "Reguły"
+
+#: classes/fpf-plugin.php:227
+msgid "all rules match (and)"
+msgstr "spełnione są wszystkie reguły (i)"
+
+#: classes/fpf-plugin.php:228
+msgid "one or more rules match (or)"
+msgstr "spełniona jest jedna lub kilka reguł (lub)"
+
+#: classes/fpf-plugin.php:229
+msgid "Field"
+msgstr "Pole"
+
+#: classes/fpf-plugin.php:230
+msgid "Condition"
+msgstr "Warunek"
+
+#: classes/fpf-plugin.php:231
+msgid "Field value"
+msgstr "Wartość pola"
+
+#: classes/fpf-plugin.php:232
+msgid "is"
+msgstr "jest równy"
+
+#: classes/fpf-plugin.php:233
+msgid "is not"
+msgstr "jest inny niż"
+
+#: classes/fpf-plugin.php:234
+msgid "Select field"
+msgstr "Wybierz pole"
+
+#: classes/fpf-plugin.php:235
+msgid "Select field value"
+msgstr "Wybierz wartość pola"
+
+#: classes/fpf-plugin.php:236
+msgid "Add rule"
+msgstr "Dodaj regułę"
+
+#: classes/fpf-plugin.php:237
+msgid "Conditional logis is available in PRO version."
+msgstr "Logika warunkowa dostępna jest w wersji PRO."
+
+#: classes/fpf-plugin.php:241
+msgid "checked"
+msgstr "zaznaczone"
+
+#: classes/fpf-plugin.php:242
+msgid "unchecked"
+msgstr "niezaznaczone"
+
+#: classes/fpf-plugin.php:334 classes/fpf-post-type.php:157
+#: vendor/wpdesk/wp-builder/src/Plugin/AbstractPlugin.php:147
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: classes/fpf-plugin.php:335 classes/fpf-post-type.php:181
+#: classes/views/admin-head-edit.php:41
+msgid "Documentation"
+msgstr "Dokumentacja"
+
+#: classes/fpf-plugin.php:336
+#: vendor/wpdesk/wp-builder/src/Plugin/AbstractPlugin.php:134
+msgid "Support"
+msgstr "Wsparcie"
+
+#: classes/fpf-plugin.php:340
+msgid "Upgrade"
+msgstr "Kup PRO"
+
+#: classes/fpf-post-type.php:49
+msgid "Fields Groups"
+msgstr "Grupy pól"
+
+#: classes/fpf-post-type.php:50 classes/fpf-post-type.php:51
+#: classes/fpf-post-type.php:53 classes/fpf-post-type.php:287
+#: classes/fpf-post-type.php:288
+msgid "Product Fields"
+msgstr "Pola produktów"
+
+#: classes/fpf-post-type.php:54
+msgid "View Product Fields"
+msgstr "View Product Fields"
+
+#: classes/fpf-post-type.php:55
+msgid "Add new Fields Group"
+msgstr "Nowa grupa pól"
+
+#: classes/fpf-post-type.php:56
+msgid "Add New"
+msgstr "Dodaj nową"
+
+#: classes/fpf-post-type.php:57
+msgid "Edit Fields Group"
+msgstr "Edytuj grupę pól"
+
+#: classes/fpf-post-type.php:58
+msgid "Save Fields Group"
+msgstr "Zapisz grupę pól"
+
+#: classes/fpf-post-type.php:59
+msgid "Search Fields Group"
+msgstr "Szukaj grupy pól"
+
+#: classes/fpf-post-type.php:60
+msgid "Fields Group not found"
+msgstr "Nie znaleziono grup pól"
+
+#: classes/fpf-post-type.php:61
+msgid "Fields Group not found in trash"
+msgstr "Nie znaleziono grup pól w koszu"
+
+#: classes/fpf-post-type.php:63
+msgid "Product Fields."
+msgstr "Product Fields."
+
+#: classes/fpf-post-type.php:86
+msgid "Assign to"
+msgstr "Przypisana do"
+
+#: classes/fpf-post-type.php:87 classes/fpf-post-type.php:164
+msgid "Fields"
+msgstr "Pola"
+
+#: classes/fpf-post-type.php:115 classes/fpf-post-type.php:200
+msgid "Product"
+msgstr "Produkt"
+
+#: classes/fpf-post-type.php:116 classes/fpf-post-type.php:201
+msgid "Category"
+msgstr "Kategoria"
+
+#: classes/fpf-post-type.php:117 classes/fpf-post-type.php:202
+msgid "All products"
+msgstr "Wszystkie produkty"
+
+#: classes/fpf-post-type.php:173 classes/views/admin-head-edit.php:33
+msgid "Enjoying the free version? Rate it!"
+msgstr "Podoba Ci się darmowa wersja? Wystaw nam ocenę!"
+
+#: classes/fpf-post-type.php:259
+msgid "Fixed"
+msgstr "Kwota"
+
+#: classes/fpf-post-type.php:260
+msgid "Percent"
+msgstr "Procent"
+
+#: classes/fpf-product-fields.php:38
+msgid "Before add to cart button"
+msgstr "Przed Dodaj do koszyka"
+
+#: classes/fpf-product-fields.php:42
+msgid "After add to cart button"
+msgstr "Po Dodaj do koszyka"
+
+#: classes/fpf-product-fields.php:118
+msgid "Text"
+msgstr "Tekst (input)"
+
+#: classes/fpf-product-fields.php:132
+msgid "Textarea"
+msgstr "Obszar tekstowy (textarea)"
+
+#: classes/fpf-product-fields.php:146
+msgid "Select"
+msgstr "Lista rozwijana (select)"
+
+#: classes/fpf-product-fields.php:162
+msgid "Radio"
+msgstr "Wybór (radio)"
+
+#: classes/fpf-product-fields.php:178
+msgid "Checkbox"
+msgstr "Wybór (checkbox)"
+
+#: classes/fpf-product-fields.php:192
+msgid "Heading"
+msgstr "Nagłówek"
+
+#: classes/fpf-product-fields.php:206
+msgid "Date"
+msgstr "Data"
+
+#. Plugin Name of the plugin/theme
+#: classes/fpf-product-fields.php:366 classes/fpf-product-fields.php:369
+#: classes/fpf-product-fields.php:374 classes/fpf-product-fields.php:377
+msgid "Flexible Product Fields"
+msgstr "Flexible Product Fields"
+
+#: classes/fpf-product.php:91
+#, php-format
+msgid "<strong>%s</strong>  is required field."
+msgstr "<strong>%s</strong> jest wymaganym polem."
+
+#: classes/fpf-product.php:173
+msgid "Select options"
+msgstr "Wybierz opcję"
+
+#: classes/fpf-product.php:403
+msgid "required"
+msgstr "wymagane"
+
+#: classes/fpf-product.php:513
+msgid "Required field"
+msgstr "Wymagane pole"
+
+#: classes/tracker.php:147
+msgid "Opt-in"
+msgstr "Opt-in"
+
+#: classes/tracker.php:151
+msgid "Opt-out"
+msgstr "Opt-out"
+
+#: classes/views/admin-head-edit.php:10
+msgid "Get Flexible Product Fields PRO"
+msgstr "Kup Flexible Product Fields PRO"
+
+#: classes/views/admin-head-edit.php:13
+#: classes/views/documentation-content.php:37
+msgid "Conditional logic for fields"
+msgstr "Logika warunkowa dla pól"
+
+#: classes/views/admin-head-edit.php:14
+msgid "Add price to fields"
+msgstr "Dodawanie cen dla pól"
+
+#: classes/views/admin-head-edit.php:15
+msgid "New field: Date"
+msgstr "Nowe pole: Data"
+
+#: classes/views/admin-head-edit.php:16
+msgid "New field: Heading"
+msgstr "Nowe pole: Nagłówek"
+
+#: classes/views/admin-head-edit.php:17
+msgid "Assign field groups to all products"
+msgstr "Przypisywanie grupy pól do wszystkich produktów"
+
+#: classes/views/admin-head-edit.php:18
+msgid "Assign field groups to categories"
+msgstr "Przypisywanie grupy pól do kategorii"
+
+#: classes/views/admin-head-edit.php:25
+msgid "Upgrade now →"
+msgstr "Zaktualizuj do PRO →"
+
+#: classes/views/documentation-content.php:7
+msgid "Getting Started"
+msgstr "Pierwsze kroki"
+
+#: classes/views/documentation-content.php:13
+msgid "Fields Groups List"
+msgstr "Zestawienie grup pól"
+
+#: classes/views/documentation-content.php:19
+msgid "Fields Group Configuration"
+msgstr "Konfiguracja grupy pól"
+
+#: classes/views/documentation-content.php:25
+msgid "Fields Basic Options"
+msgstr "Podstawowe opcje pól"
+
+#: classes/views/documentation-content.php:31
+msgid "Fields Price"
+msgstr "Ceny dla pól"
+
+#: classes/views/rate-it-content.php:2
+#, php-format
+msgid ""
+"If you want to continue using Flexible Product Fields for free, %splease add "
+"a review%s. You will help us support the free version. Thank you."
+msgstr ""
+"Jeśli chcesz używać Flexible Product Fields za darmo, prosimy %sdodaj swoją "
+"opinię%s. Pomożesz nam wspierać darmową wersję. Dziękujemy."
+
+#: inc/wpdesk-tracker/views/tracker-connect.php:7
+#: inc/wpdesk-tracker/views/tracker-notice.php:5
+#, php-format
+msgid "Hey %s,"
+msgstr "Hej %s,"
+
+#: inc/wpdesk-tracker/views/tracker-connect.php:8
+msgid ""
+"Please help us improve our plugins! If you opt-in, we will collect some non-"
+"sensitive data and usage information anonymously. If you skip this, that's "
+"okay! All plugins will work just fine."
+msgstr ""
+"Proszę pomóż nam udoskonalić nasze wtyczki! Jeśli się zgodzisz, będziemy "
+"zbierać niewrażliwe dane użytkowania anonimowo. Jeśli pominiesz ten krok, w "
+"porządku! Wszystkie wtyczki będą działać."
+
+#: inc/wpdesk-tracker/views/tracker-connect.php:13
+msgid "Allow & Continue &rarr;"
+msgstr "Pozwól i kontunuuj &rarr;"
+
+#: inc/wpdesk-tracker/views/tracker-connect.php:14
+msgid "Skip"
+msgstr "Pomiń"
+
+#: inc/wpdesk-tracker/views/tracker-connect.php:19
+msgid "What permissions are being granted?"
+msgstr "Jakie uprawnienia są przyznawane?"
+
+#: inc/wpdesk-tracker/views/tracker-connect.php:26
+msgid "Your Site Overview"
+msgstr "Dane witryny"
+
+#: inc/wpdesk-tracker/views/tracker-connect.php:27
+msgid "WP version, PHP info"
+msgstr "Wersja WP, PHP info"
+
+#: inc/wpdesk-tracker/views/tracker-connect.php:33
+msgid "Plugin Usage"
+msgstr "Dane użytkowania wtyczek"
+
+#: inc/wpdesk-tracker/views/tracker-connect.php:34
+msgid "Current settings and usage information of WP Desk plugins"
+msgstr "Ustawienia i informacje o użytkowaniu wtyczek WP Desk"
+
+#: inc/wpdesk-tracker/views/tracker-connect.php:40
+msgid "Your Store Overview"
+msgstr "Dane sklepu"
+
+#: inc/wpdesk-tracker/views/tracker-connect.php:41
+msgid "Anonymized and non-sensitive store usage information"
+msgstr "Tylko niewrażliwe i anonimowe dane o użytkowaniu sklepu"
+
+#: inc/wpdesk-tracker/views/tracker-connect.php:47
+#: inc/wpdesk-tracker/views/tracker-notice.php:7
+msgid "Find out more &raquo;"
+msgstr "Dowiedz się więcej &raquo;"
+
+#: inc/wpdesk-tracker/views/tracker-deactivate.php:3
+#, php-format
+msgid "You are deactivating %s plugin."
+msgstr "Dezaktywowałeś wtyczkę %s."
+
+#: inc/wpdesk-tracker/views/tracker-deactivate.php:9
+msgid ""
+" If you have a moment, please let us know why you are deactivating plugin "
+"(anonymous feedback):"
+msgstr ""
+" Jeśli masz chwilę, prosimy daj nam znać dlaczego dezaktywowałeś wtyczkę "
+"(anonimowa opinia):"
+
+#: inc/wpdesk-tracker/views/tracker-deactivate.php:16
+msgid "The plugin suddenly stopped working"
+msgstr "Wtyczka nagle przestała działać"
+
+#: inc/wpdesk-tracker/views/tracker-deactivate.php:24
+msgid "The plugin broke my site"
+msgstr "Wtyczka zepsuła moją stronę"
+
+#: inc/wpdesk-tracker/views/tracker-deactivate.php:32
+msgid "I found a better plugin"
+msgstr "Znalazłem lepszą wtyczkę"
+
+#: inc/wpdesk-tracker/views/tracker-deactivate.php:35
+msgid "What's the plugin's name?"
+msgstr "Jaka jest nazwa wtyczki?"
+
+#: inc/wpdesk-tracker/views/tracker-deactivate.php:43
+msgid "I only needed the plugin for a short period"
+msgstr "Potrzebowałem wtyczki tylko przez krótki okres"
+
+#: inc/wpdesk-tracker/views/tracker-deactivate.php:51
+msgid "I no longer need the plugin"
+msgstr "Nie potrzebuję już wtyczki"
+
+#: inc/wpdesk-tracker/views/tracker-deactivate.php:59
+msgid "It's a temporary deactivation. I'm just debugging an issue."
+msgstr "Jest to tymczasowa dezaktywacja, debuguję problem."
+
+#: inc/wpdesk-tracker/views/tracker-deactivate.php:67
+msgid "Other"
+msgstr "Inny"
+
+#: inc/wpdesk-tracker/views/tracker-deactivate.php:70
+msgid "Kindly tell us the reason so we can improve"
+msgstr "Napisz nam powód abyśmy mogli go poprawić"
+
+#: inc/wpdesk-tracker/views/tracker-deactivate.php:77
+msgid "Skip &amp; Deactivate"
+msgstr "Pomiń i dezaktywuj"
+
+#: inc/wpdesk-tracker/views/tracker-deactivate.php:78
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: inc/wpdesk-tracker/views/tracker-deactivate.php:92
+msgid "Submit &amp; Deactivate"
+msgstr "Wyślij i dezaktywuj"
+
+#: inc/wpdesk-tracker/views/tracker-notice.php:6
+msgid ""
+"We need your help to improve <strong>WP Desk plugins</strong>, so they are "
+"more useful for you and the rest of <strong>30,000+ users</strong>. By "
+"collecting data on how you use our plugins, you will help us a lot. We will "
+"not collect any sensitive data, so you can feel safe."
+msgstr ""
+"Potrzebujemy Twojej pomocy, aby dalej rozwijać <strong>wtyczki WP Desk</"
+"strong> i były one jeszcze bardziej pomocne dla Ciebie i pozostałych ponad "
+"<strong>30 000 użytkowników</strong>. Zbierając dane na temat tego jak "
+"korzystasz z naszych wtyczek bardzo nam w tym pomożesz. Nie będziemy zbierać "
+"żadnych danych wrażliwych, więc możesz czuć się bezpiecznie."
+
+#: inc/wpdesk-tracker/views/tracker-notice.php:10
+msgid "Allow"
+msgstr "Pozwól"
+
+#: inc/wpdesk-tracker/views/tracker-opt-out-notice.php:3
+msgid ""
+"You successfully opted out of collecting usage data by WP Desk. If you "
+"change your mind, you can always opt in later in the plugin's quick links."
+msgstr ""
+"Twoja rezygnacja ze zbierania danych użytkowania wtyczek przez WP Desk "
+"została przyjęta. Jeśli zmienisz zdanie, zawsze możesz włączyć zgodę poprzez "
+"szybkie linki w menu wtyczek."
+
+#: vendor/10up/wp_mock/tests/FunctionMocksTest.php:65
+msgid "Test"
+msgstr "Test"
+
+#: vendor/10up/wp_mock/tests/FunctionMocksTest.php:75
+#: vendor/10up/wp_mock/tests/FunctionMocksTest.php:77
+msgid "Input"
+msgstr "Input"
+
+#: vendor/wpdesk/wp-basic-requirements/src/Basic_Requirement_Checker.php:162
+#, php-format
+msgid ""
+"The &#8220;%s&#8221; plugin cannot run on PHP versions older than %s. Please "
+"contact your host and ask them to upgrade."
+msgstr ""
+"Wtyczka &#8220;%s&#8221; nie może działać w wersjach PHP starszych niż %s. "
+"Skontaktuj się z administratorem hostingu i poproś o aktualizację."
+
+#: vendor/wpdesk/wp-basic-requirements/src/Basic_Requirement_Checker.php:166
+#, php-format
+msgid ""
+"The &#8220;%s&#8221; plugin cannot run on WordPress versions older than %s. "
+"Please update WordPress."
+msgstr ""
+"Wtyczka &#8220;%s&#8221; nie może działać w wersjach WordPress starszych niż "
+"%s. Prosimy o aktualizację WordPress."
+
+#: vendor/wpdesk/wp-basic-requirements/src/Basic_Requirement_Checker.php:170
+#, php-format
+msgid ""
+"The &#8220;%s&#8221; plugin cannot run on WooCommerce versions older than "
+"%s. Please update WooCommerce."
+msgstr ""
+"Wtyczka &#8220;%s&#8221; nie może działać w wersjach WooCommerce starszych "
+"niż %s. Prosimy o aktualizację WooCommerce."
+
+#: vendor/wpdesk/wp-basic-requirements/src/Basic_Requirement_Checker.php:174
+#, php-format
+msgid ""
+"The &#8220;%s&#8221; plugin cannot run without OpenSSL module version at "
+"least %s. Please update OpenSSL module."
+msgstr ""
+"Wtyczka &#8220;%s&#8221; nie może działać bez aktywacji OpenSSL co najmniej "
+"w wersji %s. Zaktualizuj wersję OpenSSL."
+
+#: vendor/wpdesk/wp-basic-requirements/src/Basic_Requirement_Checker.php:262
+#, php-format
+msgid ""
+"The &#8220;%s&#8221; plugin cannot run without %s active. Please install and "
+"activate %s plugin."
+msgstr ""
+"Wtyczka &#8220;%s&#8221; nie może działać bez aktywacji %s. Zainstaluj i "
+"aktywuj wtyczkę %s."
+
+#: vendor/wpdesk/wp-basic-requirements/src/Basic_Requirement_Checker.php:298
+#, php-format
+msgid ""
+"The &#8220;%s&#8221; plugin cannot run without %s php module installed. "
+"Please contact your host and ask them to install %s."
+msgstr ""
+"Wtyczka &#8220;%s&#8221; nie może działać bez modułu php: %s. Skontaktuj się "
+"z administratorem hostingu i poproś o instalację %s."
+
+#: vendor/wpdesk/wp-basic-requirements/src/Basic_Requirement_Checker.php:326
+#, php-format
+msgid ""
+"The &#8220;%s&#8221; plugin cannot run without %s php setting set to %s. "
+"Please contact your host and ask them to set %s."
+msgstr ""
+"Wtyczka &#8220;%s&#8221; nie może działać bez ustawienia php %s ustawionego "
+"na %s. Skontaktuj się z administratorem hostingu i poproś o ustawienie %s."
+
+#: vendor/wpdesk/wp-builder/src/Plugin/AbstractPlugin.php:140
+msgid "Docs"
+msgstr "Docs"
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/plugins/flexible-product-fields/"
+msgstr "https://pl.wordpress.org/plugins/flexible-product-fields/"
+
+#. Description of the plugin/theme
+msgid ""
+"Allow customers to customize WooCommerce products before adding them to "
+"cart. Add fields text or textarea."
+msgstr ""
+"Umożliwiaj klientom konfigurację produktów WooCommerce przed dodaniem do "
+"koszyka. Dodaj pola tekst lub pole tekstowe."
+
+#. Author of the plugin/theme
+msgid "WP Desk"
+msgstr "WP Desk"
+
+#. Author URI of the plugin/theme
+msgid "https://www.wpdesk.net/"
+msgstr "https://www.wpdesk.pl/"
+
+#~ msgid "Field type Data"
+#~ msgstr "Typ pola Data"
+
+#~ msgid "Field type Heading"
+#~ msgstr "Typ pola Nagłówek"
+
+#~ msgid "Admin Updates"
+#~ msgstr "Powiadomienia"
+
+#~ msgid "Announcements, updates, marketing, no spam and easy opt-out"
+#~ msgstr ""
+#~ "Ważne powiadomienia, uaktualnienia, marketing, żadnego spamu i łatwa "
+#~ "rezygnacja"
+
+#~ msgid "Product page and checkout"
+#~ msgstr "Strona produktu, koszyk i zamówienie"
+
+#~ msgid "Compare"
+#~ msgstr "Warunek"
+
+#~ msgid ""
+#~ "Allow customers to customize WooCommerce products before adding them to "
+#~ "cart. Add fields and assign fixed or percentage prices."
+#~ msgstr ""
+#~ "Umożliwiaj klientom konfigurację produktów WooCommerce przed dodaniem do "
+#~ "koszyka. Dodaj pola: tekst, pole tekstowe, select, checkbox, radio i "
+#~ "przypisz ceny kwotowo lub procentowo."
+
+#~ msgid "Create additional product fields for WooCommerce."
+#~ msgstr "Twórz dodatkowe pola dla produktów WooCommerce."
+
+#~ msgid ""
+#~ "The %s%s%s License Key has not been activated, so the plugin is inactive! "
+#~ "%sClick here%s to activate the license key and the plugin."
+#~ msgstr ""
+#~ "Klucz licencyjny wtyczki %s%s%s nie został aktywowany, więc wtyczka jest "
+#~ "nieaktywna! %sKliknij tutaj%s, aby aktywować klucz licencyjny wtyczki."
+
+#~ msgid ""
+#~ "<a href=\"%s\">Install the WP Desk Helper plugin</a> to activate and get "
+#~ "updates for your WP Desk plugins."
+#~ msgstr ""
+#~ "<a href=\"%s\">Zainstaluj wtyczkę WP Desk Helper</a>, aby aktywować i "
+#~ "otrzymywać aktualizacje wtyczek WP Desk."
+
+#~ msgid ""
+#~ "<a href=\"%s\">Activate the WP Desk Helper plugin</a> to activate and get "
+#~ "updates for your WP Desk plugins."
+#~ msgstr ""
+#~ "<a href=\"%s\">Włącz wtyczkę WP Desk Helper</a>, aby aktywować i "
+#~ "otrzymywać aktualizacje wtyczek WP Desk."
+
+#~ msgid "Insert Image"
+#~ msgstr "Wstaw obrazek"
+
+#~ msgid "Select Image"
+#~ msgstr "Wybierz obrazek"
+
+#~ msgid "Section214 Settings"
+#~ msgstr "Section214 Settings"
+
+#~ msgid "Maximum cost"
+#~ msgstr "Maksymalny koszt"
+
+#~ msgid ""
+#~ "Set a maximum cost of shipping. This will override the costs configured "
+#~ "below."
+#~ msgstr ""
+#~ "Ustaw maksymalny koszt wysyłki. To nadpisze koszty ustawione w regułach."
+
+#~ msgid "Lowest cost"
+#~ msgstr "Najniższy koszt"
+
+#~ msgid "Highest cost"
+#~ msgstr "Najwyższy koszt"
+
+#~ msgid "Item"
+#~ msgstr "Sztuka"
+
+#~ msgid "Cart line item"
+#~ msgstr "Pozycja w koszyku"
+
+#~ msgid "Any class (must be set)"
+#~ msgstr "Dowolna klasa (musi być ustawiona)"
+
+#~ msgid "None"
+#~ msgstr "Brak"
+
+#~ msgid ""
+#~ "An Unexpected HTTP Error occurred during the API request.</p> <p><a href="
+#~ "\"?\" onclick=\"document.location.reload(); return false;\">Try again</a>"
+#~ msgstr ""
+#~ "Wystąpił nieoczekiwany błąd HTTP podczas zapytania API.</p> <p><a "
+#~ "href=„?” onclick=„document.location.reload(); return false;”>Spróbuj "
+#~ "ponownie</a>"
+
+#~ msgid "An unknown error occurred"
+#~ msgstr "Wystąpił nieznany błąd"
+
+#~ msgid "Enter additional shipping cost based on the Value field."
+#~ msgstr "Wpisz dodatkowy koszt bazujący na polu Wartość."
+
+#~ msgid "Value for additional cost."
+#~ msgstr "Wartość dodatkowego kosztu."
+
+#~ msgid "Shipping class"
+#~ msgstr "Klasa wysyłkowa"
+
+#~ msgid "Select shipping class that the rule applies to."
+#~ msgstr "Wybierz klasę wysyłkową, do której ma być stosowana reguła."
+
+#~ msgid "Stop"
+#~ msgstr "Zatrzymaj"
+
+#~ msgid "When this rule is matched stop calculating the following rules."
+#~ msgstr ""
+#~ "Jeśli zostanie spełniona wybrana reguła, zatrzymaj obliczanie kolejnych "
+#~ "reguł."
+
+#~ msgid "When this rule is matched do not show it in the checkout."
+#~ msgstr ""
+#~ "Jeśli zostanie spełniona wybrana reguła, nie pokazuj jej w zamówieniu."
+
+#~ msgid "Redirecting. If page not redirects click %s here %s."
+#~ msgstr ""
+#~ "Przekierowywanie. Jeśli strona nie przekierowuje cię automatycznie, "
+#~ "kliknij %s tu %s."
+
+#~ msgid ""
+#~ "Flexible Shipping PRO requires Flexible Shipping plugin. <a href=\"%s"
+#~ "\">Install Flexible Shipping →</a>"
+#~ msgstr ""
+#~ "Flexible Shipping PRO wymaga wtyczki Flexible Shipping. <a href=\"%s"
+#~ "\">Zainstaluj Flexible Shipping →</a>"
+
+#~ msgid ""
+#~ "Flexible Shipping PRO requires Flexible Shipping plugin. <a href=\"%s"
+#~ "\">Activate Flexible Shipping →</a>"
+#~ msgstr ""
+#~ "Flexible Shipping PRO wymaga wtyczki Flexible Shipping. <a href=\"%s"
+#~ "\">Włącz Flexible Shipping →</a>"
+
+#~ msgid "Flexible Shipping PRO"
+#~ msgstr "Flexible Shipping PRO"
+
+#~ msgid "https://www.wpdesk.net/products/flexible-shipping-pro-woocommerce/"
+#~ msgstr "https://www.wpdesk.pl/sklep/flexible-shipping-pro-woocommerce/"
+
+#~ msgid ""
+#~ "Extends the free version of Flexible Shipping by adding advanced pro "
+#~ "features."
+#~ msgstr ""
+#~ "Rozszerza bezpłatną wersję Flexible Shipping poprzez dodanie "
+#~ "zaawansowanych ustawień."

@@ -1,18 +1,20 @@
 <?php
 /**
-* Plugin Name: YITH WooCommerce Wishlist
-* Plugin URI: http://yithemes.com/themes/plugins/yith-woocommerce-wishlist/
-* Description: YITH WooCommerce Wishlist allows you to add Wishlist functionality to your e-commerce.
-* Version: 2.0.16
-* Author: YITHEMES
-* Author URI: http://yithemes.com/
-* Text Domain: yith-woocommerce-wishlist
-* Domain Path: /languages/
-* 
-* @author YITHEMES
-* @package YITH WooCommerce Wishlist
-* @version 2.0.0
-*/
+ * Plugin Name: YITH WooCommerce Wishlist
+ * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-wishlist/
+ * Description: <code><strong>YITH WooCommerce Wishlist</strong></code> gives your users the possibility to create, fill, manage and share their wishlists allowing you to analyze their interests and needs to improve your marketing strategies.
+ * Version: 2.2.4
+ * Author: YITH
+ * Author URI: https://yithemes.com/
+ * Text Domain: yith-woocommerce-wishlist
+ * Domain Path: /languages/
+ * WC requires at least: 2.5.0
+ * WC tested up to: 3.5.0
+ *
+ * @author YITHEMES
+ * @package YITH WooCommerce Wishlist
+ * @version 2.0.0
+ */
 
 /*  Copyright 2013  Your Inspiration Themes  (email : plugins@yithemes.com)
 
@@ -135,7 +137,7 @@ if( ! function_exists( 'yith_wcwl_install_free_admin_notice' ) ){
     function yith_wcwl_install_free_admin_notice() {
         ?>
         <div class="error">
-            <p><?php _e( 'You can\'t activate the free version of YITH WooCommerce Wishlist while you are using the premium one.', 'yith-woocommerce-wishlist' ); ?></p>
+            <p><?php echo __( 'You can\'t activate the free version of', 'yith-woocommerce-wishlist' ) . 'YITH WooCommerce Wishlist' . __( 'while you are using the premium one.', 'yith-woocommerce-wishlist' ); ?></p>
         </div>
     <?php
     }

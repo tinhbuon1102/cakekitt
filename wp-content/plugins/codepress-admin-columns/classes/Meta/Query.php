@@ -1,10 +1,10 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace AC\Meta;
 
-class AC_Meta_Query {
+use WP_Meta_Query;
+
+class Query {
 
 	/**
 	 * @var WP_Meta_Query
@@ -100,7 +100,6 @@ class AC_Meta_Query {
 
 	/**
 	 * Group by an aggregated column.
-	 *
 	 * Supports: count
 	 *
 	 * @param string $field
@@ -125,6 +124,11 @@ class AC_Meta_Query {
 
 	/**
 	 * @see get_where_clause()
+	 *
+	 * @param        $field
+	 * @param null   $operator
+	 * @param null   $value
+	 * @param string $boolean
 	 *
 	 * @return $this
 	 */
@@ -168,7 +172,7 @@ class AC_Meta_Query {
 	 * @param string|array     $field
 	 * @param string           $operator
 	 * @param string|int|array $value
-	 * @param string           $type
+	 * @param string           $boolean
 	 *
 	 * @return array
 	 */
@@ -211,6 +215,11 @@ class AC_Meta_Query {
 	/**
 	 * @see get_where_clause()
 	 *
+	 * @param        $field
+	 * @param null   $operator
+	 * @param null   $value
+	 * @param string $boolean
+	 *
 	 * @return $this
 	 */
 	public function remove_where( $field, $operator = null, $value = null, $boolean = 'AND' ) {
@@ -228,6 +237,11 @@ class AC_Meta_Query {
 	/**
 	 * @see get_where_clause()
 	 *
+	 * @param        $field
+	 * @param null   $operator
+	 * @param null   $value
+	 * @param string $boolean
+	 *
 	 * @return $this
 	 */
 	public function where( $field, $operator = null, $value = null, $boolean = 'AND' ) {
@@ -238,6 +252,10 @@ class AC_Meta_Query {
 
 	/**
 	 * @see get_where_clause()
+	 *
+	 * @param      $field
+	 * @param null $operator
+	 * @param null $value
 	 *
 	 * @return $this
 	 */
@@ -426,7 +444,6 @@ class AC_Meta_Query {
 
 	/**
 	 * Return last sql that was queried
-	 *
 	 * @return string
 	 */
 	public function get_sql() {
@@ -447,6 +464,11 @@ class AC_Meta_Query {
 		return $this->query;
 	}
 
+	/**
+	 * @param string $type
+	 *
+	 * @return bool
+	 */
 	private function set_query( $type ) {
 		global $wpdb;
 

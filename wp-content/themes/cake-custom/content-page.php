@@ -24,7 +24,7 @@
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>order-made-form/" class="round_link">注文する</a>
 				</figcaption>
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>order-made-form/" class="card_link"></a>
-				<img src="<?php echo get_stylesheet_directory_uri(); ?>/images/order_cake01.jpg" />
+				<img src="<?php echo get_stylesheet_directory_uri(); ?>/images/order_cake01_new.jpg" />
 				</figure>
 				</div><!--/card_item_column-->
 				<div class="card_item_column">
@@ -39,7 +39,7 @@
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>menu/" class="round_link">注文する</a>
 				</figcaption>
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>menu/" class="card_link"></a>
-				<img src="<?php echo get_stylesheet_directory_uri(); ?>/images/order_cake02.jpg" />
+				<img src="<?php echo get_stylesheet_directory_uri(); ?>/images/order_cake02_new.jpg" />
 			</figure>
 			</div><!--/card_item_column-->
 			</div>

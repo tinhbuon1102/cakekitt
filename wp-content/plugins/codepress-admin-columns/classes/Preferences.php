@@ -1,10 +1,8 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace AC;
 
-abstract class AC_Preferences {
+abstract class Preferences {
 
 	/**
 	 * @var int
@@ -13,28 +11,24 @@ abstract class AC_Preferences {
 
 	/**
 	 * The label for this set of preferences
-	 *
 	 * @var string
 	 */
 	private $label;
 
 	/**
 	 * Preferences of this user
-	 *
 	 * @var array
 	 */
 	protected $data = array();
 
 	/**
 	 * Retrieves data from DB
-	 *
 	 * return array|false
 	 */
 	abstract protected function load();
 
 	/**
 	 * Stores data to DB
-	 *
 	 * @return bool
 	 */
 	abstract public function save();
@@ -62,7 +56,6 @@ abstract class AC_Preferences {
 
 	/**
 	 * Return the key used to store and retrieve this preference
-	 *
 	 * @return string
 	 */
 	protected function get_key() {

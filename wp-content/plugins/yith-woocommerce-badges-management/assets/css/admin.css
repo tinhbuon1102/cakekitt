@@ -435,3 +435,7 @@ span#yith-wcbm-rotation-mode-change:hover {
 #yith-wcbm-3d-rotation-table th:last-child {
     width : 80px
 }
+
+.edit-php.post-type-product .column-yith_wcbm_badge {
+    width: 10%;
+}
