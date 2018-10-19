@@ -2700,4 +2700,135 @@ function addPickUpdateTimeField(){
 	}
 }
 
+add_filter('thwepo_product_price_html', 'kitt_thwepo_product_price_html', 10, 2);
+function kitt_thwepo_product_price_html ( $price_html, $product_id)
+{
+	$price_html = '<span class="extra_option_price_text">'  . __('Price including extra options:', 'cake') . '<span>' . $price_html;
+	return $price_html;
+}
+
+add_action( 'wp_loaded', 'sillo_remove_that_filter' );
+function sillo_remove_that_filter(){
+	
+}
+
+add_filter( 'woocommerce_get_item_data', 'zoa_filter_get_extra_option_data', 1, 2 );
+function zoa_filter_get_extra_option_data($item_data, $cart_item = null)
+{
+	global $wp_filter;
+	if (isset($wp_filter['woocommerce_get_item_data']->callbacks['10']))
+	{
+		foreach ($wp_filter['woocommerce_get_item_data']->callbacks['10'] as $key_filter => $filter)
+		{
+			if(is_a($filter['function'][0], 'THWEPO_Public'))
+			{
+				unset($wp_filter['woocommerce_get_item_data']->callbacks['10'][$key_filter]);
+				break;
+			}
+			
+		}
+	}
+	
+	if(apply_filters('thwepo_display_custom_cart_item_meta', true)){
+		$item_data = is_array($item_data) ? $item_data : array();
+		$extra_options = $cart_item && isset($cart_item['thwepo_options']) ? $cart_item['thwepo_options'] : false;
+		$product_price = $cart_item && isset($cart_item['thwepo-original_price']) ? $cart_item['thwepo-original_price'] : false;
+		$display_option_text = apply_filters('thwepo_order_item_meta_display_option_text', true);
+		
+		if($extra_options){
+			$product_info = array();
+			$product_info['id'] = $cart_item['product_id'];
+			$product_info['price'] = $product_price;
+			
+			foreach($extra_options as $name => $data){
+				if(isset($data['value']) && isset($data['label'])) {
+					$ftype = isset($data['field_type']) ? $data['field_type'] : false;
+					$value = isset($data['value']) ? $data['value'] : '';
+					
+					if($ftype === 'file'){
+						$value = THWEPO_Utils::get_file_display_name($value, apply_filters('thwepo_item_display_filename_as_link', false, $name));
+						//$value = THWEPO_Utils::get_filename_from_path($value);
+						$item_data[] = array("name" => THWEPO_i18n::__t($data['label']), "value" => trim(stripslashes($value)));
+					}
+					elseif($ftype !== 'multiselect' && $ftype !== 'checkboxgroup'){
+						$value = is_array($value) ? implode(",", $value) : $value;
+						$value = $display_option_text ? THWEPO_Utils::get_option_display_value($name, $value, $data) : $value;
+						$is_show_price = apply_filters('thwepo_show_price_for_item_meta', true, $name);
+						if($is_show_price){
+							$value .= THWEPO_Utils_Price::get_display_price_item_meta($data, $data['price_type'], $data['price'], $product_info);
+						}
+						$item_data[] = array("name" => THWEPO_i18n::__t($data['label']), "value" => trim(stripslashes($value)));
+					}
+					else {
+						$is_show_price = apply_filters('thwepo_show_price_for_item_meta', true, $name);
+						if($is_show_price){
+							foreach ($data['options'] as $data_option)
+							{
+								// 									$value = THWEPO_Utils_Price::get_display_price_item_meta($data, $data['price_type'], $data['price'], $product_info);
+								
+								$options = $data['options'];
+								
+								if(is_array($options) && is_array($value)){
+									foreach($value as $option_value){
+										$fprice = 0;
+										if(isset($options[$option_value])){
+											$selected_option = $options[$option_value];
+											
+											if(isset($selected_option['price']) && isset($selected_option['price_type'])){
+												$price = $selected_option['price'];
+												$fprice_type = $selected_option['price_type'];
+												
+												if($fprice_type === 'percentage'){
+													if(is_numeric($price) && is_numeric($product_price)){
+														$fprice = $fprice + ($price/100)*$product_price;
+													}
+												}else{
+													if(is_numeric($price)){
+														$fprice = $fprice + $price;
+													}
+												}
+												
+												$price_html = THWEPO_Utils_Price::display_price($fprice, $data, array(), false);
+												$price_html = apply_filters('thwepo_item_meta_display_price', $price_html, $name, $data);
+												
+												$item_data[] = array("name" => THWEPO_i18n::__t($data_option['text']), "value" => trim(stripslashes($price_html)));
+												break;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return $item_data;
+}
+
+add_filter( 'woocommerce_order_items_meta_get_formatted', 'cake_woocommerce_order_items_meta_get_formatted', 1000, 2 );
+function cake_woocommerce_order_items_meta_get_formatted($formatted_meta, $itemClass)
+{
+	foreach ($formatted_meta as &$meta)
+	{
+		if ($meta['key'] == 'options_cake')
+		{
+			$extra_options = THWEPO_Utils::get_custom_sections();
+			$option_fields = $extra_options['default']->fields;
+			$options_cake = $option_fields[$meta['key']]->options;
+			
+			$meta_values = explode(',', $meta['value']);
+			foreach ($meta_values as &$meta_value)
+			{
+				$meta_value = $options_cake[$meta_value]['text'];
+			}
+			$meta['value'] = implode(', ', $meta_values);
+		}
+	}
+	return $formatted_meta;
+}
+
+
+
 ?>

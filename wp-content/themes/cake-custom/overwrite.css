@@ -9,7 +9,11 @@
     padding: 1.75rem;
     background: rgba(233,184,203,.1);
 }
-
+.fpf-fields:after {
+    content: '';
+    display: table;
+    clear: both;
+}
 h4.heading-form .helper_text {
     font-weight: bold;
     font-size: 12px;
@@ -580,6 +584,132 @@ ul.cake-print.text-radio > li:first-child {
 .modal-custom .woocommerce-Button.button.skip-authenticate-btn:hover, .modal-custom .woocommerce-Button.button.skip-authenticate-btn:focus {
     background: rgba(233,159,188,1);
     color: #FFF;
+}
+/*Selector*/
+.woocommerce div.product form.cart .extra-options .select-style select {
+    padding: 0 40px 0 15px;
+    margin: 0;
+    font-size: 16px;
+    color: #303030;
+    height: 100%;
+    width: 130%;
+    border: none;
+    cursor: pointer;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.woocommerce div.product form.cart .extra-options .select-style {
+	position: relative;
+    font-size: 16px;
+    color: #303030;
+    line-height: 50px;
+    height: 50px;
+    padding: 0;
+    margin: 0;
+}
+.woocommerce div.product form.cart .extra-options .select-style.black {
+    color: #fff;
+    float: none;
+    border: none;
+    border-bottom: 1px solid #6d6d6d;
+    background-color: transparent;
+    width: 100%;
+}
+.woocommerce div.product form.cart .extra-options .select-style.black.border-dark {
+	color: #303030;
+    display: inline-block;
+    border-bottom: 1px solid #a7abad;
+    max-width: 258px;
+    width: 100%;
+}
+.woocommerce div.product form.cart .extra-options .select-style:after {
+    color: #a7abad;
+    content: "\e903";
+    font-family: 'icomoon01' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: absolute;
+    pointer-events: none;
+    right: 0.75em;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    z-index: 1000;
+}
+/*Extra Options*/
+table.extra-options, table.extra-options tbody, table.extra-options tbody tr {
+    display: block;
+}
+.woocommerce div.product form.cart table.extra-options td {
+    display: block;
+    padding: 0;
+}
+table.extra-options td.label > .label-tag {
+    line-height: 1.15;
+    font-size: .95rem;
+}
+.option_css_wraper {
+    display: block;
+}
+
+.option_css_wraper td.label.leftside {
+    display: block;
+}
+
+.option_css_wraper td.label.leftside {
+    color: #000;
+}
+
+.woocommerce div.product form.cart table td label.label-tag.checkbox {
+    padding-left: 0;
+}
+
+.woocommerce div.product form.cart table td label.label-tag.checkbox label.sublabel-tag {
+    padding-left: 0;
+}
+table.extra-options tbody tr:not(:last-child) {
+    margin-bottom: 1em;
+}
+.woocommerce div.product form.cart table.extra-options .option_css_wraper td label.label-tag.checkbox:not(:last-child) {
+    display: inline-block !important;
+    margin: 0 20px 10px 0 !important;
+}
+.woocommerce div.product form.cart .price .extra_option_price_text {
+    font-family: -apple-system, BlinkMacSystemFont, "Avenir Next", "Avenir", "Roboto", 'Noto Sans Japanese', "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", "Meiryo", sans-serif;
+}
+.woocommerce div.product form.cart .price .extra_option_price_text > span {
+    display: inline-block;
+    font-size: 1.2rem;
+    padding-left: 10px;
+	font-family: bebas_neue_regularregular;
+}
+.woocommerce div.product form.cart .price .extra_option_price_text {
+    padding: 15px 20px;
+    display: inline-block;
+    margin-bottom: 15px;
+    background: rgba(233,159,188,.15);
+}
+.cake-single-product-summary #wcuf_product_ajax_container .wcuf_spacer4 {
+    height: 0px;
+}
+/*Cart Extra*/
+.woocommerce .cart_item .product-name .attribute span.value {
+    display: inline-block;
+}
+
+.woocommerce .cart_item .product-name .attribute span {
+    font-size: 12px;
+    line-height: 1.15;
 }
 @media (min-width: 768px) {
 	figure.card_item span.del {

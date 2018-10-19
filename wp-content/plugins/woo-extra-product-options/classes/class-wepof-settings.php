@@ -17,13 +17,14 @@ class WEPOF_Settings {
 	public function __construct() {
 		$required_classes = apply_filters('th_wepof_require_class', array(
 			'common' => array(
-				'classes/fe/class-wepof-product-options-utils.php',
 				'classes/fe/rules/class-wepof-condition.php',
 				'classes/fe/rules/class-wepof-condition-set.php',
 				'classes/fe/rules/class-wepof-rule.php',
 				'classes/fe/rules/class-wepof-rule-set.php',
 				'classes/fe/fields/class-wepof-field-inputtext.php',
 				'classes/fe/fields/class-wepof-field-select.php',
+				'classes/fe/class-wepof-utils-field.php',
+				'classes/fe/class-wepof-product-options-utils.php',
 			),
 			'admin' => array(
 				'classes/class-wepof-settings-page.php',
@@ -38,6 +39,7 @@ class WEPOF_Settings {
 	
 		add_action('admin_menu', array($this, 'admin_menu'));
 		add_filter('woocommerce_screen_ids', array($this, 'add_screen_id'));
+		add_filter('plugin_action_links_'.TH_WEPOF_BASE_NAME, array($this, 'add_settings_link'));
 		
 		$this->init();
 	}
@@ -79,6 +81,12 @@ class WEPOF_Settings {
 		$ids[] = 'woocommerce_page_thwepof_extra_product_options';
 		$ids[] = strtolower(__('WooCommerce', 'woocommerce')) .'_page_thwepof_extra_product_options';
 		return $ids;
+	}
+	
+	public function add_settings_link($links) {
+		$settings_link = '<a href="'.admin_url('edit.php?post_type=product&page=thwepof_extra_product_options').'">'. __('Settings') .'</a>';
+		array_unshift($links, $settings_link);
+		return $links;
 	}
 
 	function output_settings() {

@@ -2,12 +2,14 @@
 /**
  * Plugin Name: Woo Extra Product Options
  * Description: Add extra product options in product page.
- * Author:      ThemeHiGH1
- * Version:     1231.2.2
- * Author URI:  https://www.themehigh.com1
- * Plugin URI:  https://www.themehigh.com1
+ * Author:      ThemeHiGH
+ * Version:     1.3.0
+ * Author URI:  https://www.themehigh.com
+ * Plugin URI:  https://www.themehigh.com
  * Text Domain: woo-extra-product-options
  * Domain Path: /languages
+ * WC requires at least: 3.0.0
+ * WC tested up to: 3.4.0
  */
  
 if(!defined('ABSPATH')){ exit; }
@@ -18,7 +20,7 @@ if (!function_exists('is_woocommerce_active')){
 	    if(is_multisite()){
 		   $active_plugins = array_merge($active_plugins, get_site_option('active_sitewide_plugins', array()));
 	    }
-	    return in_array('woocommerce/woocommerce.php', $active_plugins) || array_key_exists('woocommerce/woocommerce.php', $active_plugins);
+	    return in_array('woocommerce/woocommerce.php', $active_plugins) || array_key_exists('woocommerce/woocommerce.php', $active_plugins) || class_exists('WooCommerce');
 	}
 }
 
@@ -32,7 +34,8 @@ if(is_woocommerce_active()) {
 			public function init() {		
 				$this->load_plugin_textdomain();
 				
-				define('TH_WEPOF_VERSION', '1.2.1');
+				define('TH_WEPOF_VERSION', '1.3.0');
+				!defined('TH_WEPOF_BASE_NAME') && define('TH_WEPOF_BASE_NAME', plugin_basename( __FILE__ ));
 				!defined('TH_WEPOF_PATH') && define('TH_WEPOF_PATH', plugin_dir_path( __FILE__ ));
 				!defined('TH_WEPOF_URL') && define('TH_WEPOF_URL', plugins_url( '/', __FILE__ ));
 				!defined('TH_WEPOF_ASSETS_URL') && define('TH_WEPOF_ASSETS_URL', TH_WEPOF_URL .'assets/');

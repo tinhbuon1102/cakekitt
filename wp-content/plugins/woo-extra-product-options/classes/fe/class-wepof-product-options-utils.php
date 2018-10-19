@@ -14,31 +14,82 @@ abstract class WEPOF_Product_Options_Utils {
 	
 	}
 
-	public function is_valid_field($field){
-		if(isset($field) && ($field instanceof WEPOF_Product_Field_InputText || $field instanceof WEPOF_Product_Field_Select) && $field->is_valid()){
-			return true;
-		} 
-		return false;
-	}
-
 	public function get_product_custom_fields_hook_map(){
 		$extra_options = get_option('thwepof_custom_product_fields');	
 		$extra_options = ($extra_options && is_array($extra_options)) ? $extra_options : false;
 		return $extra_options;
-	}		
+	}
 
-	public function get_product_custom_fields(){
-		$extra_options = $this->get_product_custom_fields_hook_map();
+	public function get_product_custom_fields_full(){
+		$fields_hook_map = $this->get_product_custom_fields_hook_map();
 		$custom_fields = array();
 
-		if($extra_options) {
-			foreach($extra_options as $hook => $fields){
-				if($fields){
+		if($fields_hook_map && is_array($fields_hook_map) && !empty($fields_hook_map)){
+			foreach($fields_hook_map as $hook_name => $fields){
+				if($fields && is_array($fields)){
 					$custom_fields = array_merge($custom_fields, $fields);
 				}
 			}
 		}
 		return $custom_fields;
+	}
+	
+	public function get_product_custom_fields($product, $names_only = true){
+		$product_id = $product->get_id();
+		$categories = $this->get_product_categories($product);
+		
+		$fields_hook_map = $this->get_product_custom_fields_hook_map();
+		$custom_fields = array();
+		
+		if($fields_hook_map && is_array($fields_hook_map) && !empty($fields_hook_map)){
+			foreach($fields_hook_map as $hook_name => $fields){
+				if($fields && is_array($fields)){
+					foreach($fields as $field_name => $field){
+						if(WEPOF_Utils_Field::is_valid_field($field) && WEPOF_Utils_Field::is_enabled($field) && WEPOF_Utils_Field::show_field($field, $product_id, $categories)){
+							if($names_only){
+								$custom_fields[] = $field_name;
+							}else{
+								$custom_fields[$field_name] = $field;
+							}
+						}
+					}
+				}
+			}
+		}
+		return $custom_fields;
+	}
+	
+	public function get_fields_by_hook($fields_hook_map, $hook_name){
+		if(is_array($fields_hook_map) && array_key_exists($hook_name, $fields_hook_map)) {
+			$hooked_fields = $fields_hook_map[$hook_name];
+			return (is_array($hooked_fields) && !empty($hooked_fields)) ? $hooked_fields : false;
+		}
+		return false;
+	}
+	
+	public function has_extra_options($product){
+		$options_extra = $this->get_product_custom_fields($product);
+		return empty($options_extra) ? false : true;		
+	}
+	
+	public function get_product_categories($product){
+		$categories = array();
+		if($product->get_id()){
+			$product_cat = wp_get_post_terms($product->get_id(), 'product_cat');
+			if(is_array($product_cat)){
+				foreach($product_cat as $category){
+					$parent_cat = get_ancestors( $category->term_id, 'product_cat' ); 
+					if(is_array($parent_cat)){
+						foreach($parent_cat as $pcat_id){
+							$pcat = get_term( $pcat_id, 'product_cat' );
+							$categories[] = $pcat->slug;
+						}
+					}
+					$categories[] = $category->slug;
+				}
+			}
+		}
+		return $categories;
 	}
 
    /*********************************
@@ -109,6 +160,16 @@ abstract class WEPOF_Product_Options_Utils {
 			'post_content' => $description,
 		);
 		wp_update_post( $post );
+	}
+
+	public static function woo_version_check( $version = '3.0' ) {
+	  	if(function_exists( 'is_woocommerce_active' ) && is_woocommerce_active() ) {
+			global $woocommerce;
+			if( version_compare( $woocommerce->version, $version, ">=" ) ) {
+		  		return true;
+			}
+	  	}
+	  	return false;
 	}
 }
 endif;

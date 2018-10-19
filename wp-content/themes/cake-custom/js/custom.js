@@ -1,9 +1,25 @@
+function enableCustomVariationsOption(){
+	jQuery('.fpf-select').find('select').attr('data-show_option_none', 'yes');
+	jQuery('.fpf-select').find('option').addClass('attached enabled');
+}
+enableCustomVariationsOption();
+
 jQuery(document).ready(function($){
+	enableCustomVariationsOption();
+	
 	var address = [
 		{postcode : '#deliver_postcode', state : '#deliver_state', city: '#deliver_city', address1: '#deliver_addr1'},
 		{postcode : '#billing_postcode', state : '#billing_state', city: '#billing_city', address1: '#billing_address_1'},
 		{postcode : '#shipping_postcode', state : '#shipping_state', city: '#shipping_city', address1: '#shipping_address_1'},
 	]
+	$('td.value > select').wrap('<div class="select-style black border-dark"></div>');
+	
+	//$(function() {
+		do {
+			$('.cart_item > .product-name > .attribute').children('span:lt(2)').wrapAll('<div class="extra_field"></div>');
+		}while($('.cart_item > .product-name > .attribute').children('span').length);
+	//}
+	
 	
 	/*$(".fpf-fields label.checkbox input").iCheck({
 		checkboxClass: 'icheckbox_square-pink',

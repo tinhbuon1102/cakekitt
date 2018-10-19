@@ -295,6 +295,15 @@ form.variations_form .variations .woocommerce-variation-price {
 	display: none;
 }
 
+table.extra-options .label-tag  {
+	color: #222222;
+}
+table.extra-options tr {background: white !important;}
+table.extra-options td {
+	border: 0 !important;
+	text-align: left;
+}
+
 .custom_select_wraper {
 	overflow: visible !important;
 }

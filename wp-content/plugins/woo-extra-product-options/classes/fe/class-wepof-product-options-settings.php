@@ -17,8 +17,8 @@ class WEPOF_Product_Options_Settings extends WEPOF_Settings_Page {
 		$this->page_id = 'fields';
 		add_filter( 'woocommerce_attribute_label', array($this, 'woo_attribute_label'), 10, 2 );
 		
-		add_filter('thwepo_load_products', array($this, 'load_products'));
-		add_filter('thwepo_load_products_cat', array($this, 'load_products_cat'));
+		add_filter('thwepof_load_products', array($this, 'load_products'));
+		add_filter('thwepof_load_products_cat', array($this, 'load_products_cat'));
 	}
 
 	public static function instance() {
@@ -42,6 +42,9 @@ class WEPOF_Product_Options_Settings extends WEPOF_Settings_Page {
 	}*/
 	public function load_products(){
 		$args = array( 'post_type' => 'product', 'order' => 'ASC', 'posts_per_page' => -1, 'fields' => 'ids' );
+		if(!apply_filters("thwepof_conditions_show_only_active_products", true)){
+			$args['post_status'] = 'any';
+		}
 		$products = get_posts( $args );
 		$productsList = array();
 		
@@ -76,10 +79,10 @@ class WEPOF_Product_Options_Settings extends WEPOF_Settings_Page {
 	}
 
 	public function sort_fields_by_order($a, $b){
-	    if($a->get_order() == $b->get_order()){
+	    if($a->get_property('order') == $b->get_property('order')){
 	        return 0;
 	    }
-	    return ($a->get_order() < $b->get_order()) ? -1 : 1;
+	    return ($a->get_property('order') < $b->get_property('order')) ? -1 : 1;
 	}
 	
    /*---------------------------------------
@@ -134,7 +137,8 @@ class WEPOF_Product_Options_Settings extends WEPOF_Settings_Page {
         </th>
         <th colspan="5">
         	<input type="submit" name="save_fields" class="button-primary" value="<?php $this->_ewcpf('Save changes') ?>" style="float:right" />
-            <input type="submit" name="reset_fields" class="button" value="<?php $this->_ewcpf('Reset to default options') ?>" style="float:right; margin-right: 5px;" />
+            <input type="submit" name="reset_fields" class="button" value="<?php $this->_ewcpf('Reset to default options') ?>" style="float:right; margin-right: 5px;" 
+			onclick="return confirm('Are you sure you want to reset to default fields? all your changes will be deleted.');"/>
         </th>  
     	<?php 
 	}
@@ -161,11 +165,11 @@ class WEPOF_Product_Options_Settings extends WEPOF_Settings_Page {
 
                 <tbody class="ui-sortable">
                 <?php 
-				$custom_fields = $this->get_product_custom_fields();
+				$custom_fields = $this->get_product_custom_fields_full();
 				if($custom_fields && is_array($custom_fields)){
 					$i=0;												
 					foreach( $custom_fields as $field_name => $field ) :	
-						$name = $field->get_name();					
+						$name = $field->get_property('name');					
 						$is_required = $field->is_required() ? 1 : 0; 
 						$is_enabled = $field->is_enabled() ? 1 : 0;                
 					?>
@@ -174,19 +178,19 @@ class WEPOF_Product_Options_Settings extends WEPOF_Settings_Page {
 								<input type="hidden" name="f_order[<?php echo $i; ?>]" class="f_order" value="<?php echo $i; ?>" />
 
 								<input type="hidden" name="f_name[<?php echo $i; ?>]" class="f_name" value="<?php echo esc_attr($name); ?>" />                            
-								<input type="hidden" name="f_type[<?php echo $i; ?>]" class="f_type" value="<?php echo $field->get_type(); ?>" />
-                                <input type="hidden" name="f_position[<?php echo $i; ?>]" class="f_position" value="<?php echo $field->get_position(); ?>" />
+								<input type="hidden" name="f_type[<?php echo $i; ?>]" class="f_type" value="<?php echo $field->get_property('type'); ?>" />
+                                <input type="hidden" name="f_position[<?php echo $i; ?>]" class="f_position" value="<?php echo $field->get_property('position'); ?>" />
 
-								<input type="hidden" name="f_value[<?php echo $i; ?>]" class="f_value" value="<?php echo $field->get_value(); ?>" />
-								<input type="hidden" name="f_placeholder[<?php echo $i; ?>]" class="f_placeholder" value="<?php echo $field->get_placeholder(); ?>" />
+								<input type="hidden" name="f_value[<?php echo $i; ?>]" class="f_value" value="<?php echo $field->get_property('value'); ?>" />
+								<input type="hidden" name="f_placeholder[<?php echo $i; ?>]" class="f_placeholder" value="<?php echo $field->get_property('placeholder'); ?>" />
 								<input type="hidden" name="f_options[<?php echo $i; ?>]" class="f_options" value="<?php echo $field->get_options_str(); ?>" />
 
-								<input type="hidden" name="f_validator[<?php echo $i; ?>]" class="f_validator" value="<?php echo $field->get_validator(); ?>" /> 
-								<input type="hidden" name="f_cssclass[<?php echo $i; ?>]" class="f_cssclass" value="<?php echo $field->get_cssclass(); ?>" /> 
+								<input type="hidden" name="f_validator[<?php echo $i; ?>]" class="f_validator" value="<?php echo $field->get_property('validator'); ?>" /> 
+								<input type="hidden" name="f_cssclass[<?php echo $i; ?>]" class="f_cssclass" value="<?php echo $field->get_property('cssclass'); ?>" /> 
 
-								<input type="hidden" name="f_title[<?php echo $i; ?>]" class="f_title" value="<?php echo $field->get_title(); ?>" />
-								<input type="hidden" name="f_title_class[<?php echo $i; ?>]" class="f_title_class" value="<?php echo $field->get_title_class(); ?>" />
-                                <input type="hidden" name="f_title_position[<?php echo $i; ?>]" class="f_title_position" value="<?php echo $field->get_title_position(); ?>" />
+								<input type="hidden" name="f_title[<?php echo $i; ?>]" class="f_title" value="<?php echo $field->get_property('title'); ?>" />
+								<input type="hidden" name="f_title_class[<?php echo $i; ?>]" class="f_title_class" value="<?php echo $field->get_property('title_class'); ?>" />
+                                <input type="hidden" name="f_title_position[<?php echo $i; ?>]" class="f_title_position" value="<?php echo $field->get_property('title_position'); ?>" />
 
 								<input type="hidden" name="f_required[<?php echo $i; ?>]" class="f_required" value="<?php echo $is_required; ?>" />
 								<input type="hidden" name="f_enabled[<?php echo $i; ?>]" class="f_enabled" value="<?php echo $is_enabled; ?>" />
@@ -196,10 +200,10 @@ class WEPOF_Product_Options_Settings extends WEPOF_Settings_Page {
 							</td>
 							<td class="td_select"><input type="checkbox" name="select_field"/></td>
 							<td class="td_name"><?php echo esc_attr($name); ?></td>
-							<td class="td_type"><?php $this->_ewcpf($field->get_type()); ?></td>
-							<td class="td_title"><?php $this->_ewcpf($field->get_title()); ?></td>
-							<td class="td_placeholder"><?php $this->_ewcpf($field->get_placeholder()); ?></td>
-							<td class="td_validate"><?php echo $field->get_validator(); ?></td>
+							<td class="td_type"><?php $this->_ewcpf($field->get_property('type')); ?></td>
+							<td class="td_title"><?php $this->_ewcpf($field->get_property('title')); ?></td>
+							<td class="td_placeholder"><?php $this->_ewcpf($field->get_property('placeholder')); ?></td>
+							<td class="td_validate"><?php echo $field->get_property('validator'); ?></td>
 							<td class="td_required status">
 								<?php echo($is_required == 1 ? '<span class="status-enabled tips">'.$this->__wcpf('Yes').'</span>' : '-' ) ?>
 							</td>
@@ -270,36 +274,38 @@ class WEPOF_Product_Options_Settings extends WEPOF_Settings_Page {
 			$field = false;
 			if($type === 'inputtext'){
 				$field = new WEPOF_Product_Field_InputText();
-				$field->set_placeholder(isset($f_placeholders[$i]) ? trim(stripslashes($f_placeholders[$i])) : '');
+				$field->set_property('placeholder', isset($f_placeholders[$i]) ? trim(stripslashes($f_placeholders[$i])) : '');
 			}else if($type === 'select'){
 				$field = new WEPOF_Product_Field_Select();
 				$field->set_options_str(isset($f_options[$i]) ? trim(stripslashes($f_options[$i])) : '');
 			}
 
-			$field->set_id($name);
-			$field->set_name($name);
-			$field->set_order(isset($f_order[$i]) ? trim(stripslashes($f_order[$i])) : 0);
-			$field->set_value(isset($f_values[$i]) ? trim(stripslashes($f_values[$i])) : '');
+			$field->set_property('id', $name);
+			$field->set_property('name', $name);
+			$field->set_property('order', isset($f_order[$i]) ? trim(stripslashes($f_order[$i])) : 0);
+			$field->set_property('value', isset($f_values[$i]) ? trim(stripslashes($f_values[$i])) : '');
 
-			$field->set_validator(isset($f_validators[$i]) ? trim(stripslashes($f_validators[$i])) : '');
-			$field->set_cssclass(isset($f_cssclasses[$i]) ? trim(stripslashes($f_cssclasses[$i])) : '');
+			$field->set_property('validator', isset($f_validators[$i]) ? trim(stripslashes($f_validators[$i])) : '');
+			$field->set_property('cssclass', isset($f_cssclasses[$i]) ? trim(stripslashes($f_cssclasses[$i])) : '');
 
-			$field->set_title(isset($f_titles[$i]) ? trim(stripslashes($f_titles[$i])) : '');				
-			$field->set_title_class(isset($f_title_classes[$i]) ? trim(stripslashes($f_title_classes[$i])) : '');
-			$field->set_title_position(isset($f_title_position[$i]) ? trim(stripslashes($f_title_position[$i])) : '');	
+			$field->set_property('title', isset($f_titles[$i]) ? trim(stripslashes($f_titles[$i])) : '');				
+			$field->set_property('title_class', isset($f_title_classes[$i]) ? trim(stripslashes($f_title_classes[$i])) : '');
+			$field->set_property('title_position', isset($f_title_position[$i]) ? trim(stripslashes($f_title_position[$i])) : '');	
 
-			$field->set_required(isset($f_required[$i]) ? $f_required[$i] : 0);
-			$field->set_enabled(isset($f_enabled[$i]) ? $f_enabled[$i] : 1);
+			$field->set_property('required', isset($f_required[$i]) ? $f_required[$i] : 0);
+			$field->set_property('enabled', isset($f_enabled[$i]) ? $f_enabled[$i] : 1);
 
-			$field->set_position(isset($f_position[$i]) ? $f_position[$i] : 'woo_before_add_to_cart_button');
+			$field->set_property('position', isset($f_position[$i]) ? $f_position[$i] : 'woo_before_add_to_cart_button');
 			
 			$field->set_conditional_rules_json(isset($f_rules[$i]) ? trim(stripslashes($f_rules[$i])) : '');
 			$field->set_conditional_rules($this->prepare_conditional_rules($field->get_conditional_rules_json()));
 			
-			if(!array_key_exists($field->get_position(), $custom_fields) || !is_array($custom_fields[$field->get_position()])){						
-				$custom_fields[$field->get_position()] = array();
+			$field->prepare_properties();
+			
+			if(!array_key_exists($field->get_property('position'), $custom_fields) || !is_array($custom_fields[$field->get_property('position')])){						
+				$custom_fields[$field->get_property('position')] = array();
 			}			
-			$custom_fields[$field->get_position()][$name]= $field;
+			$custom_fields[$field->get_property('position')][$name]= $field;
 		}	
 
 		foreach($custom_fields as $hook => &$hooked_fields){
@@ -374,10 +380,10 @@ class WEPOF_Product_Options_Settings extends WEPOF_Settings_Page {
 	
 	public function woo_attribute_label( $label, $key ) {
 		if(!empty($label)){
-			$options_extra = $this->get_product_custom_fields();
+			$options_extra = $this->get_product_custom_fields_full();
 			if($options_extra){
 				if(array_key_exists($label, $options_extra)) {
-					$label = $options_extra[$label]->get_title();
+					$label = $options_extra[$label]->get_property('title');
 				}
 			}
 		}
@@ -681,7 +687,7 @@ class WEPOF_Product_Options_Settings extends WEPOF_Settings_Page {
 	}
 	
 	private function render_field_form_fragment_product_list(){
-		$products = apply_filters( "thwepo_load_products", array() );
+		$products = apply_filters( "thwepof_load_products", array() );
 		array_unshift( $products , array( "id" => "-1", "title" => "All Products" ));
 		?>
         <div id="thwepo_product_select" style="display:none;">
@@ -696,7 +702,7 @@ class WEPOF_Product_Options_Settings extends WEPOF_Settings_Page {
         <?php
 	}
 	private function render_field_form_fragment_category_list(){		
-		$categories = apply_filters( "thwepo_load_products_cat", array() );
+		$categories = apply_filters( "thwepof_load_products_cat", array() );
 		array_unshift( $categories , array( "id" => "-1", "title" => "All Categories" ));
 		?>
         <div id="thwepo_product_cat_select" style="display:none;">
