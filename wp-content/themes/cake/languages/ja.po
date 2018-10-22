@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cake 1.2\n"
 "POT-Creation-Date: 2016-09-20 10:50+0700\n"
-"PO-Revision-Date: 2018-10-20 16:58+0900\n"
+"PO-Revision-Date: 2018-10-22 18:29+0900\n"
 "Last-Translator: \n"
 "Language-Team: codeopus\n"
 "Language: ja_JP\n"
@@ -2315,3 +2315,12 @@ msgstr "ナンバーキャンドル数字(1つめ)"
 
 msgid "number_candle_num_double02"
 msgstr "ナンバーキャンドル数字(2つめ)"
+
+msgid "_thwepoprice_print_size"
+msgstr "プリントオプション金額"
+
+msgid "_thwepoprice_number_candle_qty"
+msgstr "ナンバーキャンドル金額"
+
+msgid "_thwepoprice_options_cake"
+msgstr "オプション金額"
