@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cake 1.2\n"
 "POT-Creation-Date: 2016-09-20 10:50+0700\n"
-"PO-Revision-Date: 2018-10-19 20:04+0900\n"
+"PO-Revision-Date: 2018-10-20 16:58+0900\n"
 "Last-Translator: \n"
 "Language-Team: codeopus\n"
 "Language: ja_JP\n"
@@ -2279,3 +2279,39 @@ msgstr "ファイルサイズが10MBの写真を再度アップロードして�
 
 msgid "Price including extra options:"
 msgstr "商品金額"
+
+msgid "plate"
+msgstr "メッセージプレートの有無"
+
+msgid "message_type"
+msgstr "メッセージの種類"
+
+msgid "message"
+msgstr "メッセージ"
+
+msgid "option_cakeprint"
+msgstr "写真プリント"
+
+msgid "print_size"
+msgstr "印刷サイズ"
+
+msgid "photo_upload"
+msgstr "写真アップロード"
+
+msgid "options_cake"
+msgstr "追加オプション"
+
+msgid "number_candle"
+msgstr "ナンバーキャンドル"
+
+msgid "number_candle_qty"
+msgstr "ナンバーキャンドル数量"
+
+msgid "number_candle_num_single"
+msgstr "ナンバーキャンドル数字"
+
+msgid "number_candle_num_double01"
+msgstr "ナンバーキャンドル数字(1つめ)"
+
+msgid "number_candle_num_double02"
+msgstr "ナンバーキャンドル数字(2つめ)"

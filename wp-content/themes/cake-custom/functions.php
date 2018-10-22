@@ -134,10 +134,9 @@ function convertPostcode($postcode){
 
 add_filter( 'woocommerce_states', 'kitt_woocommerce_states' );
 function kitt_woocommerce_states( $states ) {
-	$states['JP'] = array(
-		'JP13' => '東京都',
-	);
-
+// 	$states['JP'] = array(
+// 		'JP13' => '東京都',
+// 	);
 	return $states;
 }
 
@@ -2762,38 +2761,44 @@ function zoa_filter_get_extra_option_data($item_data, $cart_item = null)
 					else {
 						$is_show_price = apply_filters('thwepo_show_price_for_item_meta', true, $name);
 						if($is_show_price){
-							foreach ($data['options'] as $data_option)
+							// $value = THWEPO_Utils_Price::get_display_price_item_meta($data, $data['price_type'], $data['price'], $product_info);
+							$options = $data['options'];
+
+							if ( is_array($options) && is_array($value) )
 							{
-								// 									$value = THWEPO_Utils_Price::get_display_price_item_meta($data, $data['price_type'], $data['price'], $product_info);
-								
-								$options = $data['options'];
-								
-								if(is_array($options) && is_array($value)){
-									foreach($value as $option_value){
-										$fprice = 0;
-										if(isset($options[$option_value])){
-											$selected_option = $options[$option_value];
-											
-											if(isset($selected_option['price']) && isset($selected_option['price_type'])){
-												$price = $selected_option['price'];
-												$fprice_type = $selected_option['price_type'];
-												
-												if($fprice_type === 'percentage'){
-													if(is_numeric($price) && is_numeric($product_price)){
-														$fprice = $fprice + ($price/100)*$product_price;
-													}
-												}else{
-													if(is_numeric($price)){
-														$fprice = $fprice + $price;
-													}
+								foreach ( $value as $option_value )
+								{
+									$fprice = 0;
+									if ( isset($options[$option_value]) )
+									{
+										$selected_option = $options[$option_value];
+										if ( isset($selected_option['price']) && isset($selected_option['price_type']) )
+										{
+											$price = $selected_option['price'];
+											$fprice_type = $selected_option['price_type'];
+
+											if ( $fprice_type === 'percentage' )
+											{
+												if ( is_numeric($price) && is_numeric($product_price) )
+												{
+													$fprice = $fprice + ($price / 100) * $product_price;
 												}
-												
-												$price_html = THWEPO_Utils_Price::display_price($fprice, $data, array(), false);
-												$price_html = apply_filters('thwepo_item_meta_display_price', $price_html, $name, $data);
-												
-												$item_data[] = array("name" => THWEPO_i18n::__t($data_option['text']), "value" => trim(stripslashes($price_html)));
-												break;
 											}
+											else
+											{
+												if ( is_numeric($price) )
+												{
+													$fprice = $fprice + $price;
+												}
+											}
+
+											$price_html = THWEPO_Utils_Price::display_price($fprice, $data, array(), false);
+											$price_html = apply_filters('thwepo_item_meta_display_price', $price_html, $name, $data);
+
+											$item_data[] = array(
+												"name" => THWEPO_i18n::__t($selected_option['text']),
+												"value" => trim(stripslashes($price_html))
+											);
 										}
 									}
 								}
@@ -2810,12 +2815,13 @@ function zoa_filter_get_extra_option_data($item_data, $cart_item = null)
 add_filter( 'woocommerce_order_items_meta_get_formatted', 'cake_woocommerce_order_items_meta_get_formatted', 1000, 2 );
 function cake_woocommerce_order_items_meta_get_formatted($formatted_meta, $itemClass)
 {
+	$extra_options = THWEPO_Utils::get_custom_sections();
+	$option_fields = $extra_options['default']->fields;
+	
 	foreach ($formatted_meta as &$meta)
 	{
 		if ($meta['key'] == 'options_cake')
 		{
-			$extra_options = THWEPO_Utils::get_custom_sections();
-			$option_fields = $extra_options['default']->fields;
 			$options_cake = $option_fields[$meta['key']]->options;
 			
 			$meta_values = explode(',', $meta['value']);
@@ -2825,10 +2831,66 @@ function cake_woocommerce_order_items_meta_get_formatted($formatted_meta, $itemC
 			}
 			$meta['value'] = implode(', ', $meta_values);
 		}
+		elseif ($meta['key'] == 'photo_upload' && $meta['value'])
+		{
+			$image = json_decode($meta['value']);
+			$meta['value'] = '<img style="max-width: 100px;" src="'. $image->url .'" class="photo_upload_option"/>';
+		}
+		
+		$meta['label'] = __($meta['label'], 'cake');
 	}
 	return $formatted_meta;
 }
 
+add_action('woocommerce_thankyou', 'cake_after_purchased', 10, 1);
+function cake_after_purchased( $order_id ) {
+	if ( ! $order_id )
+		return;
+		
+	//if (get_post_meta($order_id, 'changed_extra_option_value', true)) return ;
+	
+	$extra_options = THWEPO_Utils::get_custom_sections();
+	$option_fields = $extra_options['default']->fields;
+		
+	// Getting an instance of the order object
+	$order = wc_get_order( $order_id );
+	$line_items          = $order->get_items( apply_filters( 'woocommerce_admin_order_item_types', 'line_item' ) );
+	foreach ( $line_items as $item_id => $item ) 
+	{
+		$metadata = $order->has_meta( $item_id );
+		foreach ($metadata as &$meta)
+		{
+			if ($meta['meta_key'] == 'options_cake')
+			{
+				$options_cake = $option_fields[$meta['meta_key']]->options;
+				$meta_values = explode(',', $meta['meta_value']);
+				foreach ($meta_values as &$meta_value)
+				{
+					if (isset($options_cake[$meta_value]))
+					{
+						$meta_value = $options_cake[$meta_value]['text'];
+					}
+				}
+				$meta['meta_value'] = implode(', ', $meta_values);
+			}
+			elseif ($meta['meta_key'] == 'photo_upload' && $meta['meta_value'])
+			{
+				if (strpos($meta['meta_value'], '<img') === false)
+				{
+					$image = json_decode($meta['meta_value']);
+					$meta['meta_value'] = '<img style="max-width: 100px;" src="'. $image->url .'" class="photo_upload_option"/>';
+				}
+			}
+			wc_update_order_item_meta($item_id, $meta['meta_key'], $meta['meta_value']);
+		}
+		
+	}
+	update_post_meta($order_id, 'changed_extra_option_value', 1);
+}
 
-
+add_filter( 'woocommerce_attribute_label', 'cake_woocommerce_attribute_label', 10, 3 );
+function cake_woocommerce_attribute_label( $label, $name, $product)
+{
+	return __($label, 'cake');
+}
 ?>

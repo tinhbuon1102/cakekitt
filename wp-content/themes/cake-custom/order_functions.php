@@ -1140,7 +1140,9 @@ function getOrderDetail($order_id = false, $order_type = KITT_CUSTOM_ORDER, $is_
 		
 		// Fake custom order detail from billing + shipping detail
 		$aData['custom_order_customer_name_last'] = $order->billing_last_name;
+		$aData['custom_order_customer_name_first'] = $order->billing_first_name;
 		$aData['custom_order_customer_name_last_kana'] = $order->billing_last_name_kana;
+		$aData['custom_order_customer_name_first_kana'] = $order->billing_first_name_kana;
 		$aData['custom_order_customer_tel'] = $order->billing_phone;
 		$aData['custom_order_customer_email'] = $order->billing_email;
 		
