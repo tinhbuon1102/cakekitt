@@ -2284,6 +2284,9 @@ function kitt_custom_checkout_field_update_order_meta( $order_id )
 		update_post_meta($order_id, 'survey_order', $_POST['survey']);
 		update_post_meta($order_id, 'custom_order_pickup_date_time', $_POST['cake_custom_order']['custom_order_pickup_date'] . ' ' . str_replace('.5', ':30', $_POST['cake_custom_order']['custom_order_pickup_time']));
 	}
+	else {
+		update_post_meta($order_id, 'custom_order_pickup_date_time', '');
+	}
 }
 
 add_action('wp_ajax_nopriv_wcp_contact_form_submit', 'wcp_contact_form_submit');
