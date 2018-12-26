@@ -2902,4 +2902,14 @@ function cake_woocommerce_attribute_label( $label, $name, $product)
 {
 	return __($label, 'cake');
 }
+add_filter( 'woocommerce_order_amount_total', 'cake_stripe_woocommerce_order_amount_total', 1 );
+function cake_stripe_woocommerce_order_amount_total($total_amount)
+{
+	if (isset($_POST) && $_POST['payment_method'] == 'stripe')
+	{
+		$total_amount = $total_amount + (($total_amount * 5) / 100);
+	}
+	return $total_amount;
+}
+
 ?>
