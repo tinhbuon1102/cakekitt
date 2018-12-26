@@ -1042,6 +1042,12 @@ function save_custom_order_detail_meta_box ( $post_id, $post, $update )
 	if ( defined("DOING_AUTOSAVE") && DOING_AUTOSAVE ) return $post_id;
 	
 	// Change shipping custom meta if order admin change shipping method
+	
+	if (!is_custom_order($post_id) && $post->post_type == 'shop_order')
+	{
+		update_post_meta($post_id, 'custom_order_pickup_date_time', '');
+	}
+	
 	if (is_custom_order($post_id) && $post->post_type == 'shop_order')
 	{
 		$order = new WC_Order($post_id);
