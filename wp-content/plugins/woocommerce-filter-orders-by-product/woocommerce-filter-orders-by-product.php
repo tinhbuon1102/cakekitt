@@ -159,7 +159,7 @@ class FOA_Woo_Filter_Orders_by_Product{
 			$vars['meta_value'] = wc_clean( $_GET['payment_filter'] );
 		}
 		
-		if ( 'shop_order' === $typenow && isset($_REQUEST['order_type_filter']) && $_REQUEST['order_type_filter']) {
+		if ( 'shop_order' === $typenow) {
 			$meta_query = array(
 				array(
 					'key' => 'custom_order_pickup_date_time',
