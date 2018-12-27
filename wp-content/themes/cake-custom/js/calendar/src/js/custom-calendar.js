@@ -84,6 +84,7 @@ jQuery(function($) {
 			initialize: true,
 			disabledRanges: [
 				['1011-10-05', moment().add(dayLater - 1, 'days').format('YYYY-MM-DD')],
+				['2018-12-27', '2019-01-07'],
 			]
 		});
 
