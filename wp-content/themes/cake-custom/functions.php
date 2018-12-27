@@ -2902,14 +2902,18 @@ function cake_woocommerce_attribute_label( $label, $name, $product)
 {
 	return __($label, 'cake');
 }
-add_filter( 'woocommerce_order_amount_total', 'cake_stripe_woocommerce_order_amount_total', 1 );
-function cake_stripe_woocommerce_order_amount_total($total_amount)
+add_filter( 'woocommerce_order_amount_total', 'cake_stripe_woocommerce_order_amount_total', 10000, 3 );
+function cake_stripe_woocommerce_order_amount_total($total_amount, $order, $force = false)
 {
-	if (isset($_POST) && $_POST['payment_method'] == 'stripe')
+	if (
+			(
+				(isset($_POST) && $_POST['payment_method'] == 'stripe') || 
+				(strpos($_SERVER['REQUEST_URI'], 'checkout/order-received') !== false || $force) && $order->payment_method == 'stripe'
+			)
+			&& is_custom_order($order->id))
 	{
 		$total_amount = $total_amount + (($total_amount * 5) / 100);
 	}
 	return $total_amount;
 }
-
 ?>

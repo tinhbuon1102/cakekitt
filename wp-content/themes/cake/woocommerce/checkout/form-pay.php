@@ -20,7 +20,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$total_amount = cake_stripe_woocommerce_order_amount_total($order->order_total, $order, true);
+$total_amount_html = $total_amount ? wc_price( (double)$total_amount, array( 'currency' => $order->get_order_currency() ) ) : '';
+$total_amount_html = strip_tags($total_amount_html);
+$total_amount_html = str_replace('&yen;', '¥', $total_amount_html);
+
 ?>
+<script type="text/javascript">
+	var stripe_total = <?php echo $total_amount ? (double)$total_amount : 0?>;
+	var stripe_total_html = '<?php echo $total_amount ? wc_price( (double)$total_amount, array( 'currency' => $order->get_order_currency() ) ) : ''?>';
+	var alert_stripe_text = '<?php echo sprintf(__('We charged 5%% fee for stripe payment, so your total payment will be %s', 'cake'), $total_amount_html)?>';
+</script>
 <h1 class="form_payment_title center-line"><span>お支払い画面</span></h1>
 <form id="order_review" method="post">
 

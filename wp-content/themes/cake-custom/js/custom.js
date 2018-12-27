@@ -373,6 +373,13 @@ if (jQuery(".ordercake-cart-sidebar-container2").length)
 		$('#main_price').removeClass('disable');
 		$('#variation_price').addClass('disable');
 	});
+	
+	$('input[name="payment_method"]').on('ifChecked', function(event) {
+		if ($(this).val() == 'stripe')
+		{
+			alert(alert_stripe_text);
+		}
+	});
 });
 
 
