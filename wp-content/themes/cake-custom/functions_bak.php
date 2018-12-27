@@ -7,15 +7,6 @@ define('KITT_MINIMUM_PRICE_CHECKOUT', 8000);
 define('KITT_DECORATE_FRUIT_RATE', 0.2);
 define('KITT_CAKESIZE_ROUND_FOR_LAYER_1', 1);
 
-function elsey_change_cssjs_ver( $src ) {
-	if( strpos( $src, '?ver=' ) )
-		$src = remove_query_arg( 'ver', $src );
-		$src = add_query_arg( array('ver' => '1.0'), $src );
-		return $src;
-}
-add_filter( 'style_loader_src', 'elsey_change_cssjs_ver', 1000 );
-add_filter( 'script_loader_src', 'elsey_change_cssjs_ver', 1000 );
-
 function add_files() {
 // サイト共通のCSSの読み込み
 wp_enqueue_style( 'overwrite', get_stylesheet_directory_uri() . '/overwrite.css', "", '20180528' );
@@ -824,8 +815,17 @@ function custom_meta_order_detail_box_markup($post)
 	
 	$order = new WC_Order($post->ID);
 	$order_type = kitt_get_order_type($order->id);
-	
 	$orderFormData = get_post_meta($order->id, 'cake_custom_order', true);
+	
+	if (strpos($_SERVER['REQUEST_URI'], 'post-new.php') !== false && $_REQUEST['post_type'] == 'shop_order')
+	{
+		// Init Wc cart
+		define('DOING_AJAX', 1);
+		WC()->init();
+		
+		$order_type = KITT_CUSTOM_ORDER;
+		$orderFormData['empty'] = true;
+	}
 	$removeFields = array(
 		'custom_order_shipping',
 		'custom_order_customer_name_last',
@@ -873,6 +873,19 @@ function custom_meta_order_detail_box_markup($post)
 	{
 		if ($order_type == KITT_CUSTOM_ORDER)
 		{
+			if (strpos($_SERVER['REQUEST_URI'], 'post-new.php') !== false && $_REQUEST['post_type'] == 'shop_order')
+			{
+				echo '<tr>';
+				echo '<td class="col-left">'. __('Is Custom Cake ?', 'cake') .'</td>';
+				echo '<td class="col-right">
+					<ul class="acf-radio-list radio vertical">
+						<li><label><input id="is_custom_cake_yes" type="radio" name="is_custom_cake" value="1">はい</label></li>
+						<li><label><input id="is_custom_cake_no" type="radio" name="is_custom_cake" value="0" checked>いいえ</label></li>
+					</ul>
+				</td>';
+				echo '</tr>';
+			}
+			
 			foreach ($field_mappings as $fieldName => $fields)
 			{
 				// Remove address and user info fields
@@ -1051,6 +1064,11 @@ function save_custom_order_detail_meta_box ( $post_id, $post, $update )
 	if ( defined("DOING_AUTOSAVE") && DOING_AUTOSAVE ) return $post_id;
 	
 	// Change shipping custom meta if order admin change shipping method
+
+	if (isset($_POST['is_custom_cake']))
+	{
+		update_post_meta($post_id, 'is_custom_cake', $_POST['is_custom_cake']);
+	}
 	
 	if (!is_custom_order($post_id) && $post->post_type == 'shop_order')
 	{
