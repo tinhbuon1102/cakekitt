@@ -2925,4 +2925,38 @@ function cake_stripe_woocommerce_order_amount_total($total_amount, $order, $forc
 	}
 	return $total_amount;
 }
+
+function add_order_number_start_setting( $settings ) {
+	
+	$updated_settings = array();
+	
+	foreach ( $settings as $section ) {
+		
+		// at the bottom of the General Options section
+		if ( isset( $section['id'] ) && 'general_options' == $section['id'] &&
+		isset( $section['type'] ) && 'sectionend' == $section['type'] ) {
+			
+			$updated_settings[] = array(
+				'name'     => __( 'Off-Duty Date From', 'cake' ),
+				'id'       => 'off_duty_date_from',
+				'class'	   => 'datepicker',
+				'type'     => 'text',
+				'css'      => 'min-width:300px;',
+			);
+			$updated_settings[] = array(
+				'name'     => __( 'Off-Duty Date To', 'cake' ),
+				'id'       => 'off_duty_date_to',
+				'class'	   => 'datepicker',
+				'type'     => 'text',
+				'css'      => 'min-width:300px;',
+			);
+		}
+		
+		$updated_settings[] = $section;
+	}
+	
+	return $updated_settings;
+}
+add_filter( 'woocommerce_general_settings', 'add_order_number_start_setting', 100000 );
+
 ?>

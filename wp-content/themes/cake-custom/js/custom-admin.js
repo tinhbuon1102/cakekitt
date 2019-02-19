@@ -77,4 +77,10 @@ jQuery(document).ready(function($){
 		
 		
 	}
+	
+	if ($('#off_duty_date_from').length)
+	{
+		$('#off_duty_date_from').datepicker({dateFormat: 'yy-mm-dd' });
+		$('#off_duty_date_to').datepicker({dateFormat: 'yy-mm-dd' });
+	}
 });

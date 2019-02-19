@@ -15,7 +15,15 @@ var gl_siteUrl = '<?= get_site_url();  ?>';
 var gl_timeAM = '<?= _e('AM', 'cake');  ?>';
 var gl_timePM = '<?= _e('PM', 'cake');  ?>';
 var gl_stateAllowed = '東京都';
-var gl_alertStateNotAllowed = '<?php echo __('Site support Tokyo prefecture only, sorry for inconvenience !', 'cake')?>';
+var gl_alertStateNotAllowed = '<?php echo __('Site support Tokyo prefecture only, sorry for inconvenience !', 'cake')?>;';
+<?php 
+	$off_duty_date_from = get_option('off_duty_date_from');
+	$off_duty_date_to = get_option('off_duty_date_to');
+	if ($off_duty_date_to && $off_duty_date_from)
+	{
+		echo 'var gl_off_duty_date = ["'. $off_duty_date_from .'", "'. $off_duty_date_to .'"];';
+	}
+	?>
 try{Typekit.load({ async: true });}catch(e){}</script>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700" rel="stylesheet">
 </head>
