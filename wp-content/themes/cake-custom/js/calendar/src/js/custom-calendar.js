@@ -80,12 +80,19 @@ jQuery(function($) {
 			['1011-10-05', moment().add(dayLater - 1, 'days').format('YYYY-MM-DD')],
 			typeof gl_off_duty_date != "undefined" ? gl_off_duty_date : []
 		];
+		if (typeof gl_off_duty_date != "undefined")
+		{
+			var selected_date = moment(gl_off_duty_date[1], 'YYYY-MM-DD').add(1, 'days');
+		}
+		else {
+			var selected_date = moment().add(dayLater, 'days');
+		}
 		
 		// Default Calendar
 		$('.calendar').pignoseCalendar({
 			select: onClickHandler,
 			lang: 'jp',
-			date: moment().add(dayLater, 'days'),
+			date: selected_date,
 			initialize: true,
 			disabledRanges: disabledRanges
 		});
