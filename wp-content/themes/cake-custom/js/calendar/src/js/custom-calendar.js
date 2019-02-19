@@ -78,7 +78,7 @@ jQuery(function($) {
 		
 		var disabledRanges = [
 			['1011-10-05', moment().add(dayLater - 1, 'days').format('YYYY-MM-DD')],
-			typeof gl_off_duty_date != undefined ? gl_off_duty_date : []
+			typeof gl_off_duty_date != "undefined" ? gl_off_duty_date : []
 		];
 		
 		// Default Calendar

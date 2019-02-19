@@ -10,7 +10,7 @@ define('KITT_CAKESIZE_ROUND_FOR_LAYER_1', 1);
 function elsey_change_cssjs_ver( $src ) {
 	if( strpos( $src, '?ver=' ) )
 		$src = remove_query_arg( 'ver', $src );
-		$src = add_query_arg( array('ver' => '1.0'), $src );
+		$src = add_query_arg( array('ver' => '1.1'), $src );
 		return $src;
 }
 add_filter( 'style_loader_src', 'elsey_change_cssjs_ver', 1000 );
