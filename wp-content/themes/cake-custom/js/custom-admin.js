@@ -82,5 +82,7 @@ jQuery(document).ready(function($){
 	{
 		$('#off_duty_date_from').datepicker({dateFormat: 'yy-mm-dd' });
 		$('#off_duty_date_to').datepicker({dateFormat: 'yy-mm-dd' });
+		$('#off_duty_date_from').attr('autocomplete', 'off');
+		$('#off_duty_date_to').attr('autocomplete', 'off');
 	}
 });
