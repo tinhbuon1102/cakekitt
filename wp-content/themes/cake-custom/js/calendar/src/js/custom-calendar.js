@@ -82,7 +82,9 @@ jQuery(function($) {
 		];
 		if (typeof gl_off_duty_date != "undefined")
 		{
-			var selected_date = moment(gl_off_duty_date[1], 'YYYY-MM-DD').add(1, 'days');
+			var duty_date = moment(gl_off_duty_date[1], 'YYYY-MM-DD').add(1, 'days');
+			var dayLater_date = moment().add(dayLater, 'days');
+			selected_date = duty_date.diff(moment(), 'days') > 0 ? duty_date : dayLater_date;
 		}
 		else {
 			var selected_date = moment().add(dayLater, 'days');
