@@ -585,6 +585,24 @@ add_action('init','register_cake_session');
 function register_cake_session(){
 	if( !session_id() )
 		session_start();
+	
+	if (isset($_GET['remove_spam']))
+	{
+		$args = $args = array(
+			'role__in'     => array('subscriber'),
+		);
+		
+		require_once(ABSPATH.'wp-admin/includes/user.php' );
+		$users = get_users( $args ); 
+		if (!empty($users))
+		{
+			foreach ($users as $user)
+			{
+				wp_delete_user($user->ID);
+			}
+		}
+		pr($users);die;
+	}
 }
 
 function my_admin_enqueue( $hook ) {
