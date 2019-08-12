@@ -3,8 +3,8 @@
 if (!defined('ABSPATH')) exit;
 
 
-if (!class_exists('ElfsightVCElement')) {
-    class ElfsightVCElement {
+if (!class_exists('ElfsightInstagramFeedVCElement')) {
+    class ElfsightInstagramFeedVCElement {
     	private $pluginName;
     	private $slug;
     	private $textDomain;

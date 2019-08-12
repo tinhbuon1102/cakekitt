@@ -60,6 +60,9 @@ final class GADWP_Settings {
 				if ( empty( $new_options['access_back'] ) ) {
 					$new_options['access_back'][] = 'administrator';
 				}
+				if ( ! is_multisite() ) {
+					$options['hide_am_notices'] = 0;
+				}
 			} elseif ( 'frontend' == $who ) {
 				$options['frontend_item_reports'] = 0;
 				if ( empty( $new_options['access_front'] ) ) {
@@ -67,6 +70,7 @@ final class GADWP_Settings {
 				}
 			} elseif ( 'general' == $who ) {
 				$options['user_api'] = 0;
+				$options['usage_tracking'] = 0;
 				if ( ! is_multisite() ) {
 					$options['automatic_updates_minorversion'] = 0;
 				}
@@ -76,7 +80,13 @@ final class GADWP_Settings {
 				$options['superadmin_tracking'] = 0;
 				$options['automatic_updates_minorversion'] = 0;
 				$network_settings = true;
+				$options['network_hide_am_notices'] = 0;
 			}
+			if  ( ! $network_settings && 'general' == $who ) {
+				$usage_tracking = isset( $_POST['usage_tracking'] ) ? (int) $_POST['usage_tracking'] : 0;
+				do_action( 'exactmetrics_settings_usage_tracking', $usage_tracking );
+			}
+
 			$options = array_merge( $options, $new_options );
 			$gadwp->config->options = $options;
 			$gadwp->config->set_plugin_options( $network_settings );
@@ -101,7 +111,7 @@ final class GADWP_Settings {
 		if ( isset( $_POST['options']['gadwp_hidden'] ) ) {
 			$message = "<div class='updated' id='gadwp-autodismiss'><p>" . __( "Settings saved.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 			if ( ! ( isset( $_POST['gadwp_security'] ) && wp_verify_nonce( $_POST['gadwp_security'], 'gadwp_form' ) ) ) {
-				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "You don’t have permission to do this.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 			}
 		}
 		if ( ! $gadwp->config->options['tableid_jail'] || ! $gadwp->config->options['token'] ) {
@@ -196,7 +206,7 @@ final class GADWP_Settings {
 		if ( isset( $_POST['options']['gadwp_hidden'] ) ) {
 			$message = "<div class='updated' id='gadwp-autodismiss'><p>" . __( "Settings saved.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 			if ( ! ( isset( $_POST['gadwp_security'] ) && wp_verify_nonce( $_POST['gadwp_security'], 'gadwp_form' ) ) ) {
-				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "You don’t have permission to do this.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 			}
 		}
 		if ( ! $gadwp->config->options['tableid_jail'] || ! $gadwp->config->options['token'] ) {
@@ -342,6 +352,28 @@ final class GADWP_Settings {
 									<hr>
 								</td>
 							</tr>
+							<?php if ( ! is_multisite()) :?>
+							<tr>
+							<td colspan="2"><?php echo "<h2>" . __( "Hide Announcements", 'google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+							</tr>
+							<tr>
+								<td colspan="2" class="gadwp-settings-title">
+									<div class="button-primary gadwp-settings-switchoo">
+										<input type="checkbox" name="options[hide_am_notices]" value="1" class="gadwp-settings-switchoo-checkbox" id="hide_am_notices" <?php checked( $options['hide_am_notices'], 1 ); ?>>
+										<label class="gadwp-settings-switchoo-label" for="hide_am_notices">
+											<div class="gadwp-settings-switchoo-inner"></div>
+											<div class="gadwp-settings-switchoo-switch"></div>
+										</label>
+									</div>
+									<div class="switch-desc"><?php echo esc_html__( 'Hides plugin announcements and update details. This includes critical notices we use to inform about deprecations and important required configuration changes.' ); ?></div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<hr>
+								</td>
+							</tr>
+							<?php endif; ?>
 							<tr>
 								<td colspan="2" class="submit">
 									<input type="submit" name="Submit" class="button button-primary" value="<?php _e('Save Changes', 'google-analytics-dashboard-for-wp' ) ?>" />
@@ -371,7 +403,7 @@ final class GADWP_Settings {
 		if ( isset( $_POST['options']['gadwp_hidden'] ) ) {
 			$message = "<div class='updated' id='gadwp-autodismiss'><p>" . __( "Settings saved.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 			if ( ! ( isset( $_POST['gadwp_security'] ) && wp_verify_nonce( $_POST['gadwp_security'], 'gadwp_form' ) ) ) {
-				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "You don’t have permission to do this.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 			}
 		}
 		if ( ! $gadwp->config->options['tableid_jail'] ) {
@@ -1261,7 +1293,7 @@ final class GADWP_Settings {
 				GADWP_Tools::clear_cache();
 				$message = "<div class='updated' id='gadwp-autodismiss'><p>" . __( "Cleared Cache.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 			} else {
-				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "You don’t have permission to do this.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 			}
 		}
 		if ( isset( $_POST['Reset'] ) ) {
@@ -1271,7 +1303,7 @@ final class GADWP_Settings {
 				$message = "<div class='updated' id='gadwp-autodismiss'><p>" . __( "Token Reseted and Revoked.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 				$options = self::update_options( 'Reset' );
 			} else {
-				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "You don’t have permission to do this.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 			}
 		}
 		if ( isset( $_POST['Reset_Err'] ) ) {
@@ -1311,13 +1343,13 @@ final class GADWP_Settings {
 				delete_option( 'gadwp_got_updated' );
 				$message = "<div class='updated' id='gadwp-autodismiss'><p>" . __( "All errors reseted.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 			} else {
-				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "You don’t have permission to do this.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 			}
 		}
 		if ( isset( $_POST['options']['gadwp_hidden'] ) && ! isset( $_POST['Clear'] ) && ! isset( $_POST['Reset'] ) && ! isset( $_POST['Reset_Err'] ) ) {
 			$message = "<div class='updated' id='gadwp-autodismiss'><p>" . __( "Settings saved.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 			if ( ! ( isset( $_POST['gadwp_security'] ) && wp_verify_nonce( $_POST['gadwp_security'], 'gadwp_form' ) ) ) {
-				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "You don’t have permission to do this.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 			}
 		}
 		if ( isset( $_POST['Hide'] ) ) {
@@ -1327,7 +1359,7 @@ final class GADWP_Settings {
 				$gadwp->config->options['ga_profiles_list'] = array( $lock_profile );
 				$options = self::update_options( 'general' );
 			} else {
-				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "You don’t have permission to do this.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 			}
 		}
 		?>
@@ -1478,6 +1510,26 @@ final class GADWP_Settings {
 												</tr>
 												<?php endif; ?>
 												<tr>
+												<td colspan="2"><?php echo "<h2>" . __( "Usage Tracking", 'google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+												</tr>
+												<tr>
+													<td colspan="2" class="gadwp-settings-title">
+														<div class="button-primary gadwp-settings-switchoo">
+															<input type="checkbox" name="options[usage_tracking]" value="1" class="gadwp-settings-switchoo-checkbox" id="usage_tracking" <?php checked( $options['usage_tracking'], 1 ); ?>>
+															<label class="gadwp-settings-switchoo-label" for="usage_tracking">
+																<div class="gadwp-settings-switchoo-inner"></div>
+																<div class="gadwp-settings-switchoo-switch"></div>
+															</label>
+														</div>
+														<div class="switch-desc"><?php echo " ". sprintf( esc_html__( 'ExactMetrics would like to %1$scollect some information%2$s to better understand how our users use our plugin to better prioritize features and bugfixes.', 'google-analytics-dashboard-for-wp' ), '<a href="https://exactmetrics.com/usage-tracking/?utm_source=wpdashboard&utm_campaign=usagetracking&utm_medium=plugin" target="_blank">', '</a>' ); ; ?></div>
+													</td>
+												</tr>
+												<tr>
+													<td colspan="2">
+														<hr>
+													</td>
+												</tr>
+												<tr>
 													<td colspan="2" class="submit">
 														<input type="submit" name="Submit" class="button button-primary" value="<?php _e('Save Changes', 'google-analytics-dashboard-for-wp' ) ?>" />
 													</td>
@@ -1605,7 +1657,7 @@ final class GADWP_Settings {
 					}
 				}
 			} else {
-				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "You don’t have permission to do this.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 			}
 		}
 		if ( isset( $_POST['Clear'] ) ) {
@@ -1613,7 +1665,7 @@ final class GADWP_Settings {
 				GADWP_Tools::clear_cache();
 				$message = "<div class='updated' id='gadwp-autodismiss'><p>" . __( "Cleared Cache.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 			} else {
-				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "You don’t have permission to do this.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 			}
 		}
 		if ( isset( $_POST['Reset'] ) ) {
@@ -1623,13 +1675,13 @@ final class GADWP_Settings {
 				$message = "<div class='updated' id='gadwp-autodismiss'><p>" . __( "Token Reseted and Revoked.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 				$options = self::update_options( 'Reset' );
 			} else {
-				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "You don’t have permission to do this.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 			}
 		}
 		if ( isset( $_POST['options']['gadwp_hidden'] ) && ! isset( $_POST['Clear'] ) && ! isset( $_POST['Reset'] ) && ! isset( $_POST['Refresh'] ) ) {
 			$message = "<div class='updated' id='gadwp-autodismiss'><p>" . __( "Settings saved.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 			if ( ! ( isset( $_POST['gadwp_security'] ) && wp_verify_nonce( $_POST['gadwp_security'], 'gadwp_form' ) ) ) {
-				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "You don’t have permission to do this.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 			}
 		}
 		if ( isset( $_POST['Hide'] ) ) {
@@ -1639,7 +1691,7 @@ final class GADWP_Settings {
 				$gadwp->config->options['ga_profiles_list'] = array( $lock_profile );
 				$options = self::update_options( 'network' );
 			} else {
-				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='gadwp-autodismiss'><p>" . __( "You don’t have permission to do this.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 			}
 		}
 		?>
@@ -1795,6 +1847,11 @@ final class GADWP_Settings {
 																	</tr>
 																	<tr>
 																		<td colspan="2">
+																			<hr>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td colspan="2">
 																			<hr><?php echo "<h2>" . __( "Exclude Tracking", 'google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
 																	</tr>
 																	<tr>
@@ -1807,6 +1864,26 @@ final class GADWP_Settings {
 																				</label>
 																			</div>
 																			<div class="switch-desc"><?php echo " ".__("exclude Super Admin tracking for the entire network", 'google-analytics-dashboard-for-wp' );?></div>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td colspan="2">
+																			<hr>
+																		</td>
+																	</tr>
+																	<tr>
+																	<td colspan="2"><?php echo "<h2>" . __( "Hide Announcements", 'google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+																	</tr>
+																	<tr>
+																		<td colspan="2" class="gadwp-settings-title">
+																			<div class="button-primary gadwp-settings-switchoo">
+																				<input type="checkbox" name="options[network_hide_am_notices]" value="1" class="gadwp-settings-switchoo-checkbox" id="network_hide_am_notices" <?php checked( $options['network_hide_am_notices'], 1 ); ?>>
+																				<label class="gadwp-settings-switchoo-label" for="network_hide_am_notices">
+																					<div class="gadwp-settings-switchoo-inner"></div>
+																					<div class="gadwp-settings-switchoo-switch"></div>
+																				</label>
+																			</div>
+																			<div class="switch-desc"><?php echo esc_html__( 'Hides plugin announcements and update details. This includes critical notices we use to inform about deprecations and important required configuration changes.' ); ?></div>
 																		</td>
 																	</tr>
 																	<tr>

@@ -3,8 +3,8 @@
 if (!defined('ABSPATH')) exit;
 
 
-if (!class_exists('ElfsightWidgetsApi')) {
-    class ElfsightWidgetsApi {
+if (!class_exists('ElfsightInstagramFeedWidgetsApi')) {
+    class ElfsightInstagramFeedWidgetsApi {
         private $slug;
         private $file;
         private $textDomain;

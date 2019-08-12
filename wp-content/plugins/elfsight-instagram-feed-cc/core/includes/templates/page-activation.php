@@ -25,7 +25,8 @@ if (!defined('ABSPATH')) exit;
                         <input class="elfsight-admin-page-activation-form-activated-input" type="hidden" name="activated" value="<?php echo $activated; ?>">
                         <input class="elfsight-admin-page-activation-form-supported-until-input" type="hidden" name="supported_until" value="<?php echo $supported_until; ?>">
                         <input class="elfsight-admin-page-activation-form-host-input" type="hidden" name="host" value="<?php echo $host; ?>">
-                        <input class="elfsight-admin-page-activation-form-purchase-code-input" type="text" placeholder="<?php _e('Purchase code', $this->textDomain); ?>" name="purchase_code" value="<?php echo $purchase_code; ?>" class="regular-text" spellcheck="false" autocomplete="off">
+                        <input class="elfsight-admin-page-activation-form-purchase-code-input" type="text" placeholder="<?php _e('Purchase code', $this->textDomain); ?>" name="purchase_code" value="<?php echo $purchase_code; ?>" class="regular-text" spellcheck="false" autocomplete="off"<?php echo 
+                        ($activated ? ' readonly="readonly"' : ''); ?>>
                     </label>
                 </div>
 

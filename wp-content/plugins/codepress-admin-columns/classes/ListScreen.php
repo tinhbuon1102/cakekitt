@@ -2,6 +2,7 @@
 
 namespace AC;
 
+use AC\Column\Placeholder;
 use ReflectionClass;
 use WP_Error;
 
@@ -121,6 +122,13 @@ abstract class ListScreen {
 	 * @return void
 	 */
 	abstract protected function register_column_types();
+
+	/**
+	 * @return string
+	 */
+	public function get_heading_hookname() {
+		return 'manage_' . $this->get_screen_id() . '_columns';
+	}
 
 	/**
 	 * @return string
@@ -370,14 +378,20 @@ abstract class ListScreen {
 	 * @return string Link
 	 */
 	public function get_screen_link() {
-		return add_query_arg( array( 'page' => $this->get_page(), 'layout' => $this->get_layout_id() ), $this->get_admin_url() );
+		return add_query_arg( array(
+			'page'   => $this->get_page(),
+			'layout' => $this->get_layout_id(),
+		), $this->get_admin_url() );
 	}
 
 	/**
 	 * @since 2.0
 	 */
 	public function get_edit_link() {
-		return add_query_arg( array( 'list_screen' => $this->key, 'layout_id' => $this->get_layout_id() ), AC()->admin_columns_screen()->get_link() );
+		return add_query_arg( array(
+			'list_screen' => $this->key,
+			'layout_id'   => $this->get_layout_id(),
+		), ac_get_admin_url() );
 	}
 
 	/**
@@ -560,9 +574,18 @@ abstract class ListScreen {
 		}
 
 		// Placeholder columns
-		foreach ( AC()->addons()->get_addons() as $addon ) {
-			if ( $addon->is_plugin_active() && ! $addon->is_active() ) {
-				$this->register_column_type( $addon->get_placeholder_column() );
+		foreach ( new Integrations() as $integration ) {
+			if ( ! $integration->show_placeholder( $this ) ) {
+				continue;
+			}
+
+			$plugin_info = new PluginInformation( $integration->get_basename() );
+
+			if ( $integration->is_plugin_active() && ! $plugin_info->is_active() ) {
+				$column = new Placeholder();
+				$column->set_integration( $integration );
+
+				$this->register_column_type( $column );
 			}
 		}
 

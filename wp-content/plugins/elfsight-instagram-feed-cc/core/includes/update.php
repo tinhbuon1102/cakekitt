@@ -2,8 +2,8 @@
 
 if (!defined('ABSPATH')) exit;
 
-if (!class_exists('ElfsightPluginUpdate')) {
-    class ElfsightPluginUpdate {
+if (!class_exists('ElfsightInstagramFeedPluginUpdate')) {
+    class ElfsightInstagramFeedPluginUpdate {
         public $currentVersion;
         public $updateUrl;
         public $pluginSlug;
@@ -27,25 +27,36 @@ if (!class_exists('ElfsightPluginUpdate')) {
             add_filter('pre_set_site_transient_update_plugins', array(&$this, 'checkUpdate'));
             add_filter('plugins_api', array(&$this, 'checkInfo'), 10, 3);
 
-            add_filter('auto_update_plugin', array($this, 'enrollUpgrade', 10, 2));
+            add_filter('auto_update_plugin', array($this, 'enrollUpgrade'), 10, 2);
             add_action('upgrader_process_complete', array($this, 'completeUpgrade'), 10, 2);
         }
 
         public function checkUpdate($transient) {
-            if (empty($transient->checked)) {
-                return $transient;
-            }
-
             $result = $this->getInfo('version');
             update_option($this->getOptionName('last_check_datetime'), time());
+
+            if (!$transient) {
+                return false;
+            }
+
+            if (empty($transient->response)) {
+                $transient->response = array();
+            }
 
             if (!$result->verification->valid) {
                 delete_option($this->getOptionName('purchase_code'));
                 delete_option($this->getOptionName('activated'));
             }
 
-            if (is_object($result) && empty($result->error) && !empty($result->data) && version_compare($this->currentVersion, $result->data->version, '<')) {
+            if (
+                $result &&
+                empty($result->error)
+                && !empty($result->data)
+                && version_compare($this->currentVersion, $result->data->version, '<')
+            ) {
                 update_option($this->getOptionName('latest_version'), $result->data->version);
+
+                $result->data->plugin = $this->pluginSlug;
                 $transient->response[$this->pluginSlug] = $result->data;
             }
 

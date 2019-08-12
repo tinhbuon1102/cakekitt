@@ -3,8 +3,8 @@
 if (!defined('ABSPATH')) exit;
 
 
-if (!class_exists('ElfsightPluginAdmin')) {
-    class ElfsightPluginAdmin {
+if (!class_exists('ElfsightInstagramFeedPluginAdmin')) {
+    class ElfsightInstagramFeedPluginAdmin {
         private $name;
         private $description;
         private $slug;
@@ -23,6 +23,7 @@ if (!class_exists('ElfsightPluginAdmin')) {
         private $observerUrl;
 
         private $productUrl;
+        private $productReviewUrl;
         private $supportUrl;
 
         private $widgetsApi;
@@ -58,6 +59,7 @@ if (!class_exists('ElfsightPluginAdmin')) {
             $this->customStyleUrl = !empty($config['admin_custom_style_url']) ? $config['admin_custom_style_url'] : null;
 
             $this->productUrl = $config['product_url'];
+            $this->productReviewUrl = 'https://codecanyon.net/downloads';
             $this->supportUrl = $config['support_url'];
 
             $this->customPages = !empty($config['admin_custom_pages']) ? $config['admin_custom_pages'] : array();
@@ -71,6 +73,7 @@ if (!class_exists('ElfsightPluginAdmin')) {
             add_action('admin_enqueue_scripts', array($this, 'enqueueAssets'));
             add_action('wp_ajax_' . $this->getOptionName('update_preferences'), array($this, 'updatePreferences'));
             add_action('wp_ajax_' . $this->getOptionName('update_activation_data'), array($this, 'updateActivationData'));
+            add_action('wp_ajax_' . $this->getOptionName('rating_send'), array($this, 'sendRating'));
 
             $this->capability = apply_filters('elfsight_admin_capability', $this->roleCapabitily[get_option($this->getOptionName('access_role'), 'admin')]);
         }
@@ -83,18 +86,18 @@ if (!class_exists('ElfsightPluginAdmin')) {
             wp_register_style($this->slug . '-admin', plugins_url('assets/elfsight-admin.css', $this->pluginFile), array(), $this->version);
 
             if ($this->customStyleUrl) {
-                wp_register_style($this->slug . '-admin-custom', $this->customStyleUrl, array('elfsight-admin'), $this->version);
+                wp_register_style($this->slug . '-admin-custom', $this->customStyleUrl, array($this->slug . '-admin'), $this->version);
             }
 
             wp_register_script($this->slug . '-admin', plugins_url('assets/elfsight-admin.js', $this->pluginFile), array(), $this->version, true);
 
             if ($this->customScriptUrl) {
-                wp_register_script($this->slug . '-admin-custom', $this->customScriptUrl, array('jquery', 'elfsight-admin'), $this->version, true);
+                wp_register_script($this->slug . '-admin-custom', $this->customScriptUrl, array('jquery', $this->slug . '-admin'), $this->version, true);
             }
         }
 
         public function enqueueAssets($hook) {
-            if ($hook == $this->menuId) {
+            if ($hook && $hook == $this->menuId) {
                 wp_enqueue_style($this->slug . '-admin');
                 if ($this->customStyleUrl) {
                     wp_enqueue_style($this->slug . '-admin-custom');
@@ -184,6 +187,12 @@ if (!class_exists('ElfsightPluginAdmin')) {
                     </div>
                 </main>
 
+                <?php
+                    if (!get_option($this->getOptionName('rating_sent'))) {
+                        require_once(plugin_dir_path(__FILE__) . implode(DIRECTORY_SEPARATOR, array('templates', 'popup-rating.php')));
+                    }
+                ?>
+
                 <?php //require_once(plugin_dir_path(__FILE__) . implode(DIRECTORY_SEPARATOR, array('templates', 'other-products.php'))); ?>
             </div>
             </div>
@@ -261,6 +270,42 @@ if (!class_exists('ElfsightPluginAdmin')) {
             update_option($this->getOptionName('purchase_code'), !empty($_REQUEST['purchase_code']) ? $_REQUEST['purchase_code'] : '');
             update_option($this->getOptionName('activated'), !empty($_REQUEST['activated']) ? $_REQUEST['activated'] : '');
             update_option($this->getOptionName('supported_until'), !empty($_REQUEST['supported_until']) ? $_REQUEST['supported_until'] : '');
+        }
+
+        public function sendRating() {
+            if (!wp_verify_nonce($_REQUEST['nonce'], $this->getOptionName('rating_send'))) {
+                exit;
+            }
+
+            $headers = 'From: ' . $_SERVER['SERVER_NAME'] . ' <' . get_option('admin_email') .'>' . "\r\n";
+            $headers .= 'Reply-To: ' . get_option('admin_email') . "\r\n";
+            $headers .= 'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+
+            $value = $_REQUEST['value'];
+            $comment = $_REQUEST['comment'];
+            $productReviewsListUrl = preg_replace('/^(.*)\/(\d*)\?(.*)$/', '$1/reviews/$2', $this->productUrl);
+
+            $text = ($value === '5') ? '<h1 style="color: green;">Hoooray!</h1>' : '<h1 style="color: red;">Warning!</h1>';
+
+            $text .= '<p>New ';
+            $text .= ($value === '5') ? '<b style="font-size: 24px; color: green;">' . $value . ' stars</b>' : '<b style="font-size: 24px; color: red;">' . $value . 'stars</b>';
+            $text .= ' rating for ' . $this->pluginName . ' on CodeCanyon</p><br><p>From ' . get_option('admin_email') . ' (' . get_option('siteurl') . ')</p>';
+
+            if (!empty($comment)) {
+                $text .= '
+                    <p>With comment:</p>
+                    <blockquote><p>' . $comment . '</p></blockquote>';
+            }
+
+            if ($value === '5') {
+                $text .= '
+                    <hr>
+                    <p>Check rating on Code Canyon <a href="' . $productReviewsListUrl . '" target="_blank" rel="nofollow">' . $productReviewsListUrl . '</a></p>';
+            }
+
+            add_option($this->getOptionName('rating_sent'), 'true');
+            wp_mail('support@elfsight.com', 'New rating for CodeCanyon', $text, $headers);
         }
 
         private function getOptionName($name) {

@@ -5,34 +5,69 @@
  */
 jQuery(function($) {
 	
+	/**
+	 * Handles map settings, parsing them from the data-settings attribute on the maps HTML element.
+	 * NB: This will be split into GoogleMapSettings and OLMapSettings in the future.
+	 * @class WPGMZA.MapSettings
+	 * @constructor WPGMZA.MapSettings
+	 */
 	WPGMZA.MapSettings = function(element)
 	{
+		var self = this;
 		var str = element.getAttribute("data-settings");
-		var json = JSON.parse(str);
+		var json;
 		
-		//var id = $(element).attr("data-map-id");
-		//var json = JSON.parse(window["wpgmza_map_settings_" + id]);
+		try{
+			json = JSON.parse(str);
+		}catch(e) {
+			
+			str = str.replace(/\\%/g, "%");
+			str = str.replace(/\\\\"/g, '\\"');
+			
+			try{
+				json = JSON.parse(str);
+			}catch(e) {
+				json = {};
+				console.warn("Failed to parse map settings JSON");
+			}
+			
+		}
 		
 		WPGMZA.assertInstanceOf(this, "MapSettings");
 		
-		for(var key in WPGMZA.settings)
+		function addSettings(input)
 		{
-			var value = WPGMZA.settings[key];
+			if(!input)
+				return;
 			
-			this[key] = value;
+			for(var key in input)
+			{
+				if(key == "other_settings")
+					continue; // Ignore other_settings
+				
+				var value = input[key];
+				
+				if(String(value).match(/^-?\d+$/))
+					value = parseInt(value);
+					
+				self[key] = value;
+			}
 		}
 		
-		for(var key in json)
-		{
-			var value = json[key];
-			
-			if(String(value).match(/^-?\d+$/))
-				value = parseInt(value);
-				
-			this[key] = value;
-		}
+		addSettings(WPGMZA.settings);
+		
+		addSettings(json);
+		
+		if(json && json.other_settings)
+			addSettings(json.other_settings);
 	}
 	
+	/**
+	 * Returns settings on this object converted to OpenLayers view options
+	 * @method
+	 * @memberof WPGMZA.MapSettings
+	 * @return {object} The map settings, in a format understood by OpenLayers
+	 */
 	WPGMZA.MapSettings.prototype.toOLViewOptions = function()
 	{
 		var options = {
@@ -78,14 +113,21 @@ jQuery(function($) {
 		
 		// Zoom limits
 		// TODO: This matches the Google code, so some of these could be potentially put on a parent class
-		if(!empty("min_zoom"))
-			options.minZoom = parseInt(this.min_zoom);
-		if(!empty("max_zoom"))
-			options.maxZoom = parseInt(this.max_zoom);
+		if(this.map_min_zoom && this.map_max_zoom)
+		{
+			options.minZoom = Math.min(this.map_min_zoom, this.map_max_zoom);
+			options.maxZoom = Math.max(this.map_min_zoom, this.map_max_zoom);
+		}
 		
 		return options;
 	}
 	
+	/**
+	 * Returns settings on this object converted to Google's MapOptions spec.
+	 * @method
+	 * @memberof WPGMZA.MapSettings
+	 * @return {object} The map settings, in the format specified by google.maps.MapOptions
+	 */
 	WPGMZA.MapSettings.prototype.toGoogleMapsOptions = function()
 	{
 		var self = this;
@@ -127,10 +169,11 @@ jQuery(function($) {
 				lng: parseFloat(this.center.lng)
 			});
 		
-		if(!empty("min_zoom"))
-			options.minZoom = parseInt(this.min_zoom);
-		if(!empty("max_zoom"))
-			options.maxZoom = parseInt(this.max_zoom);
+		if(this.map_min_zoom && this.map_max_zoom)
+		{
+			options.minZoom = Math.min(this.map_min_zoom, this.map_max_zoom);
+			options.maxZoom = Math.max(this.map_min_zoom, this.map_max_zoom);
+		}
 		
 		// These settings are all inverted because the checkbox being set means "disabled"
 		options.zoomControl				= !(this.wpgmza_settings_map_zoom == 'yes');
@@ -148,7 +191,7 @@ jQuery(function($) {
 		else
 			options.gestureHandling = "cooperative";
 		
-		switch(parseInt(this.map_type))
+		switch(parseInt(this.type))
 		{
 			case 2:
 				options.mapTypeId = google.maps.MapTypeId.SATELLITE;

@@ -711,6 +711,17 @@ table.extra-options tbody tr:not(:last-child) {
     font-size: 12px;
     line-height: 1.15;
 }
+.type-page ul.ac-info-list li {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row;
+    flex-flow: row;
+}
+
+.type-page ul.ac-info-list li span.jp {
+    line-height: 1.5;
+}
 @media (min-width: 768px) {
 	figure.card_item span.del {
 		min-height: 46px;

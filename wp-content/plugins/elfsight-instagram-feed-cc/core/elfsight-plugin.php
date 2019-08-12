@@ -9,8 +9,8 @@ require_once(plugin_dir_path(__FILE__) . '/includes/admin.php');
 require_once(plugin_dir_path(__FILE__) . '/includes/widget.php');
 require_once(plugin_dir_path(__FILE__) . '/includes/vc-element.php');
 
-if (!class_exists('ElfsightPlugin')) {
-    class ElfsightPlugin {
+if (!class_exists('ElfsightInstagramFeedPlugin')) {
+    class ElfsightInstagramFeedPlugin {
         private $name;
         private $slug;
         private $version;
@@ -48,16 +48,41 @@ if (!class_exists('ElfsightPlugin')) {
 
             $this->purchaseCode = get_option($this->getOptionName('purchase_code'), '');
 
-            $this->update = new ElfsightPluginUpdate($this->updateUrl, $this->version, $this->pluginSlug, $this->purchaseCode);
-            $this->widgetsApi = new ElfsightWidgetsApi($this->slug, $this->pluginFile, $this->textDomain);
-            $this->admin = new ElfsightPluginAdmin($config, $this->widgetsApi);
-            $this->widget = new ElfsightWidget($config, $this->widgetsApi);
-            $this->vcElement = new ElfsightVCElement($config, $this->widgetsApi);
+            $this->update = new ElfsightInstagramFeedPluginUpdate($this->updateUrl, $this->version, $this->pluginSlug, $this->purchaseCode);
+            $this->widgetsApi = new ElfsightInstagramFeedWidgetsApi($this->slug, $this->pluginFile, $this->textDomain);
+            $this->admin = new ElfsightInstagramFeedPluginAdmin($config, $this->widgetsApi);
+            $this->widget = new ElfsightInstagramFeedWidget($config, $this->widgetsApi);
+            $this->vcElement = new ElfsightInstagramFeedVCElement($config, $this->widgetsApi);
 
             add_action('wp_footer', array($this, 'printAssets'));
             add_shortcode(str_replace('-', '_', $this->slug), array($this, 'addShortcode'));
             add_action('plugin_action_links_' . $this->pluginSlug, array($this, 'addPluginActionLinks'));
             add_action('widgets_init', array($this, 'registerWidget'));
+
+            add_action('init', array($this, 'initBlock'));
+            add_action('admin_init', array($this, 'enqueueBlockAssets'));
+        }
+
+        public function initBlock() {
+            if (function_exists('register_block_type')) {
+                register_block_type($this->slug.'/block', array(
+                    'attributes' => array(
+                        'id' => array(
+                            'type' => 'number',
+                        )
+                    ),
+                    'render_callback' => array($this, 'addShortcode')
+                ));
+            }
+        }
+
+        public function enqueueBlockAssets() {
+            if (function_exists('register_block_type')) {
+                wp_enqueue_script($this->slug . '-block-editor-js', plugins_url('assets/elfsight-block.js', $this->pluginFile), array('wp-blocks', 'wp-i18n', 'wp-element'), $this->version, true);
+                wp_enqueue_style($this->slug . '-block-editor-css', plugins_url('assets/elfsight-block.css', $this->pluginFile), array('wp-edit-blocks'), $this->version);
+
+                wp_enqueue_script($this->slug, $this->scriptUrl, array($this->slug . '-block-editor-js'), $this->version, true);
+            }
         }
 
         public function printAssets() {
@@ -90,9 +115,9 @@ if (!class_exists('ElfsightPlugin')) {
 
         public function recursiveDefaults($properties, $defaults){
             foreach($properties as $property) {
-                if ($property['type'] == 'subgroup') {
+                if (isset($property['type']) && $property['type'] == 'subgroup') {
                     $defaults = $this->recursiveDefaults($property['subgroup']['properties'], $defaults);
-                } else {
+                } elseif (isset($property['id'])) {
                     $defaults[$property['id']] = !empty($property['defaultValue']) ? $property['defaultValue'] : null;
                 }
             }
@@ -103,7 +128,7 @@ if (!class_exists('ElfsightPlugin')) {
         public function addShortcode($atts) {
             $this->isShortcodePresent = true;
 
-            $atts = $this->formatAtts($atts);
+            $atts = $atts ? $this->formatAtts($atts) : $atts;
             $widget_id = !empty($atts['id']) ? $atts['id'] : null;
 
             $defaults = array();
@@ -127,9 +152,9 @@ if (!class_exists('ElfsightPlugin')) {
             $options = shortcode_atts($defaults, $atts, str_replace('-', '_', $this->slug));
             $options = apply_filters($this->getOptionName('shortcode_options'), $options, $widget_id);
 
-            $optionsString = rawurlencode(json_encode($options));
+            $options_string = rawurlencode(json_encode($options));
 
-            $result = '<div data-' . $this->slug . '-options="' . $optionsString . '"></div>';
+            $result = '<div class="elfsight-widget-' . str_replace('elfsight-', '', $this->slug) . ' elfsight-widget" data-' . $this->slug . '-options="' . $options_string . '"></div>';
 
             return $result;
         }

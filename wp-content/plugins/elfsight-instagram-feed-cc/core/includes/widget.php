@@ -3,8 +3,8 @@
 if (!defined('ABSPATH')) exit;
 
 
-if (!class_exists('ElfsightWidget')) {
-	class ElfsightWidget extends WP_Widget {
+if (!class_exists('ElfsightInstagramFeedWidget')) {
+	class ElfsightInstagramFeedWidget extends WP_Widget {
         private $configSlug;
         private $configPluginName;
         private $configDescription;

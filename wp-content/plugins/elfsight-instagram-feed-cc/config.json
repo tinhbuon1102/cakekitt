@@ -1,7 +1,8 @@
 {
   "observerUrl": "./preview/dist/instagram-feed-observer.js",
   "preferences": {
-    "previewUpdateTimeout": 0
+    "previewUpdateTimeout": 0,
+    "enableCustomCSS": true
   },
   "settings": {
     "tabs": [
@@ -30,7 +31,7 @@
         "tab": "content",
         "type": "tags",
         "tags": {
-          "placeholder": "@username, #hashtag, URL"
+          "placeholder": "@username, #hashtag, post/location URL"
         },
         "defaultValue": [
           "@muradosmann"
@@ -232,7 +233,7 @@
           "properties": [
             {
               "id": "callToActionButtons",
-              "name": "Call to action buttons",
+              "name": "Call to Action Buttons",
               "tab": "layout",
               "type": "complex",
               "complex": {
@@ -262,17 +263,17 @@
               },
               "defaultValue": [
                 {
-                  "postUrl": "https://www.instagram.com/p/BcknqVZHtD3/",
+                  "postUrl": "https://www.instagram.com/p/Bmr7eH0nyxQ/",
                   "buttonLabel": "Install Instagram Feed now",
                   "buttonLink": "https://elfsight.com/instagram-feed-instashow/"
                 },
                 {
-                  "postUrl": "https://www.instagram.com/p/BbSBRarnOik/",
+                  "postUrl": "https://www.instagram.com/p/BmgZy5FnnQB/",
                   "buttonLabel": "Install Instagram Feed now",
                   "buttonLink": "https://elfsight.com/instagram-feed-instashow/"
                 },
                 {
-                  "postUrl": "https://www.instagram.com/p/Ba9NwWLHaEx/",
+                  "postUrl": "https://www.instagram.com/p/BmbbCfBndRU/",
                   "buttonLabel": "Install Instagram Feed now",
                   "buttonLink": "https://elfsight.com/instagram-feed-instashow/"
                 }
@@ -763,6 +764,18 @@
             {
               "value": "ar",
               "name": "عربی"
+            },
+            {
+              "value": "dk",
+              "name": "Dansk"
+            },
+            {
+              "value": "cs",
+              "name": "Czech"
+            },
+            {
+              "value": "hu",
+              "name": "Magyar"
             }
           ]
         },

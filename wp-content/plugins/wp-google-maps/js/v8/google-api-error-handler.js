@@ -5,6 +5,12 @@
  */
 jQuery(function($) { 
 
+	/**
+	 * This class catches Google Maps API errors and presents them in a friendly manner, before sending them on to the consoles default error handler.
+	 * @class WPGMZA.GoogleAPIErrorHandler
+	 * @constructor WPGMZA.GoogleAPIErrorHandler
+	 * @memberof WPGMZA
+	 */
 	WPGMZA.GoogleAPIErrorHandler = function() {
 		
 		var self = this;
@@ -39,14 +45,24 @@ jQuery(function($) {
 			
 			_error.apply(this, arguments);
 		}
+		
+		// Check for no API key
+		if(WPGMZA.settings.engine == "google-maps" && (!WPGMZA.settings.wpgmza_google_maps_api_key || !WPGMZA.settings.wpgmza_google_maps_api_key.length))
+			this.addErrorMessage(WPGMZA.localized_strings.no_google_maps_api_key, "https://www.wpgmaps.com/get-a-google-maps-api-key/");
 	}
 	
+	/**
+	 * Overrides console.error to scan the error message for Google Maps API error messages.
+	 * @method 
+	 * @memberof WPGMZA.GoogleAPIErrorHandler
+	 * @param {string} message The error message passed to the console
+	 */
 	WPGMZA.GoogleAPIErrorHandler.prototype.onErrorMessage = function(message)
 	{
 		var m;
 		var regexURL = /http(s)?:\/\/[^\s]+/gm;
 		
-		if((m = message.match(/You have exceeded your (daily )?request quota for this API/)) || (m = message.match(/This API project is not authorized to use this API/)))
+		if((m = message.match(/You have exceeded your (daily )?request quota for this API/)) || (m = message.match(/This API project is not authorized to use this API/)) || (m = message.match(/^Geocoding Service: .+/)))
 		{
 			var urls = message.match(regexURL);
 			this.addErrorMessage(m[0], urls);
@@ -57,6 +73,13 @@ jQuery(function($) {
 		}
 	}
 	
+	/**
+	 * Called by onErrorMessage when a Google Maps API error is picked up, this will add the specified message to the Maps API error message dialog, along with URLs to compliment it. This function ignores duplicate error messages.
+	 * @method
+	 * @memberof WPGMZA.GoogleAPIErrorHandler
+	 * @param {string} message The message, or part of the message, intercepted from the console
+	 * @param {array} [urls] An array of URLs relating to the error message to compliment the message.
+	 */
 	WPGMZA.GoogleAPIErrorHandler.prototype.addErrorMessage = function(message, urls)
 	{
 		if(this.messagesAlreadyDisplayed[message])

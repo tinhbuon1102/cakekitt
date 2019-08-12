@@ -8,5 +8,8 @@
     "server": "",
     "user": "",
     "password": ""
+  },
+  "test": {
+    "recursive_client": "false"
   }
 }

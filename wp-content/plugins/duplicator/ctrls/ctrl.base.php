@@ -1,7 +1,10 @@
 <?php
+// Exit if accessed directly
+if (! defined('DUPLICATOR_VERSION')) exit;
+
 require_once(DUPLICATOR_PLUGIN_PATH.'/classes/utilities/class.u.php');
 
-//Enum used to define the various test statues 
+//Enum used to define the various test statues
 final class DUP_CTRL_Status
 {
 	const ERROR		= -2;
@@ -12,7 +15,7 @@ final class DUP_CTRL_Status
 
 /**
  * Base class for all controllers
- * 
+ *
  * @package Duplicator
  * @subpackage classes/ctrls
  */
@@ -37,11 +40,18 @@ class DUP_CTRL_Base
 		$post = is_array($post) ? $post : array();
 		return array_merge($_POST, $post);
 	}
+
+	//Merges $_GET params with custom parameters.
+	public function getParamMerge($params)
+	{
+		$params = is_array($params) ? $params : array();
+		return array_merge($_GET, $params);
+	}
 }
 
 /**
  * A class structer used to report on controller methods
- * 
+ *
  * @package Duplicator
  * @subpackage classes/ctrls
  */
@@ -56,7 +66,7 @@ class DUP_CTRL_Report
 }
 
 /**
- * A class used format all controller responses in a consitent format.  Every controller response will
+ * A class used format all controller responses in a consistent format.  Every controller response will
  * have a Report and Payload structer.  The Payload is an array of the result response.  The Report is used
  * report on the overall status of the controller method
  *

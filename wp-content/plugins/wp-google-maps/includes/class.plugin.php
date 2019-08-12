@@ -2,7 +2,14 @@
 
 namespace WPGMZA;
 
-class Plugin
+/**
+ * This class represents the plugin itself. Broadly, this module handles practically all interaction with the platform (WP), loading assets as needed, and hooking into the platforms interface to provide menus etc.
+ *
+ * It also provides a number of helpful utility functions.
+ * @property-read string $spatialFunctionPrefix MySQL versions 8 and above prefix all spatial functions with ST_, previous versions do not. This property will be ST_ where necessary, and an empty string where not. You should use this with all DB calls that make use of spaital functions.
+ * @property-read string $gdprCompliance An instance of the GDPRCompliance class.
+ */
+class Plugin extends Factory
 {
 	const PAGE_MAP_LIST			= "map-list";
 	const PAGE_MAP_EDIT			= "map-edit";
@@ -13,17 +20,27 @@ class Plugin
 	const PAGE_ADVANCED			= "advanced";
 	const PAGE_CUSTOM_FIELDS	= "custom-fields";
 	
+	private static $enqueueScriptActions = array(
+		'wp_enqueue_scripts',
+		'admin_enqueue_scripts',
+		'enqueue_block_assets'
+	);
 	public static $enqueueScriptsFired = false;
 	
-	public $settings;
+	private $_settings;
+	private $_gdprCompliance;
+	private $_restAPI;
+	private $_spatialFunctionPrefix = '';
 	
 	protected $scriptLoader;
-	protected $restAPI;
 	
 	private $mysqlVersion = null;
 	private $cachedVersion = null;
 	private $legacySettings;
 	
+	/**
+	 * Constructor. Called when plugins_loaded fires.
+	 */
 	public function __construct()
 	{
 		global $wpdb;
@@ -32,16 +49,20 @@ class Plugin
 		
 		$this->mysqlVersion = $wpdb->get_var('SELECT VERSION()');
 		
+		// TODO: Could / should cache this above
+		if(!empty($this->mysqlVersion) && preg_match('/^\d+/', $this->mysqlVersion, $majorVersion) && (int)$majorVersion[0] > 8)
+			$this->_spatialFunctionPrefix = 'ST_';
+		
 		$this->legacySettings = get_option('WPGMZA_OTHER_SETTINGS');
 		if(!$this->legacySettings)
 			$this->legacySettings = array();
 		
-		$settings = $this->getDefaultSettings();
-		
-		// $temp = GlobalSettings::createInstance();
-		
 		// Legacy compatibility
 		global $wpgmza_pro_version;
+		
+		$this->_settings = new GlobalSettings();
+		$this->_restAPI = RestAPI::createInstance();
+		$this->gutenbergIntegration = Integration\Gutenberg::createInstance();
 		
 		// TODO: This should be in default settings, this code is duplicaetd
 		if(!empty($wpgmza_pro_version) && version_compare(trim($wpgmza_pro_version), '7.10.00', '<'))
@@ -63,53 +84,68 @@ class Plugin
 			});
 		}
 		
-		$this->settings = (object)array_merge($this->legacySettings, $settings);
-		
-		$this->restAPI = new RestAPI();
-		
 		if(!empty($this->settings->wpgmza_maps_engine))
 			$this->settings->engine = $this->settings->wpgmza_maps_engine;
 		
 		if(!empty($_COOKIE['wpgmza-developer-mode']))
 			$this->settings->developer_mode = true;
 		
-		add_action('wp_enqueue_scripts', function() {
-			Plugin::$enqueueScriptsFired = true;
-		});
+		add_action('init', array($this, 'onInit'));
 		
-		add_action('admin_enqueue_scripts', function() {
-			Plugin::$enqueueScriptsFired = true;
-		});
-		
+		foreach(Plugin::$enqueueScriptActions as $action)
+		{
+			add_action($action, function() use ($action) {
+				Plugin::$enqueueScriptsFired = true;
+			}, 1);
+		}
+			
 		if($this->settings->engine == 'open-layers')
 			require_once(plugin_dir_path(__FILE__) . 'open-layers/class.nominatim-geocode-cache.php');
 	}
 	
+	public function __set($name, $value)
+	{
+		if(isset($this->{"_$name"}))
+			throw new \Exception('Property is read only');
+		
+		$this->{$name} = $value;
+	}
+	
+	/**
+	 * Getter, see property-read above.
+	 */
 	public function __get($name)
 	{
 		switch($name)
 		{
-			case "spatialFunctionPrefix":
-				$result = '';
-				
-				if(!empty($this->mysqlVersion) && preg_match('/^\d+/', $this->mysqlVersion, $majorVersion) && (int)$majorVersion[0] > 8)
-					$result = 'ST_';
-				
-				return $result;
-				break;
-				
-			case "gdprCompliance":
-				// Temporary shim
-				global $wpgmzaGDPRCompliance;
-				return $wpgmzaGDPRCompliance;
+			case 'settings':
+			case 'gdprCompliance':
+			case 'restAPI':
+			case 'spatialFunctionPrefix':
+				return $this->{'_' . $name};
 				break;
 		}
 		
 		return $this->{$name};
 	}
 	
+	public function onInit()
+	{
+		$this->_gdprCompliance = new GDPRCompliance();
+	}
+	
+	/**
+	 * This function will cause the plugin scripts to be loaded. Firstly it will initialize an instance of ScriptLoader. If the developer mode setting is enabled, the scripts will be rebuilt.
+	 *
+	 * If any of the enqueue scripts, admin enqueue scripts or enqueue block assets (Gutenberg) actions have already fired, this function will immediately ask the script loader to enqueue the plugins scripts and styles.
+	 *
+	 * If none of those actions have fired yet, this function will bind to all three and enqueue the scripts at the correct time.
+	 * @return void
+	 */
 	public function loadScripts()
 	{
+		$self = $this;
+		
 		if(!$this->scriptLoader)
 			$this->scriptLoader = new ScriptLoader($this->isProVersion());
 		
@@ -123,35 +159,18 @@ class Plugin
 		}
 		else
 		{
-			add_action('wp_enqueue_scripts', function() {
-				$this->scriptLoader->enqueueScripts();
-				$this->scriptLoader->enqueueStyles();
-			});
-			
-			add_action('admin_enqueue_scripts', function() {
-				$this->scriptLoader->enqueueScripts();
-				$this->scriptLoader->enqueueStyles();
-			});
+			foreach(Plugin::$enqueueScriptActions as $action)
+			{
+				add_action($action, function() use ($self) {
+					$self->scriptLoader->enqueueScripts();
+					$self->scriptLoader->enqueueStyles();
+				});
+			}
 		}
-	}
-	
-	public function getDefaultSettings()
-	{
-		//$defaultEngine = (empty($this->legacySettings['wpgmza_maps_engine']) || $this->legacySettings['wpgmza_maps_engine'] != 'google-maps' ? 'open-layers' : 'google-maps');
-		$defaultEngine = 'google-maps';
-		
-		return apply_filters('wpgmza_plugin_get_default_settings', array(
-			'engine' 				=> $defaultEngine,
-			'google_maps_api_key'	=> get_option('wpgmza_google_maps_api_key'),
-			'default_marker_icon'	=> "//maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2.png",
-			'developer_mode'		=> !empty($this->legacySettings['developer_mode'])
-		));
 	}
 	
 	public function getLocalizedData()
 	{
-		global $wpgmzaGDPRCompliance;
-		
 		$document = new DOMDocument();
 		$document->loadPHPFile(plugin_dir_path(__DIR__) . 'html/google-maps-api-error-dialog.html.php');
 		$googleMapsAPIErrorDialogHTML = $document->saveInnerBody();
@@ -159,29 +178,42 @@ class Plugin
 		$strings = new Strings();
 		
 		$settings = clone $this->settings;
-		if(isset($settings->wpgmza_settings_ugm_email_address))
-			unset($settings->wpgmza_settings_ugm_email_address);
 		
-		return apply_filters('wpgmza_plugin_get_localized_data', array(
+		$result = apply_filters('wpgmza_plugin_get_localized_data', array(
+			'adminurl'				=> admin_url(),
 			'ajaxurl' 				=> admin_url('admin-ajax.php'),
-			'resturl'				=> get_rest_url(null, 'wpgmza/v1'),
-			
+
 			'html'					=> array(
 				'googleMapsAPIErrorDialog' => $googleMapsAPIErrorDialogHTML
 			),
 			
+			'resturl'				=> get_rest_url(null, 'wpgmza/v1'),
+			'restnonce'				=> wp_create_nonce('wp_rest'),
+
 			'settings' 				=> $settings,
 			'currentPage'			=> $this->getCurrentPage(),
 			'userCanAdministrator'	=> (current_user_can('administrator') ? 1 : 0),
-			
 			'localized_strings'		=> $strings->getLocalizedStrings(),
-			'api_consent_html'		=> $wpgmzaGDPRCompliance->getConsentPromptHTML(),
+			'api_consent_html'		=> $this->gdprCompliance->getConsentPromptHTML(),
 			'basic_version'			=> $this->getBasicVersion(),
 			'_isProVersion'			=> $this->isProVersion(),
-			'is_admin'				=> (is_admin() ? 1 : 0)
+			
+			'defaultMarkerIcon'		=> Marker::DEFAULT_ICON,
+
+			'is_admin'				=> (is_admin() ? 1 : 0),
+			'locale'				=> get_locale()
 		));
+		
+		if(!empty($result->settings->wpgmza_settings_ugm_email_address))
+			unset($result->settings->wpgmza_settings_ugm_email_address);
+		
+		return $result;
 	}
 	
+	/**
+	 * Returns a string stating the current page, relevant to this plugin.  Please refer to the constants on this class for a list of available pages. If the current page is not relevant to this plugin, NULL is returned.
+	 * @return string|null The current page, where relevant to this plugin, or null
+	 */
 	public function getCurrentPage()
 	{
 		if(!isset($_GET['page']))
@@ -220,21 +252,40 @@ class Plugin
 		return null;
 	}
 	
+	/**
+	 * Returns true if we are to be using combined or minified JavaScript
+	 * @return bool True if combined or minified scripts are to be used.
+	 */
 	public function isUsingMinifiedScripts()
 	{
 		return empty($this->settings->developer_mode);
 	}
 	
+	/**
+	 * Returns true if the developer mode setting is checked, or if the developer mode cookie is set.
+	 * @return bool True if in developer mode, by setting or by cookie.
+	 */
 	public function isInDeveloperMode()
 	{
 		return !(empty($this->settings->developer_mode) && !isset($_COOKIE['wpgmza-developer-mode']));
 	}
 	
+	/**
+	 * Check whether we are running the Pro add-on.
+	 * @return bool True if the Pro add-on is installed and activated.
+	 */
 	public function isProVersion()
 	{
+		if(defined('WPGMZA_PRO_VERSION') && version_compare(WPGMZA_PRO_VERSION, '7.10.00', '<'))
+			return true;	// Pre ProPlugin
+		
 		return false;
 	}
 	
+	/**
+	 * Returns the plugin version, based on the plugin comment header. This value will be cached if it hasn't been read already.
+	 * @return string The version string.
+	 */
 	public function getBasicVersion()
 	{
 		if($this->cachedVersion != null)
@@ -242,11 +293,17 @@ class Plugin
 		
 		$subject = file_get_contents(plugin_dir_path(__DIR__) . 'wpGoogleMaps.php');
 		if(preg_match('/Version:\s*(.+)/', $subject, $m))
-			$this->cachedVersion = $m[1];
+			$this->cachedVersion = trim($m[1]);
 		
 		return $this->cachedVersion;
 	}
 	
+	/**
+	 * Hooks into load_textdomain_mofile, this function is used to override the WordPress repo translations and force the translations bundled with our plugin to be used. These are more complete and accurate than the WordPress community translations.
+	 * @param string $mofile Path to the .mo file in question.
+	 * @param string $domain The text domain
+	 * @return string 
+	 */
 	public function onLoadTextDomainMOFile($mofile, $domain)
 	{
 		if($domain == 'wp-google-maps')
@@ -256,16 +313,16 @@ class Plugin
 	}
 }
 
-function create_plugin_instance()
-{
-	if(defined('WPGMZA_PRO_VERSION'))
-		return new ProPlugin();
-	
-	return new Plugin();
-}
-
 add_action('plugins_loaded', function() {
+	
 	global $wpgmza;
-	add_filter('wpgmza_create_plugin_instance', 'WPGMZA\\create_plugin_instance', 10, 0);
-	$wpgmza = apply_filters('wpgmza_create_plugin_instance', null);
+	
+	if(defined('WPGMZA_PRO_VERSION') && version_compare(WPGMZA_PRO_VERSION, '7.11.00', '<') && class_exists('WPGMZA\\ProPlugin'))
+	{
+		$wpgmza = new ProPlugin();
+		return;
+	}
+	
+	$wpgmza = Plugin::createInstance();
+	
 });
